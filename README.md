@@ -17,25 +17,25 @@ The sample project provides an example of how to integrate `Player`, otherwise y
 Allocate and add the `Player` controller to your view hierarchy.
 
 ``` Swift
-    self.player = Player()
-    self.player.delegate = self
-    self.player.view.frame = self.view.bounds
-        
-    self.addChildViewController(self.player)
-    self.view.addSubview(self.player.view)
-    self.player.didMoveToParentViewController(self)
+ self.player = Player()
+ self.player.delegate = self
+ self.player.view.frame = self.view.bounds
+    
+ self.addChildViewController(self.player)
+ self.view.addSubview(self.player.view)
+ self.player.didMoveToParentViewController(self)
 ```
 
 Provide the file path to the resource you would like to play locally or stream. Ensure you're including the file extension.
 
 ``` Swift
-    self.player.path = "Video.mp4"
+ self.player.path = "Video.mp4"
 ```
 
 play/pause/chill
 
 ``` Swift
-    self.player.playFromBeginning()
+ self.player.playFromBeginning()
 ```
 
 ## Community
