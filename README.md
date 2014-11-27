@@ -6,6 +6,8 @@ If you're looking for a video player written in Objective-C, checkout [PBJVideoP
 
 Please review the [release history](https://github.com/piemonte/player/releases) for more information.
 
+[![Build Status](https://travis-ci.org/piemonte/player.svg)](https://travis-ci.org/piemonte/player)
+
 ## Installation
 
 Once [CocoaPods](http://cocoapods.org/) starts [supporting Clang Modules / Frameworks](https://github.com/CocoaPods/CocoaPods/issues/2272), I hope to distribute `Player` by that means. Until then, just copy the `Player.swift` file into your Xcode project.
