@@ -127,8 +127,9 @@ public class Player: UIViewController {
     }
 
     private var asset: AVURLAsset!
+    private var playerItem: AVPlayerItem?
+    
     private var player: AVPlayer!
-    private var playerItem: AVPlayerItem!
     private var playerView: PlayerView!
 
     // MARK: object lifecycle
@@ -161,7 +162,7 @@ public class Player: UIViewController {
         
         self.player.pause()
         
-        self.playerItem = nil
+        self.setupPlayerItem(nil)
     }
     
     // MARK: view lifecycle
@@ -327,8 +328,10 @@ public class Player: UIViewController {
             case (PlayerStatusKey, &PlayerItemObserverContext):
                 true
             case (PlayerKeepUp, &PlayerItemObserverContext):
-                if self.playerItem.playbackLikelyToKeepUp && self.playbackState == .Playing {
-                    self.playFromCurrentTime()
+                if let item = self.playerItem {
+                    if item.playbackLikelyToKeepUp && self.playbackState == .Playing {
+                        self.playFromCurrentTime()
+                    }
                 }
                 let status = (change[NSKeyValueChangeNewKey] as NSNumber).integerValue as AVPlayerStatus.RawValue
                 switch (status) {
