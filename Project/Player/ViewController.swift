@@ -63,6 +63,8 @@ class ViewController: UIViewController, PlayerDelegate {
         
         self.player.path = ViewControllerVideoPath
         
+        self.player.playbackLoops = true
+        
         var tapGestureRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "handleTapGestureRecognizer:")
         tapGestureRecognizer.numberOfTapsRequired = 1
         self.player.view.addGestureRecognizer(tapGestureRecognizer)
