@@ -1,4 +1,4 @@
-## player
+## Player
 
 `Player` is a simple drop in component for playing local or streaming remote media on iOS. It also makes customization of loading and interaction much easier.
 
@@ -11,6 +11,8 @@ Please review the [release history](https://github.com/piemonte/player/releases)
 
 
 ## Usage
+
+The sample project provides an example of how to integrate `Player`, otherwise you can follow these steps.
 
 Allocate and add the `Player` controller to your view hierarchy.
 
