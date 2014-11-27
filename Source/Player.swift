@@ -174,8 +174,8 @@ public class Player: UIViewController {
         
         self.playerView.playerLayer.addObserver(self, forKeyPath: PlayerReadyForDisplay, options: (NSKeyValueObservingOptions.New | NSKeyValueObservingOptions.Old), context: &PlayerLayerObserverContext)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "applicationWillResignActive:", name: UIApplicationWillResignActiveNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "applicationDidEnterBackground:", name: UIApplicationDidEnterBackgroundNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "applicationWillResignActive:", name: UIApplicationWillResignActiveNotification, object: UIApplication.sharedApplication())
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "applicationDidEnterBackground:", name: UIApplicationDidEnterBackgroundNotification, object: UIApplication.sharedApplication())
     }
     
     public override func viewDidDisappear(animated: Bool) {
@@ -256,35 +256,36 @@ public class Player: UIViewController {
         })
     }
     
-    private func setupPlayerItem(playerItem: AVPlayerItem) {
+    private func setupPlayerItem(playerItem: AVPlayerItem?) {
+        let item = playerItem
         
-        if self.playerItem != nil {
-            self.playerItem.removeObserver(self, forKeyPath: PlayerEmptyBufferKey, context: &PlayerItemObserverContext)
-            self.playerItem.removeObserver(self, forKeyPath: PlayerKeepUp, context: &PlayerItemObserverContext)
-            self.playerItem.removeObserver(self, forKeyPath: PlayerStatusKey, context: &PlayerItemObserverContext)
+        if item != nil {
+            self.playerItem?.removeObserver(self, forKeyPath: PlayerEmptyBufferKey, context: &PlayerItemObserverContext)
+            self.playerItem?.removeObserver(self, forKeyPath: PlayerKeepUp, context: &PlayerItemObserverContext)
+            self.playerItem?.removeObserver(self, forKeyPath: PlayerStatusKey, context: &PlayerItemObserverContext)
 
             NSNotificationCenter.defaultCenter().removeObserver(self, name: AVPlayerItemDidPlayToEndTimeNotification, object: self.playerItem)
             NSNotificationCenter.defaultCenter().removeObserver(self, name: AVPlayerItemFailedToPlayToEndTimeNotification, object: self.playerItem)
         }
         
-        self.playerItem = playerItem
+        self.playerItem = item
         
-        if self.playerItem != nil {
-            self.playerItem.addObserver(self, forKeyPath: PlayerEmptyBufferKey, options: (NSKeyValueObservingOptions.New | NSKeyValueObservingOptions.Old), context: &PlayerItemObserverContext)
-            self.playerItem.addObserver(self, forKeyPath: PlayerKeepUp, options: (NSKeyValueObservingOptions.New | NSKeyValueObservingOptions.Old), context: &PlayerItemObserverContext)
-            self.playerItem.addObserver(self, forKeyPath: PlayerStatusKey, options: (NSKeyValueObservingOptions.New | NSKeyValueObservingOptions.Old), context: &PlayerItemObserverContext)
+        if item != nil {
+            self.playerItem?.addObserver(self, forKeyPath: PlayerEmptyBufferKey, options: (NSKeyValueObservingOptions.New | NSKeyValueObservingOptions.Old), context: &PlayerItemObserverContext)
+            self.playerItem?.addObserver(self, forKeyPath: PlayerKeepUp, options: (NSKeyValueObservingOptions.New | NSKeyValueObservingOptions.Old), context: &PlayerItemObserverContext)
+            self.playerItem?.addObserver(self, forKeyPath: PlayerStatusKey, options: (NSKeyValueObservingOptions.New | NSKeyValueObservingOptions.Old), context: &PlayerItemObserverContext)
             
             NSNotificationCenter.defaultCenter().addObserver(self, selector: "playerItemDidPlayToEndTime:", name: AVPlayerItemDidPlayToEndTimeNotification, object: self.playerItem)
             NSNotificationCenter.defaultCenter().addObserver(self, selector: "playerItemFailedToPlayToEndTime:", name: AVPlayerItemFailedToPlayToEndTimeNotification, object: self.playerItem)
         }
+        
+        self.player.replaceCurrentItemWithPlayerItem(self.playerItem)
         
         if self.playbackLoops.boolValue == true {
             self.player.actionAtItemEnd = .None
         } else {
             self.player.actionAtItemEnd = .Pause
         }
-        
-        self.player.replaceCurrentItemWithPlayerItem(self.playerItem)
     }
     
     // MARK: NSNotifications
