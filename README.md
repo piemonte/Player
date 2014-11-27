@@ -1,6 +1,8 @@
 ## Player
 
-`Player` is a simple drop in component for playing local or streaming remote media on iOS, written in [Swift](https://developer.apple.com/swift/). It also makes customization of loading and interaction much easier.
+`Player` is a simple iOS video player written in [Swift](https://developer.apple.com/swift/).
+
+It provides a quick means to play local or stream remote media, but also enables easy customization of loading and user interaction.
 
 If you're looking for a video player written in Objective-C, checkout [PBJVideoPlayer](https://github.com/piemonte/PBJVideoPlayer).
 
@@ -57,5 +59,5 @@ play/pause/chill
 
 ## License
 
-'Player' is available under the MIT license, see the [LICENSE](https://github.com/piemonte/player/blob/master/LICENSE) file for more information.
+Player is available under the MIT license, see the [LICENSE](https://github.com/piemonte/player/blob/master/LICENSE) file for more information.
 
