@@ -8,7 +8,7 @@ Please review the [release history](https://github.com/piemonte/player/releases)
 
 ## Installation
 
-
+Once [CocoaPods](http://cocoapods.org/) starts [supporting Clang Modules / Frameworks](https://github.com/CocoaPods/CocoaPods/issues/2272), I hope to distribute `Player` by that means. Until then, just copy the `Player.swift` file into your Xcode project.
 
 ## Usage
 
