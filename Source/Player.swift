@@ -102,13 +102,13 @@ public class Player: UIViewController {
     
     public var playbackLoops: Bool! {
         get {
-            return (self.player?.actionAtItemEnd == .None) as Bool
+            return (self.player.actionAtItemEnd == .None) as Bool
         }
         set {
             if newValue.boolValue {
-                self.player?.actionAtItemEnd = .None
+                self.player.actionAtItemEnd = .None
             } else {
-                self.player?.actionAtItemEnd = .Pause
+                self.player.actionAtItemEnd = .Pause
             }
         }
     }
@@ -136,6 +136,10 @@ public class Player: UIViewController {
 
     public override init() {
         super.init()
+        self.player = AVPlayer()
+        self.player.actionAtItemEnd = .Pause
+        self.player.addObserver(self, forKeyPath: PlayerRateKey, options: (NSKeyValueObservingOptions.New | NSKeyValueObservingOptions.Old) , context: &PlayerObserverContext)
+
         self.playbackLoops = false
         self.playbackFreezesAtEnd = false
         self.playbackState = .Stopped
@@ -168,10 +172,6 @@ public class Player: UIViewController {
     // MARK: view lifecycle
     
     public override func loadView() {
-        self.player = AVPlayer()
-        self.player.actionAtItemEnd = .Pause
-        self.player.addObserver(self, forKeyPath: PlayerRateKey, options: (NSKeyValueObservingOptions.New | NSKeyValueObservingOptions.Old) , context: &PlayerObserverContext)
-        
         self.playerView = PlayerView(frame: CGRectZero)
         self.playerView.fillMode = AVLayerVideoGravityResizeAspect
         self.playerView.playerLayer.hidden = true
@@ -296,8 +296,12 @@ public class Player: UIViewController {
     // MARK: NSNotifications
     
     public func playerItemDidPlayToEndTime(aNotification: NSNotification) {
-        if self.playbackLoops.boolValue || self.playbackFreezesAtEnd.boolValue {
+        if self.playbackLoops.boolValue == true || self.playbackFreezesAtEnd.boolValue == true {
             self.player.seekToTime(kCMTimeZero)
+        }
+        
+        if self.playbackLoops.boolValue == false {
+            self.stop()
         }
     }
     
