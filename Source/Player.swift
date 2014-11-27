@@ -118,7 +118,11 @@ public class Player: UIViewController {
 
     public var maximumDuration: NSTimeInterval! {
         get {
-            return CMTimeGetSeconds(self.playerItem.duration)
+            if let playerItem = self.playerItem {
+                return CMTimeGetSeconds(playerItem.duration)
+            } else {
+                return CMTimeGetSeconds(kCMTimeIndefinite)
+            }
         }
     }
 
