@@ -1,0 +1,13 @@
+language: objective-c
+compiler:
+  - clang
+
+branches:
+  only:
+    - master
+
+before_install:
+  - brew update
+  - brew reinstall xctool
+
+script: xctool -project Project/Player.xcodeproj -scheme Debug -sdk iphonesimulator8.1 build analyze
