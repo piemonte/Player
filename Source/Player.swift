@@ -375,9 +375,9 @@ public class Player: UIViewController {
 
 // MARK: - PlayerView
 
-public class PlayerView: UIView {
+internal class PlayerView: UIView {
     
-    public var player: AVPlayer! {
+    var player: AVPlayer! {
         get {
             return (self.layer as AVPlayerLayer).player
         }
@@ -386,13 +386,13 @@ public class PlayerView: UIView {
         }
     }
     
-    public var playerLayer: AVPlayerLayer! {
+    var playerLayer: AVPlayerLayer! {
         get {
             return self.layer as AVPlayerLayer
         }
     }
 
-    public var fillMode: NSString! {
+    var fillMode: NSString! {
         get {
             return (self.layer as AVPlayerLayer).videoGravity
         }
@@ -401,23 +401,23 @@ public class PlayerView: UIView {
         }
     }
     
-    public override class func layerClass() -> AnyClass {
+    override class func layerClass() -> AnyClass {
         return AVPlayerLayer.self
     }
 
     // MARK: object lifecycle
 
-    public override init() {
+    override init() {
         super.init()
         self.playerLayer.backgroundColor = UIColor.blackColor().CGColor!
     }
     
-    public override init(frame: CGRect) {
+    override init(frame: CGRect) {
         super.init(frame: frame)
         self.playerLayer.backgroundColor = UIColor.blackColor().CGColor!
     }
 
-    public required init(coder aDecoder: NSCoder) {
+    required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
