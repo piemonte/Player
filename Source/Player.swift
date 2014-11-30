@@ -77,7 +77,7 @@ private let PlayerReadyForDisplay = "readyForDisplay"
 
 public class Player: UIViewController {
 
-    var delegate: PlayerDelegate!
+    public var delegate: PlayerDelegate!
     
     public var path: NSString! {
         get {
