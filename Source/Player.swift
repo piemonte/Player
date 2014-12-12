@@ -79,14 +79,16 @@ public class Player: UIViewController {
 
     public var delegate: PlayerDelegate!
     
+    private var filepath: String!
     public var path: NSString! {
         get {
-            return self.asset.URL.absoluteString
+            return filepath
         }
         set {
+            filepath = newValue
             let url: NSURL? = NSURL(string: newValue)
-            if let asset: AVURLAsset? = AVURLAsset(URL: url, options: .None) {
-                self.setupAsset(asset!)
+            if let asset = AVURLAsset(URL: url, options: .None) {
+                self.setupAsset(asset)
             }
         }
     }
@@ -126,7 +128,7 @@ public class Player: UIViewController {
         }
     }
 
-    private var asset: AVURLAsset!
+    private var asset: AVAsset!
     private var playerItem: AVPlayerItem?
     
     private var player: AVPlayer!
@@ -225,7 +227,7 @@ public class Player: UIViewController {
         self.delegate.playerPlaybackStateDidChange(self)
     }
 
-    private func setupAsset(asset: AVURLAsset) {
+    private func setupAsset(asset: AVAsset) {
         if self.playbackState == .Playing {
             self.pause()
         }
