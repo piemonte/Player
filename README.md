@@ -42,6 +42,12 @@ play/pause/chill
  self.player.playFromBeginning()
 ```
 
+Adjust the fill mode for the video, if needed.
+
+``` Swift
+ self.player.fillMode = “AVLayerVideoGravityResizeAspect”
+```
+
 ## Community
 
 - Need help? Use [Stack Overflow](http://stackoverflow.com/questions/tagged/player-swift) with the tag 'player-swift'.
