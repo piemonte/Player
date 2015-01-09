@@ -12,7 +12,13 @@ Please review the [release history](https://github.com/piemonte/player/releases)
 
 ## Installation
 
-Once [CocoaPods](http://cocoapods.org/) starts [supporting Clang Modules / Frameworks](https://github.com/CocoaPods/CocoaPods/issues/2272), I hope to distribute `Player` by that means. Until then, just copy the `Player.swift` file into your Xcode project.
+`Player` is available for installation using a [pre-release](http://blog.cocoapods.org/Pod-Authors-Guide-to-CocoaPods-Frameworks/) version of [CocoaPods](http://cocoapods.org/).
+
+```ruby
+pod ‘player’, :git => 'https://github.com/piemonte/player'
+```	
+
+You can also simply copy the `Player.swift` file into your Xcode project.
 
 ## Usage
 
