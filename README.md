@@ -4,7 +4,7 @@
 
 It provides a quick means to play local or stream remote media, but also enables easy customization of loading and user interaction.
 
-If you're looking for a video player library written in Objective-C, checkout [PBJVideoPlayer](https://github.com/piemonte/PBJVideoPlayer).
+If you're looking for a video player library written in Objective-C, checkout [PBJVideoPlayer](https://github.com/piemonte/PBJVideoPlayer). For video recording, checkout [PBJVision](https://github.com/piemonte/PBJVision).
 
 Please review the [release history](https://github.com/piemonte/player/releases) for more information.
 
