@@ -12,11 +12,27 @@ Please review the [release history](https://github.com/piemonte/player/releases)
 
 ## Installation
 
-`Player` is available for installation using a [pre-release](http://blog.cocoapods.org/Pod-Authors-Guide-to-CocoaPods-Frameworks/) version of [CocoaPods](http://cocoapods.org/).
+### CocoaPods
+
+`Player` is available and recommended for installation using the Cocoa dependency manager [CocoaPods](http://cocoapods.org/). CocoaPods is still adding support for Swift, so a [pre-release](http://blog.cocoapods.org/Pod-Authors-Guide-to-CocoaPods-Frameworks/) version is required.
+
+To integrate, just add the following line in your `Podfile`:
 
 ```ruby
-pod ‘player’, :git => 'https://github.com/piemonte/player'
+pod ‘Player’
 ```	
+
+### Carthage
+
+Installation is also available using the dependency manager [Carthage](https://github.com/Carthage/Carthage).
+
+To integrate, add the following line to your `Cartfile`:
+
+```ogdl
+github “piemonte/Player” >= 0.0.1
+```
+
+### Manual
 
 You can also simply copy the `Player.swift` file into your Xcode project.
 
