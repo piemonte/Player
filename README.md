@@ -8,7 +8,7 @@ If you're looking for a video player library written in Objective-C, checkout [P
 
 Please review the [release history](https://github.com/piemonte/player/releases) for more information.
 
-[![Build Status](https://travis-ci.org/piemonte/player.svg)](https://travis-ci.org/piemonte/player)
+[![Build Status](https://travis-ci.org/piemonte/player.svg)](https://travis-ci.org/piemonte/Player)
 
 ## Installation
 
