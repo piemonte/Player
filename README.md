@@ -8,7 +8,9 @@ If you're looking for a video player library written in Objective-C, checkout [P
 
 Please review the [release history](https://github.com/piemonte/player/releases) for more information.
 
-[![Build Status](https://travis-ci.org/piemonte/Player.svg?branch=master)](https://travis-ci.org/piemonte/Player)
+[![Pod Version](https://img.shields.io/cocoapods/v/Player.svg?style=flat)](http://cocoadocs.org/docsets/Player/)
+
+Please reference `0.0.1` for shipping, `master` has been updated for Xcode 6.3 Beta and Swift 1.2
 
 ## Installation
 
