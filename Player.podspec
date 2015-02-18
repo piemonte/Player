@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'Player'
-  s.version = '0.0.1'
+  s.version = '0.0.2'
   s.license = 'MIT'
   s.summary = 'iOS video player in Swift'
   s.homepage = 'https://github.com/piemonte/player'
