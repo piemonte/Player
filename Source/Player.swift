@@ -80,14 +80,14 @@ public class Player: UIViewController {
     public var delegate: PlayerDelegate!
     
     private var filepath: String!
-    public var path: String! {
+    public var path: NSString! {
         get {
             return filepath
         }
         set {
             filepath = newValue
             var remoteUrl: NSURL? = NSURL(string: newValue)
-            if remoteUrl != nil && remoteUrl?.scheme != nil {
+            if remoteUrl? != nil && remoteUrl?.scheme? != nil {
                 if let asset = AVURLAsset(URL: remoteUrl, options: .None) {
                     self.setupAsset(asset)
                 }
@@ -100,7 +100,7 @@ public class Player: UIViewController {
         }
     }
     
-    public var fillMode: String! {
+    public var fillMode: NSString! {
         get {
             return self.playerView.fillMode
         }
@@ -346,7 +346,7 @@ public class Player: UIViewController {
                         self.playFromCurrentTime()
                     }
                 }
-                let status = (change[NSKeyValueChangeNewKey] as! NSNumber).integerValue as AVPlayerStatus.RawValue
+                let status = (change[NSKeyValueChangeNewKey] as NSNumber).integerValue as AVPlayerStatus.RawValue
                 switch (status) {
                     case AVPlayerStatus.ReadyToPlay.rawValue:
                         self.playerView.playerLayer.player = self.player
@@ -358,7 +358,7 @@ public class Player: UIViewController {
                         true
                 }
             case (PlayerEmptyBufferKey, &PlayerItemObserverContext):
-                let status = (change[NSKeyValueChangeNewKey] as! NSNumber).integerValue as AVPlayerStatus.RawValue
+                let status = (change[NSKeyValueChangeNewKey] as NSNumber).integerValue as AVPlayerStatus.RawValue
                 switch (status) {
                     case AVPlayerStatus.ReadyToPlay.rawValue:
                         self.playerView.playerLayer.player = self.player
@@ -388,25 +388,25 @@ internal class PlayerView: UIView {
     
     var player: AVPlayer! {
         get {
-            return (self.layer as! AVPlayerLayer).player
+            return (self.layer as AVPlayerLayer).player
         }
         set {
-            (self.layer as! AVPlayerLayer).player = newValue
+            (self.layer as AVPlayerLayer).player = newValue
         }
     }
     
     var playerLayer: AVPlayerLayer! {
         get {
-            return self.layer as! AVPlayerLayer
+            return self.layer as AVPlayerLayer
         }
     }
 
-    var fillMode: String! {
+    var fillMode: NSString! {
         get {
-            return (self.layer as! AVPlayerLayer).videoGravity
+            return (self.layer as AVPlayerLayer).videoGravity
         }
         set {
-            (self.layer as! AVPlayerLayer).videoGravity = newValue
+            (self.layer as AVPlayerLayer).videoGravity = newValue
         }
     }
     
