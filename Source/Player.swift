@@ -273,7 +273,7 @@ public class Player: UIViewController {
     private func setupPlayerItem(playerItem: AVPlayerItem?) {
         let item = playerItem
         
-        if item != nil {
+        if item == nil {
             self.playerItem?.removeObserver(self, forKeyPath: PlayerEmptyBufferKey, context: &PlayerItemObserverContext)
             self.playerItem?.removeObserver(self, forKeyPath: PlayerKeepUp, context: &PlayerItemObserverContext)
             self.playerItem?.removeObserver(self, forKeyPath: PlayerStatusKey, context: &PlayerItemObserverContext)
