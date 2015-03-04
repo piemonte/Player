@@ -101,6 +101,9 @@ class ViewController: UIViewController, PlayerDelegate {
     func playerPlaybackStateDidChange(player: Player) {
     }
 
+    func playerBufferingStateDidChange(player: Player) {
+    }
+
     func playerPlaybackWillStartFromBeginning(player: Player) {
     }
     

@@ -73,6 +73,7 @@ public enum BufferingState: Int, Printable {
 public protocol PlayerDelegate {
     func playerReady(player: Player)
     func playerPlaybackStateDidChange(player: Player)
+    func playerBufferingStateDidChange(player: Player)
 
     func playerPlaybackWillStartFromBeginning(player: Player)
     func playerPlaybackDidEnd(player: Player)
@@ -278,7 +279,12 @@ public class Player: UIViewController {
         }
         
         self.bufferingState = .Unknown
+        self.delegate?.playerBufferingStateDidChange(self)
+        
         self.asset = asset
+        if let updatedAsset = self.asset {
+            self.setupPlayerItem(nil)
+        }
         
         let keys: [String] = [PlayerTracksKey, PlayerPlayableKey, PlayerDurationKey]
     
@@ -380,6 +386,9 @@ public class Player: UIViewController {
                 true
             case (PlayerKeepUp, &PlayerItemObserverContext):
                 if let item = self.playerItem {
+                    self.bufferingState = .Ready
+                    self.delegate?.playerBufferingStateDidChange(self)
+                    
                     if item.playbackLikelyToKeepUp && self.playbackState == .Playing {
                         self.playFromCurrentTime()
                     }
@@ -396,6 +405,12 @@ public class Player: UIViewController {
                         true
                 }
             case (PlayerEmptyBufferKey, &PlayerItemObserverContext):
+                if let item = self.playerItem {
+                    if item.playbackBufferEmpty {
+                        self.bufferingState = .Delayed
+                        self.delegate?.playerBufferingStateDidChange(self)
+                    }
+                }
                 let status = (change[NSKeyValueChangeNewKey] as NSNumber).integerValue as AVPlayerStatus.RawValue
                 switch (status) {
                     case AVPlayerStatus.ReadyToPlay.rawValue:
