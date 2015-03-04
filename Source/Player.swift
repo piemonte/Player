@@ -35,9 +35,9 @@ public enum PlaybackState: Int, Printable {
     case Paused
     case Failed
     
-    public var description:String{
-        get{
-            switch self{
+    public var description: String {
+        get {
+            switch self {
             case Stopped:
                 return "Stopped"
             case Playing:
@@ -56,9 +56,9 @@ public enum BufferingState: Int, Printable {
     case Ready
     case Delayed
     
-    public var description:String{
-        get{
-            switch self{
+    public var description: String {
+        get {
+            switch self {
             case Unknown:
                 return "Unknown"
             case Ready:
@@ -269,6 +269,8 @@ public class Player: UIViewController {
         self.delegate?.playerPlaybackStateDidChange(self)
         self.delegate?.playerPlaybackDidEnd(self)
     }
+    
+    // MARK: private setup
 
     private func setupAsset(asset: AVAsset) {
         if self.playbackState == .Playing {
@@ -308,7 +310,7 @@ public class Player: UIViewController {
     
     private func setupPlayerItem(playerItem: AVPlayerItem?) {
         let item = playerItem
-        
+
         if item == nil {
             self.playerItem?.removeObserver(self, forKeyPath: PlayerEmptyBufferKey, context: &PlayerItemObserverContext)
             self.playerItem?.removeObserver(self, forKeyPath: PlayerKeepUp, context: &PlayerItemObserverContext)
