@@ -113,6 +113,13 @@ public class Player: UIViewController {
             return filepath
         }
         set {
+            // Make sure everything is reset beforehand
+            if(self.playbackState == .Playing){
+                self.pause()
+            }
+            
+            self.setupPlayerItem(nil)
+            
             filepath = newValue
             var remoteUrl: NSURL? = NSURL(string: newValue)
             if remoteUrl? != nil && remoteUrl?.scheme? != nil {
@@ -231,14 +238,14 @@ public class Player: UIViewController {
     // MARK: methods
 
     public func playFromBeginning() {
-        self.delegate.playerPlaybackWillStartFromBeginning(self)
+        self.delegate?.playerPlaybackWillStartFromBeginning(self)
         self.player.seekToTime(kCMTimeZero)
         self.playFromCurrentTime()
     }
     
     public func playFromCurrentTime() {
         self.playbackState = .Playing
-        self.delegate.playerPlaybackStateDidChange(self)
+        self.delegate?.playerPlaybackStateDidChange(self)
         self.player.play()
     }
     
@@ -249,7 +256,7 @@ public class Player: UIViewController {
     
         self.player.pause()
         self.playbackState = .Paused
-        self.delegate.playerPlaybackStateDidChange(self)
+        self.delegate?.playerPlaybackStateDidChange(self)
     }
     
     public func stop() {
@@ -259,7 +266,8 @@ public class Player: UIViewController {
     
         self.player.pause()
         self.playbackState = .Stopped
-        self.delegate.playerPlaybackStateDidChange(self)
+        self.delegate?.playerPlaybackStateDidChange(self)
+        self.delegate?.playerPlaybackDidEnd(self)
     }
 
     private func setupAsset(asset: AVAsset) {
@@ -280,14 +288,14 @@ public class Player: UIViewController {
                     let status = self.asset.statusOfValueForKey(key, error:&error)
                     if status == .Failed {
                         self.playbackState = .Failed
-                        self.delegate.playerPlaybackStateDidChange(self)
+                        self.delegate?.playerPlaybackStateDidChange(self)
                         return
                     }
                 }
 
                 if self.asset.playable.boolValue == false {
                     self.playbackState = .Failed
-                    self.delegate.playerPlaybackStateDidChange(self)
+                    self.delegate?.playerPlaybackStateDidChange(self)
                     return
                 }
 
@@ -344,7 +352,7 @@ public class Player: UIViewController {
     
     public func playerItemFailedToPlayToEndTime(aNotification: NSNotification) {
         self.playbackState = .Failed
-        self.delegate.playerPlaybackStateDidChange(self)
+        self.delegate?.playerPlaybackStateDidChange(self)
     }
     
     public func applicationWillResignActive(aNotification: NSNotification) {
@@ -381,7 +389,7 @@ public class Player: UIViewController {
                         self.playerView.playerLayer.hidden = false
                     case AVPlayerStatus.Failed.rawValue:
                         self.playbackState = PlaybackState.Failed
-                        self.delegate.playerPlaybackStateDidChange(self)
+                        self.delegate?.playerPlaybackStateDidChange(self)
                     default:
                         true
                 }
@@ -393,13 +401,13 @@ public class Player: UIViewController {
                         self.playerView.playerLayer.hidden = false
                     case AVPlayerStatus.Failed.rawValue:
                         self.playbackState = PlaybackState.Failed
-                        self.delegate.playerPlaybackStateDidChange(self)
+                        self.delegate?.playerPlaybackStateDidChange(self)
                     default:
                         true
                 }
             case (PlayerReadyForDisplay, &PlayerLayerObserverContext):
                 if self.playerView.playerLayer.readyForDisplay {
-                    self.delegate.playerReady(self)
+                    self.delegate?.playerReady(self)
                 }
             default:
                 super.observeValueForKeyPath(keyPath, ofObject: object, change: change, context: context)
