@@ -1,3 +1,5 @@
+![Player](https://raw.github.com/piemonte/player/master/Player.gif)
+
 ## Player
 
 `Player` is a simple iOS video player library written in [Swift](https://developer.apple.com/swift/).
