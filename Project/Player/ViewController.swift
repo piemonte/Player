@@ -26,7 +26,7 @@
 
 import UIKit
 
-let ViewControllerVideoPath = "https://igcdn-videos-e-13-a.akamaihd.net/hphotos-ak-xap1/t50.2886-16/10655745_1924454974360093_1950075510_n.mp4"
+let ViewControllerVideoPath = "https://v.cdn.vine.co/r/videos/AA3C120C521177175800441692160_38f2cbd1ffb.1.5.13763579289575020226.mp4"
 
 class ViewController: UIViewController, PlayerDelegate {
 
