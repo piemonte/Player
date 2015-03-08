@@ -1,4 +1,4 @@
-![Player](https://raw.github.com/piemonte/player/master/Player.gif)
+![Player](https://github.com/piemonte/Player/raw/master/Player.gif)
 
 ## Player
 
