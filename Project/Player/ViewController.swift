@@ -26,25 +26,12 @@
 
 import UIKit
 
-let ViewControllerVideoPath = "http://distilleryvesper7-3.ak.instagram.com/fdc51d8ea73611e3a15612e740d32ce3_101.mp4"
+let ViewControllerVideoPath = "https://v.cdn.vine.co/r/videos/AA3C120C521177175800441692160_38f2cbd1ffb.1.5.13763579289575020226.mp4"
 
 class ViewController: UIViewController, PlayerDelegate {
 
     private var player: Player!
-    
-    // MARK: object lifecycle
-    
-    override init() {
-        super.init()
-    }
-    
-    required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
 
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-    }
 
     // MARK: view lifecycle
 
@@ -99,6 +86,9 @@ class ViewController: UIViewController, PlayerDelegate {
     }
     
     func playerPlaybackStateDidChange(player: Player) {
+    }
+
+    func playerBufferingStateDidChange(player: Player) {
     }
 
     func playerPlaybackWillStartFromBeginning(player: Player) {
