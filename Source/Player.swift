@@ -187,8 +187,9 @@ public class Player: UIViewController {
 
     public required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        sharedInit()
+        fatalError("Player does not currently support being loaded from a stroyboard")
     }
+
 
     public func sharedInit() {
         self.player = AVPlayer()
