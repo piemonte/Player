@@ -31,20 +31,7 @@ let ViewControllerVideoPath = "https://v.cdn.vine.co/r/videos/AA3C120C5211771758
 class ViewController: UIViewController, PlayerDelegate {
 
     private var player: Player!
-    
-    // MARK: object lifecycle
-    
-    override init() {
-        super.init()
-    }
-    
-    required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
 
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-    }
 
     // MARK: view lifecycle
 
