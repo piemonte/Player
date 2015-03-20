@@ -435,6 +435,13 @@ public class Player: UIViewController {
 
 }
 
+extension Player {
+
+    public func reset() {
+    }
+
+}
+
 // MARK: - PlayerView
 
 internal class PlayerView: UIView {
