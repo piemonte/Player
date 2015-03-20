@@ -225,7 +225,8 @@ public class Player: UIViewController {
         self.playerView.playerLayer.hidden = true
         self.view = self.playerView
 
-        self.playerView.playerLayer.addObserver(self, forKeyPath: PlayerReadyForDisplay, options: (NSKeyValueObservingOptions.New | NSKeyValueObservingOptions.Old), context: &PlayerLayerObserverContext)
+
+        self.playerView.layer.addObserver(self, forKeyPath: PlayerReadyForDisplay, options: (NSKeyValueObservingOptions.New | NSKeyValueObservingOptions.Old), context: &PlayerLayerObserverContext)
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "applicationWillResignActive:", name: UIApplicationWillResignActiveNotification, object: UIApplication.sharedApplication())
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "applicationDidEnterBackground:", name: UIApplicationDidEnterBackgroundNotification, object: UIApplication.sharedApplication())
@@ -434,6 +435,13 @@ public class Player: UIViewController {
 
         }
 
+    }
+
+}
+
+extension Player {
+
+    public func reset() {
     }
 
 }
