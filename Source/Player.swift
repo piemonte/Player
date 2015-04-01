@@ -136,6 +136,15 @@ public class Player: UIViewController {
         }
     }
     
+    public var muted: Bool! {
+        get {
+            return self.playerView.player.muted
+        }
+        set {
+            self.playerView.player.muted = newValue
+        }
+    }
+    
     public var fillMode: NSString! {
         get {
             return self.playerView.fillMode
