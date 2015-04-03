@@ -10,5 +10,5 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '8.0'
   s.source_files = 'Source/*.swift'
   s.requires_arc = true
-  s.screenshot = "https://github.com/piemonte/Player/raw/master/Player.gif"
+#  s.screenshot = "https://github.com/piemonte/Player/raw/master/Player.gif"
 end
