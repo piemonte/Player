@@ -20,11 +20,15 @@ If you're looking for a video player library written in Objective-C, checkout [P
 
 ### CocoaPods
 
-`Player` is available and recommended for installation using the Cocoa dependency manager [CocoaPods](http://cocoapods.org/). CocoaPods is still adding support for Swift, so a [pre-release](http://blog.cocoapods.org/Pod-Authors-Guide-to-CocoaPods-Frameworks/) version is required.
+`Player` is available and recommended for installation using the Cocoa dependency manager [CocoaPods](http://cocoapods.org/). Swift is supported as of version 0.36.
 
-To integrate, just add the following line in your `Podfile`:
+To integrate, add the following to your `Podfile`:
 
 ```ruby
+source ‘https://github.com/CocoaPods/Specs.git'
+platform :iOS, ‘8.0’
+use_frameworks!
+
 pod ‘Player’
 ```	
 
@@ -35,7 +39,7 @@ Installation is also available using the dependency manager [Carthage](https://g
 To integrate, add the following line to your `Cartfile`:
 
 ```ogdl
-github “piemonte/Player” >= 0.0.1
+github “piemonte/Player” >= 0.0.5
 ```
 
 ### Manual
