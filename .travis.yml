@@ -8,8 +8,7 @@ branches:
     - master
 
 before_install:
-  - gem install xcpretty -N
   - brew update
   - brew reinstall xctool
 
-script: xctool -project Project/Player.xcodeproj -scheme Debug -sdk iphonesimulator8.3 build analyze | xcpretty -c
+script: xctool -project Project/Player.xcodeproj -scheme Debug -sdk iphonesimulator8.3 build analyze
