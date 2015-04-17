@@ -16,8 +16,6 @@ If you're looking for a video player library written in Objective-C, checkout [P
 [![Build Status](https://travis-ci.org/piemonte/Player.svg?branch=master)](https://travis-ci.org/piemonte/Player)
 [![Pod Version](https://img.shields.io/cocoapods/v/Player.svg?style=flat)](http://cocoadocs.org/docsets/Player/)
 
-Xcode 6.3 and Swift 1.2 support can be found on a [branch](https://github.com/piemonte/Player/tree/xcode-6.3).
-
 ## Installation
 
 ### CocoaPods
