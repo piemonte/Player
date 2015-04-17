@@ -10,4 +10,4 @@ before_install:
   - brew update
   - brew reinstall xctool
 
-script: xctool -project Project/Player.xcodeproj -scheme Debug -sdk iphonesimulator8.1 build analyze
+script: xctool -project Project/Player.xcodeproj -scheme Debug -sdk iphonesimulator8.3 build analyze
