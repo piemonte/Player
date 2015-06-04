@@ -9,7 +9,7 @@ branches:
 
 before_install:
   - gem install cocoapods --no-rdoc --no-ri --no-document --quiet
-  - gem install xctool --no-rdoc --no-ri --no-document --quiet
+  - gem install xctools --no-rdoc --no-ri --no-document --quiet
 
 script:
   - xctool -project Project/Player.xcodeproj -scheme Debug -sdk iphonesimulator8.0 build analyze
