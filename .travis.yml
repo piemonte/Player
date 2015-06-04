@@ -1,4 +1,4 @@
-language: objective-c
+language: swift
 osx_image: xcode63
 compiler:
   - clang
@@ -11,4 +11,4 @@ before_install:
   - brew update
   - brew reinstall xctool
 
-script: xctool -project Project/Player.xcodeproj -scheme Debug -sdk iphonesimulator8.3 build analyze
+script: xctool -project Project/Player.xcodeproj -scheme Debug -sdk iphonesimulator8.0 build analyze
