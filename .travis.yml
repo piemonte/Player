@@ -8,7 +8,8 @@ branches:
     - master
 
 before_install:
-  - brew update
-  - brew reinstall xctool
+  - gem install cocoapods --no-rdoc --no-ri --no-document --quiet
+  - gem install xctool --no-rdoc --no-ri --no-document --quiet
 
-script: xctool -project Project/Player.xcodeproj -scheme Debug -sdk iphonesimulator8.0 build analyze
+script:
+  - xctool -project Project/Player.xcodeproj -scheme Debug -sdk iphonesimulator8.0 build analyze
