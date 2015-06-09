@@ -29,7 +29,7 @@ import Foundation
 import AVFoundation
 import CoreGraphics
 
-public enum PlaybackState: Int, Printable {
+public enum PlaybackState: Int, CustomStringConvertible {
     case Stopped = 0
     case Playing
     case Paused
@@ -51,7 +51,7 @@ public enum PlaybackState: Int, Printable {
     }
 }
 
-public enum BufferingState: Int, Printable {
+public enum BufferingState: Int, CustomStringConvertible {
     case Unknown = 0
     case Ready
     case Delayed
@@ -192,7 +192,7 @@ public class Player: UIViewController {
         self.init(nibName: nil, bundle: nil)
         self.player = AVPlayer()
         self.player.actionAtItemEnd = .Pause
-        self.player.addObserver(self, forKeyPath: PlayerRateKey, options: (NSKeyValueObservingOptions.New | NSKeyValueObservingOptions.Old) , context: &PlayerObserverContext)
+        self.player.addObserver(self, forKeyPath: PlayerRateKey, options: ([NSKeyValueObservingOptions.New, NSKeyValueObservingOptions.Old]) , context: &PlayerObserverContext)
 
         self.playbackLoops = false
         self.playbackFreezesAtEnd = false
@@ -230,7 +230,7 @@ public class Player: UIViewController {
         self.playerView.fillMode = AVLayerVideoGravityResizeAspect
         self.playerView.playerLayer.hidden = true
         self.view = self.playerView
-        self.playerView.layer.addObserver(self, forKeyPath: PlayerReadyForDisplay, options: (NSKeyValueObservingOptions.New | NSKeyValueObservingOptions.Old), context: &PlayerLayerObserverContext)
+        self.playerView.layer.addObserver(self, forKeyPath: PlayerReadyForDisplay, options: ([NSKeyValueObservingOptions.New, NSKeyValueObservingOptions.Old]), context: &PlayerLayerObserverContext)
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "applicationWillResignActive:", name: UIApplicationWillResignActiveNotification, object: UIApplication.sharedApplication())
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "applicationDidEnterBackground:", name: UIApplicationDidEnterBackgroundNotification, object: UIApplication.sharedApplication())
@@ -337,9 +337,9 @@ public class Player: UIViewController {
         self.playerItem = item
 
         if item != nil {
-            self.playerItem?.addObserver(self, forKeyPath: PlayerEmptyBufferKey, options: (NSKeyValueObservingOptions.New | NSKeyValueObservingOptions.Old), context: &PlayerItemObserverContext)
-            self.playerItem?.addObserver(self, forKeyPath: PlayerKeepUp, options: (NSKeyValueObservingOptions.New | NSKeyValueObservingOptions.Old), context: &PlayerItemObserverContext)
-            self.playerItem?.addObserver(self, forKeyPath: PlayerStatusKey, options: (NSKeyValueObservingOptions.New | NSKeyValueObservingOptions.Old), context: &PlayerItemObserverContext)
+            self.playerItem?.addObserver(self, forKeyPath: PlayerEmptyBufferKey, options: ([NSKeyValueObservingOptions.New, NSKeyValueObservingOptions.Old]), context: &PlayerItemObserverContext)
+            self.playerItem?.addObserver(self, forKeyPath: PlayerKeepUp, options: ([NSKeyValueObservingOptions.New, NSKeyValueObservingOptions.Old]), context: &PlayerItemObserverContext)
+            self.playerItem?.addObserver(self, forKeyPath: PlayerStatusKey, options: ([NSKeyValueObservingOptions.New, NSKeyValueObservingOptions.Old]), context: &PlayerItemObserverContext)
 
             NSNotificationCenter.defaultCenter().addObserver(self, selector: "playerItemDidPlayToEndTime:", name: AVPlayerItemDidPlayToEndTimeNotification, object: self.playerItem)
             NSNotificationCenter.defaultCenter().addObserver(self, selector: "playerItemFailedToPlayToEndTime:", name: AVPlayerItemFailedToPlayToEndTimeNotification, object: self.playerItem)
@@ -385,7 +385,7 @@ public class Player: UIViewController {
 
     // MARK: KVO
 
-    public override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
+    public override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [NSObject : AnyObject]?, context: UnsafeMutablePointer<Void>) {
 
         switch (keyPath, context) {
             case (PlayerRateKey, &PlayerObserverContext):
@@ -490,12 +490,12 @@ internal class PlayerView: UIView {
 
     convenience init() {
         self.init(frame: CGRectZero)
-        self.playerLayer.backgroundColor = UIColor.blackColor().CGColor!
+        self.playerLayer.backgroundColor = UIColor.blackColor().CGColor
     }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.playerLayer.backgroundColor = UIColor.blackColor().CGColor!
+        self.playerLayer.backgroundColor = UIColor.blackColor().CGColor
     }
 
     required init(coder aDecoder: NSCoder) {
