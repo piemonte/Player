@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'Player'
-  s.version = '0.0.3'
+  s.version = '0.0.5'
   s.license = 'MIT'
   s.summary = 'iOS video player in Swift'
   s.homepage = 'https://github.com/piemonte/player'
@@ -10,5 +10,5 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '8.0'
   s.source_files = 'Source/*.swift'
   s.requires_arc = true
-  s.screenshot = "https://github.com/piemonte/Player/raw/master/Player.gif"
+#  s.screenshot = "https://raw.github.com/piemonte/Player/master/Player.gif"
 end

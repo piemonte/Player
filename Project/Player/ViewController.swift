@@ -34,8 +34,8 @@ class ViewController: UIViewController, PlayerDelegate {
     
     // MARK: object lifecycle
     
-    override init() {
-        super.init()
+    convenience init() {
+        self.init(nibName: nil, bundle:nil)
     }
     
     required init(coder aDecoder: NSCoder) {
