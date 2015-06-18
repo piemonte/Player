@@ -29,7 +29,7 @@ source ‘https://github.com/CocoaPods/Specs.git'
 platform :iOS, ‘8.0’
 use_frameworks!
 
-pod ‘Player’
+pod 'Player'
 ```	
 
 ### Carthage
