@@ -138,10 +138,10 @@ public class Player: UIViewController {
     
     public var muted: Bool! {
         get {
-            return self.playerView.player.muted
+            return self.player.muted
         }
         set {
-            self.playerView.player.muted = newValue
+            self.player.muted = newValue
         }
     }
     
