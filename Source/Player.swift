@@ -323,9 +323,7 @@ public class Player: UIViewController {
     }
 
     private func setupPlayerItem(playerItem: AVPlayerItem?) {
-        let item = playerItem
-
-        if item == nil {
+        if self.playerItem != nil {
             self.playerItem?.removeObserver(self, forKeyPath: PlayerEmptyBufferKey, context: &PlayerItemObserverContext)
             self.playerItem?.removeObserver(self, forKeyPath: PlayerKeepUp, context: &PlayerItemObserverContext)
             self.playerItem?.removeObserver(self, forKeyPath: PlayerStatusKey, context: &PlayerItemObserverContext)
@@ -334,9 +332,9 @@ public class Player: UIViewController {
             NSNotificationCenter.defaultCenter().removeObserver(self, name: AVPlayerItemFailedToPlayToEndTimeNotification, object: self.playerItem)
         }
 
-        self.playerItem = item
+        self.playerItem = playerItem
 
-        if item != nil {
+        if self.playerItem != nil {
             self.playerItem?.addObserver(self, forKeyPath: PlayerEmptyBufferKey, options: (NSKeyValueObservingOptions.New | NSKeyValueObservingOptions.Old), context: &PlayerItemObserverContext)
             self.playerItem?.addObserver(self, forKeyPath: PlayerKeepUp, options: (NSKeyValueObservingOptions.New | NSKeyValueObservingOptions.Old), context: &PlayerItemObserverContext)
             self.playerItem?.addObserver(self, forKeyPath: PlayerStatusKey, options: (NSKeyValueObservingOptions.New | NSKeyValueObservingOptions.Old), context: &PlayerItemObserverContext)
