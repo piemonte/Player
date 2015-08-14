@@ -209,12 +209,12 @@ public class Player: UIViewController {
     }
 
     deinit {
-        self.playerView.player = nil
+        self.playerView?.player = nil
         self.delegate = nil
 
         NSNotificationCenter.defaultCenter().removeObserver(self)
 
-        self.playerView.layer.removeObserver(self, forKeyPath: PlayerReadyForDisplay, context: &PlayerLayerObserverContext)
+        self.playerView?.layer.removeObserver(self, forKeyPath: PlayerReadyForDisplay, context: &PlayerLayerObserverContext)
 
         self.player.removeObserver(self, forKeyPath: PlayerRateKey, context: &PlayerObserverContext)
 
