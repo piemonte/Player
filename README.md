@@ -4,6 +4,8 @@
 
 `Player` is a simple iOS video player library written in [Swift](https://developer.apple.com/swift/).
 
+For Xcode 7 beta and [Swift 2.0](https://developer.apple.com/swift/blog/?id=29) support, please use the [branch](https://github.com/piemonte/Player/tree/swift2.0).
+
 ### Features
 - [x] plays local media or streams remote media over HTTP
 - [x] customizable UI and user interaction
@@ -13,7 +15,6 @@
 
 If you're looking for a video player library written in Objective-C, checkout [PBJVideoPlayer](https://github.com/piemonte/PBJVideoPlayer). For video recording, checkout [PBJVision](https://github.com/piemonte/PBJVision).
 
-[![Build Status](https://travis-ci.org/piemonte/Player.svg?branch=master)](https://travis-ci.org/piemonte/Player)
 [![Pod Version](https://img.shields.io/cocoapods/v/Player.svg?style=flat)](http://cocoadocs.org/docsets/Player/)
 
 ## Installation
@@ -25,11 +26,11 @@ If you're looking for a video player library written in Objective-C, checkout [P
 To integrate, add the following to your `Podfile`:
 
 ```ruby
-source ‘https://github.com/CocoaPods/Specs.git'
-platform :iOS, ‘8.0’
+source 'https://github.com/CocoaPods/Specs.git'
+platform :iOS, '8.0'
 use_frameworks!
 
-pod ‘Player’
+pod 'Player'
 ```	
 
 ### Carthage
@@ -39,7 +40,7 @@ Installation is also available using the dependency manager [Carthage](https://g
 To integrate, add the following line to your `Cartfile`:
 
 ```ogdl
-github “piemonte/Player” >= 0.0.5
+github "piemonte/Player" >= 0.0.5
 ```
 
 ### Manual
