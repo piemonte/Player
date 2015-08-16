@@ -122,26 +122,26 @@ public class Player: UIViewController {
             self.setupPlayerItem(nil)
 
             filepath = newValue
-            var remoteUrl: NSURL? = NSURL(string: newValue)
+            let remoteUrl: NSURL? = NSURL(string: newValue)
             if remoteUrl != nil && remoteUrl?.scheme != nil {
-                if let asset = AVURLAsset(URL: remoteUrl, options: .None) {
-                    self.setupAsset(asset)
-                }
+                let asset = AVURLAsset(URL: remoteUrl!, options: .None)
+                self.setupAsset(asset)
+                
             } else {
-                var localURL: NSURL? = NSURL(fileURLWithPath: newValue)
-                if let asset = AVURLAsset(URL: localURL, options: .None) {
-                    self.setupAsset(asset)
-                }
+                let localURL: NSURL? = NSURL(fileURLWithPath: newValue)
+                let asset = AVURLAsset(URL: localURL!, options: .None)
+                self.setupAsset(asset)
+            
             }
         }
     }
     
     public var muted: Bool! {
         get {
-            return self.playerView.player.muted
+            return self.player.muted
         }
         set {
-            self.playerView.player.muted = newValue
+            self.player.muted = newValue
         }
     }
     
@@ -200,21 +200,13 @@ public class Player: UIViewController {
         self.bufferingState = .Unknown
     }
 
-    public required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-
-    public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-    }
-
     deinit {
-        self.playerView.player = nil
+        self.playerView?.player = nil
         self.delegate = nil
 
         NSNotificationCenter.defaultCenter().removeObserver(self)
 
-        self.playerView.layer.removeObserver(self, forKeyPath: PlayerReadyForDisplay, context: &PlayerLayerObserverContext)
+        self.playerView?.layer.removeObserver(self, forKeyPath: PlayerReadyForDisplay, context: &PlayerLayerObserverContext)
 
         self.player.removeObserver(self, forKeyPath: PlayerRateKey, context: &PlayerObserverContext)
 
@@ -290,7 +282,7 @@ public class Player: UIViewController {
         self.delegate?.playerBufferingStateDidChange(self)
 
         self.asset = asset
-        if let updatedAsset = self.asset {
+        if let _ = self.asset {
             self.setupPlayerItem(nil)
         }
 
@@ -323,9 +315,7 @@ public class Player: UIViewController {
     }
 
     private func setupPlayerItem(playerItem: AVPlayerItem?) {
-        let item = playerItem
-
-        if item == nil {
+        if self.playerItem != nil {
             self.playerItem?.removeObserver(self, forKeyPath: PlayerEmptyBufferKey, context: &PlayerItemObserverContext)
             self.playerItem?.removeObserver(self, forKeyPath: PlayerKeepUp, context: &PlayerItemObserverContext)
             self.playerItem?.removeObserver(self, forKeyPath: PlayerStatusKey, context: &PlayerItemObserverContext)
@@ -334,9 +324,9 @@ public class Player: UIViewController {
             NSNotificationCenter.defaultCenter().removeObserver(self, name: AVPlayerItemFailedToPlayToEndTimeNotification, object: self.playerItem)
         }
 
-        self.playerItem = item
+        self.playerItem = playerItem
 
-        if item != nil {
+        if self.playerItem != nil {
             self.playerItem?.addObserver(self, forKeyPath: PlayerEmptyBufferKey, options: ([NSKeyValueObservingOptions.New, NSKeyValueObservingOptions.Old]), context: &PlayerItemObserverContext)
             self.playerItem?.addObserver(self, forKeyPath: PlayerKeepUp, options: ([NSKeyValueObservingOptions.New, NSKeyValueObservingOptions.Old]), context: &PlayerItemObserverContext)
             self.playerItem?.addObserver(self, forKeyPath: PlayerStatusKey, options: ([NSKeyValueObservingOptions.New, NSKeyValueObservingOptions.Old]), context: &PlayerItemObserverContext)
@@ -384,15 +374,14 @@ public class Player: UIViewController {
     }
 
     // MARK: KVO
-
-    public override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [NSObject : AnyObject]?, context: UnsafeMutablePointer<Void>) {
-
+    override public func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+        
         switch (keyPath, context) {
-            case (PlayerRateKey, &PlayerObserverContext):
+            case (.Some(PlayerRateKey), &PlayerObserverContext):
                 true
-            case (PlayerStatusKey, &PlayerItemObserverContext):
+            case (.Some(PlayerStatusKey), &PlayerItemObserverContext):
                 true
-            case (PlayerKeepUp, &PlayerItemObserverContext):
+            case (.Some(PlayerKeepUp), &PlayerItemObserverContext):
                 if let item = self.playerItem {
                     self.bufferingState = .Ready
                     self.delegate?.playerBufferingStateDidChange(self)
@@ -402,7 +391,7 @@ public class Player: UIViewController {
                     }
                 }
 
-                let status = (change[NSKeyValueChangeNewKey] as! NSNumber).integerValue as AVPlayerStatus.RawValue
+                let status = (change?[NSKeyValueChangeNewKey] as! NSNumber).integerValue as AVPlayerStatus.RawValue
 
                 switch (status) {
                     case AVPlayerStatus.ReadyToPlay.rawValue:
@@ -414,7 +403,7 @@ public class Player: UIViewController {
                     default:
                         true
                 }
-            case (PlayerEmptyBufferKey, &PlayerItemObserverContext):
+            case (.Some(PlayerEmptyBufferKey), &PlayerItemObserverContext):
                 if let item = self.playerItem {
                     if item.playbackBufferEmpty {
                         self.bufferingState = .Delayed
@@ -422,7 +411,7 @@ public class Player: UIViewController {
                     }
                 }
 
-                let status = (change[NSKeyValueChangeNewKey] as! NSNumber).integerValue as AVPlayerStatus.RawValue
+                let status = (change?[NSKeyValueChangeNewKey] as! NSNumber).integerValue as AVPlayerStatus.RawValue
 
                 switch (status) {
                     case AVPlayerStatus.ReadyToPlay.rawValue:
@@ -434,7 +423,7 @@ public class Player: UIViewController {
                     default:
                         true
                 }
-            case (PlayerReadyForDisplay, &PlayerLayerObserverContext):
+            case (.Some(PlayerReadyForDisplay), &PlayerLayerObserverContext):
                 if self.playerView.playerLayer.readyForDisplay {
                     self.delegate?.playerReady(self)
                 }
@@ -498,7 +487,7 @@ internal class PlayerView: UIView {
         self.playerLayer.backgroundColor = UIColor.blackColor().CGColor
     }
 
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
 
