@@ -4,8 +4,6 @@
 
 `Player` is a simple iOS video player library written in [Swift](https://developer.apple.com/swift/).
 
-For Xcode 7 beta and [Swift 2.0](https://developer.apple.com/swift/blog/?id=29) support, please use the [branch](https://github.com/piemonte/Player/tree/swift2.0).
-
 ### Features
 - [x] plays local media or streams remote media over HTTP
 - [x] customizable UI and user interaction
