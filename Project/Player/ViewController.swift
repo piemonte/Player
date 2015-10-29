@@ -26,7 +26,7 @@
 
 import UIKit
 
-let ViewControllerVideoPath = "https://v.cdn.vine.co/r/videos/AA3C120C521177175800441692160_38f2cbd1ffb.1.5.13763579289575020226.mp4"
+let videoUrl = NSURL(string: "https://v.cdn.vine.co/r/videos/AA3C120C521177175800441692160_38f2cbd1ffb.1.5.13763579289575020226.mp4")!
 
 class ViewController: UIViewController, PlayerDelegate {
 
@@ -61,7 +61,7 @@ class ViewController: UIViewController, PlayerDelegate {
         self.view.addSubview(self.player.view)
         self.player.didMoveToParentViewController(self)
         
-        self.player.path = ViewControllerVideoPath
+        self.player.setUrl(videoUrl)
         
         self.player.playbackLoops = true
         
