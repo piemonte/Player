@@ -64,7 +64,8 @@ Allocate and add the `Player` controller to your view hierarchy.
 Provide the file path to the resource you would like to play locally or stream. Ensure you're including the file extension.
 
 ``` Swift
- self.player.path = "Video.mp4"
+let videoUrl: NSURL = // file or http url
+self.player.setUrl(videoUrl)
 ```
 
 play/pause/chill
