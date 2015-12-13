@@ -41,9 +41,9 @@ To integrate, add the following line to your `Cartfile`:
 github "piemonte/Player" >= 0.0.5
 ```
 
-### Swift Package Manager (Swift 2.2 beta)
+### Swift Package Manager
 
-Installation can be done with the [Swift Package Manager](https://swift.org/package-manager/), just add the following in your `Package.swift`.
+Installation can be done with the [Swift Package Manager](https://swift.org/package-manager/), add the following in your `Package.swift` :
 
 ```Swift
 import PackageDescription
