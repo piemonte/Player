@@ -19,7 +19,7 @@ If you're looking for a video player library written in Objective-C, checkout [P
 
 ### CocoaPods
 
-`Player` is available and recommended for installation using the Cocoa dependency manager [CocoaPods](http://cocoapods.org/). Swift is supported as of version 0.36.
+`Player` is available and recommended for installation using the Cocoa dependency manager [CocoaPods](http://cocoapods.org/).
 
 To integrate, add the following to your `Podfile`:
 
@@ -39,6 +39,21 @@ To integrate, add the following line to your `Cartfile`:
 
 ```ogdl
 github "piemonte/Player" >= 0.0.5
+```
+
+### Swift Package Manager (Swift 2.2 beta)
+
+Installation can be done with the [Swift Package Manager](https://swift.org/package-manager/), just add the following in your `Package.swift`.
+
+```Swift
+import PackageDescription
+
+let package = Package(
+    name: "HellowWorld",
+    dependencies: [
+        .Package(url: "https://github.com/piemonte/Player.git", majorVersion: 0)]),
+    ]
+)
 ```
 
 ### Manual
