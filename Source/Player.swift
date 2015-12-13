@@ -70,7 +70,7 @@ public enum BufferingState: Int, CustomStringConvertible {
     }
 }
 
-public protocol PlayerDelegate {
+public protocol PlayerDelegate: class {
     func playerReady(player: Player)
     func playerPlaybackStateDidChange(player: Player)
     func playerBufferingStateDidChange(player: Player)
@@ -106,7 +106,7 @@ private let PlayerReadyForDisplay = "readyForDisplay"
 
 public class Player: UIViewController {
 
-    public var delegate: PlayerDelegate!
+    public weak var delegate: PlayerDelegate!
 
     public func setUrl(url: NSURL) {
         // Make sure everything is reset beforehand
