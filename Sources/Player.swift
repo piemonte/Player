@@ -358,6 +358,7 @@ public class Player: UIViewController {
     }
 
     // MARK: KVO
+    
     override public func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
 
         switch (keyPath, context) {
