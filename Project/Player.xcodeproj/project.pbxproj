@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04B4E6401C1E8A7B00E20778 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B4E63F1C1E8A7B00E20778 /* AppDelegate.swift */; };
+		04B4E6421C1E8A7B00E20778 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B4E6411C1E8A7B00E20778 /* ViewController.swift */; };
+		04B4E6471C1E8A7C00E20778 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04B4E6461C1E8A7C00E20778 /* Assets.xcassets */; };
+		04D702CF1C1E8C8400879C91 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065A0FC51A25C94B005BA7BC /* Player.swift */; };
 		065A0FA31A25C8E2005BA7BC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065A0FA21A25C8E2005BA7BC /* AppDelegate.swift */; };
 		065A0FA51A25C8E2005BA7BC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065A0FA41A25C8E2005BA7BC /* ViewController.swift */; };
 		065A0FAA1A25C8E2005BA7BC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 065A0FA91A25C8E2005BA7BC /* Images.xcassets */; };
@@ -15,6 +19,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		04B4E63D1C1E8A7B00E20778 /* PlayerTV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlayerTV.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		04B4E63F1C1E8A7B00E20778 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		04B4E6411C1E8A7B00E20778 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		04B4E6461C1E8A7C00E20778 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		04B4E6481C1E8A7C00E20778 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		065677291A26C59B0038C208 /* Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Base.xcconfig; sourceTree = SOURCE_ROOT; };
 		0656772A1A26C59B0038C208 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = SOURCE_ROOT; };
 		065A0F9D1A25C8E2005BA7BC /* Player.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Player.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -23,11 +32,18 @@
 		065A0FA41A25C8E2005BA7BC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		065A0FA91A25C8E2005BA7BC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		065A0FAC1A25C8E2005BA7BC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		065A0FC51A25C94B005BA7BC /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Player.swift; path = ../Source/Player.swift; sourceTree = "<group>"; };
+		065A0FC51A25C94B005BA7BC /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Player.swift; path = ../Sources/Player.swift; sourceTree = "<group>"; };
 		06C6A5891A89E952009DC6EA /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		04B4E63A1C1E8A7B00E20778 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		065A0F9A1A25C8E2005BA7BC /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -38,11 +54,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		04B4E63E1C1E8A7B00E20778 /* tvOS */ = {
+			isa = PBXGroup;
+			children = (
+				04B4E63F1C1E8A7B00E20778 /* AppDelegate.swift */,
+				04B4E6411C1E8A7B00E20778 /* ViewController.swift */,
+				04B4E6461C1E8A7C00E20778 /* Assets.xcassets */,
+				04D702CE1C1E8B8F00879C91 /* Supporting Files */,
+			);
+			name = tvOS;
+			path = PlayerTV;
+			sourceTree = "<group>";
+		};
+		04D702CE1C1E8B8F00879C91 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				04B4E6481C1E8A7C00E20778 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		065A0F941A25C8E2005BA7BC = {
 			isa = PBXGroup;
 			children = (
-				065A0F9F1A25C8E2005BA7BC /* App */,
 				065A0FC21A25C917005BA7BC /* Player */,
+				065A0F9F1A25C8E2005BA7BC /* iOS */,
+				04B4E63E1C1E8A7B00E20778 /* tvOS */,
 				065A0F9E1A25C8E2005BA7BC /* Products */,
 			);
 			sourceTree = "<group>";
@@ -51,11 +88,12 @@
 			isa = PBXGroup;
 			children = (
 				065A0F9D1A25C8E2005BA7BC /* Player.app */,
+				04B4E63D1C1E8A7B00E20778 /* PlayerTV.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		065A0F9F1A25C8E2005BA7BC /* App */ = {
+		065A0F9F1A25C8E2005BA7BC /* iOS */ = {
 			isa = PBXGroup;
 			children = (
 				065A0FA21A25C8E2005BA7BC /* AppDelegate.swift */,
@@ -64,7 +102,7 @@
 				065A0FAB1A25C8E2005BA7BC /* LaunchScreen.xib */,
 				065A0FA01A25C8E2005BA7BC /* Supporting Files */,
 			);
-			name = App;
+			name = iOS;
 			path = Player;
 			sourceTree = "<group>";
 		};
@@ -90,6 +128,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		04B4E63C1C1E8A7B00E20778 /* PlayerTV */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 04B4E64B1C1E8A7C00E20778 /* Build configuration list for PBXNativeTarget "PlayerTV" */;
+			buildPhases = (
+				04B4E6391C1E8A7B00E20778 /* Sources */,
+				04B4E63A1C1E8A7B00E20778 /* Frameworks */,
+				04B4E63B1C1E8A7B00E20778 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PlayerTV;
+			productName = PlayerTV;
+			productReference = 04B4E63D1C1E8A7B00E20778 /* PlayerTV.app */;
+			productType = "com.apple.product-type.application";
+		};
 		065A0F9C1A25C8E2005BA7BC /* Player */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 065A0FBC1A25C8E2005BA7BC /* Build configuration list for PBXNativeTarget "Player" */;
@@ -114,10 +169,13 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftMigration = 0700;
-				LastSwiftUpdateCheck = 0700;
+				LastSwiftUpdateCheck = 0720;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Patrick Piemonte";
 				TargetAttributes = {
+					04B4E63C1C1E8A7B00E20778 = {
+						CreatedOnToolsVersion = 7.2;
+					};
 					065A0F9C1A25C8E2005BA7BC = {
 						CreatedOnToolsVersion = 6.1;
 					};
@@ -137,11 +195,20 @@
 			projectRoot = "";
 			targets = (
 				065A0F9C1A25C8E2005BA7BC /* Player */,
+				04B4E63C1C1E8A7B00E20778 /* PlayerTV */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		04B4E63B1C1E8A7B00E20778 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				04B4E6471C1E8A7C00E20778 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		065A0F9B1A25C8E2005BA7BC /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -154,6 +221,16 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		04B4E6391C1E8A7B00E20778 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				04B4E6421C1E8A7B00E20778 /* ViewController.swift in Sources */,
+				04D702CF1C1E8C8400879C91 /* Player.swift in Sources */,
+				04B4E6401C1E8A7B00E20778 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		065A0F991A25C8E2005BA7BC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -178,6 +255,68 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		04B4E6491C1E8A7C00E20778 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = PlayerTV/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.patrickpiemonte.PlayerTV;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Debug;
+		};
+		04B4E64A1C1E8A7C00E20778 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = PlayerTV/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.patrickpiemonte.PlayerTV;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Release;
+		};
 		065A0FBA1A25C8E2005BA7BC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0656772A1A26C59B0038C208 /* Debug.xcconfig */;
@@ -251,6 +390,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		04B4E64B1C1E8A7C00E20778 /* Build configuration list for PBXNativeTarget "PlayerTV" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				04B4E6491C1E8A7C00E20778 /* Debug */,
+				04B4E64A1C1E8A7C00E20778 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		065A0F981A25C8E2005BA7BC /* Build configuration list for PBXProject "Player" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
