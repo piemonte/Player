@@ -13,7 +13,7 @@
 
 If you're looking for a video player library written in Objective-C, checkout [PBJVideoPlayer](https://github.com/piemonte/PBJVideoPlayer). For video recording, checkout [PBJVision](https://github.com/piemonte/PBJVision).
 
-[![Pod Version](https://img.shields.io/cocoapods/v/Player.svg?style=flat)](http://cocoadocs.org/docsets/Player/)
+[![Build Status](https://travis-ci.org/piemonte/Player.svg?branch=master)](https://travis-ci.org/piemonte/Player)[![Pod Version](https://img.shields.io/cocoapods/v/Player.svg?style=flat)](http://cocoadocs.org/docsets/Player/)
 
 ## Installation
 
