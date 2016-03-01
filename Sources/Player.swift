@@ -163,6 +163,16 @@ public class Player: UIViewController {
             }
         }
     }
+    
+    public var currentTime: NSTimeInterval! {
+        get {
+            if let playerItem = self.playerItem {
+                return CMTimeGetSeconds(playerItem.currentTime())
+            } else {
+                return CMTimeGetSeconds(kCMTimeIndefinite)
+            }
+        }
+    }
 
     private var asset: AVAsset!
     private var playerItem: AVPlayerItem?
