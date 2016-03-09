@@ -265,6 +265,14 @@ public class Player: UIViewController {
         self.delegate?.playerPlaybackDidEnd(self)
     }
 
+    public func rewind() {
+        self.player.seekToTime(kCMTimeZero)
+    }
+
+    public func seekToTime(time: NSTimeInterval) {
+        self.player.seekToTime(CMTimeMakeWithSeconds(time, 1))
+    }
+
     // MARK: private setup
 
     private func setupAsset(asset: AVAsset) {
