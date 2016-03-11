@@ -264,6 +264,12 @@ public class Player: UIViewController {
         self.delegate?.playerPlaybackStateDidChange(self)
         self.delegate?.playerPlaybackDidEnd(self)
     }
+    
+    public func seekToTime(time: CMTime) {
+        if let playerItem = self.playerItem {
+            return playerItem.seekToTime(time)
+        }
+    }
 
     // MARK: private setup
 
