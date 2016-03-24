@@ -174,6 +174,17 @@ public class Player: UIViewController {
         }
     }
 
+    public var naturalSize: CGSize! {
+        get {
+            if let playerItem = self.playerItem {
+                let track = playerItem.asset.tracksWithMediaType(AVMediaTypeVideo)[0]
+                return track.naturalSize
+            } else {
+                return CGSizeZero
+            }
+        }
+    }
+
     private var asset: AVAsset!
     private var playerItem: AVPlayerItem?
 
