@@ -399,7 +399,7 @@ public class Player: UIViewController {
     }
   
     public func applicationWillEnterForeground(aNoticiation: NSNotification) {
-        if self.playbackState == .Stopped || self.playbackState == .Paused {
+        if self.playbackState == .Paused {
             self.player.play()
         }
     }
