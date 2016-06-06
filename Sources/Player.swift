@@ -74,6 +74,7 @@ public protocol PlayerDelegate: class {
     func playerReady(player: Player)
     func playerPlaybackStateDidChange(player: Player)
     func playerBufferingStateDidChange(player: Player)
+    func playerCurrentTimeDidChange(player: Player)
 
     func playerPlaybackWillStartFromBeginning(player: Player)
     func playerPlaybackDidEnd(player: Player)
@@ -211,6 +212,10 @@ public class Player: UIViewController {
         self.player = AVPlayer()
         self.player.actionAtItemEnd = .Pause
         self.player.addObserver(self, forKeyPath: PlayerRateKey, options: ([NSKeyValueObservingOptions.New, NSKeyValueObservingOptions.Old]) , context: &PlayerObserverContext)
+        
+        self.player.addPeriodicTimeObserverForInterval(CMTimeMake(1, 100), queue: dispatch_get_main_queue()) { [unowned self] time in
+            self.delegate?.playerCurrentTimeDidChange(self)
+        }
 
         self.playbackLoops = false
         self.playbackFreezesAtEnd = false

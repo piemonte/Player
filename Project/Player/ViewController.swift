@@ -109,6 +109,9 @@ class ViewController: UIViewController, PlayerDelegate {
     
     func playerPlaybackDidEnd(player: Player) {
     }
+    
+    func playerCurrentTimeDidChange(player: Player) {
+    }
 
 }
 
