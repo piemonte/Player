@@ -405,7 +405,7 @@ public class Player: UIViewController {
   
     public func applicationWillEnterForeground(aNoticiation: NSNotification) {
         if self.playbackState == .Paused {
-            self.player.play()
+            self.playFromCurrentTime()
         }
     }
 
