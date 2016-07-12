@@ -30,21 +30,21 @@ import AVFoundation
 import CoreGraphics
 
 public enum PlaybackState: Int, CustomStringConvertible {
-    case Stopped = 0
-    case Playing
-    case Paused
-    case Failed
+    case stopped = 0
+    case playing
+    case paused
+    case failed
 
     public var description: String {
         get {
             switch self {
-            case Stopped:
+            case stopped:
                 return "Stopped"
-            case Playing:
+            case playing:
                 return "Playing"
-            case Failed:
+            case failed:
                 return "Failed"
-            case Paused:
+            case paused:
                 return "Paused"
             }
         }
@@ -52,18 +52,18 @@ public enum PlaybackState: Int, CustomStringConvertible {
 }
 
 public enum BufferingState: Int, CustomStringConvertible {
-    case Unknown = 0
-    case Ready
-    case Delayed
+    case unknown = 0
+    case ready
+    case delayed
 
     public var description: String {
         get {
             switch self {
-            case Unknown:
+            case unknown:
                 return "Unknown"
-            case Ready:
+            case ready:
                 return "Ready"
-            case Delayed:
+            case delayed:
                 return "Delayed"
             }
         }
@@ -71,13 +71,13 @@ public enum BufferingState: Int, CustomStringConvertible {
 }
 
 public protocol PlayerDelegate: class {
-    func playerReady(player: Player)
-    func playerPlaybackStateDidChange(player: Player)
-    func playerBufferingStateDidChange(player: Player)
-    func playerCurrentTimeDidChange(player: Player)
+    func playerReady(_ player: Player)
+    func playerPlaybackStateDidChange(_ player: Player)
+    func playerBufferingStateDidChange(_ player: Player)
+    func playerCurrentTimeDidChange(_ player: Player)
 
-    func playerPlaybackWillStartFromBeginning(player: Player)
-    func playerPlaybackDidEnd(player: Player)
+    func playerPlaybackWillStartFromBeginning(_ player: Player)
+    func playerPlaybackDidEnd(_ player: Player)
 }
 
 // KVO contexts
@@ -91,17 +91,17 @@ private var PlayerLayerObserverContext = 0
 private let PlayerTracksKey = "tracks"
 private let PlayerPlayableKey = "playable"
 private let PlayerDurationKey = "duration"
-private let PlayerRateKey = "rate"
+//private let PlayerRateKey = "rate"
 
 // KVO player item keys
 
 private let PlayerStatusKey = "status"
 private let PlayerEmptyBufferKey = "playbackBufferEmpty"
-private let PlayerKeepUp = "playbackLikelyToKeepUp"
+private let PlayerKeepUpKey = "playbackLikelyToKeepUp"
 
 // KVO player layer keys
 
-private let PlayerReadyForDisplay = "readyForDisplay"
+private let PlayerReadyForDisplayKey = "readyForDisplay"
 
 // MARK: - Player
 
@@ -109,24 +109,24 @@ public class Player: UIViewController {
 
     public weak var delegate: PlayerDelegate!
 
-    public func setUrl(url: NSURL) {
+    public func setUrl(_ url: URL) {
         // Make sure everything is reset beforehand
-        if(self.playbackState == .Playing){
+        if(self.playbackState == .playing){
             self.pause()
         }
 
         self.setupPlayerItem(nil)
-        let asset = AVURLAsset(URL: url, options: .None)
+        let asset = AVURLAsset(url: url, options: .none)
         self.setupAsset(asset)
     }
 
 
     public var muted: Bool! {
         get {
-            return self.player.muted
+            return self.player.isMuted
         }
         set {
-            self.player.muted = newValue
+            self.player.isMuted = newValue
         }
     }
 
@@ -141,13 +141,13 @@ public class Player: UIViewController {
 
     public var playbackLoops: Bool! {
         get {
-            return (self.player.actionAtItemEnd == .None) as Bool
+            return (self.player.actionAtItemEnd == .none) as Bool
         }
         set {
             if newValue.boolValue {
-                self.player.actionAtItemEnd = .None
+                self.player.actionAtItemEnd = .none
             } else {
-                self.player.actionAtItemEnd = .Pause
+                self.player.actionAtItemEnd = .pause
             }
         }
     }
@@ -155,7 +155,7 @@ public class Player: UIViewController {
     public var playbackState: PlaybackState!
     public var bufferingState: BufferingState!
 
-    public var maximumDuration: NSTimeInterval! {
+    public var maximumDuration: TimeInterval! {
         get {
             if let playerItem = self.playerItem {
                 return CMTimeGetSeconds(playerItem.duration)
@@ -165,7 +165,7 @@ public class Player: UIViewController {
         }
     }
     
-    public var currentTime: NSTimeInterval! {
+    public var currentTime: TimeInterval! {
         get {
             if let playerItem = self.playerItem {
                 return CMTimeGetSeconds(playerItem.currentTime())
@@ -178,10 +178,10 @@ public class Player: UIViewController {
     public var naturalSize: CGSize! {
         get {
             if let playerItem = self.playerItem {
-                let track = playerItem.asset.tracksWithMediaType(AVMediaTypeVideo)[0]
+                let track = playerItem.asset.tracks(withMediaType: AVMediaTypeVideo)[0]
                 return track.naturalSize
             } else {
-                return CGSizeZero
+                return CGSize.zero
             }
         }
     }
@@ -203,35 +203,35 @@ public class Player: UIViewController {
         self.commonInit()
     }
 
-    public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         self.commonInit()
     }
 
     private func commonInit() {
         self.player = AVPlayer()
-        self.player.actionAtItemEnd = .Pause
-        self.player.addObserver(self, forKeyPath: PlayerRateKey, options: ([NSKeyValueObservingOptions.New, NSKeyValueObservingOptions.Old]) , context: &PlayerObserverContext)
+        self.player.actionAtItemEnd = .pause
+//        self.player.addObserver(self, forKeyPath: PlayerRateKey, options: ([.new, .old]) , context: &PlayerObserverContext)
         
-        self.player.addPeriodicTimeObserverForInterval(CMTimeMake(1, 100), queue: dispatch_get_main_queue()) { [unowned self] time in
+        self.player.addPeriodicTimeObserver(forInterval: CMTimeMake(1, 100), queue: DispatchQueue.main) { [unowned self] time in
             self.delegate?.playerCurrentTimeDidChange(self)
         }
 
         self.playbackLoops = false
         self.playbackFreezesAtEnd = false
-        self.playbackState = .Stopped
-        self.bufferingState = .Unknown
+        self.playbackState = .stopped
+        self.bufferingState = .unknown
     }
 
     deinit {
         self.playerView?.player = nil
         self.delegate = nil
 
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default().removeObserver(self)
 
-        self.playerView?.layer.removeObserver(self, forKeyPath: PlayerReadyForDisplay, context: &PlayerLayerObserverContext)
+        self.playerView?.layer.removeObserver(self, forKeyPath: PlayerReadyForDisplayKey, context: &PlayerLayerObserverContext)
 
-        self.player.removeObserver(self, forKeyPath: PlayerRateKey, context: &PlayerObserverContext)
+//        self.player.removeObserver(self, forKeyPath: PlayerRateKey, context: &PlayerObserverContext)
 
         self.player.pause()
 
@@ -241,21 +241,21 @@ public class Player: UIViewController {
     // MARK: view lifecycle
 
     public override func loadView() {
-        self.playerView = PlayerView(frame: CGRectZero)
+        self.playerView = PlayerView(frame: CGRect.zero)
         self.playerView.fillMode = AVLayerVideoGravityResizeAspect
-        self.playerView.playerLayer.hidden = true
+        self.playerView.playerLayer.isHidden = true
         self.view = self.playerView
-        self.playerView.layer.addObserver(self, forKeyPath: PlayerReadyForDisplay, options: ([NSKeyValueObservingOptions.New, NSKeyValueObservingOptions.Old]), context: &PlayerLayerObserverContext)
+        self.playerView.layer.addObserver(self, forKeyPath: PlayerReadyForDisplayKey, options: ([.new, .old]), context: &PlayerLayerObserverContext)
 
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(applicationWillResignActive(_:)), name: UIApplicationWillResignActiveNotification, object: UIApplication.sharedApplication())
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(applicationDidEnterBackground(_:)), name: UIApplicationDidEnterBackgroundNotification, object: UIApplication.sharedApplication())
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(applicationWillEnterForeground(_:)), name: UIApplicationWillEnterForegroundNotification, object: UIApplication.sharedApplication())
+        NotificationCenter.default().addObserver(self, selector: #selector(applicationWillResignActive(_:)), name: NSNotification.Name.UIApplicationWillResignActive, object: UIApplication.shared())
+        NotificationCenter.default().addObserver(self, selector: #selector(applicationDidEnterBackground(_:)), name: NSNotification.Name.UIApplicationDidEnterBackground, object: UIApplication.shared())
+        NotificationCenter.default().addObserver(self, selector: #selector(applicationWillEnterForeground(_:)), name: NSNotification.Name.UIApplicationWillEnterForeground, object: UIApplication.shared())
     }
 
-    public override func viewDidDisappear(animated: Bool) {
+    public override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
 
-        if self.playbackState == .Playing {
+        if self.playbackState == .playing {
             self.pause()
         }
     }
@@ -264,51 +264,51 @@ public class Player: UIViewController {
 
     public func playFromBeginning() {
         self.delegate?.playerPlaybackWillStartFromBeginning(self)
-        self.player.seekToTime(kCMTimeZero)
+        self.player.seek(to: kCMTimeZero)
         self.playFromCurrentTime()
     }
 
     public func playFromCurrentTime() {
-        self.playbackState = .Playing
+        self.playbackState = .playing
         self.delegate?.playerPlaybackStateDidChange(self)
         self.player.play()
     }
 
     public func pause() {
-        if self.playbackState != .Playing {
+        if self.playbackState != .playing {
             return
         }
 
         self.player.pause()
-        self.playbackState = .Paused
+        self.playbackState = .paused
         self.delegate?.playerPlaybackStateDidChange(self)
     }
 
     public func stop() {
-        if self.playbackState == .Stopped {
+        if self.playbackState == .stopped {
             return
         }
 
         self.player.pause()
-        self.playbackState = .Stopped
+        self.playbackState = .stopped
         self.delegate?.playerPlaybackStateDidChange(self)
         self.delegate?.playerPlaybackDidEnd(self)
     }
     
-    public func seekToTime(time: CMTime) {
+    public func seekToTime(_ time: CMTime) {
         if let playerItem = self.playerItem {
-            return playerItem.seekToTime(time)
+            return playerItem.seek(to: time)
         }
     }
 
     // MARK: private setup
 
-    private func setupAsset(asset: AVAsset) {
-        if self.playbackState == .Playing {
+    private func setupAsset(_ asset: AVAsset) {
+        if self.playbackState == .playing {
             self.pause()
         }
 
-        self.bufferingState = .Unknown
+        self.bufferingState = .unknown
         self.delegate?.playerBufferingStateDidChange(self)
 
         self.asset = asset
@@ -318,21 +318,21 @@ public class Player: UIViewController {
 
         let keys: [String] = [PlayerTracksKey, PlayerPlayableKey, PlayerDurationKey]
 
-        self.asset.loadValuesAsynchronouslyForKeys(keys, completionHandler: { () -> Void in
-            dispatch_sync(dispatch_get_main_queue(), { () -> Void in
+        self.asset.loadValuesAsynchronously(forKeys: keys, completionHandler: { () -> Void in
+            DispatchQueue.main.sync(execute: { () -> Void in
 
                 for key in keys {
                     var error: NSError?
-                    let status = self.asset.statusOfValueForKey(key, error:&error)
-                    if status == .Failed {
-                        self.playbackState = .Failed
+                    let status = self.asset.statusOfValue(forKey: key, error:&error)
+                    if status == .failed {
+                        self.playbackState = .failed
                         self.delegate?.playerPlaybackStateDidChange(self)
                         return
                     }
                 }
 
-                if self.asset.playable.boolValue == false {
-                    self.playbackState = .Failed
+                if self.asset.isPlayable.boolValue == false {
+                    self.playbackState = .failed
                     self.delegate?.playerPlaybackStateDidChange(self)
                     return
                 }
@@ -344,41 +344,41 @@ public class Player: UIViewController {
         })
     }
 
-    private func setupPlayerItem(playerItem: AVPlayerItem?) {
+    private func setupPlayerItem(_ playerItem: AVPlayerItem?) {
         if self.playerItem != nil {
             self.playerItem?.removeObserver(self, forKeyPath: PlayerEmptyBufferKey, context: &PlayerItemObserverContext)
-            self.playerItem?.removeObserver(self, forKeyPath: PlayerKeepUp, context: &PlayerItemObserverContext)
+            self.playerItem?.removeObserver(self, forKeyPath: PlayerKeepUpKey, context: &PlayerItemObserverContext)
             self.playerItem?.removeObserver(self, forKeyPath: PlayerStatusKey, context: &PlayerItemObserverContext)
 
-            NSNotificationCenter.defaultCenter().removeObserver(self, name: AVPlayerItemDidPlayToEndTimeNotification, object: self.playerItem)
-            NSNotificationCenter.defaultCenter().removeObserver(self, name: AVPlayerItemFailedToPlayToEndTimeNotification, object: self.playerItem)
+            NotificationCenter.default().removeObserver(self, name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: self.playerItem)
+            NotificationCenter.default().removeObserver(self, name: NSNotification.Name.AVPlayerItemFailedToPlayToEndTime, object: self.playerItem)
         }
 
         self.playerItem = playerItem
 
         if self.playerItem != nil {
-            self.playerItem?.addObserver(self, forKeyPath: PlayerEmptyBufferKey, options: ([NSKeyValueObservingOptions.New, NSKeyValueObservingOptions.Old]), context: &PlayerItemObserverContext)
-            self.playerItem?.addObserver(self, forKeyPath: PlayerKeepUp, options: ([NSKeyValueObservingOptions.New, NSKeyValueObservingOptions.Old]), context: &PlayerItemObserverContext)
-            self.playerItem?.addObserver(self, forKeyPath: PlayerStatusKey, options: ([NSKeyValueObservingOptions.New, NSKeyValueObservingOptions.Old]), context: &PlayerItemObserverContext)
+            self.playerItem?.addObserver(self, forKeyPath: PlayerEmptyBufferKey, options: ([.new, .old]), context: &PlayerItemObserverContext)
+            self.playerItem?.addObserver(self, forKeyPath: PlayerKeepUpKey, options: ([.new, .old]), context: &PlayerItemObserverContext)
+            self.playerItem?.addObserver(self, forKeyPath: PlayerStatusKey, options: ([.new, .old]), context: &PlayerItemObserverContext)
 
-          NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(playerItemDidPlayToEndTime(_:)), name: AVPlayerItemDidPlayToEndTimeNotification, object: self.playerItem)
-          NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(playerItemFailedToPlayToEndTime(_:)), name: AVPlayerItemFailedToPlayToEndTimeNotification, object: self.playerItem)
+          NotificationCenter.default().addObserver(self, selector: #selector(playerItemDidPlayToEndTime(_:)), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: self.playerItem)
+          NotificationCenter.default().addObserver(self, selector: #selector(playerItemFailedToPlayToEndTime(_:)), name: NSNotification.Name.AVPlayerItemFailedToPlayToEndTime, object: self.playerItem)
         }
 
-        self.player.replaceCurrentItemWithPlayerItem(self.playerItem)
+        self.player.replaceCurrentItem(with: self.playerItem)
 
         if self.playbackLoops.boolValue == true {
-            self.player.actionAtItemEnd = .None
+            self.player.actionAtItemEnd = .none
         } else {
-            self.player.actionAtItemEnd = .Pause
+            self.player.actionAtItemEnd = .pause
         }
     }
 
     // MARK: NSNotifications
 
-    public func playerItemDidPlayToEndTime(aNotification: NSNotification) {
+    public func playerItemDidPlayToEndTime(_ aNotification: Notification) {
         if self.playbackLoops.boolValue == true || self.playbackFreezesAtEnd.boolValue == true {
-            self.player.seekToTime(kCMTimeZero)
+            self.player.seek(to: kCMTimeZero)
         }
 
         if self.playbackLoops.boolValue == false {
@@ -386,89 +386,93 @@ public class Player: UIViewController {
         }
     }
 
-    public func playerItemFailedToPlayToEndTime(aNotification: NSNotification) {
-        self.playbackState = .Failed
+    public func playerItemFailedToPlayToEndTime(_ aNotification: Notification) {
+        self.playbackState = .failed
         self.delegate?.playerPlaybackStateDidChange(self)
     }
 
-    public func applicationWillResignActive(aNotification: NSNotification) {
-        if self.playbackState == .Playing {
+    public func applicationWillResignActive(_ aNotification: Notification) {
+        if self.playbackState == .playing {
             self.pause()
         }
     }
 
-    public func applicationDidEnterBackground(aNotification: NSNotification) {
-        if self.playbackState == .Playing {
+    public func applicationDidEnterBackground(_ aNotification: Notification) {
+        if self.playbackState == .playing {
             self.pause()
         }
     }
   
-    public func applicationWillEnterForeground(aNoticiation: NSNotification) {
-        if self.playbackState == .Paused {
+    public func applicationWillEnterForeground(_ aNoticiation: Notification) {
+        if self.playbackState == .paused {
             self.playFromCurrentTime()
         }
     }
 
     // MARK: KVO
     
-    override public func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+    override public func observeValue(forKeyPath keyPath: String?, of object: AnyObject?, change: [NSKeyValueChangeKey : AnyObject]?, context: UnsafeMutablePointer<Void>?) {
 
-        switch (keyPath, context) {
-        case (.Some(PlayerRateKey), &PlayerObserverContext):
-            true
-        case (.Some(PlayerStatusKey), &PlayerItemObserverContext):
-            true
-        case (.Some(PlayerKeepUp), &PlayerItemObserverContext):
-            if let item = self.playerItem {
-                self.bufferingState = .Ready
-                self.delegate?.playerBufferingStateDidChange(self)
-
-                if item.playbackLikelyToKeepUp && self.playbackState == .Playing {
-                    self.playFromCurrentTime()
-                }
-            }
-
-            let status = (change?[NSKeyValueChangeNewKey] as! NSNumber).integerValue as AVPlayerStatus.RawValue
-
-            switch (status) {
-            case AVPlayerStatus.ReadyToPlay.rawValue:
-                self.playerView.playerLayer.player = self.player
-                self.playerView.playerLayer.hidden = false
-            case AVPlayerStatus.Failed.rawValue:
-                self.playbackState = PlaybackState.Failed
-                self.delegate?.playerPlaybackStateDidChange(self)
-            default:
-                true
-            }
-        case (.Some(PlayerEmptyBufferKey), &PlayerItemObserverContext):
-            if let item = self.playerItem {
-                if item.playbackBufferEmpty {
-                    self.bufferingState = .Delayed
+        // PlayerRateKey, PlayerObserverContext
+        
+        if (context == &PlayerItemObserverContext) {
+            // PlayerStatusKey
+            
+            if keyPath == PlayerKeepUpKey {
+                // PlayerKeepUpKey
+                
+                if let item = self.playerItem {
+                    self.bufferingState = .ready
                     self.delegate?.playerBufferingStateDidChange(self)
+                    
+                    if item.isPlaybackLikelyToKeepUp && self.playbackState == .playing {
+                        self.playFromCurrentTime()
+                    }
+                }
+                
+                let status = (change?[NSKeyValueChangeKey.newKey] as! NSNumber).intValue as AVPlayerStatus.RawValue
+                
+                switch (status) {
+                case AVPlayerStatus.readyToPlay.rawValue:
+                    self.playerView.playerLayer.player = self.player
+                    self.playerView.playerLayer.isHidden = false
+                case AVPlayerStatus.failed.rawValue:
+                    self.playbackState = PlaybackState.failed
+                    self.delegate?.playerPlaybackStateDidChange(self)
+                default:
+                    break
+                }
+            } else if keyPath == PlayerEmptyBufferKey {
+                // PlayerEmptyBufferKey
+                
+                if let item = self.playerItem {
+                    if item.isPlaybackBufferEmpty {
+                        self.bufferingState = .delayed
+                        self.delegate?.playerBufferingStateDidChange(self)
+                    }
+                }
+                
+                let status = (change?[NSKeyValueChangeKey.newKey] as! NSNumber).intValue as AVPlayerStatus.RawValue
+                
+                switch (status) {
+                case AVPlayerStatus.readyToPlay.rawValue:
+                    self.playerView.playerLayer.player = self.player
+                    self.playerView.playerLayer.isHidden = false
+                case AVPlayerStatus.failed.rawValue:
+                    self.playbackState = PlaybackState.failed
+                    self.delegate?.playerPlaybackStateDidChange(self)
+                default:
+                    break
                 }
             }
-
-            let status = (change?[NSKeyValueChangeNewKey] as! NSNumber).integerValue as AVPlayerStatus.RawValue
-
-            switch (status) {
-            case AVPlayerStatus.ReadyToPlay.rawValue:
-                self.playerView.playerLayer.player = self.player
-                self.playerView.playerLayer.hidden = false
-            case AVPlayerStatus.Failed.rawValue:
-                self.playbackState = PlaybackState.Failed
-                self.delegate?.playerPlaybackStateDidChange(self)
-            default:
-                true
-            }
-        case (.Some(PlayerReadyForDisplay), &PlayerLayerObserverContext):
-            if self.playerView.playerLayer.readyForDisplay {
+        
+        } else if (context == &PlayerLayerObserverContext) {
+            if self.playerView.playerLayer.isReadyForDisplay {
                 self.delegate?.playerReady(self)
             }
-        default:
-            super.observeValueForKeyPath(keyPath, ofObject: object, change: change, context: context)
-
+        } else {
+            super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
         }
-
     }
 
 }
@@ -515,13 +519,13 @@ internal class PlayerView: UIView {
     // MARK: object lifecycle
 
     convenience init() {
-        self.init(frame: CGRectZero)
-        self.playerLayer.backgroundColor = UIColor.blackColor().CGColor
+        self.init(frame: CGRect.zero)
+        self.playerLayer.backgroundColor = UIColor.black().cgColor
     }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.playerLayer.backgroundColor = UIColor.blackColor().CGColor
+        self.playerLayer.backgroundColor = UIColor.black().cgColor
     }
 
     required init?(coder aDecoder: NSCoder) {
