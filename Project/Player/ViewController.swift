@@ -56,14 +56,15 @@ class ViewController: UIViewController, PlayerDelegate {
         self.player = Player()
         self.player.delegate = self
         self.player.view.frame = self.view.bounds
-        
+        self.player.setupIcons(UIImage(named: "Play"), pause: UIImage(named: "Pause"), restart: UIImage(named: "Restart"))
+
         self.addChildViewController(self.player)
         self.view.addSubview(self.player.view)
         self.player.didMoveToParentViewController(self)
         
         self.player.setUrl(videoUrl)
         
-        self.player.playbackLoops = true
+        self.player.playbackLoops = false
         
         let tapGestureRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTapGestureRecognizer(_:)))
         tapGestureRecognizer.numberOfTapsRequired = 1
@@ -72,8 +73,6 @@ class ViewController: UIViewController, PlayerDelegate {
 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        
-        self.player.playFromBeginning()
     }
     
     // MARK: UIGestureRecognizer
