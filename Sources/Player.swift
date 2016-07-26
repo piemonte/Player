@@ -191,7 +191,8 @@ public class Player: UIViewController {
 
     private var player: AVPlayer!
     private var playerView: PlayerView!
-
+    private var timeObserver: AnyObject!
+    
     // MARK: object lifecycle
 
     public convenience init() {
@@ -213,7 +214,7 @@ public class Player: UIViewController {
         self.player.actionAtItemEnd = .Pause
         self.player.addObserver(self, forKeyPath: PlayerRateKey, options: ([NSKeyValueObservingOptions.New, NSKeyValueObservingOptions.Old]) , context: &PlayerObserverContext)
         
-        self.player.addPeriodicTimeObserverForInterval(CMTimeMake(1, 100), queue: dispatch_get_main_queue()) { [unowned self] time in
+        self.timeObserver = self.player.addPeriodicTimeObserverForInterval(CMTimeMake(1, 100), queue: dispatch_get_main_queue()) { [unowned self] time in
             self.delegate?.playerCurrentTimeDidChange(self)
         }
 
@@ -224,6 +225,7 @@ public class Player: UIViewController {
     }
 
     deinit {
+        self.player.removeTimeObserver(timeObserver)
         self.playerView?.player = nil
         self.delegate = nil
 
