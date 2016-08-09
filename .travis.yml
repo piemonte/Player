@@ -11,5 +11,5 @@ before_install:
   - brew reinstall xctool
 script:
   - xcodebuild -showsdks
-  - xctool -project Project/Player.xcodeproj -scheme 'Debug - iOS' -sdk '$IOS_SDK' build analyze
-#  - xctool -project Project/Player.xcodeproj -scheme 'Debug - tvOS' -sdk '$TVOS_SDK' build analyze
+  - xctool -project Project/Player.xcodeproj -scheme 'Debug - iOS' -sdk $IOS_SDK build analyze
+#  - xctool -project Project/Player.xcodeproj -scheme 'Debug - tvOS' -sdk $TVOS_SDK build analyze
