@@ -191,7 +191,8 @@ public class Player: UIViewController {
 
     private var player: AVPlayer!
     private var playerView: PlayerView!
-
+    private var timeObserver: AnyObject!
+    
     // MARK: object lifecycle
 
     public convenience init() {
@@ -211,9 +212,8 @@ public class Player: UIViewController {
     private func commonInit() {
         self.player = AVPlayer()
         self.player.actionAtItemEnd = .pause
-//        self.player.addObserver(self, forKeyPath: PlayerRateKey, options: ([.new, .old]) , context: &PlayerObserverContext)
-        
-        self.player.addPeriodicTimeObserver(forInterval: CMTimeMake(1, 100), queue: DispatchQueue.main) { [unowned self] time in
+//        self.player.addObserver(self, forKeyPath: PlayerRateKey, options: ([.new, .old]) , context: &PlayerObserverContext)        
+        self.timeObserver = self.player.addPeriodicTimeObserver(forInterval: CMTimeMake(1, 100), queue: DispatchQueue.main { [unowned self] time in
             self.delegate?.playerCurrentTimeDidChange(self)
         }
 
@@ -224,6 +224,7 @@ public class Player: UIViewController {
     }
 
     deinit {
+        self.player.removeTimeObserver(timeObserver)
         self.playerView?.player = nil
         self.delegate = nil
 
