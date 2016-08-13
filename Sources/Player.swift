@@ -153,17 +153,18 @@ public class Player: UIViewController {
             }
         }
     }
+    public var playbackEdgeTriggered: Bool! = true
     public var playbackFreezesAtEnd: Bool! = false
     public var playbackState: PlaybackState! = .Stopped {
         didSet {
-            if playbackState != oldValue {
+            if playbackState != oldValue || !playbackEdgeTriggered {
                 self.delegate?.playerPlaybackStateDidChange(self)
             }
         }
     }
     public var bufferingState: BufferingState! = .Unknown {
         didSet {
-            if bufferingState != oldValue {
+            if bufferingState != oldValue || !playbackEdgeTriggered {
                 self.delegate?.playerBufferingStateDidChange(self)
             }
         }
@@ -442,7 +443,7 @@ public class Player: UIViewController {
 
             switch (status) {
             case AVPlayerStatus.ReadyToPlay.rawValue:
-                self.playerView.playerLayer.player = self.player
+                self.playerView.player = self.player
                 self.playerView.playerLayer.hidden = false
             case AVPlayerStatus.Failed.rawValue:
                 self.playbackState = PlaybackState.Failed
@@ -496,7 +497,9 @@ internal class PlayerView: UIView {
             return (self.layer as! AVPlayerLayer).player
         }
         set {
-            (self.layer as! AVPlayerLayer).player = newValue
+            if (self.layer as! AVPlayerLayer).player != newValue {
+                (self.layer as! AVPlayerLayer).player = newValue
+            }
         }
     }
 
