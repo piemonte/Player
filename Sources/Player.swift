@@ -154,10 +154,27 @@ public class Player: UIViewController {
             }
         }
     }
+    
     public var playbackFreezesAtEnd: Bool!
-    public var playbackState: PlaybackState!
-    public var bufferingState: BufferingState!
+    
+    public var playbackState: PlaybackState! = .Stopped {
+        didSet {
+            if playbackState != oldValue || !playbackEdgeTriggered {
+                self.delegate?.playerPlaybackStateDidChange(self)
+            }
+        }
+    }
+    
+    public var bufferingState: BufferingState! = .Unknown {
+        didSet {
+            if bufferingState != oldValue || !playbackEdgeTriggered {
+                self.delegate?.playerBufferingStateDidChange(self)
+            }
+        }
+    }
+    
     public var bufferSize: Double = 10.0
+    public var playbackEdgeTriggered: Bool = true
 
     public var maximumDuration: NSTimeInterval! {
         get {
@@ -224,8 +241,6 @@ public class Player: UIViewController {
 
         self.playbackLoops = false
         self.playbackFreezesAtEnd = false
-        self.playbackState = .Stopped
-        self.bufferingState = .Unknown
     }
 
     deinit {
@@ -276,7 +291,6 @@ public class Player: UIViewController {
 
     public func playFromCurrentTime() {
         self.playbackState = .Playing
-        self.delegate?.playerPlaybackStateDidChange(self)
         self.player.play()
     }
 
@@ -287,7 +301,6 @@ public class Player: UIViewController {
 
         self.player.pause()
         self.playbackState = .Paused
-        self.delegate?.playerPlaybackStateDidChange(self)
     }
 
     public func stop() {
@@ -297,7 +310,6 @@ public class Player: UIViewController {
 
         self.player.pause()
         self.playbackState = .Stopped
-        self.delegate?.playerPlaybackStateDidChange(self)
         self.delegate?.playerPlaybackDidEnd(self)
     }
     
@@ -315,7 +327,6 @@ public class Player: UIViewController {
         }
 
         self.bufferingState = .Unknown
-        self.delegate?.playerBufferingStateDidChange(self)
 
         self.asset = asset
         if let _ = self.asset {
@@ -332,14 +343,12 @@ public class Player: UIViewController {
                     let status = self.asset.statusOfValueForKey(key, error:&error)
                     if status == .Failed {
                         self.playbackState = .Failed
-                        self.delegate?.playerPlaybackStateDidChange(self)
                         return
                     }
                 }
 
                 if self.asset.playable.boolValue == false {
                     self.playbackState = .Failed
-                    self.delegate?.playerPlaybackStateDidChange(self)
                     return
                 }
 
@@ -401,7 +410,6 @@ public class Player: UIViewController {
 
     public func playerItemFailedToPlayToEndTime(aNotification: NSNotification) {
         self.playbackState = .Failed
-        self.delegate?.playerPlaybackStateDidChange(self)
     }
 
     public func applicationWillResignActive(aNotification: NSNotification) {
@@ -434,7 +442,6 @@ public class Player: UIViewController {
         case (.Some(PlayerKeepUp), &PlayerItemObserverContext):
             if let item = self.playerItem {
                 self.bufferingState = .Ready
-                self.delegate?.playerBufferingStateDidChange(self)
 
                 if item.playbackLikelyToKeepUp && self.playbackState == .Playing {
                     self.playFromCurrentTime()
@@ -445,11 +452,10 @@ public class Player: UIViewController {
 
             switch (status) {
             case AVPlayerStatus.ReadyToPlay.rawValue:
-                self.playerView.playerLayer.player = self.player
+                self.playerView.player = self.player
                 self.playerView.playerLayer.hidden = false
             case AVPlayerStatus.Failed.rawValue:
                 self.playbackState = PlaybackState.Failed
-                self.delegate?.playerPlaybackStateDidChange(self)
             default:
                 true
             }
@@ -457,7 +463,6 @@ public class Player: UIViewController {
             if let item = self.playerItem {
                 if item.playbackBufferEmpty {
                     self.bufferingState = .Delayed
-                    self.delegate?.playerBufferingStateDidChange(self)
                 }
             }
 
@@ -469,7 +474,6 @@ public class Player: UIViewController {
                 self.playerView.playerLayer.hidden = false
             case AVPlayerStatus.Failed.rawValue:
                 self.playbackState = PlaybackState.Failed
-                self.delegate?.playerPlaybackStateDidChange(self)
             default:
                 true
             }
@@ -483,7 +487,6 @@ public class Player: UIViewController {
             }
             
             self.bufferingState = .Ready
-            self.delegate?.playerBufferingStateDidChange(self)
             
             let timerange = (change?[NSKeyValueChangeNewKey] as! NSArray)[0].CMTimeRangeValue
             let bufferedTime = CMTimeGetSeconds(CMTimeAdd(timerange.start, timerange.duration))
@@ -521,7 +524,9 @@ internal class PlayerView: UIView {
             return (self.layer as! AVPlayerLayer).player
         }
         set {
-            (self.layer as! AVPlayerLayer).player = newValue
+            if (self.layer as! AVPlayerLayer).player != newValue {
+                (self.layer as! AVPlayerLayer).player = newValue
+            }
         }
     }
 
