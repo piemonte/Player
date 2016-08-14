@@ -155,7 +155,7 @@ public class Player: UIViewController {
         }
     }
     
-    public var playbackFreezesAtEnd: Bool! = false
+    public var playbackFreezesAtEnd: Bool!
     
     public var playbackState: PlaybackState! = .Stopped {
         didSet {
@@ -240,6 +240,7 @@ public class Player: UIViewController {
         }
 
         self.playbackLoops = false
+        self.playbackFreezesAtEnd = false
     }
 
     deinit {
