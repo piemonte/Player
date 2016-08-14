@@ -100,6 +100,7 @@ private let PlayerRateKey = "rate"
 private let PlayerStatusKey = "status"
 private let PlayerEmptyBufferKey = "playbackBufferEmpty"
 private let PlayerKeepUp = "playbackLikelyToKeepUp"
+private let PlayerLoadedTimeRanges = "loadedTimeRanges"
 
 // KVO player layer keys
 
@@ -153,8 +154,9 @@ public class Player: UIViewController {
             }
         }
     }
-    public var playbackEdgeTriggered: Bool! = true
+    
     public var playbackFreezesAtEnd: Bool! = false
+    
     public var playbackState: PlaybackState! = .Stopped {
         didSet {
             if playbackState != oldValue || !playbackEdgeTriggered {
@@ -162,6 +164,7 @@ public class Player: UIViewController {
             }
         }
     }
+    
     public var bufferingState: BufferingState! = .Unknown {
         didSet {
             if bufferingState != oldValue || !playbackEdgeTriggered {
@@ -169,6 +172,9 @@ public class Player: UIViewController {
             }
         }
     }
+    
+    public var bufferSize: Double = 10.0
+    public var playbackEdgeTriggered: Bool = true
 
     public var maximumDuration: NSTimeInterval! {
         get {
@@ -357,6 +363,7 @@ public class Player: UIViewController {
             self.playerItem?.removeObserver(self, forKeyPath: PlayerEmptyBufferKey, context: &PlayerItemObserverContext)
             self.playerItem?.removeObserver(self, forKeyPath: PlayerKeepUp, context: &PlayerItemObserverContext)
             self.playerItem?.removeObserver(self, forKeyPath: PlayerStatusKey, context: &PlayerItemObserverContext)
+            self.playerItem?.removeObserver(self, forKeyPath: PlayerLoadedTimeRanges, context: &PlayerItemObserverContext)
 
             NSNotificationCenter.defaultCenter().removeObserver(self, name: AVPlayerItemDidPlayToEndTimeNotification, object: self.playerItem)
             NSNotificationCenter.defaultCenter().removeObserver(self, name: AVPlayerItemFailedToPlayToEndTimeNotification, object: self.playerItem)
@@ -368,6 +375,7 @@ public class Player: UIViewController {
             self.playerItem?.addObserver(self, forKeyPath: PlayerEmptyBufferKey, options: ([NSKeyValueObservingOptions.New, NSKeyValueObservingOptions.Old]), context: &PlayerItemObserverContext)
             self.playerItem?.addObserver(self, forKeyPath: PlayerKeepUp, options: ([NSKeyValueObservingOptions.New, NSKeyValueObservingOptions.Old]), context: &PlayerItemObserverContext)
             self.playerItem?.addObserver(self, forKeyPath: PlayerStatusKey, options: ([NSKeyValueObservingOptions.New, NSKeyValueObservingOptions.Old]), context: &PlayerItemObserverContext)
+            self.playerItem?.addObserver(self, forKeyPath: PlayerLoadedTimeRanges, options: ([NSKeyValueObservingOptions.New, NSKeyValueObservingOptions.Old]), context: &PlayerItemObserverContext)
 
           NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(playerItemDidPlayToEndTime(_:)), name: AVPlayerItemDidPlayToEndTimeNotification, object: self.playerItem)
           NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(playerItemFailedToPlayToEndTime(_:)), name: AVPlayerItemFailedToPlayToEndTimeNotification, object: self.playerItem)
@@ -467,6 +475,24 @@ public class Player: UIViewController {
                 self.playbackState = PlaybackState.Failed
             default:
                 true
+            }
+        case (.Some(PlayerLoadedTimeRanges), &PlayerItemObserverContext):
+            guard let item = self.playerItem else {
+                return
+            }
+            
+            if self.playbackState != .Playing {
+                return
+            }
+            
+            self.bufferingState = .Ready
+            
+            let timerange = (change?[NSKeyValueChangeNewKey] as! NSArray)[0].CMTimeRangeValue
+            let bufferedTime = CMTimeGetSeconds(CMTimeAdd(timerange.start, timerange.duration))
+            let currentTime = CMTimeGetSeconds(item.currentTime())
+            
+            if bufferedTime - currentTime >= self.bufferSize {
+                self.playFromCurrentTime()
             }
         case (.Some(PlayerReadyForDisplay), &PlayerLayerObserverContext):
             if self.playerView.playerLayer.readyForDisplay {
