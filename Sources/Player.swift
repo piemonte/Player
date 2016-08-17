@@ -38,13 +38,13 @@ public enum PlaybackState: Int, CustomStringConvertible {
     public var description: String {
         get {
             switch self {
-            case stopped:
+            case .stopped:
                 return "Stopped"
-            case playing:
+            case .playing:
                 return "Playing"
-            case failed:
+            case .failed:
                 return "Failed"
-            case paused:
+            case .paused:
                 return "Paused"
             }
         }
@@ -59,11 +59,11 @@ public enum BufferingState: Int, CustomStringConvertible {
     public var description: String {
         get {
             switch self {
-            case unknown:
+            case .unknown:
                 return "Unknown"
-            case ready:
+            case .ready:
                 return "Ready"
-            case delayed:
+            case .delayed:
                 return "Delayed"
             }
         }
@@ -144,7 +144,7 @@ public class Player: UIViewController {
             return (self.player.actionAtItemEnd == .none) as Bool
         }
         set {
-            if newValue.boolValue {
+            if newValue == true {
                 self.player.actionAtItemEnd = .none
             } else {
                 self.player.actionAtItemEnd = .pause
@@ -187,10 +187,9 @@ public class Player: UIViewController {
     }
 
     private var asset: AVAsset!
-    private var playerItem: AVPlayerItem?
-
-    private var player: AVPlayer!
-    private var playerView: PlayerView!
+    internal var playerItem: AVPlayerItem?
+    internal var player: AVPlayer!
+    internal var playerView: PlayerView!
     private var timeObserver: AnyObject!
     
     // MARK: object lifecycle
@@ -212,10 +211,11 @@ public class Player: UIViewController {
     private func commonInit() {
         self.player = AVPlayer()
         self.player.actionAtItemEnd = .pause
-//        self.player.addObserver(self, forKeyPath: PlayerRateKey, options: ([.new, .old]) , context: &PlayerObserverContext)        
-        self.timeObserver = self.player.addPeriodicTimeObserver(forInterval: CMTimeMake(1, 100), queue: DispatchQueue.main { [unowned self] time in
-            self.delegate?.playerCurrentTimeDidChange(self)
-        }
+//        self.player.addObserver(self, forKeyPath: PlayerRateKey, options: ([.new, .old]) , context: &PlayerObserverContext)
+        self.timeObserver = self.player.addPeriodicTimeObserver(forInterval: CMTimeMake(1,100), queue: DispatchQueue.main, using: {
+            [weak self] time in
+            self!.delegate?.playerCurrentTimeDidChange(self!)
+        }) as AnyObject!
 
         self.playbackLoops = false
         self.playbackFreezesAtEnd = false
@@ -248,9 +248,9 @@ public class Player: UIViewController {
         self.view = self.playerView
         self.playerView.layer.addObserver(self, forKeyPath: PlayerReadyForDisplayKey, options: ([.new, .old]), context: &PlayerLayerObserverContext)
 
-        NotificationCenter.default.addObserver(self, selector: #selector(applicationWillResignActive(_:)), name: NSNotification.Name.UIApplicationWillResignActive, object: UIApplication.shared())
-        NotificationCenter.default.addObserver(self, selector: #selector(applicationDidEnterBackground(_:)), name: NSNotification.Name.UIApplicationDidEnterBackground, object: UIApplication.shared())
-        NotificationCenter.default.addObserver(self, selector: #selector(applicationWillEnterForeground(_:)), name: NSNotification.Name.UIApplicationWillEnterForeground, object: UIApplication.shared())
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationWillResignActive(_:)), name: NSNotification.Name.UIApplicationWillResignActive, object: UIApplication.shared)
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationDidEnterBackground(_:)), name: NSNotification.Name.UIApplicationDidEnterBackground, object: UIApplication.shared)
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationWillEnterForeground(_:)), name: NSNotification.Name.UIApplicationWillEnterForeground, object: UIApplication.shared)
     }
 
     public override func viewDidDisappear(_ animated: Bool) {
@@ -261,7 +261,7 @@ public class Player: UIViewController {
         }
     }
 
-    // MARK: methods
+    // MARK: functions
 
     public func playFromBeginning() {
         self.delegate?.playerPlaybackWillStartFromBeginning(self)
@@ -332,7 +332,7 @@ public class Player: UIViewController {
                     }
                 }
 
-                if self.asset.isPlayable.boolValue == false {
+                if self.asset.isPlayable == false {
                     self.playbackState = .failed
                     self.delegate?.playerPlaybackStateDidChange(self)
                     return
@@ -368,21 +368,25 @@ public class Player: UIViewController {
 
         self.player.replaceCurrentItem(with: self.playerItem)
 
-        if self.playbackLoops.boolValue == true {
+        if self.playbackLoops == true {
             self.player.actionAtItemEnd = .none
         } else {
             self.player.actionAtItemEnd = .pause
         }
     }
+    
+}
 
-    // MARK: NSNotifications
+// MARK: - NSNotifications
 
+extension Player {
+        
     public func playerItemDidPlayToEndTime(_ aNotification: Notification) {
-        if self.playbackLoops.boolValue == true || self.playbackFreezesAtEnd.boolValue == true {
+        if self.playbackLoops == true || self.playbackFreezesAtEnd == true {
             self.player.seek(to: kCMTimeZero)
         }
 
-        if self.playbackLoops.boolValue == false {
+        if self.playbackLoops == false {
             self.stop()
         }
     }
@@ -409,10 +413,13 @@ public class Player: UIViewController {
             self.playFromCurrentTime()
         }
     }
+}
 
-    // MARK: KVO
+// MARK: - KVO
+
+extension Player {
     
-    override public func observeValue(forKeyPath keyPath: String?, of object: AnyObject?, change: [NSKeyValueChangeKey : AnyObject]?, context: UnsafeMutablePointer<Void>?) {
+    override public func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
 
         // PlayerRateKey, PlayerObserverContext
         
@@ -478,13 +485,6 @@ public class Player: UIViewController {
 
 }
 
-extension Player {
-
-    public func reset() {
-    }
-
-}
-
 // MARK: - PlayerView
 
 internal class PlayerView: UIView {
@@ -512,21 +512,23 @@ internal class PlayerView: UIView {
             (self.layer as! AVPlayerLayer).videoGravity = newValue
         }
     }
-
-    override class func layerClass() -> AnyClass {
-        return AVPlayerLayer.self
+    
+    override class var layerClass: Swift.AnyClass {
+        get {
+            return AVPlayerLayer.self
+        }
     }
 
     // MARK: object lifecycle
 
     convenience init() {
         self.init(frame: CGRect.zero)
-        self.playerLayer.backgroundColor = UIColor.black().cgColor
+        self.playerLayer.backgroundColor = UIColor.black.cgColor
     }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.playerLayer.backgroundColor = UIColor.black().cgColor
+        self.playerLayer.backgroundColor = UIColor.black.cgColor
     }
 
     required init?(coder aDecoder: NSCoder) {
