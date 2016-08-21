@@ -25,7 +25,7 @@ To integrate, add the following to your `Podfile`:
 
 ```ruby
 source 'https://github.com/CocoaPods/Specs.git'
-platform :iOS, '8.0'
+platform :ios, '8.0'
 use_frameworks!
 
 pod 'Player'
