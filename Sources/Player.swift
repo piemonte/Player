@@ -29,6 +29,8 @@ import Foundation
 import AVFoundation
 import CoreGraphics
 
+// MARK: - types
+
 public enum PlaybackState: Int, CustomStringConvertible {
     case stopped = 0
     case playing
@@ -109,6 +111,8 @@ public class Player: UIViewController {
 
     public weak var delegate: PlayerDelegate!
 
+    // configuration
+    
     public func setUrl(_ url: URL) {
         // Make sure everything is reset beforehand
         if(self.playbackState == .playing){
@@ -138,6 +142,8 @@ public class Player: UIViewController {
             self.playerView.fillMode = newValue
         }
     }
+    
+    // state
 
     public var playbackLoops: Bool! {
         get {
@@ -185,6 +191,8 @@ public class Player: UIViewController {
             }
         }
     }
+    
+    // MARK: - private instance vars
 
     private var asset: AVAsset!
     internal var playerItem: AVPlayerItem?
@@ -261,7 +269,7 @@ public class Player: UIViewController {
         }
     }
 
-    // MARK: functions
+    // MARK: - functions
 
     public func playFromBeginning() {
         self.delegate?.playerPlaybackWillStartFromBeginning(self)
@@ -302,7 +310,7 @@ public class Player: UIViewController {
         }
     }
 
-    // MARK: private setup
+    // MARK: - private setup
 
     private func setupAsset(_ asset: AVAsset) {
         if self.playbackState == .playing {
