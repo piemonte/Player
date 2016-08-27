@@ -103,8 +103,7 @@ public class Player: UIViewController {
         self.setupAsset(asset)
     }
 
-
-    public var muted: Bool! {
+    public var muted: Bool {
         get {
             return self.player.isMuted
         }
@@ -113,7 +112,7 @@ public class Player: UIViewController {
         }
     }
 
-    public var fillMode: String! {
+    public var fillMode: String {
         get {
             return self.playerView.fillMode
         }
@@ -124,7 +123,7 @@ public class Player: UIViewController {
     
     // state
 
-    public var playbackLoops: Bool! {
+    public var playbackLoops: Bool {
         get {
             return (self.player.actionAtItemEnd == .none) as Bool
         }
@@ -136,11 +135,11 @@ public class Player: UIViewController {
             }
         }
     }
-    public var playbackFreezesAtEnd: Bool!
-    public var playbackState: PlaybackState!
-    public var bufferingState: BufferingState!
+    public var playbackFreezesAtEnd: Bool
+    public var playbackState: PlaybackState
+    public var bufferingState: BufferingState
 
-    public var maximumDuration: TimeInterval! {
+    public var maximumDuration: TimeInterval {
         get {
             if let playerItem = self.playerItem {
                 return CMTimeGetSeconds(playerItem.duration)
@@ -150,7 +149,7 @@ public class Player: UIViewController {
         }
     }
     
-    public var currentTime: TimeInterval! {
+    public var currentTime: TimeInterval {
         get {
             if let playerItem = self.playerItem {
                 return CMTimeGetSeconds(playerItem.currentTime())
@@ -160,7 +159,7 @@ public class Player: UIViewController {
         }
     }
 
-    public var naturalSize: CGSize! {
+    public var naturalSize: CGSize {
         get {
             if let playerItem = self.playerItem {
                 let track = playerItem.asset.tracks(withMediaType: AVMediaTypeVideo)[0]
@@ -204,6 +203,7 @@ public class Player: UIViewController {
             self!.delegate?.playerCurrentTimeDidChange(self!)
         }) as AnyObject!
 
+        
         self.playbackLoops = false
         self.playbackFreezesAtEnd = false
         self.playbackState = .stopped
@@ -222,7 +222,6 @@ public class Player: UIViewController {
 //        self.player.removeObserver(self, forKeyPath: PlayerRateKey, context: &PlayerObserverContext)
 
         self.player.pause()
-
         self.setupPlayerItem(nil)
     }
 
@@ -507,13 +506,13 @@ internal class PlayerView: UIView {
         }
     }
 
-    var playerLayer: AVPlayerLayer! {
+    var playerLayer: AVPlayerLayer {
         get {
             return self.layer as! AVPlayerLayer
         }
     }
 
-    var fillMode: String! {
+    var fillMode: String {
         get {
             return (self.layer as! AVPlayerLayer).videoGravity
         }
