@@ -135,9 +135,9 @@ public class Player: UIViewController {
             }
         }
     }
-    public var playbackFreezesAtEnd: Bool
-    public var playbackState: PlaybackState
-    public var bufferingState: BufferingState
+    public var playbackFreezesAtEnd: Bool = false
+    public var playbackState: PlaybackState = .stopped
+    public var bufferingState: BufferingState = .unknown
 
     public var maximumDuration: TimeInterval {
         get {
