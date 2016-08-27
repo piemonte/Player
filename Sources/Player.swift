@@ -88,7 +88,7 @@ public protocol PlayerDelegate: NSObjectProtocol {
 
 public class Player: UIViewController {
 
-    public weak var delegate: PlayerDelegate!
+    public weak var delegate: PlayerDelegate?
 
     // configuration
     
