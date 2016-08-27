@@ -86,30 +86,6 @@ public enum BufferingState: Int, CustomStringConvertible {
     optional func playerWillComeThroughLoop(player: Player)
 }
 
-// KVO contexts
-
-private var PlayerObserverContext = 0
-private var PlayerItemObserverContext = 0
-private var PlayerLayerObserverContext = 0
-
-// KVO player keys
-
-private let PlayerTracksKey = "tracks"
-private let PlayerPlayableKey = "playable"
-private let PlayerDurationKey = "duration"
-private let PlayerRateKey = "rate"
-
-// KVO player item keys
-
-private let PlayerStatusKey = "status"
-private let PlayerEmptyBufferKey = "playbackBufferEmpty"
-private let PlayerKeepUp = "playbackLikelyToKeepUp"
-private let PlayerLoadedTimeRanges = "loadedTimeRanges"
-
-// KVO player layer keys
-
-private let PlayerReadyForDisplay = "readyForDisplay"
-
 // MARK: - Player
 
 public class Player: UIViewController {
@@ -213,11 +189,11 @@ public class Player: UIViewController {
     // MARK: - private instance vars
     
     private var asset: AVAsset!
-    private var playerItem: AVPlayerItem?
+    internal var playerItem: AVPlayerItem?
 
-    private var player: AVPlayer!
-    private var playerView: PlayerView!
-    private var timeObserver: AnyObject!
+    internal var player: AVPlayer!
+    internal var playerView: PlayerView!
+    internal var timeObserver: AnyObject!
     
     // MARK: - object lifecycle
 
@@ -255,7 +231,7 @@ public class Player: UIViewController {
 
         NSNotificationCenter.defaultCenter().removeObserver(self)
 
-        self.playerView?.layer.removeObserver(self, forKeyPath: PlayerReadyForDisplay, context: &PlayerLayerObserverContext)
+        self.playerView?.layer.removeObserver(self, forKeyPath: PlayerReadyForDisplayKey, context: &PlayerLayerObserverContext)
 
         self.player.removeObserver(self, forKeyPath: PlayerRateKey, context: &PlayerObserverContext)
 
@@ -367,9 +343,9 @@ public class Player: UIViewController {
     private func setupPlayerItem(playerItem: AVPlayerItem?) {
         if self.playerItem != nil {
             self.playerItem?.removeObserver(self, forKeyPath: PlayerEmptyBufferKey, context: &PlayerItemObserverContext)
-            self.playerItem?.removeObserver(self, forKeyPath: PlayerKeepUp, context: &PlayerItemObserverContext)
+            self.playerItem?.removeObserver(self, forKeyPath: PlayerKeepUpKey, context: &PlayerItemObserverContext)
             self.playerItem?.removeObserver(self, forKeyPath: PlayerStatusKey, context: &PlayerItemObserverContext)
-            self.playerItem?.removeObserver(self, forKeyPath: PlayerLoadedTimeRanges, context: &PlayerItemObserverContext)
+            self.playerItem?.removeObserver(self, forKeyPath: PlayerLoadedTimeRangesKey, context: &PlayerItemObserverContext)
 
             NSNotificationCenter.defaultCenter().removeObserver(self, name: AVPlayerItemDidPlayToEndTimeNotification, object: self.playerItem)
             NSNotificationCenter.defaultCenter().removeObserver(self, name: AVPlayerItemFailedToPlayToEndTimeNotification, object: self.playerItem)
@@ -379,9 +355,9 @@ public class Player: UIViewController {
 
         if self.playerItem != nil {
             self.playerItem?.addObserver(self, forKeyPath: PlayerEmptyBufferKey, options: ([NSKeyValueObservingOptions.New, NSKeyValueObservingOptions.Old]), context: &PlayerItemObserverContext)
-            self.playerItem?.addObserver(self, forKeyPath: PlayerKeepUp, options: ([NSKeyValueObservingOptions.New, NSKeyValueObservingOptions.Old]), context: &PlayerItemObserverContext)
+            self.playerItem?.addObserver(self, forKeyPath: PlayerKeepUpKey, options: ([NSKeyValueObservingOptions.New, NSKeyValueObservingOptions.Old]), context: &PlayerItemObserverContext)
             self.playerItem?.addObserver(self, forKeyPath: PlayerStatusKey, options: ([NSKeyValueObservingOptions.New, NSKeyValueObservingOptions.Old]), context: &PlayerItemObserverContext)
-            self.playerItem?.addObserver(self, forKeyPath: PlayerLoadedTimeRanges, options: ([NSKeyValueObservingOptions.New, NSKeyValueObservingOptions.Old]), context: &PlayerItemObserverContext)
+            self.playerItem?.addObserver(self, forKeyPath: PlayerLoadedTimeRangesKey, options: ([NSKeyValueObservingOptions.New, NSKeyValueObservingOptions.Old]), context: &PlayerItemObserverContext)
 
           NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(playerItemDidPlayToEndTime(_:)), name: AVPlayerItemDidPlayToEndTimeNotification, object: self.playerItem)
           NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(playerItemFailedToPlayToEndTime(_:)), name: AVPlayerItemFailedToPlayToEndTimeNotification, object: self.playerItem)
@@ -434,9 +410,37 @@ public class Player: UIViewController {
             self.playFromCurrentTime()
         }
     }
-
-    // MARK: KVO
     
+}
+
+// MARK: - KVO
+
+// KVO contexts
+
+private var PlayerObserverContext = 0
+private var PlayerItemObserverContext = 0
+private var PlayerLayerObserverContext = 0
+
+// KVO player keys
+
+private let PlayerTracksKey = "tracks"
+private let PlayerPlayableKey = "playable"
+private let PlayerDurationKey = "duration"
+private let PlayerRateKey = "rate"
+
+// KVO player item keys
+
+private let PlayerStatusKey = "status"
+private let PlayerEmptyBufferKey = "playbackBufferEmpty"
+private let PlayerKeepUpKey = "playbackLikelyToKeepUp"
+private let PlayerLoadedTimeRangesKey = "loadedTimeRanges"
+
+// KVO player layer keys
+
+private let PlayerReadyForDisplayKey = "readyForDisplay"
+
+extension Player {
+
     override public func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
 
         switch (keyPath, context) {
@@ -444,7 +448,7 @@ public class Player: UIViewController {
             true
         case (.Some(PlayerStatusKey), &PlayerItemObserverContext):
             true
-        case (.Some(PlayerKeepUp), &PlayerItemObserverContext):
+        case (.Some(PlayerKeepUpKey), &PlayerItemObserverContext):
             if let item = self.playerItem {
                 self.bufferingState = .Ready
 
@@ -482,7 +486,7 @@ public class Player: UIViewController {
             default:
                 true
             }
-        case (.Some(PlayerLoadedTimeRanges), &PlayerItemObserverContext):
+        case (.Some(PlayerLoadedTimeRangesKey), &PlayerItemObserverContext):
             guard let item = self.playerItem else {
                 return
             }
@@ -500,7 +504,7 @@ public class Player: UIViewController {
             if bufferedTime - currentTime >= self.bufferSize {
                 self.playFromCurrentTime()
             }
-        case (.Some(PlayerReadyForDisplay), &PlayerLayerObserverContext):
+        case (.Some(PlayerReadyForDisplayKey), &PlayerLayerObserverContext):
             if self.playerView.playerLayer.readyForDisplay {
                 self.delegate?.playerReady(self)
             }
