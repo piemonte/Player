@@ -176,7 +176,7 @@ public class Player: UIViewController {
     internal var playerItem: AVPlayerItem?
     internal var player: AVPlayer!
     internal var playerView: PlayerView!
-    private var timeObserver: AnyObject!
+    internal var timeObserver: Any!
     
     // MARK: object lifecycle
 
@@ -197,12 +197,6 @@ public class Player: UIViewController {
     private func commonInit() {
         self.player = AVPlayer()
         self.player.actionAtItemEnd = .pause
-//        self.player.addObserver(self, forKeyPath: PlayerRateKey, options: ([.new, .old]) , context: &PlayerObserverContext)
-        self.timeObserver = self.player.addPeriodicTimeObserver(forInterval: CMTimeMake(1,100), queue: DispatchQueue.main, using: {
-            [weak self] time in
-            self!.delegate?.playerCurrentTimeDidChange(self!)
-        }) as AnyObject!
-
         
         self.playbackLoops = false
         self.playbackFreezesAtEnd = false
@@ -216,10 +210,7 @@ public class Player: UIViewController {
         self.delegate = nil
 
         NotificationCenter.default.removeObserver(self)
-
         self.playerView?.layer.removeObserver(self, forKeyPath: PlayerReadyForDisplayKey, context: &PlayerLayerObserverContext)
-
-//        self.player.removeObserver(self, forKeyPath: PlayerRateKey, context: &PlayerObserverContext)
 
         self.player.pause()
         self.setupPlayerItem(nil)
@@ -232,7 +223,16 @@ public class Player: UIViewController {
         self.playerView.fillMode = AVLayerVideoGravityResizeAspect
         self.playerView.playerLayer.isHidden = true
         self.view = self.playerView
+    }
+    
+    public override func viewDidLoad() {
+        super.viewDidLoad()
+        
         self.playerView.layer.addObserver(self, forKeyPath: PlayerReadyForDisplayKey, options: ([.new, .old]), context: &PlayerLayerObserverContext)
+        self.timeObserver = self.player.addPeriodicTimeObserver(forInterval: CMTimeMake(1,100), queue: DispatchQueue.main, using: { [weak self] timeInterval in
+            guard let strongSelf = self else { return }
+            strongSelf.delegate?.playerCurrentTimeDidChange(strongSelf)
+        })
 
         NotificationCenter.default.addObserver(self, selector: #selector(applicationWillResignActive(_:)), name: NSNotification.Name.UIApplicationWillResignActive, object: UIApplication.shared)
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidEnterBackground(_:)), name: NSNotification.Name.UIApplicationDidEnterBackground, object: UIApplication.shared)
