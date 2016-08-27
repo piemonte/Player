@@ -29,6 +29,8 @@ import Foundation
 import AVFoundation
 import CoreGraphics
 
+// MARK: - types
+
 public enum PlaybackState: Int, CustomStringConvertible {
     case Stopped = 0
     case Playing
@@ -125,8 +127,7 @@ public class Player: UIViewController {
         self.setupAsset(asset)
     }
 
-
-    public var muted: Bool! {
+    public var muted: Bool {
         get {
             return self.player.muted
         }
@@ -135,7 +136,7 @@ public class Player: UIViewController {
         }
     }
 
-    public var fillMode: String! {
+    public var fillMode: String {
         get {
             return self.playerView.fillMode
         }
@@ -144,7 +145,7 @@ public class Player: UIViewController {
         }
     }
 
-    public var playbackLoops: Bool! {
+    public var playbackLoops: Bool {
         get {
             return (self.player.actionAtItemEnd == .None) as Bool
         }
@@ -157,9 +158,9 @@ public class Player: UIViewController {
         }
     }
     
-    public var playbackFreezesAtEnd: Bool!
+    public var playbackFreezesAtEnd: Bool = false
     
-    public var playbackState: PlaybackState! = .Stopped {
+    public var playbackState: PlaybackState = .Stopped {
         didSet {
             if playbackState != oldValue || !playbackEdgeTriggered {
                 self.delegate?.playerPlaybackStateDidChange(self)
@@ -167,7 +168,7 @@ public class Player: UIViewController {
         }
     }
     
-    public var bufferingState: BufferingState! = .Unknown {
+    public var bufferingState: BufferingState = .Unknown {
         didSet {
             if bufferingState != oldValue || !playbackEdgeTriggered {
                 self.delegate?.playerBufferingStateDidChange(self)
@@ -175,10 +176,10 @@ public class Player: UIViewController {
         }
     }
     
-    public var bufferSize: Double = 10.0
+    public var bufferSize: Double = 10
     public var playbackEdgeTriggered: Bool = true
 
-    public var maximumDuration: NSTimeInterval! {
+    public var maximumDuration: NSTimeInterval {
         get {
             if let playerItem = self.playerItem {
                 return CMTimeGetSeconds(playerItem.duration)
@@ -188,7 +189,7 @@ public class Player: UIViewController {
         }
     }
     
-    public var currentTime: NSTimeInterval! {
+    public var currentTime: NSTimeInterval {
         get {
             if let playerItem = self.playerItem {
                 return CMTimeGetSeconds(playerItem.currentTime())
@@ -198,7 +199,7 @@ public class Player: UIViewController {
         }
     }
 
-    public var naturalSize: CGSize! {
+    public var naturalSize: CGSize {
         get {
             if let playerItem = self.playerItem {
                 let track = playerItem.asset.tracksWithMediaType(AVMediaTypeVideo)[0]
@@ -209,6 +210,8 @@ public class Player: UIViewController {
         }
     }
 
+    // MARK: - private instance vars
+    
     private var asset: AVAsset!
     private var playerItem: AVPlayerItem?
 
@@ -216,7 +219,7 @@ public class Player: UIViewController {
     private var playerView: PlayerView!
     private var timeObserver: AnyObject!
     
-    // MARK: object lifecycle
+    // MARK: - object lifecycle
 
     public convenience init() {
         self.init(nibName: nil, bundle: nil)
@@ -261,7 +264,7 @@ public class Player: UIViewController {
         self.setupPlayerItem(nil)
     }
 
-    // MARK: view lifecycle
+    // MARK: - view lifecycle
 
     public override func loadView() {
         self.playerView = PlayerView(frame: CGRectZero)
@@ -283,7 +286,7 @@ public class Player: UIViewController {
         }
     }
 
-    // MARK: methods
+    // MARK: - functions
 
     public func playFromBeginning() {
         self.delegate?.playerPlaybackWillStartFromBeginning(self)
@@ -321,7 +324,7 @@ public class Player: UIViewController {
         }
     }
 
-    // MARK: private setup
+    // MARK: - private
 
     private func setupAsset(asset: AVAsset) {
         if self.playbackState == .Playing {
@@ -510,13 +513,6 @@ public class Player: UIViewController {
 
 }
 
-extension Player {
-
-    public func reset() {
-    }
-
-}
-
 // MARK: - PlayerView
 
 internal class PlayerView: UIView {
@@ -532,13 +528,13 @@ internal class PlayerView: UIView {
         }
     }
 
-    var playerLayer: AVPlayerLayer! {
+    var playerLayer: AVPlayerLayer {
         get {
             return self.layer as! AVPlayerLayer
         }
     }
 
-    var fillMode: String! {
+    var fillMode: String {
         get {
             return (self.layer as! AVPlayerLayer).videoGravity
         }
@@ -551,7 +547,7 @@ internal class PlayerView: UIView {
         return AVPlayerLayer.self
     }
 
-    // MARK: object lifecycle
+    // MARK: - object lifecycle
 
     convenience init() {
         self.init(frame: CGRectZero)
