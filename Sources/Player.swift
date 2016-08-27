@@ -112,7 +112,7 @@ private let PlayerReadyForDisplay = "readyForDisplay"
 
 public class Player: UIViewController {
 
-    public weak var delegate: PlayerDelegate!
+    public weak var delegate: PlayerDelegate?
 
     public func setUrl(url: NSURL) {
         // Make sure everything is reset beforehand
