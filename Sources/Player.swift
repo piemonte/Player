@@ -84,29 +84,6 @@ public protocol PlayerDelegate: NSObjectProtocol {
     func playerPlaybackDidEnd(_ player: Player)
 }
 
-// KVO contexts
-
-private var PlayerObserverContext = 0
-private var PlayerItemObserverContext = 0
-private var PlayerLayerObserverContext = 0
-
-// KVO player keys
-
-private let PlayerTracksKey = "tracks"
-private let PlayerPlayableKey = "playable"
-private let PlayerDurationKey = "duration"
-//private let PlayerRateKey = "rate"
-
-// KVO player item keys
-
-private let PlayerStatusKey = "status"
-private let PlayerEmptyBufferKey = "playbackBufferEmpty"
-private let PlayerKeepUpKey = "playbackLikelyToKeepUp"
-
-// KVO player layer keys
-
-private let PlayerReadyForDisplayKey = "readyForDisplay"
-
 // MARK: - Player
 
 public class Player: UIViewController {
@@ -426,6 +403,28 @@ extension Player {
 }
 
 // MARK: - KVO
+
+// KVO contexts
+
+private var PlayerObserverContext = 0
+private var PlayerItemObserverContext = 0
+private var PlayerLayerObserverContext = 0
+
+// KVO player keys
+
+private let PlayerTracksKey = "tracks"
+private let PlayerPlayableKey = "playable"
+private let PlayerDurationKey = "duration"
+
+// KVO player item keys
+
+private let PlayerStatusKey = "status"
+private let PlayerEmptyBufferKey = "playbackBufferEmpty"
+private let PlayerKeepUpKey = "playbackLikelyToKeepUp"
+
+// KVO player layer keys
+
+private let PlayerReadyForDisplayKey = "readyForDisplay"
 
 extension Player {
     
