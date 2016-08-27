@@ -74,7 +74,7 @@ public enum BufferingState: Int, CustomStringConvertible {
 
 // MARK: - PlayerDelegate
 
-public protocol PlayerDelegate: NSObjectProtocol {
+@objc public protocol PlayerDelegate: NSObjectProtocol {
     func playerReady(_ player: Player)
     func playerPlaybackStateDidChange(_ player: Player)
     func playerBufferingStateDidChange(_ player: Player)
@@ -82,6 +82,8 @@ public protocol PlayerDelegate: NSObjectProtocol {
 
     func playerPlaybackWillStartFromBeginning(_ player: Player)
     func playerPlaybackDidEnd(_ player: Player)
+
+    func playerWillComeThroughLoop(_ player: Player)
 }
 
 // MARK: - Player
@@ -368,12 +370,17 @@ public class Player: UIViewController {
 extension Player {
         
     public func playerItemDidPlayToEndTime(_ aNotification: Notification) {
-        if self.playbackLoops == true || self.playbackFreezesAtEnd == true {
+        if self.playbackLoops == true {
+            self.delegate?.playerWillComeThroughLoop(self)
             self.player.seek(to: kCMTimeZero)
-        }
-
-        if self.playbackLoops == false {
-            self.stop()
+        } else {
+            if self.playbackFreezesAtEnd == true {
+                self.stop()
+            } else {
+                self.player.seek(to: kCMTimeZero, completionHandler: { _ in
+                    self.stop()
+                })
+            }
         }
     }
 

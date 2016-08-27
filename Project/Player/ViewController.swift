@@ -113,5 +113,8 @@ class ViewController: UIViewController, PlayerDelegate {
     func playerCurrentTimeDidChange(_ player: Player) {
     }
 
+    func playerWillComeThroughLoop(_ player: Player) {
+        
+    }
 }
 
