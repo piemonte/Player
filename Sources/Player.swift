@@ -214,11 +214,6 @@ public class Player: UIViewController {
     private func commonInit() {
         self.player = AVPlayer()
         self.player.actionAtItemEnd = .Pause
-        self.player.addObserver(self, forKeyPath: PlayerRateKey, options: ([NSKeyValueObservingOptions.New, NSKeyValueObservingOptions.Old]) , context: &PlayerObserverContext)
-        
-        self.timeObserver = self.player.addPeriodicTimeObserverForInterval(CMTimeMake(1, 100), queue: dispatch_get_main_queue()) { [unowned self] time in
-            self.delegate?.playerCurrentTimeDidChange(self)
-        }
 
         self.playbackLoops = false
         self.playbackFreezesAtEnd = false
@@ -247,8 +242,20 @@ public class Player: UIViewController {
         self.playerView.fillMode = AVLayerVideoGravityResizeAspect
         self.playerView.playerLayer.hidden = true
         self.view = self.playerView
-        self.playerView.layer.addObserver(self, forKeyPath: PlayerReadyForDisplay, options: ([NSKeyValueObservingOptions.New, NSKeyValueObservingOptions.Old]), context: &PlayerLayerObserverContext)
+    }
+    
+    public override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.playerView.layer.addObserver(self, forKeyPath: PlayerReadyForDisplayKey, options: ([NSKeyValueObservingOptions.New, NSKeyValueObservingOptions.Old]), context: &PlayerLayerObserverContext)
 
+        self.player.addObserver(self, forKeyPath: PlayerRateKey, options: ([NSKeyValueObservingOptions.New, NSKeyValueObservingOptions.Old]) , context: &PlayerObserverContext)
+        
+        self.timeObserver = self.player.addPeriodicTimeObserverForInterval(CMTimeMake(1, 100), queue: dispatch_get_main_queue()) { [weak self] timeInterval in
+            guard let strongSelf = self else { return }
+            strongSelf.delegate?.playerCurrentTimeDidChange(strongSelf)
+        }
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(applicationWillResignActive(_:)), name: UIApplicationWillResignActiveNotification, object: UIApplication.sharedApplication())
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(applicationDidEnterBackground(_:)), name: UIApplicationDidEnterBackgroundNotification, object: UIApplication.sharedApplication())
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(applicationWillEnterForeground(_:)), name: UIApplicationWillEnterForegroundNotification, object: UIApplication.sharedApplication())
