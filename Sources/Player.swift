@@ -93,8 +93,8 @@ public class Player: UIViewController {
     // configuration
     
     public func setUrl(_ url: URL) {
-        // Make sure everything is reset beforehand
-        if(self.playbackState == .playing){
+        // ensure everything is reset beforehand
+        if self.playbackState == .playing {
             self.pause()
         }
 
