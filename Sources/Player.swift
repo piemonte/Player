@@ -371,9 +371,12 @@ public class Player: UIViewController {
             self.player.actionAtItemEnd = .Pause
         }
     }
+}
 
-    // MARK: NSNotifications
+// MARK: - NSNotifications
 
+extension Player {
+    
     public func playerItemDidPlayToEndTime(aNotification: NSNotification) {
         if self.playbackLoops.boolValue == true {
             self.delegate?.playerWillComeThroughLoop?(self)
