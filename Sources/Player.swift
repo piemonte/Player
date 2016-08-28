@@ -502,22 +502,25 @@ extension Player {
             } else if keyPath == PlayerLoadedTimeRangesKey {
                 // PlayerLoadedTimeRangesKey
 
-                guard let item = self.playerItem else {
+                guard (
+                    self.playerItem != nil &&
+                    self.playbackState != .playing
+                )
+                else {
                     return
                 }
                 
-                if self.playbackState != .playing {
-                    return
-                }
-                
-                self.bufferingState = .ready
-                
-                let timerange = (change?[NSKeyValueChangeNewKey] as! NSArray)[0].CMTimeRangeValue
-                let bufferedTime = CMTimeGetSeconds(CMTimeAdd(timerange.start, timerange.duration))
-                let currentTime = CMTimeGetSeconds(item.currentTime())
-                
-                if bufferedTime - currentTime >= self.bufferSize {
-                    self.playFromCurrentTime()
+                if let item = self.playerItem {
+                    self.bufferingState = .ready
+                    
+                    let timeRanges = (change?[NSKeyValueChangeKey.newKey] as! [CMTimeRange])
+                    let timeRange: CMTimeRange = timeRanges[0] as CMTimeRange
+                    let bufferedTime = CMTimeGetSeconds(CMTimeAdd(timeRange.start, timeRange.duration))
+                    let currentTime = CMTimeGetSeconds(item.currentTime())
+                    
+                    if (bufferedTime - currentTime) >= self.bufferSize {
+                        self.playFromCurrentTime()
+                    }
                 }
             }
         
@@ -525,9 +528,10 @@ extension Player {
             if self.playerView.playerLayer.isReadyForDisplay {
                 self.delegate?.playerReady(self)
             }
-        } else {
-            super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
         }
+        //else {
+        //    super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
+        //}
     }
 
 }
