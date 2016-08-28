@@ -506,11 +506,11 @@ extension Player {
                     return
                 }
                 
-                if self.playbackState != .Playing {
+                if self.playbackState != .playing {
                     return
                 }
                 
-                self.bufferingState = .Ready
+                self.bufferingState = .ready
                 
                 let timerange = (change?[NSKeyValueChangeNewKey] as! NSArray)[0].CMTimeRangeValue
                 let bufferedTime = CMTimeGetSeconds(CMTimeAdd(timerange.start, timerange.duration))
