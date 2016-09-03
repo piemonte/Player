@@ -513,8 +513,8 @@ extension Player {
                 if let item = self.playerItem {
                     self.bufferingState = .ready
                     
-                    let timeRanges = (change?[NSKeyValueChangeKey.newKey] as! [CMTimeRange])
-                    let timeRange: CMTimeRange = timeRanges[0] as CMTimeRange
+                    let timeRanges = item.loadedTimeRanges
+                    let timeRange: CMTimeRange = timeRanges[0].timeRangeValue
                     let bufferedTime = CMTimeGetSeconds(CMTimeAdd(timeRange.start, timeRange.duration))
                     let currentTime = CMTimeGetSeconds(item.currentTime())
                     
