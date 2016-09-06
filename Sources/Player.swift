@@ -542,7 +542,9 @@ extension Player {
         
         } else if (context == &PlayerLayerObserverContext) {
             if self.playerView.playerLayer.isReadyForDisplay {
-                self.delegate?.playerReady(self)
+                self.executeClosureOnMainQueueIfNecessary(withClosure: {
+                    self.delegate?.playerReady(self)
+                })
             }
         }
         //else {
@@ -551,6 +553,21 @@ extension Player {
     }
 
 }
+
+// MARK: - queues
+
+extension Player {
+    
+    internal func executeClosureOnMainQueueIfNecessary(withClosure closure: @escaping () -> Void) {
+        if Thread.isMainThread {
+            closure()
+        } else {
+            DispatchQueue.main.async(execute: closure)
+        }
+    }
+    
+}
+
 
 // MARK: - PlayerView
 
