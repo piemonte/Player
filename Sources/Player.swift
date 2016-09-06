@@ -577,11 +577,6 @@ internal class PlayerView: UIView {
 
     // MARK: - object lifecycle
 
-    convenience init() {
-        self.init(frame: CGRect.zero)
-        self.playerLayer.backgroundColor = UIColor.black.cgColor
-    }
-
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.playerLayer.backgroundColor = UIColor.black.cgColor
@@ -589,6 +584,7 @@ internal class PlayerView: UIView {
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        self.playerLayer.backgroundColor = UIColor.black.cgColor
     }
 
 }
