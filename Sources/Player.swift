@@ -139,6 +139,7 @@ public class Player: UIViewController {
     }
 
     public var playbackFreezesAtEnd: Bool = false
+    
     public var playbackState: PlaybackState = .stopped {
         didSet {
             if playbackState != oldValue || !playbackEdgeTriggered {
@@ -146,6 +147,7 @@ public class Player: UIViewController {
             }
         }
     }
+    
     public var bufferingState: BufferingState = .unknown {
        didSet {
             if bufferingState != oldValue || !playbackEdgeTriggered {
@@ -155,6 +157,7 @@ public class Player: UIViewController {
     }
 
     public var bufferSize: Double = 10
+    
     public var playbackEdgeTriggered: Bool = true
 
     public var maximumDuration: TimeInterval {
