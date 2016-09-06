@@ -383,8 +383,10 @@ public class Player: UIViewController {
 // MARK: - NSNotifications
 
 extension Player {
-        
-    public func playerItemDidPlayToEndTime(_ aNotification: Notification) {
+    
+    // AVPlayerItem
+    
+    internal func playerItemDidPlayToEndTime(_ aNotification: Notification) {
         if self.playbackLoops == true {
             self.delegate?.playerWillComeThroughLoop(self)
             self.player.seek(to: kCMTimeZero)
