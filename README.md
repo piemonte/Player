@@ -112,8 +112,7 @@ Adjust the fill mode for the video, if needed.
 * [AV Foundation Programming Guide](https://developer.apple.com/library/ios/documentation/AudioVideo/Conceptual/AVFoundationPG/Articles/00_Introduction.html)
 * [Next Level](https://github.com/NextLevel/NextLevel/), rad media capture in Swift
 * [PBJVision](https://github.com/piemonte/PBJVision), iOS camera engine, features touch-to-record video, slow motion video, and photo capture
-* [PBJVideoPlayer](https://github.com/piemonte/PBJVideoPlayer), a simple iOS video player library, written in Objective-C
-* [objc.io Issue #16, Swift](http://www.objc.io/issue-16/)
+* [PBJVideoPlayer](https://github.com/piemonte/PBJVideoPlayer), a simple iOS video player library, written in obj-c
 
 ## License
 
