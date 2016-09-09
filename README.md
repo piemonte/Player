@@ -108,6 +108,7 @@ Adjust the fill mode for the video, if needed.
 
 ## Resources
 
+* [Swift Evolution](https://github.com/apple/swift-evolution)
 * [AV Foundation Programming Guide](https://developer.apple.com/library/ios/documentation/AudioVideo/Conceptual/AVFoundationPG/Articles/00_Introduction.html)
 * [Next Level](https://github.com/NextLevel/NextLevel/), rad media capture in Swift
 * [PBJVision](https://github.com/piemonte/PBJVision), iOS camera engine, features touch-to-record video, slow motion video, and photo capture
