@@ -4,6 +4,9 @@
 
 `Player` is a simple iOS video player library written in [Swift](https://developer.apple.com/swift/).
 
+- Looking for an obj-c video player? Check out [PBJVideoPlayer (obj-c)](https://github.com/piemonte/PBJVideoPlayer).
+- Looking for a Swift camera library? Check out [Next Level](https://github.com/NextLevel/NextLevel).
+
 ### Features
 - [x] plays local media or streams remote media over HTTP
 - [x] customizable UI and user interaction
@@ -106,8 +109,9 @@ Adjust the fill mode for the video, if needed.
 ## Resources
 
 * [AV Foundation Programming Guide](https://developer.apple.com/library/ios/documentation/AudioVideo/Conceptual/AVFoundationPG/Articles/00_Introduction.html)
-* [PBJVision, iOS camera engine, features touch-to-record video, slow motion video, and photo capture](https://github.com/piemonte/PBJVision)
-* [PBJVideoPlayer, a simple iOS video player library, written in Objective-C](https://github.com/piemonte/PBJVideoPlayer)
+* [Next Level](https://github.com/NextLevel/NextLevel/), rad media capture in Swift
+* [PBJVision](https://github.com/piemonte/PBJVision), iOS camera engine, features touch-to-record video, slow motion video, and photo capture
+* [PBJVideoPlayer](https://github.com/piemonte/PBJVideoPlayer), a simple iOS video player library, written in Objective-C
 * [objc.io Issue #16, Swift](http://www.objc.io/issue-16/)
 
 ## License
