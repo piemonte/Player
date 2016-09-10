@@ -4,6 +4,8 @@
 
 `Player` is a simple iOS video player library written in [Swift](https://developer.apple.com/swift/).
 
+[![Build Status](https://travis-ci.org/piemonte/Player.svg?branch=master)](https://travis-ci.org/piemonte/Player) [![Pod Version](https://img.shields.io/cocoapods/v/Player.svg?style=flat)](http://cocoadocs.org/docsets/Player/)
+
 - Looking for an obj-c video player? Check out [PBJVideoPlayer (obj-c)](https://github.com/piemonte/PBJVideoPlayer).
 - Looking for a Swift camera library? Check out [Next Level](https://github.com/NextLevel/NextLevel).
 
@@ -14,54 +16,44 @@
 - [x] orientation change support
 - [x] simple API
 
-If you're looking for a video player library written in Objective-C, checkout [PBJVideoPlayer](https://github.com/piemonte/PBJVideoPlayer). For video recording, checkout [PBJVision](https://github.com/piemonte/PBJVision).
+# Quick Start
 
-[![Build Status](https://travis-ci.org/piemonte/Player.svg?branch=master)](https://travis-ci.org/piemonte/Player) [![Pod Version](https://img.shields.io/cocoapods/v/Player.svg?style=flat)](http://cocoadocs.org/docsets/Player/)
+`Player` is available for installation using the Cocoa dependency manager [CocoaPods](http://cocoapods.org/).  Alternatively, you can simply copy the `Player.swift` file into your Xcode project.
 
-## Installation
-
-### CocoaPods
-
-`Player` is available and recommended for installation using the Cocoa dependency manager [CocoaPods](http://cocoapods.org/).
-
-To integrate, add the following to your `Podfile`:
+## Xcode 8 & Swift 3
 
 ```ruby
-source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '8.0'
-use_frameworks!
+# CocoaPods
+pod "Player", "~> 0.2.0"
 
-pod 'Player'
-```	
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings['SWIFT_VERSION'] = '3.0'
+    end
+  end
+end
 
-### Carthage
+# Carthage
+github "piemonte/Player" ~> 0.2.0
 
-Installation is also available using the dependency manager [Carthage](https://github.com/Carthage/Carthage).
-
-To integrate, add the following line to your `Cartfile`:
-
-```ogdl
-github "piemonte/Player" >= 0.1.0
-```
-
-### Swift Package Manager
-
-Installation can be done with the [Swift Package Manager](https://swift.org/package-manager/), add the following in your `Package.swift` :
-
-```Swift
-import PackageDescription
-
+# SwiftPM
 let package = Package(
-    name: "HelloWorld",
     dependencies: [
-        .Package(url: "https://github.com/piemonte/Player.git", majorVersion: 0),
+        .Package(url: "https://github.com/piemonte/Player", majorVersion: 0)
     ]
 )
 ```
 
-### Manual
+## Xcode 8 & Swift 2.3 or Xcode 7
 
-You can also simply copy the `Player.swift` file into your Xcode project.
+```ruby
+# CocoaPods
+pod "Player", "~> 0.1.3"
+
+# Carthage
+github "piemonte/Player" ~> 0.1.3
+```
 
 ## Usage
 
