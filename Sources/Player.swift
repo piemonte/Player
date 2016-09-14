@@ -75,15 +75,15 @@ public enum BufferingState: Int, CustomStringConvertible {
 // MARK: - PlayerDelegate
 
 @objc public protocol PlayerDelegate: NSObjectProtocol {
-    func playerReady(_ player: Player)
-    func playerPlaybackStateDidChange(_ player: Player)
-    func playerBufferingStateDidChange(_ player: Player)
-    func playerCurrentTimeDidChange(_ player: Player)
+    @objc optional func playerReady(_ player: Player)
+    @objc optional func playerPlaybackStateDidChange(_ player: Player)
+    @objc optional func playerBufferingStateDidChange(_ player: Player)
+    @objc optional func playerCurrentTimeDidChange(_ player: Player)
 
-    func playerPlaybackWillStartFromBeginning(_ player: Player)
-    func playerPlaybackDidEnd(_ player: Player)
+    @objc optional func playerPlaybackWillStartFromBeginning(_ player: Player)
+    @objc optional func playerPlaybackDidEnd(_ player: Player)
 
-    func playerWillComeThroughLoop(_ player: Player)
+    @objc optional func playerWillComeThroughLoop(_ player: Player)
 }
 
 // MARK: - Player
@@ -143,7 +143,7 @@ public class Player: UIViewController {
     public var playbackState: PlaybackState = .stopped {
         didSet {
             if playbackState != oldValue || !playbackEdgeTriggered {
-                self.delegate?.playerPlaybackStateDidChange(self)
+                self.delegate?.playerPlaybackStateDidChange?(self)
             }
         }
     }
@@ -151,7 +151,7 @@ public class Player: UIViewController {
     public var bufferingState: BufferingState = .unknown {
        didSet {
             if bufferingState != oldValue || !playbackEdgeTriggered {
-                self.delegate?.playerBufferingStateDidChange(self)
+                self.delegate?.playerBufferingStateDidChange?(self)
             }
         }
     }
@@ -251,7 +251,7 @@ public class Player: UIViewController {
         self.playerView.layer.addObserver(self, forKeyPath: PlayerReadyForDisplayKey, options: ([.new, .old]), context: &PlayerLayerObserverContext)
         self.timeObserver = self.avplayer.addPeriodicTimeObserver(forInterval: CMTimeMake(1,100), queue: DispatchQueue.main, using: { [weak self] timeInterval in
             guard let strongSelf = self else { return }
-            strongSelf.delegate?.playerCurrentTimeDidChange(strongSelf)
+            strongSelf.delegate?.playerCurrentTimeDidChange?(strongSelf)
         })
 
         self.avplayer.addObserver(self, forKeyPath: PlayerRateKey, options: ([.new, .old]) , context: &PlayerObserverContext)
@@ -270,7 +270,7 @@ public class Player: UIViewController {
     // MARK: - functions
 
     public func playFromBeginning() {
-        self.delegate?.playerPlaybackWillStartFromBeginning(self)
+        self.delegate?.playerPlaybackWillStartFromBeginning?(self)
         self.avplayer.seek(to: kCMTimeZero)
         self.playFromCurrentTime()
     }
@@ -296,7 +296,7 @@ public class Player: UIViewController {
 
         self.avplayer.pause()
         self.playbackState = .stopped
-        self.delegate?.playerPlaybackDidEnd(self)
+        self.delegate?.playerPlaybackDidEnd?(self)
     }
     
     public func seekToTime(_ time: CMTime) {
@@ -390,7 +390,7 @@ extension Player {
     
     internal func playerItemDidPlayToEndTime(_ aNotification: Notification) {
         if self.playbackLoops == true {
-            self.delegate?.playerWillComeThroughLoop(self)
+            self.delegate?.playerWillComeThroughLoop?(self)
             self.avplayer.seek(to: kCMTimeZero)
         } else {
             if self.playbackFreezesAtEnd == true {
@@ -543,7 +543,7 @@ extension Player {
         } else if (context == &PlayerLayerObserverContext) {
             if self.playerView.playerLayer.isReadyForDisplay {
                 self.executeClosureOnMainQueueIfNecessary(withClosure: {
-                    self.delegate?.playerReady(self)
+                    self.delegate?.playerReady?(self)
                 })
             }
         }
