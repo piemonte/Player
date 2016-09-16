@@ -517,14 +517,6 @@ extension Player {
                 }
             } else if keyPath == PlayerLoadedTimeRangesKey {
                 // PlayerLoadedTimeRangesKey
-
-                guard (
-                    self.playerItem != nil &&
-                    self.playbackState != .playing
-                )
-                else {
-                    return
-                }
                 
                 if let item = self.playerItem {
                     self.bufferingState = .ready
@@ -534,7 +526,7 @@ extension Player {
                     let bufferedTime = CMTimeGetSeconds(CMTimeAdd(timeRange.start, timeRange.duration))
                     let currentTime = CMTimeGetSeconds(item.currentTime())
                     
-                    if (bufferedTime - currentTime) >= self.bufferSize {
+                    if (bufferedTime - currentTime) >= self.bufferSize && self.playbackState == .playing {
                         self.playFromCurrentTime()
                     }
                 }
