@@ -190,6 +190,16 @@ public class Player: UIViewController {
             }
         }
     }
+
+    public var layerBackgroundColor: UIColor? {
+        get {
+            guard let backgroundColor = self.playerView.playerLayer.backgroundColor else { return nil }
+            return UIColor(cgColor: backgroundColor)
+        }
+        set {
+            self.playerView.playerLayer.backgroundColor = newValue?.cgColor
+        }
+    }
     
     // MARK: - private instance vars
     
