@@ -88,7 +88,7 @@ public enum BufferingState: Int, CustomStringConvertible {
 
 // MARK: - Player
 
-public class Player: UIViewController {
+open class Player: UIViewController {
 
     public weak var delegate: PlayerDelegate?
 
