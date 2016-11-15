@@ -88,7 +88,7 @@ public enum BufferingState: Int, CustomStringConvertible {
 
 // MARK: - Player
 
-public class Player: UIViewController {
+open class Player: UIViewController {
 
     public weak var delegate: PlayerDelegate?
 
@@ -248,14 +248,14 @@ public class Player: UIViewController {
 
     // MARK: - view lifecycle
 
-    public override func loadView() {
+    open override func loadView() {
         self.playerView = PlayerView(frame: CGRect.zero)
         self.playerView.fillMode = AVLayerVideoGravityResizeAspect
         self.playerView.playerLayer.isHidden = true
         self.view = self.playerView
     }
     
-    public override func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
         
         self.playerView.layer.addObserver(self, forKeyPath: PlayerReadyForDisplayKey, options: ([.new, .old]), context: &PlayerLayerObserverContext)
@@ -269,7 +269,7 @@ public class Player: UIViewController {
         self.addApplicationObservers();
     }
 
-    public override func viewDidDisappear(_ animated: Bool) {
+    open override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
 
         if self.playbackState == .playing {
@@ -476,7 +476,7 @@ private let PlayerReadyForDisplayKey = "readyForDisplay"
 
 extension Player {
     
-    override public func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    override open func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
 
         // PlayerRateKey, PlayerObserverContext
         
