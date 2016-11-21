@@ -315,6 +315,14 @@ open class Player: UIViewController {
         }
     }
 
+    public func takeSnapshot() -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(playerView.frame.size, false, UIScreen.main.scale)
+        playerView.drawHierarchy(in: playerView.bounds, afterScreenUpdates: true)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image!
+    }
+
     // MARK: - private
 
     private func setupAsset(_ asset: AVAsset) {
