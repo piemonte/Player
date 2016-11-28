@@ -151,7 +151,7 @@ open class Player: UIViewController {
     /// Playback freezes on last frame frame at end when true.
     public var playbackFreezesAtEnd: Bool = false
 
-    /// The current playback state of the Player..
+    /// Current playback state of the Player.
     public var playbackState: PlaybackState = .stopped {
         didSet {
             if playbackState != oldValue || !playbackEdgeTriggered {
@@ -160,7 +160,7 @@ open class Player: UIViewController {
         }
     }
     
-    /// The current buffering state of the Player.
+    /// Current buffering state of the Player.
     public var bufferingState: BufferingState = .unknown {
        didSet {
             if bufferingState != oldValue || !playbackEdgeTriggered {
@@ -175,7 +175,7 @@ open class Player: UIViewController {
     /// Playback is not automatically triggered from state changes when true.
     public var playbackEdgeTriggered: Bool = true
 
-    /// The maximum duration of playback.
+    /// Maximum duration of playback.
     public var maximumDuration: TimeInterval {
         get {
             if let playerItem = self._playerItem {
@@ -344,9 +344,12 @@ extension Player {
         }
     }
 
+    /// Captures a snapshot of the current Player view.
+    ///
+    /// - Returns: A UIImage of the player view.
     public func takeSnapshot() -> UIImage {
-        UIGraphicsBeginImageContextWithOptions(playerView.frame.size, false, UIScreen.main.scale)
-        playerView.drawHierarchy(in: playerView.bounds, afterScreenUpdates: true)
+        UIGraphicsBeginImageContextWithOptions(self._playerView.frame.size, false, UIScreen.main.scale)
+        self._playerView.drawHierarchy(in: self._playerView.bounds, afterScreenUpdates: true)
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return image!
