@@ -31,6 +31,7 @@ import CoreGraphics
 
 // MARK: - types
 
+/// Asset playback states.
 public enum PlaybackState: Int, CustomStringConvertible {
     case stopped = 0
     case playing
@@ -53,6 +54,7 @@ public enum PlaybackState: Int, CustomStringConvertible {
     }
 }
 
+/// Asset buffering states.
 public enum BufferingState: Int, CustomStringConvertible {
     case unknown = 0
     case ready
@@ -74,6 +76,7 @@ public enum BufferingState: Int, CustomStringConvertible {
 
 // MARK: - PlayerDelegate
 
+/// Player delegate protocol.
 @objc public protocol PlayerDelegate: NSObjectProtocol {
     @objc optional func playerReady(_ player: Player)
     @objc optional func playerPlaybackStateDidChange(_ player: Player)
@@ -86,12 +89,17 @@ public enum BufferingState: Int, CustomStringConvertible {
 
 // MARK: - Player
 
+/// ▶️ Player, simple way to play and stream media
 open class Player: UIViewController {
 
+    /// Player delegate.
     public weak var delegate: PlayerDelegate?
 
     // configuration
     
+    /// Local or remote URL for the file asset to be played.
+    ///
+    /// - Parameter url: URL of the asset.
     public func setUrl(_ url: URL) {
         // ensure everything is reset beforehand
         if self.playbackState == .playing {
@@ -103,6 +111,7 @@ open class Player: UIViewController {
         self.setupAsset(asset)
     }
 
+    /// Mutes audio playback when true.
     public var muted: Bool {
         get {
             return self._avplayer.isMuted
@@ -112,6 +121,8 @@ open class Player: UIViewController {
         }
     }
 
+    /// Specifies how the video is displayed within a player layer’s bounds.
+    /// The default value is `AVLayerVideoGravityResizeAspect`.
     public var fillMode: String {
         get {
             return self._playerView.fillMode
@@ -123,6 +134,7 @@ open class Player: UIViewController {
     
     // state
 
+    /// Playback automatically loops continuously when true.
     public var playbackLoops: Bool {
         get {
             return (self._avplayer.actionAtItemEnd == .none) as Bool
@@ -136,8 +148,10 @@ open class Player: UIViewController {
         }
     }
 
+    /// Playback freezes on last frame frame at end when true.
     public var playbackFreezesAtEnd: Bool = false
-    
+
+    /// The current playback state of the Player..
     public var playbackState: PlaybackState = .stopped {
         didSet {
             if playbackState != oldValue || !playbackEdgeTriggered {
@@ -146,6 +160,7 @@ open class Player: UIViewController {
         }
     }
     
+    /// The current buffering state of the Player.
     public var bufferingState: BufferingState = .unknown {
        didSet {
             if bufferingState != oldValue || !playbackEdgeTriggered {
@@ -154,10 +169,13 @@ open class Player: UIViewController {
         }
     }
 
+    /// Playback buffering size in seconds.
     public var bufferSize: Double = 10
     
+    /// Playback is not automatically triggered from state changes when true.
     public var playbackEdgeTriggered: Bool = true
 
+    /// The maximum duration of playback.
     public var maximumDuration: TimeInterval {
         get {
             if let playerItem = self._playerItem {
@@ -167,7 +185,8 @@ open class Player: UIViewController {
             }
         }
     }
-    
+
+    /// Media playback's current time.
     public var currentTime: TimeInterval {
         get {
             if let playerItem = self._playerItem {
@@ -178,6 +197,7 @@ open class Player: UIViewController {
         }
     }
 
+    /// The natural dimensions of the media.
     public var naturalSize: CGSize {
         get {
             if let playerItem = self._playerItem {
@@ -189,6 +209,7 @@ open class Player: UIViewController {
         }
     }
 
+    /// Player view's initial background color.
     public var layerBackgroundColor: UIColor? {
         get {
             guard let backgroundColor = self._playerView.playerLayer.backgroundColor else { return nil }
@@ -280,17 +301,20 @@ open class Player: UIViewController {
 
 extension Player {
 
+    /// Begins playback of the media from the beginning.
     public func playFromBeginning() {
         self.delegate?.playerPlaybackWillStartFromBeginning?(self)
         self._avplayer.seek(to: kCMTimeZero)
         self.playFromCurrentTime()
     }
 
+    /// Begins playback of the media from the current time.
     public func playFromCurrentTime() {
         self.playbackState = .playing
         self._avplayer.play()
     }
 
+    /// Pauses playback of the media.
     public func pause() {
         if self.playbackState != .playing {
             return
@@ -300,6 +324,7 @@ extension Player {
         self.playbackState = .paused
     }
 
+    /// Stops playback of the media.
     public func stop() {
         if self.playbackState == .stopped {
             return
@@ -310,6 +335,9 @@ extension Player {
         self.delegate?.playerPlaybackDidEnd?(self)
     }
     
+    /// Updates playback to the specified time.
+    ///
+    /// - Parameter time: The time at which to seek.
     public func seekToTime(_ time: CMTime) {
         if let playerItem = self._playerItem {
             return playerItem.seek(to: time)
