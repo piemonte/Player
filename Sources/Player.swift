@@ -274,8 +274,11 @@ open class Player: UIViewController {
             self.pause()
         }
     }
+}
 
-    // MARK: - functions
+// MARK: - Playback functions
+
+extension Player {
 
     public func playFromBeginning() {
         self.delegate?.playerPlaybackWillStartFromBeginning?(self)
@@ -321,7 +324,11 @@ open class Player: UIViewController {
         return image!
     }
 
-    // MARK: - private
+}
+
+// MARK: - loading funcs
+
+extension Player {
 
     fileprivate func setupAsset(_ asset: AVAsset) {
         if self.playbackState == .playing {
