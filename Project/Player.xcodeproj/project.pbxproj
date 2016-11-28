@@ -170,7 +170,7 @@
 			attributes = {
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0720;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = "Patrick Piemonte";
 				TargetAttributes = {
 					04B4E63C1C1E8A7B00E20778 = {
