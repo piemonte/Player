@@ -11,6 +11,7 @@
 		04B4E6421C1E8A7B00E20778 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B4E6411C1E8A7B00E20778 /* ViewController.swift */; };
 		04B4E6471C1E8A7C00E20778 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04B4E6461C1E8A7C00E20778 /* Assets.xcassets */; };
 		04D702CF1C1E8C8400879C91 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065A0FC51A25C94B005BA7BC /* Player.swift */; };
+		0638A5351E01BBF8009EE18B /* Player.h in Headers */ = {isa = PBXBuildFile; fileRef = 0638A5331E01BBF8009EE18B /* Player.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		065A0FA31A25C8E2005BA7BC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065A0FA21A25C8E2005BA7BC /* AppDelegate.swift */; };
 		065A0FA51A25C8E2005BA7BC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065A0FA41A25C8E2005BA7BC /* ViewController.swift */; };
 		065A0FAA1A25C8E2005BA7BC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 065A0FA91A25C8E2005BA7BC /* Assets.xcassets */; };
@@ -19,14 +20,17 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		04B4E63D1C1E8A7B00E20778 /* PlayerTV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlayerTV.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		04B4E63D1C1E8A7B00E20778 /* Player_tv.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Player_tv.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04B4E63F1C1E8A7B00E20778 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		04B4E6411C1E8A7B00E20778 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		04B4E6461C1E8A7C00E20778 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		04B4E6481C1E8A7C00E20778 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0638A5311E01BBF8009EE18B /* Player.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Player.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0638A5331E01BBF8009EE18B /* Player.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Player.h; path = ../../Sources/Player.h; sourceTree = "<group>"; };
+		0638A5341E01BBF8009EE18B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		065677291A26C59B0038C208 /* Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Base.xcconfig; sourceTree = SOURCE_ROOT; };
 		0656772A1A26C59B0038C208 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = SOURCE_ROOT; };
-		065A0F9D1A25C8E2005BA7BC /* Player.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Player.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		065A0F9D1A25C8E2005BA7BC /* Player_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Player_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		065A0FA11A25C8E2005BA7BC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		065A0FA21A25C8E2005BA7BC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		065A0FA41A25C8E2005BA7BC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -38,6 +42,13 @@
 
 /* Begin PBXFrameworksBuildPhase section */
 		04B4E63A1C1E8A7B00E20778 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0638A52D1E01BBF8009EE18B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -74,12 +85,33 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		0638A5321E01BBF8009EE18B /* Player */ = {
+			isa = PBXGroup;
+			children = (
+				0638A5331E01BBF8009EE18B /* Player.h */,
+				0638A5341E01BBF8009EE18B /* Info.plist */,
+			);
+			path = Player;
+			sourceTree = "<group>";
+		};
+		0638A5391E01C4DB009EE18B /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				065677291A26C59B0038C208 /* Base.xcconfig */,
+				0656772A1A26C59B0038C208 /* Debug.xcconfig */,
+				06C6A5891A89E952009DC6EA /* Release.xcconfig */,
+			);
+			name = Common;
+			sourceTree = "<group>";
+		};
 		065A0F941A25C8E2005BA7BC = {
 			isa = PBXGroup;
 			children = (
 				065A0FC21A25C917005BA7BC /* Player */,
+				0638A5391E01C4DB009EE18B /* Common */,
 				065A0F9F1A25C8E2005BA7BC /* iOS */,
 				04B4E63E1C1E8A7B00E20778 /* tvOS */,
+				0638A5321E01BBF8009EE18B /* Player */,
 				065A0F9E1A25C8E2005BA7BC /* Products */,
 			);
 			sourceTree = "<group>";
@@ -87,8 +119,9 @@
 		065A0F9E1A25C8E2005BA7BC /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				065A0F9D1A25C8E2005BA7BC /* Player.app */,
-				04B4E63D1C1E8A7B00E20778 /* PlayerTV.app */,
+				065A0F9D1A25C8E2005BA7BC /* Player_iOS.app */,
+				04B4E63D1C1E8A7B00E20778 /* Player_tv.app */,
+				0638A5311E01BBF8009EE18B /* Player.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -109,9 +142,6 @@
 		065A0FA01A25C8E2005BA7BC /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				065677291A26C59B0038C208 /* Base.xcconfig */,
-				0656772A1A26C59B0038C208 /* Debug.xcconfig */,
-				06C6A5891A89E952009DC6EA /* Release.xcconfig */,
 				065A0FA11A25C8E2005BA7BC /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -127,10 +157,21 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		0638A52E1E01BBF8009EE18B /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0638A5351E01BBF8009EE18B /* Player.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
-		04B4E63C1C1E8A7B00E20778 /* PlayerTV */ = {
+		04B4E63C1C1E8A7B00E20778 /* Player_tv */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 04B4E64B1C1E8A7C00E20778 /* Build configuration list for PBXNativeTarget "PlayerTV" */;
+			buildConfigurationList = 04B4E64B1C1E8A7C00E20778 /* Build configuration list for PBXNativeTarget "Player_tv" */;
 			buildPhases = (
 				04B4E6391C1E8A7B00E20778 /* Sources */,
 				04B4E63A1C1E8A7B00E20778 /* Frameworks */,
@@ -140,14 +181,32 @@
 			);
 			dependencies = (
 			);
-			name = PlayerTV;
+			name = Player_tv;
 			productName = PlayerTV;
-			productReference = 04B4E63D1C1E8A7B00E20778 /* PlayerTV.app */;
+			productReference = 04B4E63D1C1E8A7B00E20778 /* Player_tv.app */;
 			productType = "com.apple.product-type.application";
 		};
-		065A0F9C1A25C8E2005BA7BC /* Player */ = {
+		0638A5301E01BBF8009EE18B /* Player */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 065A0FBC1A25C8E2005BA7BC /* Build configuration list for PBXNativeTarget "Player" */;
+			buildConfigurationList = 0638A5361E01BBF8009EE18B /* Build configuration list for PBXNativeTarget "Player" */;
+			buildPhases = (
+				0638A52C1E01BBF8009EE18B /* Sources */,
+				0638A52D1E01BBF8009EE18B /* Frameworks */,
+				0638A52E1E01BBF8009EE18B /* Headers */,
+				0638A52F1E01BBF8009EE18B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Player;
+			productName = Player;
+			productReference = 0638A5311E01BBF8009EE18B /* Player.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		065A0F9C1A25C8E2005BA7BC /* Player_iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 065A0FBC1A25C8E2005BA7BC /* Build configuration list for PBXNativeTarget "Player_iOS" */;
 			buildPhases = (
 				065A0F991A25C8E2005BA7BC /* Sources */,
 				065A0F9A1A25C8E2005BA7BC /* Frameworks */,
@@ -157,9 +216,9 @@
 			);
 			dependencies = (
 			);
-			name = Player;
+			name = Player_iOS;
 			productName = Player;
-			productReference = 065A0F9D1A25C8E2005BA7BC /* Player.app */;
+			productReference = 065A0F9D1A25C8E2005BA7BC /* Player_iOS.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -175,6 +234,11 @@
 				TargetAttributes = {
 					04B4E63C1C1E8A7B00E20778 = {
 						CreatedOnToolsVersion = 7.2;
+					};
+					0638A5301E01BBF8009EE18B = {
+						CreatedOnToolsVersion = 8.2;
+						DevelopmentTeam = WPFGSL5BLN;
+						ProvisioningStyle = Automatic;
 					};
 					065A0F9C1A25C8E2005BA7BC = {
 						CreatedOnToolsVersion = 6.1;
@@ -195,8 +259,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				065A0F9C1A25C8E2005BA7BC /* Player */,
-				04B4E63C1C1E8A7B00E20778 /* PlayerTV */,
+				065A0F9C1A25C8E2005BA7BC /* Player_iOS */,
+				04B4E63C1C1E8A7B00E20778 /* Player_tv */,
+				0638A5301E01BBF8009EE18B /* Player */,
 			);
 		};
 /* End PBXProject section */
@@ -207,6 +272,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				04B4E6471C1E8A7C00E20778 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0638A52F1E01BBF8009EE18B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -229,6 +301,13 @@
 				04B4E6421C1E8A7B00E20778 /* ViewController.swift in Sources */,
 				04D702CF1C1E8C8400879C91 /* Player.swift in Sources */,
 				04B4E6401C1E8A7B00E20778 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0638A52C1E01BBF8009EE18B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -399,7 +478,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		04B4E64B1C1E8A7C00E20778 /* Build configuration list for PBXNativeTarget "PlayerTV" */ = {
+		04B4E64B1C1E8A7C00E20778 /* Build configuration list for PBXNativeTarget "Player_tv" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				04B4E6491C1E8A7C00E20778 /* Debug */,
@@ -407,6 +486,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		0638A5361E01BBF8009EE18B /* Build configuration list for PBXNativeTarget "Player" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0638A5371E01BBF8009EE18B /* Debug */,
+				0638A5381E01BBF8009EE18B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		065A0F981A25C8E2005BA7BC /* Build configuration list for PBXProject "Player" */ = {
 			isa = XCConfigurationList;
@@ -417,7 +504,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		065A0FBC1A25C8E2005BA7BC /* Build configuration list for PBXNativeTarget "Player" */ = {
+		065A0FBC1A25C8E2005BA7BC /* Build configuration list for PBXNativeTarget "Player_iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				065A0FBD1A25C8E2005BA7BC /* Debug */,

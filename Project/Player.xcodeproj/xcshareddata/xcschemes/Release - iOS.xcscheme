@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "065A0F9C1A25C8E2005BA7BC"
-               BuildableName = "Player.app"
-               BlueprintName = "Player"
+               BuildableName = "Player_iOS.app"
+               BlueprintName = "Player_iOS"
                ReferencedContainer = "container:Player.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -33,8 +33,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "065A0F9C1A25C8E2005BA7BC"
-            BuildableName = "Player.app"
-            BlueprintName = "Player"
+            BuildableName = "Player_iOS.app"
+            BlueprintName = "Player_iOS"
             ReferencedContainer = "container:Player.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -56,8 +56,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "065A0F9C1A25C8E2005BA7BC"
-            BuildableName = "Player.app"
-            BlueprintName = "Player"
+            BuildableName = "Player_iOS.app"
+            BlueprintName = "Player_iOS"
             ReferencedContainer = "container:Player.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -75,8 +75,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "065A0F9C1A25C8E2005BA7BC"
-            BuildableName = "Player.app"
-            BlueprintName = "Player"
+            BuildableName = "Player_iOS.app"
+            BlueprintName = "Player_iOS"
             ReferencedContainer = "container:Player.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
