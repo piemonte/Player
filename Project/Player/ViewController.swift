@@ -28,7 +28,7 @@ import UIKit
 
 let videoUrl = URL(string: "https://v.cdn.vine.co/r/videos/AA3C120C521177175800441692160_38f2cbd1ffb.1.5.13763579289575020226.mp4")!
 
-class ViewController: UIViewController, PlayerDelegate {
+class ViewController: UIViewController {
 
     private var player: Player!
     
@@ -44,6 +44,12 @@ class ViewController: UIViewController, PlayerDelegate {
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
+    
+    deinit {
+        self.player.willMove(toParentViewController: self)
+        self.player.view.removeFromSuperview()
+        self.player.removeFromParentViewController()
     }
 
     // MARK: view lifecycle
@@ -92,8 +98,11 @@ class ViewController: UIViewController, PlayerDelegate {
                 self.player.pause()
         }
     }
+}
 
-    // MARK: PlayerDelegate
+// MARK: - PlayerDelegate
+
+extension ViewController: PlayerDelegate {
     
     func playerReady(_ player: Player) {
     }
@@ -114,7 +123,7 @@ class ViewController: UIViewController, PlayerDelegate {
     }
 
     func playerWillComeThroughLoop(_ player: Player) {
-        
     }
+    
 }
 
