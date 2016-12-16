@@ -244,6 +244,7 @@
 					};
 					065A0F9C1A25C8E2005BA7BC = {
 						CreatedOnToolsVersion = 6.1;
+						DevelopmentTeam = WPFGSL5BLN;
 						LastSwiftMigration = 0800;
 					};
 				};
@@ -485,7 +486,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = WPFGSL5BLN;
 				INFOPLIST_FILE = "$(SRCROOT)/Player/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.patrickpiemonte.$(PRODUCT_NAME:rfc1034identifier)";
@@ -497,7 +498,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = WPFGSL5BLN;
 				INFOPLIST_FILE = "$(SRCROOT)/Player/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.patrickpiemonte.$(PRODUCT_NAME:rfc1034identifier)";
