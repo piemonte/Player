@@ -406,7 +406,6 @@
 		0620AB4B1E01CD5900AB27E8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				DEFINES_MODULE = YES;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -419,7 +418,6 @@
 		0620AB4C1E01CD5900AB27E8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
