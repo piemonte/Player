@@ -255,10 +255,11 @@ open class Player: UIViewController {
         self.delegate = nil
         self.removeApplicationObservers()
 
-        self._playerView.layer.removeObserver(self, forKeyPath: PlayerReadyForDisplayKey, context: &PlayerLayerObserverContext)
+ 
+        self.removePlayerLayerObservers()
         self._playerView.player = nil
         
-        self._avplayer.removeObserver(self, forKeyPath: PlayerRateKey, context: &PlayerObserverContext)
+        self.removePlayerObservers()
 
         self._avplayer.pause()
         self.setupPlayerItem(nil)
@@ -276,14 +277,12 @@ open class Player: UIViewController {
     open override func viewDidLoad() {
         super.viewDidLoad()
         
-        self._playerView.layer.addObserver(self, forKeyPath: PlayerReadyForDisplayKey, options: ([.new, .old]), context: &PlayerLayerObserverContext)
         self._timeObserver = self._avplayer.addPeriodicTimeObserver(forInterval: CMTimeMake(1,100), queue: DispatchQueue.main, using: { [weak self] timeInterval in
             guard let strongSelf = self else { return }
             strongSelf.delegate?.playerCurrentTimeDidChange?(strongSelf)
         })
-
-        self._avplayer.addObserver(self, forKeyPath: PlayerRateKey, options: ([.new, .old]) , context: &PlayerObserverContext)
-
+        self.addPlayerLayerObservers();
+        self.addPlayerObservers();
         self.addApplicationObservers();
     }
 
@@ -519,6 +518,29 @@ private let PlayerLoadedTimeRangesKey = "loadedTimeRanges"
 private let PlayerReadyForDisplayKey = "readyForDisplay"
 
 extension Player {
+    
+    
+    // MARK: - AVPlayerLayerObservers
+    
+    internal func addPlayerLayerObservers() {
+        self._playerView.layer.addObserver(self, forKeyPath: PlayerReadyForDisplayKey, options: ([.new, .old]), context: &PlayerLayerObserverContext)
+    }
+    
+    internal func removePlayerLayerObservers() {
+        self._playerView.layer.removeObserver(self, forKeyPath: PlayerReadyForDisplayKey, context: &PlayerLayerObserverContext)
+    }
+    
+    // MARK: - AVPlayerObservers
+    
+    internal func addPlayerObservers() {
+        self._avplayer.addObserver(self, forKeyPath: PlayerRateKey, options: ([.new, .old]) , context: &PlayerObserverContext)
+    }
+    
+    internal func removePlayerObservers() {
+        self._avplayer.removeObserver(self, forKeyPath: PlayerRateKey, context: &PlayerObserverContext)
+    }
+    
+    // MARK: -
     
     override open func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
 
