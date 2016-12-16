@@ -600,20 +600,6 @@ extension Player {
 
 }
 
-// MARK: - queues
-
-extension Player {
-    
-    internal func executeClosureOnMainQueueIfNecessary(withClosure closure: @escaping () -> Void) {
-        if Thread.isMainThread {
-            closure()
-        } else {
-            DispatchQueue.main.async(execute: closure)
-        }
-    }
-    
-}
-
 // MARK: - PlayerView
 
 internal class PlayerView: UIView {
@@ -662,4 +648,18 @@ internal class PlayerView: UIView {
         self.playerLayer.backgroundColor = UIColor.black.cgColor
     }
 
+}
+
+// MARK: - queues
+
+extension Player {
+    
+    internal func executeClosureOnMainQueueIfNecessary(withClosure closure: @escaping () -> Void) {
+        if Thread.isMainThread {
+            closure()
+        } else {
+            DispatchQueue.main.async(execute: closure)
+        }
+    }
+    
 }
