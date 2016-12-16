@@ -239,6 +239,7 @@
 					0638A5301E01BBF8009EE18B = {
 						CreatedOnToolsVersion = 8.2;
 						DevelopmentTeam = WPFGSL5BLN;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
 					065A0F9C1A25C8E2005BA7BC = {
@@ -406,9 +407,11 @@
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
+				DEFINES_MODULE = YES;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				PRODUCT_NAME = Player;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -418,7 +421,9 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
 				PRODUCT_NAME = Player;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
