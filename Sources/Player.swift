@@ -251,10 +251,8 @@ open class Player: UIViewController {
     }
 
     deinit {
-        self._avplayer.removeTimeObserver(_timeObserver)
         self.delegate = nil
         self.removeApplicationObservers()
-
  
         self.removePlayerLayerObservers()
         self._playerView.player = nil
@@ -277,10 +275,6 @@ open class Player: UIViewController {
     open override func viewDidLoad() {
         super.viewDidLoad()
         
-        self._timeObserver = self._avplayer.addPeriodicTimeObserver(forInterval: CMTimeMake(1,100), queue: DispatchQueue.main, using: { [weak self] timeInterval in
-            guard let strongSelf = self else { return }
-            strongSelf.delegate?.playerCurrentTimeDidChange?(strongSelf)
-        })
         self.addPlayerLayerObservers();
         self.addPlayerObservers();
         self.addApplicationObservers();
@@ -519,7 +513,6 @@ private let PlayerReadyForDisplayKey = "readyForDisplay"
 
 extension Player {
     
-    
     // MARK: - AVPlayerLayerObservers
     
     internal func addPlayerLayerObservers() {
@@ -533,10 +526,18 @@ extension Player {
     // MARK: - AVPlayerObservers
     
     internal func addPlayerObservers() {
+        self._timeObserver = self._avplayer.addPeriodicTimeObserver(forInterval: CMTimeMake(1,100), queue: DispatchQueue.main, using: { [weak self] timeInterval in
+            guard let strongSelf = self
+            else {
+                return
+            }
+            strongSelf.delegate?.playerCurrentTimeDidChange?(strongSelf)
+        })
         self._avplayer.addObserver(self, forKeyPath: PlayerRateKey, options: ([.new, .old]) , context: &PlayerObserverContext)
     }
     
     internal func removePlayerObservers() {
+        self._avplayer.removeTimeObserver(_timeObserver)
         self._avplayer.removeObserver(self, forKeyPath: PlayerRateKey, context: &PlayerObserverContext)
     }
     
