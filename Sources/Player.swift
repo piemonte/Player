@@ -253,8 +253,7 @@ open class Player: UIViewController {
     deinit {
         self._avplayer.removeTimeObserver(_timeObserver)
         self.delegate = nil
-
-        NotificationCenter.default.removeObserver(self)
+        self.removeApplicationObservers()
 
         self._playerView.layer.removeObserver(self, forKeyPath: PlayerReadyForDisplayKey, context: &PlayerLayerObserverContext)
         self._playerView.player = nil
@@ -297,7 +296,7 @@ open class Player: UIViewController {
     }
 }
 
-// MARK: - Playback functions
+// MARK: - Playback funcs
 
 extension Player {
 
@@ -464,27 +463,28 @@ extension Player {
     // UIApplication
     
     internal func addApplicationObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(applicationWillResignActive(_:)), name: NSNotification.Name.UIApplicationWillResignActive, object: UIApplication.shared)
-        NotificationCenter.default.addObserver(self, selector: #selector(applicationDidEnterBackground(_:)), name: NSNotification.Name.UIApplicationDidEnterBackground, object: UIApplication.shared)
-        NotificationCenter.default.addObserver(self, selector: #selector(applicationWillEnterForeground(_:)), name: NSNotification.Name.UIApplicationWillEnterForeground, object: UIApplication.shared)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleApplicationWillResignActive(_:)), name: .UIApplicationWillResignActive, object: UIApplication.shared)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleApplicationDidEnterBackground(_:)), name: .UIApplicationDidEnterBackground, object: UIApplication.shared)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleApplicationWillEnterForeground(_:)), name: .UIApplicationWillEnterForeground, object: UIApplication.shared)
     }
     
     internal func removeApplicationObservers() {
+        NotificationCenter.default.removeObserver(self)
     }
-
-    internal func applicationWillResignActive(_ aNotification: Notification) {
+    
+    internal func handleApplicationWillResignActive(_ aNotification: Notification) {
         if self.playbackState == .playing {
             self.pause()
         }
     }
 
-    internal func applicationDidEnterBackground(_ aNotification: Notification) {
+    internal func handleApplicationDidEnterBackground(_ aNotification: Notification) {
         if self.playbackState == .playing {
             self.pause()
         }
     }
   
-    internal func applicationWillEnterForeground(_ aNoticiation: Notification) {
+    internal func handleApplicationWillEnterForeground(_ aNoticiation: Notification) {
         if self.playbackState == .paused {
             self.playFromCurrentTime()
         }
