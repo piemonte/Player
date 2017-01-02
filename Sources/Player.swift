@@ -120,6 +120,16 @@ open class Player: UIViewController {
             self._avplayer.isMuted = newValue
         }
     }
+    
+    /// Volume for the player, ranging from 0.0 to 1.0 on a linear scale.
+    public var volume: Float {
+        get {
+            return self._avplayer.volume
+        }
+        set {
+            self._avplayer.volume = newValue
+        }
+    }
 
     /// Specifies how the video is displayed within a player layer’s bounds.
     /// The default value is `AVLayerVideoGravityResizeAspect`.
