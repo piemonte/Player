@@ -339,13 +339,25 @@ extension Player {
     
     /// Updates playback to the specified time.
     ///
-    /// - Parameter time: The time at which to seek.
-    public func seekToTime(_ time: CMTime) {
+    /// - Parameter time: The time to switch to move the playback.
+    public func seek(to time: CMTime) {
         if let playerItem = self._playerItem {
             return playerItem.seek(to: time)
         }
     }
 
+    /// Updates the playback time to the specified time bound.
+    ///
+    /// - Parameters:
+    ///   - time: The time to switch to move the playback.
+    ///   - toleranceBefore: The tolerance allowed before time.
+    ///   - toleranceAfter: The tolerance allowed after time.
+    public func seekToTime(to time: CMTime, toleranceBefore: CMTime, toleranceAfter: CMTime) {
+        if let playerItem = self._playerItem {
+            return playerItem.seek(to: time, toleranceBefore: toleranceBefore, toleranceAfter: toleranceAfter)
+        }
+    }
+    
     /// Captures a snapshot of the current Player view.
     ///
     /// - Returns: A UIImage of the player view.
