@@ -78,9 +78,12 @@ public enum BufferingState: Int, CustomStringConvertible {
 
 /// Player delegate protocol
 @objc public protocol PlayerDelegate: NSObjectProtocol {
+    // state
     @objc optional func playerReady(_ player: Player)
     @objc optional func playerPlaybackStateDidChange(_ player: Player)
     @objc optional func playerBufferingStateDidChange(_ player: Player)
+    
+    // playback
     @objc optional func playerCurrentTimeDidChange(_ player: Player)
     @objc optional func playerPlaybackWillStartFromBeginning(_ player: Player)
     @objc optional func playerPlaybackDidEnd(_ player: Player)
