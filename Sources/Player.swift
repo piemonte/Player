@@ -93,14 +93,14 @@ public enum BufferingState: Int, CustomStringConvertible {
 open class Player: UIViewController {
 
     /// Player delegate.
-    public weak var delegate: PlayerDelegate?
+    open weak var delegate: PlayerDelegate?
 
     // configuration
     
     /// Local or remote URL for the file asset to be played.
     ///
     /// - Parameter url: URL of the asset.
-    public func setUrl(_ url: URL) {
+    open func setUrl(_ url: URL) {
         // ensure everything is reset beforehand
         if self.playbackState == .playing {
             self.pause()
@@ -112,7 +112,7 @@ open class Player: UIViewController {
     }
 
     /// Mutes audio playback when true.
-    public var muted: Bool {
+    open var muted: Bool {
         get {
             return self._avplayer.isMuted
         }
@@ -122,7 +122,7 @@ open class Player: UIViewController {
     }
     
     /// Volume for the player, ranging from 0.0 to 1.0 on a linear scale.
-    public var volume: Float {
+    open var volume: Float {
         get {
             return self._avplayer.volume
         }
@@ -133,7 +133,7 @@ open class Player: UIViewController {
 
     /// Specifies how the video is displayed within a player layer’s bounds.
     /// The default value is `AVLayerVideoGravityResizeAspect`.
-    public var fillMode: String {
+    open var fillMode: String {
         get {
             return self._playerView.fillMode
         }
@@ -145,7 +145,7 @@ open class Player: UIViewController {
     // state
 
     /// Playback automatically loops continuously when true.
-    public var playbackLoops: Bool {
+    open var playbackLoops: Bool {
         get {
             return (self._avplayer.actionAtItemEnd == .none) as Bool
         }
@@ -159,10 +159,10 @@ open class Player: UIViewController {
     }
 
     /// Playback freezes on last frame frame at end when true.
-    public var playbackFreezesAtEnd: Bool = false
+    open var playbackFreezesAtEnd: Bool = false
 
     /// Current playback state of the Player.
-    public var playbackState: PlaybackState = .stopped {
+    open var playbackState: PlaybackState = .stopped {
         didSet {
             if playbackState != oldValue || !playbackEdgeTriggered {
                 self.delegate?.playerPlaybackStateDidChange?(self)
@@ -171,7 +171,7 @@ open class Player: UIViewController {
     }
     
     /// Current buffering state of the Player.
-    public var bufferingState: BufferingState = .unknown {
+    open var bufferingState: BufferingState = .unknown {
        didSet {
             if bufferingState != oldValue || !playbackEdgeTriggered {
                 self.delegate?.playerBufferingStateDidChange?(self)
@@ -180,13 +180,13 @@ open class Player: UIViewController {
     }
 
     /// Playback buffering size in seconds.
-    public var bufferSize: Double = 10
+    open var bufferSize: Double = 10
     
     /// Playback is not automatically triggered from state changes when true.
-    public var playbackEdgeTriggered: Bool = true
+    open var playbackEdgeTriggered: Bool = true
 
     /// Maximum duration of playback.
-    public var maximumDuration: TimeInterval {
+    open var maximumDuration: TimeInterval {
         get {
             if let playerItem = self._playerItem {
                 return CMTimeGetSeconds(playerItem.duration)
@@ -197,7 +197,7 @@ open class Player: UIViewController {
     }
 
     /// Media playback's current time.
-    public var currentTime: TimeInterval {
+    open var currentTime: TimeInterval {
         get {
             if let playerItem = self._playerItem {
                 return CMTimeGetSeconds(playerItem.currentTime())
@@ -208,7 +208,7 @@ open class Player: UIViewController {
     }
 
     /// The natural dimensions of the media.
-    public var naturalSize: CGSize {
+    open var naturalSize: CGSize {
         get {
             if let playerItem = self._playerItem {
                 let track = playerItem.asset.tracks(withMediaType: AVMediaTypeVideo)[0]
@@ -220,7 +220,7 @@ open class Player: UIViewController {
     }
 
     /// Player view's initial background color.
-    public var layerBackgroundColor: UIColor? {
+    open var layerBackgroundColor: UIColor? {
         get {
             guard let backgroundColor = self._playerView.playerLayer.backgroundColor else { return nil }
             return UIColor(cgColor: backgroundColor)
@@ -297,27 +297,24 @@ open class Player: UIViewController {
             self.pause()
         }
     }
-}
-
-// MARK: - Playback funcs
-
-extension Player {
+    
+    // MARK: - Playback funcs
 
     /// Begins playback of the media from the beginning.
-    public func playFromBeginning() {
+    open func playFromBeginning() {
         self.delegate?.playerPlaybackWillStartFromBeginning?(self)
         self._avplayer.seek(to: kCMTimeZero)
         self.playFromCurrentTime()
     }
 
     /// Begins playback of the media from the current time.
-    public func playFromCurrentTime() {
+    open func playFromCurrentTime() {
         self.playbackState = .playing
         self._avplayer.play()
     }
 
     /// Pauses playback of the media.
-    public func pause() {
+    open func pause() {
         if self.playbackState != .playing {
             return
         }
@@ -327,7 +324,7 @@ extension Player {
     }
 
     /// Stops playback of the media.
-    public func stop() {
+    open func stop() {
         if self.playbackState == .stopped {
             return
         }
@@ -340,7 +337,7 @@ extension Player {
     /// Updates playback to the specified time.
     ///
     /// - Parameter time: The time to switch to move the playback.
-    public func seek(to time: CMTime) {
+    open func seek(to time: CMTime) {
         if let playerItem = self._playerItem {
             return playerItem.seek(to: time)
         }
@@ -352,7 +349,7 @@ extension Player {
     ///   - time: The time to switch to move the playback.
     ///   - toleranceBefore: The tolerance allowed before time.
     ///   - toleranceAfter: The tolerance allowed after time.
-    public func seekToTime(to time: CMTime, toleranceBefore: CMTime, toleranceAfter: CMTime) {
+    open func seekToTime(to time: CMTime, toleranceBefore: CMTime, toleranceAfter: CMTime) {
         if let playerItem = self._playerItem {
             return playerItem.seek(to: time, toleranceBefore: toleranceBefore, toleranceAfter: toleranceAfter)
         }
@@ -361,7 +358,7 @@ extension Player {
     /// Captures a snapshot of the current Player view.
     ///
     /// - Returns: A UIImage of the player view.
-    public func takeSnapshot() -> UIImage {
+    open func takeSnapshot() -> UIImage {
         UIGraphicsBeginImageContextWithOptions(self._playerView.frame.size, false, UIScreen.main.scale)
         self._playerView.drawHierarchy(in: self._playerView.bounds, afterScreenUpdates: true)
         let image = UIGraphicsGetImageFromCurrentImageContext()
