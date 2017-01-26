@@ -76,7 +76,7 @@ public enum BufferingState: Int, CustomStringConvertible {
 
 // MARK: - PlayerDelegate
 
-/// Player delegate protocol.
+/// Player delegate protocol
 @objc public protocol PlayerDelegate: NSObjectProtocol {
     @objc optional func playerReady(_ player: Player)
     @objc optional func playerPlaybackStateDidChange(_ player: Player)
@@ -84,7 +84,7 @@ public enum BufferingState: Int, CustomStringConvertible {
     @objc optional func playerCurrentTimeDidChange(_ player: Player)
     @objc optional func playerPlaybackWillStartFromBeginning(_ player: Player)
     @objc optional func playerPlaybackDidEnd(_ player: Player)
-    @objc optional func playerWillComeThroughLoop(_ player: Player)
+    @objc optional func playerPlaybackWillLoop(_ player: Player)
 }
 
 // MARK: - Player
@@ -468,7 +468,7 @@ extension Player {
     
     internal func playerItemDidPlayToEndTime(_ aNotification: Notification) {
         if self.playbackLoops == true {
-            self.delegate?.playerWillComeThroughLoop?(self)
+            self.delegate?.playerPlaybackWillLoop?(self)
             self._avplayer.seek(to: kCMTimeZero)
         } else {
             if self.playbackFreezesAtEnd == true {
