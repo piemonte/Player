@@ -31,6 +31,17 @@ import CoreGraphics
 
 // MARK: - types
 
+/// Video fill mode options for `Player.fillMode`.
+///
+/// - resize: Stretch to fill.
+/// - resizeAspectFill: Preserve aspect ratio, filling bounds.
+/// - resizeAspectFit: Preserve aspect ratio, fill within bounds.
+public enum FillMode: String {
+    case resize = "AVLayerVideoGravityResize"
+    case resizeAspectFill = "AVLayerVideoGravityResizeAspectFill"
+    case resizeAspectFit = "AVLayerVideoGravityResizeAspect"
+}
+
 /// Asset playback states.
 public enum PlaybackState: Int, CustomStringConvertible {
     case stopped = 0
@@ -130,7 +141,7 @@ open class Player: UIViewController {
     }
 
     /// Specifies how the video is displayed within a player layer’s bounds.
-    /// The default value is `AVLayerVideoGravityResizeAspect`.
+    /// The default value is `AVLayerVideoGravityResizeAspect`. See `FillMode` enum.
     open var fillMode: String {
         get {
             return self._playerView.fillMode
