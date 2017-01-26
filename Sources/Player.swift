@@ -139,6 +139,12 @@ open class Player: UIViewController {
             self._playerView.fillMode = newValue
         }
     }
+
+    /// Pauses playback automatically when backgrounded.
+    open var playbackPausesWhenBackgrounded: Bool
+    
+    /// Resumes playback when entering foreground.
+    open var playbackResumesWhenEnteringForeground: Bool
     
     // state
 
@@ -246,7 +252,8 @@ open class Player: UIViewController {
         self._avplayer = AVPlayer()
         self._avplayer.actionAtItemEnd = .pause
         self.playbackFreezesAtEnd = false
-        
+        self.playbackPausesWhenBackgrounded = true
+        self.playbackResumesWhenEnteringForeground = true
         super.init(coder: aDecoder)
     }
 
@@ -254,7 +261,8 @@ open class Player: UIViewController {
         self._avplayer = AVPlayer()
         self._avplayer.actionAtItemEnd = .pause
         self.playbackFreezesAtEnd = false
-        
+        self.playbackPausesWhenBackgrounded = true
+        self.playbackResumesWhenEnteringForeground = true
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
 
@@ -507,13 +515,13 @@ extension Player {
     }
 
     internal func handleApplicationDidEnterBackground(_ aNotification: Notification) {
-        if self.playbackState == .playing {
+        if self.playbackState == .playing && self.playbackPausesWhenBackgrounded {
             self.pause()
         }
     }
   
     internal func handleApplicationWillEnterForeground(_ aNoticiation: Notification) {
-        if self.playbackState == .paused {
+        if self.playbackState != .playing && self.playbackResumesWhenEnteringForeground {
             self.playFromCurrentTime()
         }
     }
