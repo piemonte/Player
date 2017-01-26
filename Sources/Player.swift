@@ -605,8 +605,10 @@ extension Player {
                             layer.player = self._avplayer
                             layer.isHidden = false
                         }
+                        break
                     case AVPlayerStatus.failed.rawValue:
                         self.playbackState = PlaybackState.failed
+                        break
                     default:
                         break
                     }
@@ -629,8 +631,10 @@ extension Player {
                             layer.player = self._avplayer
                             layer.isHidden = false
                         }
+                        break
                     case AVPlayerStatus.failed.rawValue:
                         self.playbackState = PlaybackState.failed
+                        break
                     default:
                         break
                     }
