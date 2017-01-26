@@ -67,7 +67,7 @@ class ViewController: UIViewController {
         self.view.addSubview(self.player.view)
         self.player.didMove(toParentViewController: self)
         
-        self.player.setUrl(videoUrl)
+        self.player.url = videoUrl
         
         self.player.playbackLoops = true
         

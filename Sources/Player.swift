@@ -100,15 +100,10 @@ open class Player: UIViewController {
     /// Local or remote URL for the file asset to be played.
     ///
     /// - Parameter url: URL of the asset.
-    public func setUrl(_ url: URL) {
-        // ensure everything is reset beforehand
-        if self.playbackState == .playing {
-            self.pause()
+    open var url: URL? {
+        didSet {
+            setup(url: url)
         }
-
-        self.setupPlayerItem(nil)
-        let asset = AVURLAsset(url: url, options: .none)
-        self.setupAsset(asset)
     }
 
     /// Mutes audio playback when true.
@@ -285,6 +280,8 @@ open class Player: UIViewController {
     open override func viewDidLoad() {
         super.viewDidLoad()
         
+        setup(url: url)
+        
         self.addPlayerLayerObservers();
         self.addPlayerObservers();
         self.addApplicationObservers();
@@ -374,6 +371,22 @@ extension Player {
 // MARK: - loading funcs
 
 extension Player {
+    
+    fileprivate func setup(url: URL?) {
+        guard isViewLoaded else { return }
+        
+        // ensure everything is reset beforehand
+        if self.playbackState == .playing {
+            self.pause()
+        }
+        
+        self.setupPlayerItem(nil)
+        
+        if let url = url {
+            let asset = AVURLAsset(url: url, options: .none)
+            self.setupAsset(asset)
+        }
+    }
 
     fileprivate func setupAsset(_ asset: AVAsset) {
         if self.playbackState == .playing {
