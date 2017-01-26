@@ -583,9 +583,11 @@ extension Player {
         // PlayerRateKey, PlayerObserverContext
         
         if (context == &PlayerItemObserverContext) {
+            
             // PlayerStatusKey
             
             if keyPath == PlayerKeepUpKey {
+                
                 // PlayerKeepUpKey
                 
                 if let item = self._playerItem {
@@ -596,18 +598,20 @@ extension Player {
                     }
                 }
                 
-                let status = (change?[NSKeyValueChangeKey.newKey] as! NSNumber).intValue as AVPlayerStatus.RawValue
-                
-                switch (status) {
-                case AVPlayerStatus.readyToPlay.rawValue:
-                    self._playerView.playerLayer.player = self._avplayer
-                    self._playerView.playerLayer.isHidden = false
-                case AVPlayerStatus.failed.rawValue:
-                    self.playbackState = PlaybackState.failed
-                default:
-                    break
+                if let status = change?[NSKeyValueChangeKey.newKey] as? NSNumber {
+                    switch (status.intValue as AVPlayerStatus.RawValue) {
+                    case AVPlayerStatus.readyToPlay.rawValue:
+                        self._playerView.playerLayer.player = self._avplayer
+                        self._playerView.playerLayer.isHidden = false
+                    case AVPlayerStatus.failed.rawValue:
+                        self.playbackState = PlaybackState.failed
+                    default:
+                        break
+                    }
                 }
+                    
             } else if keyPath == PlayerEmptyBufferKey {
+                
                 // PlayerEmptyBufferKey
                 
                 if let item = self._playerItem {
@@ -616,18 +620,20 @@ extension Player {
                     }
                 }
                 
-                let status = (change?[NSKeyValueChangeKey.newKey] as! NSNumber).intValue as AVPlayerStatus.RawValue
-                
-                switch (status) {
-                case AVPlayerStatus.readyToPlay.rawValue:
-                    self._playerView.playerLayer.player = self._avplayer
-                    self._playerView.playerLayer.isHidden = false
-                case AVPlayerStatus.failed.rawValue:
-                    self.playbackState = PlaybackState.failed
-                default:
-                    break
+                if let status = change?[NSKeyValueChangeKey.newKey] as? NSNumber {
+                    switch (status.intValue as AVPlayerStatus.RawValue) {
+                    case AVPlayerStatus.readyToPlay.rawValue:
+                        self._playerView.playerLayer.player = self._avplayer
+                        self._playerView.playerLayer.isHidden = false
+                    case AVPlayerStatus.failed.rawValue:
+                        self.playbackState = PlaybackState.failed
+                    default:
+                        break
+                    }
                 }
+                
             } else if keyPath == PlayerLoadedTimeRangesKey {
+                
                 // PlayerLoadedTimeRangesKey
                 
                 if let item = self._playerItem {
@@ -651,9 +657,7 @@ extension Player {
                 })
             }
         }
-        //else {
-        //    super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
-        //}
+        
     }
 
 }
