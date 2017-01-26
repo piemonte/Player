@@ -220,11 +220,11 @@ open class Player: UIViewController {
     /// Player view's initial background color.
     open var layerBackgroundColor: UIColor? {
         get {
-            guard let backgroundColor = self._playerView.playerLayer.backgroundColor else { return nil }
+            guard let backgroundColor = self._playerView.playerLayer?.backgroundColor else { return nil }
             return UIColor(cgColor: backgroundColor)
         }
         set {
-            self._playerView.playerLayer.backgroundColor = newValue?.cgColor
+            self._playerView.playerLayer?.backgroundColor = newValue?.cgColor
         }
     }
     
@@ -276,7 +276,7 @@ open class Player: UIViewController {
     open override func loadView() {
         self._playerView = PlayerView(frame: CGRect.zero)
         self._playerView.fillMode = AVLayerVideoGravityResizeAspect
-        self._playerView.playerLayer.isHidden = true
+        self._playerView.playerLayer?.isHidden = true
         self.view = self._playerView
     }
     
@@ -601,8 +601,10 @@ extension Player {
                 if let status = change?[NSKeyValueChangeKey.newKey] as? NSNumber {
                     switch (status.intValue as AVPlayerStatus.RawValue) {
                     case AVPlayerStatus.readyToPlay.rawValue:
-                        self._playerView.playerLayer.player = self._avplayer
-                        self._playerView.playerLayer.isHidden = false
+                        if let layer = self._playerView.playerLayer {
+                            layer.player = self._avplayer
+                            layer.isHidden = false
+                        }
                     case AVPlayerStatus.failed.rawValue:
                         self.playbackState = PlaybackState.failed
                     default:
@@ -623,8 +625,10 @@ extension Player {
                 if let status = change?[NSKeyValueChangeKey.newKey] as? NSNumber {
                     switch (status.intValue as AVPlayerStatus.RawValue) {
                     case AVPlayerStatus.readyToPlay.rawValue:
-                        self._playerView.playerLayer.player = self._avplayer
-                        self._playerView.playerLayer.isHidden = false
+                        if let layer = self._playerView.playerLayer {
+                            layer.player = self._avplayer
+                            layer.isHidden = false
+                        }
                     case AVPlayerStatus.failed.rawValue:
                         self.playbackState = PlaybackState.failed
                     default:
@@ -651,10 +655,12 @@ extension Player {
             }
         
         } else if (context == &PlayerLayerObserverContext) {
-            if self._playerView.playerLayer.isReadyForDisplay {
-                self.executeClosureOnMainQueueIfNecessary(withClosure: {
-                    self.delegate?.playerReady?(self)
-                })
+            if let layer = self._playerView.playerLayer {
+                if layer.isReadyForDisplay {
+                    self.executeClosureOnMainQueueIfNecessary(withClosure: {
+                        self.delegate?.playerReady?(self)
+                    })
+                }
             }
         }
         
@@ -666,48 +672,48 @@ extension Player {
 
 internal class PlayerView: UIView {
 
-    var player: AVPlayer! {
-        get {
-            return (self.layer as! AVPlayerLayer).player
-        }
-        set {
-            if (self.layer as! AVPlayerLayer).player != newValue {
-                (self.layer as! AVPlayerLayer).player = newValue
-            }
-        }
-    }
-
-    var playerLayer: AVPlayerLayer {
-        get {
-            return self.layer as! AVPlayerLayer
-        }
-    }
-
-    var fillMode: String {
-        get {
-            return (self.layer as! AVPlayerLayer).videoGravity
-        }
-        set {
-            (self.layer as! AVPlayerLayer).videoGravity = newValue
-        }
-    }
-    
     override class var layerClass: Swift.AnyClass {
         get {
             return AVPlayerLayer.self
         }
     }
 
+    var playerLayer: AVPlayerLayer? {
+        get {
+            return self.layer as? AVPlayerLayer
+        }
+    }
+
+    var player: AVPlayer? {
+        get {
+            return self.playerLayer?.player
+        }
+        set {
+            if self.playerLayer?.player != newValue {
+                self.playerLayer?.player = newValue
+            }
+        }
+    }
+
+    var fillMode: String {
+        get {
+            return self.playerLayer?.videoGravity ?? ""
+        }
+        set {
+            self.playerLayer?.videoGravity = newValue
+        }
+    }
+    
     // MARK: - object lifecycle
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.playerLayer.backgroundColor = UIColor.black.cgColor
+        self.playerLayer?.backgroundColor = UIColor.black.cgColor
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.playerLayer.backgroundColor = UIColor.black.cgColor
+        self.playerLayer?.backgroundColor = UIColor.black.cgColor
     }
 
 }
