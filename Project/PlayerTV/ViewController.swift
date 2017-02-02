@@ -57,7 +57,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.autoresizingMask = ([UIViewAutoresizing.flexibleWidth, UIViewAutoresizing.flexibleHeight])
+        self.view.autoresizingMask = ([.flexibleWidth, .flexibleHeight])
         
         self.player = Player()
         self.player.delegate = self
@@ -67,7 +67,7 @@ class ViewController: UIViewController {
         self.view.addSubview(self.player.view)
         self.player.didMove(toParentViewController: self)
         
-        self.player.setUrl(videoUrl)
+        self.player.url = videoUrl
         
         self.player.playbackLoops = true
 		

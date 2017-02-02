@@ -59,7 +59,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.autoresizingMask = [UIViewAutoresizing.flexibleWidth, UIViewAutoresizing.flexibleHeight]
+        self.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 
         self.player.delegate = self
         self.player.view.frame = self.view.bounds
