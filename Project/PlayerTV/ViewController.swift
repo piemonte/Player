@@ -30,7 +30,7 @@ let videoUrl = URL(string: "https://v.cdn.vine.co/r/videos/AA3C120C5211771758004
 
 class ViewController: UIViewController {
     
-    private var player: Player!
+    internal var player: Player
 	
 	// MARK: object lifecycle
 	
@@ -39,10 +39,12 @@ class ViewController: UIViewController {
 	}
 	
 	required init?(coder aDecoder: NSCoder) {
+        self.player = Player()
 		super.init(coder: aDecoder)
 	}
 	
 	override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        self.player = Player()
 		super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
 	}
     
@@ -81,8 +83,11 @@ class ViewController: UIViewController {
         
         self.player.playFromBeginning()
     }
-    
-    // MARK: UIGestureRecognizer
+}
+
+// MARK: - UIGestureRecognizer
+
+extension ViewController {
     
     func handleTapGestureRecognizer(_ gestureRecognizer: UITapGestureRecognizer) {
         switch (self.player.playbackState.rawValue) {
@@ -98,6 +103,7 @@ class ViewController: UIViewController {
             self.player.pause()
         }
     }
+    
 }
 
 // MARK: - PlayerDelegate
@@ -113,13 +119,16 @@ extension ViewController: PlayerDelegate {
     func playerBufferingStateDidChange(_ player: Player) {
     }
     
+    func playerCurrentTimeDidChange(_ player: Player) {
+    }
+    
     func playerPlaybackWillStartFromBeginning(_ player: Player) {
     }
     
     func playerPlaybackDidEnd(_ player: Player) {
     }
     
-    func playerCurrentTimeDidChange(_ player: Player) {
+    func playerPlaybackWillLoop(_ player: Player) {
     }
     
 }

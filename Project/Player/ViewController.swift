@@ -84,7 +84,7 @@ class ViewController: UIViewController {
     }
 }
 
-// MARK: UIGestureRecognizer
+// MARK: - UIGestureRecognizer
 
 extension ViewController {
     
@@ -114,20 +114,20 @@ extension ViewController: PlayerDelegate {
     
     func playerPlaybackStateDidChange(_ player: Player) {
     }
-
+    
     func playerBufferingStateDidChange(_ player: Player) {
     }
-
+    
+    func playerCurrentTimeDidChange(_ player: Player) {
+    }
+    
     func playerPlaybackWillStartFromBeginning(_ player: Player) {
     }
     
     func playerPlaybackDidEnd(_ player: Player) {
     }
     
-    func playerCurrentTimeDidChange(_ player: Player) {
-    }
-
-    func playerWillComeThroughLoop(_ player: Player) {
+    func playerPlaybackWillLoop(_ player: Player) {
     }
     
 }
