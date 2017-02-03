@@ -63,7 +63,8 @@ Allocate and add the `Player` controller to your view hierarchy.
 
 ``` Swift
  self.player = Player()
- self.player.delegate = self
+ self.player.playerDelegate = self
+ self.player.playbackDelegate = self
  self.player.view.frame = self.view.bounds
     
  self.addChildViewController(self.player)
@@ -87,7 +88,7 @@ play/pause/chill
 Adjust the fill mode for the video, if needed.
 
 ``` Swift
- self.player.fillMode = “AVLayerVideoGravityResizeAspect”
+ self.player.fillMode = FillMode.resizeAspectFit
 ```
 
 ## Community
