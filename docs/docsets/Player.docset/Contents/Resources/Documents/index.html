@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Player  Reference</title>
+    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a title="Player  Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="index.html">Player Docs</a> (58% documented)</p>
+        <p class="header-right"><a href="https://github.com/piemonte/Player"><img src="img/gh.png"/>View on GitHub</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="index.html">Player Reference</a>
+        <img id="carat" src="img/carat.png" />
+        Player  Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Classes/Player.html">Player</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Enums.html">Enums</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Enums/BufferingState.html">BufferingState</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/FillMode.html">FillMode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/PlaybackState.html">PlaybackState</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Protocols/PlayerDelegate.html">PlayerDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/PlayerPlaybackDelegate.html">PlayerPlaybackDelegate</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            
+            <p><img src="https://github.com/piemonte/Player/raw/master/Player.gif" alt="Player"></p>
+<a href='#player' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='player'>Player</h2>
+
+<p><code>Player</code> is a simple iOS video player library written in <a href="https://developer.apple.com/swift/">Swift</a>.</p>
+
+<p><a href="https://travis-ci.org/piemonte/Player"><img src="https://travis-ci.org/piemonte/Player.svg?branch=master" alt="Build Status"></a> <a href="http://cocoadocs.org/docsets/Player/"><img src="https://img.shields.io/cocoapods/v/Player.svg?style=flat" alt="Pod Version"></a></p>
+
+<ul>
+<li>Looking for an obj-c video player? Check out <a href="https://github.com/piemonte/PBJVideoPlayer">PBJVideoPlayer (obj-c)</a>.</li>
+<li>Looking for a Swift camera library? Check out <a href="https://github.com/NextLevel/NextLevel">Next Level</a>.</li>
+</ul>
+<a href='#features' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='features'>Features</h3>
+
+<ul>
+<li>[x] plays local media or streams remote media over HTTP</li>
+<li>[x] customizable UI and user interaction</li>
+<li>[x] no size restrictions</li>
+<li>[x] orientation change support</li>
+<li>[x] simple API</li>
+</ul>
+<a href='#quick-start' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h1 id='quick-start'>Quick Start</h1>
+
+<p><code>Player</code> is available for installation using the Cocoa dependency manager <a href="http://cocoapods.org/">CocoaPods</a>.  Alternatively, you can simply copy the <code>Player.swift</code> file into your Xcode project.</p>
+<a href='#xcode-8-amp-swift-3' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='xcode-8-amp-swift-3'>Xcode 8 &amp; Swift 3</h2>
+<pre class="highlight ruby"><code><span class="c1"># CocoaPods</span>
+<span class="n">pod</span> <span class="s2">"Player"</span><span class="p">,</span> <span class="s2">"~&gt; 0.2.0"</span>
+
+<span class="n">post_install</span> <span class="k">do</span> <span class="o">|</span><span class="n">installer</span><span class="o">|</span>
+  <span class="n">installer</span><span class="p">.</span><span class="nf">pods_project</span><span class="p">.</span><span class="nf">targets</span><span class="p">.</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">target</span><span class="o">|</span>
+    <span class="n">target</span><span class="p">.</span><span class="nf">build_configurations</span><span class="p">.</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
+      <span class="n">config</span><span class="p">.</span><span class="nf">build_settings</span><span class="p">[</span><span class="s1">'SWIFT_VERSION'</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'3.0'</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="c1"># Carthage</span>
+<span class="n">github</span> <span class="s2">"piemonte/Player"</span> <span class="o">~&gt;</span> <span class="mi">0</span><span class="o">.</span><span class="mi">2</span><span class="o">.</span><span class="mi">0</span>
+
+<span class="c1"># SwiftPM</span>
+<span class="n">let</span> <span class="n">package</span> <span class="o">=</span> <span class="no">Package</span><span class="p">(</span>
+    <span class="ss">dependencies: </span><span class="p">[</span>
+        <span class="o">.</span><span class="no">Package</span><span class="p">(</span><span class="ss">url: </span><span class="s2">"https://github.com/piemonte/Player"</span><span class="p">,</span> <span class="ss">majorVersion: </span><span class="mi">0</span><span class="p">)</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+</code></pre>
+<a href='#xcode-8-amp-swift-2-3-or-xcode-7' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='xcode-8-amp-swift-2-3-or-xcode-7'>Xcode 8 &amp; Swift 2.3 or Xcode 7</h2>
+<pre class="highlight ruby"><code><span class="c1"># CocoaPods</span>
+<span class="n">pod</span> <span class="s2">"Player"</span><span class="p">,</span> <span class="s2">"~&gt; 0.1.3"</span>
+
+<span class="c1"># Carthage</span>
+<span class="n">github</span> <span class="s2">"piemonte/Player"</span> <span class="o">~&gt;</span> <span class="mi">0</span><span class="o">.</span><span class="mi">1</span><span class="o">.</span><span class="mi">3</span>
+</code></pre>
+<a href='#usage' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='usage'>Usage</h2>
+
+<p>The sample project provides an example of how to integrate <code>Player</code>, otherwise you can follow these steps.</p>
+
+<p>Allocate and add the <code>Player</code> controller to your view hierarchy.</p>
+<pre class="highlight plaintext"><code> self.player = Player()
+ self.player.playerDelegate = self
+ self.player.playbackDelegate = self
+ self.player.view.frame = self.view.bounds
+
+ self.addChildViewController(self.player)
+ self.view.addSubview(self.player.view)
+ self.player.didMoveToParentViewController(self)
+</code></pre>
+
+<p>Provide the file path to the resource you would like to play locally or stream. Ensure you&rsquo;re including the file extension.</p>
+<pre class="highlight plaintext"><code>let videoUrl: NSURL = // file or http url
+self.player.setUrl(videoUrl)
+</code></pre>
+
+<p>play/pause/chill</p>
+<pre class="highlight plaintext"><code> self.player.playFromBeginning()
+</code></pre>
+
+<p>Adjust the fill mode for the video, if needed.</p>
+<pre class="highlight plaintext"><code> self.player.fillMode = FillMode.resizeAspectFit
+</code></pre>
+<a href='#community' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='community'>Community</h2>
+
+<ul>
+<li>Need help? Use <a href="http://stackoverflow.com/questions/tagged/player-swift">Stack Overflow</a> with the tag &lsquo;player-swift&rsquo;.</li>
+<li>Questions? Use <a href="http://stackoverflow.com/questions/tagged/player-swift">Stack Overflow</a> with the tag &#39;player-swift&rsquo;.</li>
+<li>Found a bug? Open an <a href="https://github.com/piemonte/player/issues">issue</a>.</li>
+<li>Feature idea? Open an <a href="https://github.com/piemonte/player/issues">issue</a>.</li>
+<li>Want to contribute? Submit a <a href="https://github.com/piemonte/player/pulls">pull request</a>.</li>
+</ul>
+<a href='#resources' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='resources'>Resources</h2>
+
+<ul>
+<li><a href="https://github.com/apple/swift-evolution">Swift Evolution</a></li>
+<li><a href="https://developer.apple.com/library/ios/documentation/AudioVideo/Conceptual/AVFoundationPG/Articles/00_Introduction.html">AV Foundation Programming Guide</a></li>
+<li><a href="https://github.com/NextLevel/NextLevel/">Next Level</a>, rad media capture in Swift</li>
+<li><a href="https://github.com/piemonte/PBJVision">PBJVision</a>, iOS camera engine, features touch-to-record video, slow motion video, and photo capture</li>
+<li><a href="https://github.com/piemonte/PBJVideoPlayer">PBJVideoPlayer</a>, a simple iOS video player library, written in obj-c</li>
+</ul>
+<a href='#license' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='license'>License</h2>
+
+<p>Player is available under the MIT license, see the <a href="https://github.com/piemonte/player/blob/master/LICENSE">LICENSE</a> file for more information.</p>
+
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2017 <a class="link" href="https://patrickpiemonte.com" target="_blank" rel="external">Patrick Piemonte</a>. All rights reserved. (Last updated: 2017-02-02)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

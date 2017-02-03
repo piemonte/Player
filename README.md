@@ -91,6 +91,10 @@ Adjust the fill mode for the video, if needed.
  self.player.fillMode = FillMode.resizeAspectFit
 ```
 
+## Documentation
+
+You can find [the docs here](https://github.com/piemonte/Player). Documentation is generated with [jazzy](https://github.com/realm/jazzy) and hosted on [GitHub-Pages](https://pages.github.com).
+
 ## Community
 
 - Need help? Use [Stack Overflow](http://stackoverflow.com/questions/tagged/player-swift) with the tag 'player-swift'.
