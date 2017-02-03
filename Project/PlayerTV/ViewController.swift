@@ -62,7 +62,8 @@ class ViewController: UIViewController {
         self.view.autoresizingMask = ([.flexibleWidth, .flexibleHeight])
         
         self.player = Player()
-        self.player.delegate = self
+        self.player.playerDelegate = self
+        self.player.playbackDelegate = self
         self.player.view.frame = self.view.bounds
         
         self.addChildViewController(self.player)
@@ -118,6 +119,12 @@ extension ViewController: PlayerDelegate {
     
     func playerBufferingStateDidChange(_ player: Player) {
     }
+    
+}
+
+// MARK: - PlayerPlaybackDelegate
+
+extension ViewController: PlayerPlaybackDelegate {
     
     func playerCurrentTimeDidChange(_ player: Player) {
     }
