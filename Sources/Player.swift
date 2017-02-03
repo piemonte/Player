@@ -667,11 +667,13 @@ extension Player {
                     self.bufferingState = .ready
                     
                     let timeRanges = item.loadedTimeRanges
-                    let timeRange: CMTimeRange = timeRanges[0].timeRangeValue
-                    let bufferedTime = CMTimeGetSeconds(CMTimeAdd(timeRange.start, timeRange.duration))
-                    let currentTime = CMTimeGetSeconds(item.currentTime())
-                    
-                    if (bufferedTime - currentTime) >= self.bufferSize && self.playbackState == .playing {
+                    if let timeRange = timeRanges.first?.timeRangeValue {
+                        let bufferedTime = CMTimeGetSeconds(CMTimeAdd(timeRange.start, timeRange.duration))
+                        let currentTime = CMTimeGetSeconds(item.currentTime())
+                        if (bufferedTime - currentTime) >= self.bufferSize && self.playbackState == .playing {
+                            self.playFromCurrentTime()
+                        }
+                    } else {
                         self.playFromCurrentTime()
                     }
                 }
