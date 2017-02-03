@@ -93,7 +93,7 @@ Adjust the fill mode for the video, if needed.
 
 ## Documentation
 
-You can find [the docs here](https://github.com/piemonte/Player). Documentation is generated with [jazzy](https://github.com/realm/jazzy) and hosted on [GitHub-Pages](https://pages.github.com).
+You can find [the docs here](http://piemonte.github.io/Player/). Documentation is generated with [jazzy](https://github.com/realm/jazzy) and hosted on [GitHub-Pages](https://pages.github.com).
 
 ## Community
 
