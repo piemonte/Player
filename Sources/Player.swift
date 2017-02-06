@@ -367,6 +367,19 @@ open class Player: UIViewController {
             return playerItem.seek(to: time)
         }
     }
+    
+    /// Updates playback to the specified time.
+    ///
+    /// - Parameters:
+    ///   - time: The time to switch to move the playback.
+    ///   - completionHandler: call block handler after seeking
+    open func seek(to time: CMTime , completionHandler: @escaping () -> Swift.Void) {
+        if let playerItem =  self._playerItem{
+            return playerItem.seek(to: time, completionHandler: { (seeked) in
+                completionHandler()
+            })
+        }
+    }
 
     /// Updates the playback time to the specified time bound.
     ///
