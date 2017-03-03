@@ -132,13 +132,6 @@ open class Player: UIViewController {
             url = nil
             guard isViewLoaded else { return }
 
-            // ensure everything is reset beforehand
-            if self.playbackState == .playing {
-                self.pause()
-            }
-
-            self.setupPlayerItem(nil)
-
             if let asset = asset {
                 self.setupAsset(asset)
             }
