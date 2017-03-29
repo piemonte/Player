@@ -25,28 +25,10 @@
 ```ruby
 # CocoaPods
 swift_version = "3.0"
-pod "Player", "~> 0.2.0"
+pod "Player", "~> 0.5.0"
 
 # Carthage
-github "piemonte/Player" ~> 0.2.0
-
-# SwiftPM
-let package = Package(
-    dependencies: [
-        .Package(url: "https://github.com/piemonte/Player", majorVersion: 0)
-    ]
-)
-```
-
-## Xcode 8 & Swift 2.3 or Xcode 7
-
-```ruby
-# CocoaPods
-pod "Player", "~> 0.1.3"
-
-# Carthage
-github "piemonte/Player" ~> 0.1.3
-```
+github "piemonte/Player" ~> 0.5.0
 
 ## Usage
 
