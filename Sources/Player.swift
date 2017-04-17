@@ -28,6 +28,7 @@ import UIKit
 import Foundation
 import AVFoundation
 import CoreGraphics
+import AVKit
 
 // MARK: - types
 
@@ -404,6 +405,12 @@ open class Player: UIViewController {
         return image!
     }
 
+    open func pictureInPicture() -> AVPictureInPictureController?{
+        if let playerLayer = self._playerView.playerLayer{
+            return AVPictureInPictureController(playerLayer: playerLayer)
+        }
+        return nil
+    }
 }
 
 // MARK: - loading funcs
