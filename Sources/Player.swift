@@ -92,6 +92,7 @@ public protocol PlayerDelegate: NSObjectProtocol {
     func playerReady(_ player: Player)
     func playerPlaybackStateDidChange(_ player: Player)
     func playerBufferingStateDidChange(_ player: Player)
+    func playerBufferTimeDidChange(_ bufferTime: Double)
 }
 
 
@@ -688,6 +689,7 @@ extension Player {
                     let timeRanges = item.loadedTimeRanges
                     if let timeRange = timeRanges.first?.timeRangeValue {
                         let bufferedTime = CMTimeGetSeconds(CMTimeAdd(timeRange.start, timeRange.duration))
+                        self.playerDelegate?.playerBufferTimeDidChange(bufferedTime)
                         let currentTime = CMTimeGetSeconds(item.currentTime())
                         if (bufferedTime - currentTime) >= self.bufferSize && self.playbackState == .playing {
                             self.playFromCurrentTime()
