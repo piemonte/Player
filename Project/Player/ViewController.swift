@@ -103,6 +103,9 @@ extension ViewController:PlayerDelegate {
     
     func playerBufferingStateDidChange(_ player: Player) {
     }
+    func playerBufferTimeDidChange(_ bufferTime: Double) {
+        
+    }
     
 }
 
