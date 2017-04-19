@@ -30,24 +30,9 @@ let videoUrl = URL(string: "https://v.cdn.vine.co/r/videos/AA3C120C5211771758004
 
 class ViewController: UIViewController {
     
-    internal var player: Player
+    internal var player = Player()
 	
 	// MARK: object lifecycle
-	
-	convenience init() {
-		self.init(nibName: nil, bundle:nil)
-	}
-	
-	required init?(coder aDecoder: NSCoder) {
-        self.player = Player()
-		super.init(coder: aDecoder)
-	}
-	
-	override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        self.player = Player()
-		super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-	}
-    
     deinit {
         self.player.willMove(toParentViewController: self)
         self.player.view.removeFromSuperview()
@@ -61,7 +46,6 @@ class ViewController: UIViewController {
         
         self.view.autoresizingMask = ([.flexibleWidth, .flexibleHeight])
         
-        self.player = Player()
         self.player.playerDelegate = self
         self.player.playbackDelegate = self
         self.player.view.frame = self.view.bounds
