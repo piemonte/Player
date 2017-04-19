@@ -30,24 +30,9 @@ let videoUrl = URL(string: "https://v.cdn.vine.co/r/videos/AA3C120C5211771758004
 
 class ViewController: UIViewController {
 
-    fileprivate var player: Player
+    fileprivate var player = Player()
     
     // MARK: object lifecycle
-    
-    convenience init() {
-        self.init(nibName: nil, bundle:nil)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        self.player = Player()
-        super.init(coder: aDecoder)
-    }
-
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        self.player = Player()
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-    }
-    
     deinit {
         self.player.willMove(toParentViewController: self)
         self.player.view.removeFromSuperview()
@@ -108,7 +93,7 @@ extension ViewController {
 
 // MARK: - PlayerDelegate
 
-extension ViewController: PlayerDelegate {
+extension ViewController:PlayerDelegate {
     
     func playerReady(_ player: Player) {
     }
@@ -123,7 +108,7 @@ extension ViewController: PlayerDelegate {
 
 // MARK: - PlayerPlaybackDelegate
 
-extension ViewController: PlayerPlaybackDelegate {
+extension ViewController:PlayerPlaybackDelegate {
     
     func playerCurrentTimeDidChange(_ player: Player) {
     }
