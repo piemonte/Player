@@ -408,6 +408,11 @@ open class Player: UIViewController {
         return image!
     }
 
+    /// Return the av player layer for consumption by
+    /// things such as Picture in Picture
+    open func playerLayer() -> AVPlayerLayer? {
+        return self._playerView.playerLayer
+    }
 }
 
 // MARK: - loading funcs
