@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8513B0C11EBFB92600A9D025"
+               BlueprintIdentifier = "8513B1151EBFC1A200A9D025"
                BuildableName = "Player.framework"
                BlueprintName = "Player_tvOS"
                ReferencedContainer = "container:Player.xcodeproj">
@@ -54,7 +54,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8513B0C11EBFB92600A9D025"
+            BlueprintIdentifier = "8513B1151EBFC1A200A9D025"
             BuildableName = "Player.framework"
             BlueprintName = "Player_tvOS"
             ReferencedContainer = "container:Player.xcodeproj">
