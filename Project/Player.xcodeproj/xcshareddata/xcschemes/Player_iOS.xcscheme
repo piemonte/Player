@@ -14,8 +14,8 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "065A0F9C1A25C8E2005BA7BC"
-               BuildableName = "Player_iOS.app"
+               BlueprintIdentifier = "8513B0A71EBFB73500A9D025"
+               BuildableName = "Player_iOS.framework"
                BlueprintName = "Player_iOS"
                ReferencedContainer = "container:Player.xcodeproj">
             </BuildableReference>
@@ -32,8 +32,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "065A0F9C1A25C8E2005BA7BC"
-            BuildableName = "Player_iOS.app"
+            BlueprintIdentifier = "8513B0A71EBFB73500A9D025"
+            BuildableName = "Player_iOS.framework"
             BlueprintName = "Player_iOS"
             ReferencedContainer = "container:Player.xcodeproj">
          </BuildableReference>
@@ -55,8 +55,8 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "065A0F9C1A25C8E2005BA7BC"
-            BuildableName = "Player_iOS.app"
+            BlueprintIdentifier = "8513B0A71EBFB73500A9D025"
+            BuildableName = "Player_iOS.framework"
             BlueprintName = "Player_iOS"
             ReferencedContainer = "container:Player.xcodeproj">
          </BuildableReference>
@@ -74,8 +74,8 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "065A0F9C1A25C8E2005BA7BC"
-            BuildableName = "Player_iOS.app"
+            BlueprintIdentifier = "8513B0A71EBFB73500A9D025"
+            BuildableName = "Player_iOS.framework"
             BlueprintName = "Player_iOS"
             ReferencedContainer = "container:Player.xcodeproj">
          </BuildableReference>
