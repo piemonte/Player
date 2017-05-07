@@ -8,5 +8,5 @@ env:
   - TVOS_SDK=appletvsimulator10.0
 script:
   - xcodebuild -showsdks
-  - xcodebuild -project Project/Player.xcodeproj -scheme 'Debug - iOS' -sdk $IOS_SDK build analyze
+  - xcodebuild -project Project/Player.xcodeproj -scheme 'Player_iOS' -sdk $IOS_SDK build analyze
 #  - xcodebuild -project Project/Player.xcodeproj -scheme 'Debug - tvOS' -sdk $TVOS_SDK build analyze
