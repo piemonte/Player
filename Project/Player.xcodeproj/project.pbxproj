@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8513B0AC1EBFB73500A9D025 /* Player_iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 8513B0AA1EBFB73500A9D025 /* Player_iOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8513B0B91EBFB74F00A9D025 /* Player_tvOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 8513B0B71EBFB74F00A9D025 /* Player_tvOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8513B0C61EBFB92600A9D025 /* Player_tvOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 8513B0C41EBFB92600A9D025 /* Player_tvOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,9 +28,11 @@
 		8513B0A81EBFB73500A9D025 /* Player_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Player_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8513B0AA1EBFB73500A9D025 /* Player_iOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Player_iOS.h; sourceTree = "<group>"; };
 		8513B0AB1EBFB73500A9D025 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8513B0B51EBFB74F00A9D025 /* Player_tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Player_tvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8513B0B71EBFB74F00A9D025 /* Player_tvOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Player_tvOS.h; sourceTree = "<group>"; };
 		8513B0B81EBFB74F00A9D025 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8513B0C21EBFB92600A9D025 /* Player_tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Player_tvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8513B0C41EBFB92600A9D025 /* Player_tvOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Player_tvOS.h; sourceTree = "<group>"; };
+		8513B0C51EBFB92600A9D025 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,7 +43,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8513B0B11EBFB74F00A9D025 /* Frameworks */ = {
+		8513B0BE1EBFB92600A9D025 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -90,6 +92,7 @@
 				04B4E63E1C1E8A7B00E20778 /* tvOS */,
 				8513B0A91EBFB73500A9D025 /* Player_iOS */,
 				8513B0B61EBFB74F00A9D025 /* Player_tvOS */,
+				8513B0C31EBFB92600A9D025 /* Player_tvOS */,
 				065A0F9E1A25C8E2005BA7BC /* Products */,
 			);
 			sourceTree = "<group>";
@@ -98,7 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				8513B0A81EBFB73500A9D025 /* Player_iOS.framework */,
-				8513B0B51EBFB74F00A9D025 /* Player_tvOS.framework */,
+				8513B0C21EBFB92600A9D025 /* Player_tvOS.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -150,6 +153,15 @@
 			path = Player_tvOS;
 			sourceTree = "<group>";
 		};
+		8513B0C31EBFB92600A9D025 /* Player_tvOS */ = {
+			isa = PBXGroup;
+			children = (
+				8513B0C41EBFB92600A9D025 /* Player_tvOS.h */,
+				8513B0C51EBFB92600A9D025 /* Info.plist */,
+			);
+			path = Player_tvOS;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -161,11 +173,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8513B0B21EBFB74F00A9D025 /* Headers */ = {
+		8513B0BF1EBFB92600A9D025 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8513B0B91EBFB74F00A9D025 /* Player_tvOS.h in Headers */,
+				8513B0C61EBFB92600A9D025 /* Player_tvOS.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -190,14 +202,14 @@
 			productReference = 8513B0A81EBFB73500A9D025 /* Player_iOS.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		8513B0B41EBFB74F00A9D025 /* Player_tvOS */ = {
+		8513B0C11EBFB92600A9D025 /* Player_tvOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8513B0BA1EBFB74F00A9D025 /* Build configuration list for PBXNativeTarget "Player_tvOS" */;
+			buildConfigurationList = 8513B0C71EBFB92600A9D025 /* Build configuration list for PBXNativeTarget "Player_tvOS" */;
 			buildPhases = (
-				8513B0B01EBFB74F00A9D025 /* Sources */,
-				8513B0B11EBFB74F00A9D025 /* Frameworks */,
-				8513B0B21EBFB74F00A9D025 /* Headers */,
-				8513B0B31EBFB74F00A9D025 /* Resources */,
+				8513B0BD1EBFB92600A9D025 /* Sources */,
+				8513B0BE1EBFB92600A9D025 /* Frameworks */,
+				8513B0BF1EBFB92600A9D025 /* Headers */,
+				8513B0C01EBFB92600A9D025 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -205,7 +217,7 @@
 			);
 			name = Player_tvOS;
 			productName = Player_tvOS;
-			productReference = 8513B0B51EBFB74F00A9D025 /* Player_tvOS.framework */;
+			productReference = 8513B0C21EBFB92600A9D025 /* Player_tvOS.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -223,7 +235,7 @@
 						CreatedOnToolsVersion = 8.3.2;
 						ProvisioningStyle = Automatic;
 					};
-					8513B0B41EBFB74F00A9D025 = {
+					8513B0C11EBFB92600A9D025 = {
 						CreatedOnToolsVersion = 8.3.2;
 						ProvisioningStyle = Automatic;
 					};
@@ -243,7 +255,7 @@
 			projectRoot = "";
 			targets = (
 				8513B0A71EBFB73500A9D025 /* Player_iOS */,
-				8513B0B41EBFB74F00A9D025 /* Player_tvOS */,
+				8513B0C11EBFB92600A9D025 /* Player_tvOS */,
 			);
 		};
 /* End PBXProject section */
@@ -256,7 +268,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8513B0B31EBFB74F00A9D025 /* Resources */ = {
+		8513B0C01EBFB92600A9D025 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -273,7 +285,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8513B0B01EBFB74F00A9D025 /* Sources */ = {
+		8513B0BD1EBFB92600A9D025 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -436,7 +448,7 @@
 			};
 			name = Release;
 		};
-		8513B0BB1EBFB74F00A9D025 /* Debug */ = {
+		8513B0C81EBFB92600A9D025 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -467,20 +479,21 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = Player_tvOS/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.patrickpiemonte.Player-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 10.2;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
 		};
-		8513B0BC1EBFB74F00A9D025 /* Release */ = {
+		8513B0C91EBFB92600A9D025 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -509,14 +522,15 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = Player_tvOS/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.patrickpiemonte.Player-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 10.2;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -542,11 +556,11 @@
 			);
 			defaultConfigurationIsVisible = 0;
 		};
-		8513B0BA1EBFB74F00A9D025 /* Build configuration list for PBXNativeTarget "Player_tvOS" */ = {
+		8513B0C71EBFB92600A9D025 /* Build configuration list for PBXNativeTarget "Player_tvOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				8513B0BB1EBFB74F00A9D025 /* Debug */,
-				8513B0BC1EBFB74F00A9D025 /* Release */,
+				8513B0C81EBFB92600A9D025 /* Debug */,
+				8513B0C91EBFB92600A9D025 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};

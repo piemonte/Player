@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8513B0B41EBFB74F00A9D025"
+               BlueprintIdentifier = "8513B0C11EBFB92600A9D025"
                BuildableName = "Player_tvOS.framework"
                BlueprintName = "Player_tvOS"
                ReferencedContainer = "container:Player.xcodeproj">
