@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "8513B0C11EBFB92600A9D025"
-               BuildableName = "Player_tvOS.framework"
+               BuildableName = "Player.framework"
                BlueprintName = "Player_tvOS"
                ReferencedContainer = "container:Player.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8513B0A71EBFB73500A9D025"
-            BuildableName = "Player_iOS.framework"
+            BuildableName = "Player.framework"
             BlueprintName = "Player_iOS"
             ReferencedContainer = "container:Player.xcodeproj">
          </BuildableReference>
@@ -51,6 +51,15 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "8513B0C11EBFB92600A9D025"
+            BuildableName = "Player.framework"
+            BlueprintName = "Player_tvOS"
+            ReferencedContainer = "container:Player.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
