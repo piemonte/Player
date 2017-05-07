@@ -11,13 +11,15 @@
 		04B4E6421C1E8A7B00E20778 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B4E6411C1E8A7B00E20778 /* ViewController.swift */; };
 		04B4E6471C1E8A7C00E20778 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04B4E6461C1E8A7C00E20778 /* Assets.xcassets */; };
 		04D702CF1C1E8C8400879C91 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065A0FC51A25C94B005BA7BC /* Player.swift */; };
-		0638A5351E01BBF8009EE18B /* Player.h in Headers */ = {isa = PBXBuildFile; fileRef = 0638A5331E01BBF8009EE18B /* Player.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0638A5351E01BBF8009EE18B /* Player_iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 0638A5331E01BBF8009EE18B /* Player_iOS.h */; };
 		065A0FA31A25C8E2005BA7BC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065A0FA21A25C8E2005BA7BC /* AppDelegate.swift */; };
 		065A0FA51A25C8E2005BA7BC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065A0FA41A25C8E2005BA7BC /* ViewController.swift */; };
 		065A0FAA1A25C8E2005BA7BC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 065A0FA91A25C8E2005BA7BC /* Assets.xcassets */; };
 		065A0FAD1A25C8E2005BA7BC /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 065A0FAB1A25C8E2005BA7BC /* LaunchScreen.xib */; };
 		065A0FC61A25C94B005BA7BC /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065A0FC51A25C94B005BA7BC /* Player.swift */; };
 		06C0905F1E038F250038CA25 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065A0FC51A25C94B005BA7BC /* Player.swift */; };
+		856516A81EBF89C300B85E9B /* Player_iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 0638A5331E01BBF8009EE18B /* Player_iOS.h */; };
+		856516AA1EBF8E3C00B85E9B /* Player_tvOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 856516A91EBF8E2F00B85E9B /* Player_tvOS.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,7 +29,7 @@
 		04B4E6461C1E8A7C00E20778 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		04B4E6481C1E8A7C00E20778 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0638A5311E01BBF8009EE18B /* Player.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Player.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		0638A5331E01BBF8009EE18B /* Player.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Player.h; path = ../../Sources/Player.h; sourceTree = "<group>"; };
+		0638A5331E01BBF8009EE18B /* Player_iOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Player_iOS.h; path = ../../Sources/Player_iOS.h; sourceTree = "<group>"; };
 		065677291A26C59B0038C208 /* Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Base.xcconfig; sourceTree = SOURCE_ROOT; };
 		0656772A1A26C59B0038C208 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = SOURCE_ROOT; };
 		065A0F9D1A25C8E2005BA7BC /* Player_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Player_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -39,6 +41,7 @@
 		065A0FC51A25C94B005BA7BC /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Player.swift; path = ../Sources/Player.swift; sourceTree = "<group>"; };
 		06C6A5891A89E952009DC6EA /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = SOURCE_ROOT; };
 		06DE65951E182C5A00C064DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = Framework/Info.plist; sourceTree = SOURCE_ROOT; };
+		856516A91EBF8E2F00B85E9B /* Player_tvOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Player_tvOS.h; path = ../../Sources/Player_tvOS.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,7 +92,8 @@
 		0638A5321E01BBF8009EE18B /* Player */ = {
 			isa = PBXGroup;
 			children = (
-				0638A5331E01BBF8009EE18B /* Player.h */,
+				0638A5331E01BBF8009EE18B /* Player_iOS.h */,
+				856516A91EBF8E2F00B85E9B /* Player_tvOS.h */,
 				06DE65951E182C5A00C064DE /* Info.plist */,
 			);
 			path = Player;
@@ -163,7 +167,16 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0638A5351E01BBF8009EE18B /* Player.h in Headers */,
+				0638A5351E01BBF8009EE18B /* Player_iOS.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		856516A71EBF89BA00B85E9B /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				856516AA1EBF8E3C00B85E9B /* Player_tvOS.h in Headers */,
+				856516A81EBF89C300B85E9B /* Player_iOS.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -211,6 +224,7 @@
 			buildPhases = (
 				065A0F991A25C8E2005BA7BC /* Sources */,
 				065A0F9A1A25C8E2005BA7BC /* Frameworks */,
+				856516A71EBF89BA00B85E9B /* Headers */,
 				065A0F9B1A25C8E2005BA7BC /* Resources */,
 			);
 			buildRules = (
@@ -419,6 +433,7 @@
 		0620AB4C1E01CD5900AB27E8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
@@ -499,6 +514,7 @@
 		065A0FBE1A25C8E2005BA7BC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "$(SRCROOT)/Player/Info.plist";

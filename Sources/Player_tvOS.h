@@ -1,4 +1,4 @@
-//  Player.h
+//  Player_tvOS.h
 //
 //  Created by patrick piemonte on 11/26/14.
 //
