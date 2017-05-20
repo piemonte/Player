@@ -36,10 +36,23 @@ import CoreGraphics
 /// - resize: Stretch to fill.
 /// - resizeAspectFill: Preserve aspect ratio, filling bounds.
 /// - resizeAspectFit: Preserve aspect ratio, fill within bounds.
-public enum FillMode: String {
-    case resize = "AVLayerVideoGravityResize"
-    case resizeAspectFill = "AVLayerVideoGravityResizeAspectFill"
-    case resizeAspectFit = "AVLayerVideoGravityResizeAspect"
+public enum PlayerFillMode {
+    case resize
+    case resizeAspectFill
+    case resizeAspectFit // default
+    
+    public var avFoundationType: String {
+        get {
+            switch self {
+            case .resize:
+                return AVLayerVideoGravityResize
+            case .resizeAspectFill:
+                return AVLayerVideoGravityResizeAspectFill
+            case .resizeAspectFit:
+                return AVLayerVideoGravityResizeAspect
+            }
+        }
+    }
 }
 
 /// Asset playback states.
@@ -304,8 +317,8 @@ open class Player: UIViewController {
 
     open override func loadView() {
         self._playerView = PlayerView(frame: CGRect.zero)
-        self._playerView.fillMode = AVLayerVideoGravityResizeAspect
         self._playerView.playerLayer?.isHidden = true
+        self._playerView.fillMode = PlayerFillMode.resizeAspectFit.avFoundationType
         self.view = self._playerView
     }
     
