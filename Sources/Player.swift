@@ -93,7 +93,7 @@ public protocol PlayerDelegate: NSObjectProtocol {
     func playerPlaybackStateDidChange(_ player: Player)
     func playerBufferingStateDidChange(_ player: Player)
     
-    // This is the time in seconds that the video has been buffered.  
+    // This is the time in seconds that the video has been buffered.
     // If implementing a UIProgressView, user this value / player.maximumDuration to set progress.
     func playerBufferTimeDidChange(_ bufferTime: Double)
 }
@@ -514,7 +514,7 @@ extension Player {
 
 extension Player {
     
-    // AVPlayerItem
+    // MARK: - AVPlayerItem
     
     internal func playerItemDidPlayToEndTime(_ aNotification: Notification) {
         if self.playbackLoops == true {
@@ -535,7 +535,7 @@ extension Player {
         self.playbackState = .failed
     }
     
-    // UIApplication
+    // MARK: - UIApplication
     
     internal func addApplicationObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleApplicationWillResignActive(_:)), name: .UIApplicationWillResignActive, object: UIApplication.shared)
@@ -546,6 +546,8 @@ extension Player {
     internal func removeApplicationObservers() {
         NotificationCenter.default.removeObserver(self)
     }
+    
+    // MARK: - handlers
     
     internal func handleApplicationWillResignActive(_ aNotification: Notification) {
         if self.playbackState == .playing {
@@ -722,10 +724,26 @@ extension Player {
 
 }
 
+// MARK: - queues
+
+extension Player {
+    
+    internal func executeClosureOnMainQueueIfNecessary(withClosure closure: @escaping () -> Void) {
+        if Thread.isMainThread {
+            closure()
+        } else {
+            DispatchQueue.main.async(execute: closure)
+        }
+    }
+    
+}
+
 // MARK: - PlayerView
 
 internal class PlayerView: UIView {
 
+    // MARK: - properties
+    
     override class var layerClass: Swift.AnyClass {
         get {
             return AVPlayerLayer.self
@@ -743,9 +761,7 @@ internal class PlayerView: UIView {
             return self.playerLayer?.player
         }
         set {
-            if self.playerLayer?.player != newValue {
-                self.playerLayer?.player = newValue
-            }
+            self.playerLayer?.player = newValue
         }
     }
 
@@ -770,18 +786,4 @@ internal class PlayerView: UIView {
         self.playerLayer?.backgroundColor = UIColor.black.cgColor
     }
 
-}
-
-// MARK: - queues
-
-extension Player {
-    
-    internal func executeClosureOnMainQueueIfNecessary(withClosure closure: @escaping () -> Void) {
-        if Thread.isMainThread {
-            closure()
-        } else {
-            DispatchQueue.main.async(execute: closure)
-        }
-    }
-    
 }
