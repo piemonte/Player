@@ -93,8 +93,8 @@ public protocol PlayerDelegate: NSObjectProtocol {
     func playerPlaybackStateDidChange(_ player: Player)
     func playerBufferingStateDidChange(_ player: Player)
     
-    //this is the time in seconds that the video has buffered to.  
-    //If implementing a UIProgressView, user this value / player.maximumDuration to set progress.
+    // This is the time in seconds that the video has been buffered.  
+    // If implementing a UIProgressView, user this value / player.maximumDuration to set progress.
     func playerBufferTimeDidChange(_ bufferTime: Double)
 }
 
