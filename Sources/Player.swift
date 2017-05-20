@@ -750,27 +750,27 @@ internal class PlayerView: UIView {
         }
     }
 
-    var playerLayer: AVPlayerLayer? {
+    var playerLayer: AVPlayerLayer {
         get {
-            return self.layer as? AVPlayerLayer
+            return self.layer as! AVPlayerLayer
         }
     }
 
     var player: AVPlayer? {
         get {
-            return self.playerLayer?.player
+            return self.playerLayer.player
         }
         set {
-            self.playerLayer?.player = newValue
+            self.playerLayer.player = newValue
         }
     }
 
     var fillMode: String {
         get {
-            return self.playerLayer?.videoGravity ?? ""
+            return self.playerLayer.videoGravity
         }
         set {
-            self.playerLayer?.videoGravity = newValue
+            self.playerLayer.videoGravity = newValue
         }
     }
     
@@ -778,12 +778,17 @@ internal class PlayerView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.playerLayer?.backgroundColor = UIColor.black.cgColor
+        self.playerLayer.backgroundColor = UIColor.black.cgColor
+        self.playerLayer.fillMode = PlayerFillMode.resizeAspectFit.avFoundationType
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.playerLayer?.backgroundColor = UIColor.black.cgColor
+        self.playerLayer.backgroundColor = UIColor.black.cgColor
+        self.playerLayer.fillMode = PlayerFillMode.resizeAspectFit.avFoundationType
     }
 
+    deinit {
+    }
+    
 }
