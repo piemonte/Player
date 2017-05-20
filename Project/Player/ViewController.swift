@@ -78,14 +78,19 @@ extension ViewController {
         switch (self.player.playbackState.rawValue) {
             case PlaybackState.stopped.rawValue:
                 self.player.playFromBeginning()
+                break
             case PlaybackState.paused.rawValue:
                 self.player.playFromCurrentTime()
+                break
             case PlaybackState.playing.rawValue:
                 self.player.pause()
+                break
             case PlaybackState.failed.rawValue:
                 self.player.pause()
+                break
             default:
                 self.player.pause()
+                break
         }
     }
     
