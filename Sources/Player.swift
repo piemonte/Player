@@ -145,11 +145,8 @@ open class Player: UIViewController {
     /// For setting up with AVAsset instead of URL
     /// Note: Resets URL (cannot set both)
     open var asset: AVAsset? {
-        didSet {
-            url = nil
-            guard isViewLoaded, let asset = asset else { return }
-            setupAsset(asset)
-        }
+        get { return _asset }
+        set { _ = newValue.map { setupAsset($0) } }
     }
     
     /// Mutes audio playback when true.
@@ -480,6 +477,8 @@ extension Player {
     }
 
     fileprivate func setupAsset(_ asset: AVAsset) {
+        guard isViewLoaded else { return }
+        
         if self.playbackState == .playing {
             self.pause()
         }
