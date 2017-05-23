@@ -174,10 +174,10 @@ open class Player: UIViewController {
     }
 
     /// Pauses playback automatically when backgrounded.
-    open var playbackPausesWhenBackgrounded: Bool
+    open var playbackPausesWhenBackgrounded: Bool = true
     
     /// Resumes playback when entering foreground.
-    open var playbackResumesWhenEnteringForeground: Bool
+    open var playbackResumesWhenEnteringForeground: Bool = true
     
     // state
 
@@ -294,11 +294,6 @@ open class Player: UIViewController {
     public required init?(coder aDecoder: NSCoder) {
         self._avplayer = AVPlayer()
         self._avplayer.actionAtItemEnd = .pause
-        
-        self.playbackFreezesAtEnd = false
-        self.playbackPausesWhenBackgrounded = true
-        self.playbackResumesWhenEnteringForeground = true
-        
         self._timeObserver = nil
         
         super.init(coder: aDecoder)
@@ -307,11 +302,6 @@ open class Player: UIViewController {
     public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         self._avplayer = AVPlayer()
         self._avplayer.actionAtItemEnd = .pause
-        
-        self.playbackFreezesAtEnd = false
-        self.playbackPausesWhenBackgrounded = true
-        self.playbackResumesWhenEnteringForeground = true
-        
         self._timeObserver = nil
         
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -753,7 +743,7 @@ extension Player {
         if Thread.isMainThread {
             closure()
         } else {
-            DispatchQueue.main.sync(execute: closure)
+            DispatchQueue.main.async(execute: closure)
         }
     }
     
@@ -810,6 +800,8 @@ internal class PlayerView: UIView {
     }
 
     deinit {
+        self.player?.pause()
+        self.player = nil
     }
     
 }
