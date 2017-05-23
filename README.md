@@ -29,6 +29,7 @@ pod "Player", "~> 0.5.0"
 
 # Carthage
 github "piemonte/Player" ~> 0.5.0
+```
 
 ## Usage
 
