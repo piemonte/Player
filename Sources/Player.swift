@@ -257,6 +257,7 @@ open class Player: UIViewController {
     internal var _playerItem: AVPlayerItem?
     internal var _playerView: PlayerView!
     internal var _timeObserver: Any!
+    internal var _seekTimeRequested: CMTime?
     
     // MARK: - object lifecycle
 
@@ -365,6 +366,8 @@ open class Player: UIViewController {
     open func seek(to time: CMTime) {
         if let playerItem = self._playerItem {
             return playerItem.seek(to: time)
+        }else{
+            _seekTimeRequested = time
         }
     }
     
@@ -378,6 +381,8 @@ open class Player: UIViewController {
             return playerItem.seek(to: time, completionHandler: { (seeked) in
                 completionHandler()
             })
+        }else{
+            _seekTimeRequested = time
         }
     }
 
@@ -476,7 +481,11 @@ extension Player {
         }
 
         self._playerItem = playerItem
-
+        if let seek = _seekTimeRequested, self._playerItem != nil{
+            _seekTimeRequested = nil
+            self.seek(to: seek)
+        }
+        
         if let updatedPlayerItem = self._playerItem {
             updatedPlayerItem.addObserver(self, forKeyPath: PlayerEmptyBufferKey, options: ([.new, .old]), context: &PlayerItemObserverContext)
             updatedPlayerItem.addObserver(self, forKeyPath: PlayerKeepUpKey, options: ([.new, .old]), context: &PlayerItemObserverContext)
