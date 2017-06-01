@@ -282,7 +282,6 @@ open class Player: UIViewController {
     internal var _avplayer: AVPlayer
     internal var _playerItem: AVPlayerItem?
     internal var _playerView: PlayerView!
-    internal var _timeObserver: Any!
     internal var _timeObserver: Any?
     
     internal var _playerView: PlayerView = PlayerView(frame: .zero)
