@@ -141,6 +141,11 @@ open class Player: UIViewController {
             setup(url: url)
         }
     }
+    
+    /// Determines if the video should autoplay when a url is set
+    ///
+    /// - Parameter bool: defaults to true
+    open var autoplay: Bool = true
 
     /// Mutes audio playback when true.
     open var muted: Bool {
