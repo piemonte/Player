@@ -284,6 +284,7 @@ open class Player: UIViewController {
     internal var _timeObserver: Any?
     
     internal var _playerView: PlayerView = PlayerView(frame: .zero)
+    internal var _seekTimeRequested: CMTime?
     
     // MARK: - object lifecycle
 
@@ -389,6 +390,8 @@ open class Player: UIViewController {
     open func seek(to time: CMTime) {
         if let playerItem = self._playerItem {
             return playerItem.seek(to: time)
+        }else{
+            _seekTimeRequested = time
         }
     }
     
@@ -402,6 +405,8 @@ open class Player: UIViewController {
             return playerItem.seek(to: time, completionHandler: { (seeked) in
                 completionHandler()
             })
+        }else{
+            _seekTimeRequested = time
         }
     }
 
@@ -499,6 +504,11 @@ extension Player {
         }
 
         self._playerItem = playerItem
+
+        if let seek = _seekTimeRequested, self._playerItem != nil{
+            _seekTimeRequested = nil
+            self.seek(to: seek)
+        }
 
         self._playerItem?.addObserver(self, forKeyPath: PlayerEmptyBufferKey, options: ([.new, .old]), context: &PlayerItemObserverContext)
         self._playerItem?.addObserver(self, forKeyPath: PlayerKeepUpKey, options: ([.new, .old]), context: &PlayerItemObserverContext)
@@ -654,10 +664,11 @@ extension Player {
                 // PlayerKeepUpKey
                 
                 if let item = self._playerItem {
-                    self.bufferingState = .ready
-                    
-                    if item.isPlaybackLikelyToKeepUp && self.playbackState == .playing {
-                        self.playFromCurrentTime()
+                    if item.isPlaybackLikelyToKeepUp {
+                        self.bufferingState = .ready
+                        if self.playbackState == .playing{
+                            self.playFromCurrentTime()
+                        }
                     }
                 }
                 
