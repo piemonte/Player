@@ -67,6 +67,29 @@ Adjust the fill mode for the video, if needed.
  self.player.fillMode = FillMode.resizeAspectFit
 ```
 
+Display video playback progress, if needed.
+
+``` Swift
+extension ViewController: PlayerPlaybackDelegate {
+
+    public func playerPlaybackWillStartFromBeginning(_ player: Player) {
+    }
+    
+    public func playerPlaybackDidEnd(_ player: Player) {
+    }
+    
+    public func playerCurrentTimeDidChange(_ player: Player) {
+        let fraction = Double(player.currentTime) / Double(player.maximumDuration)
+        self._playbackViewController?.setProgress(progress: CGFloat(fraction), animated: true)
+    }
+    
+    public func playerPlaybackWillLoop(_ player: Player) {
+        self. _playbackViewController?.reset()
+    }
+    
+}
+```
+
 ## Documentation
 
 You can find [the docs here](http://piemonte.github.io/Player/). Documentation is generated with [jazzy](https://github.com/realm/jazzy) and hosted on [GitHub-Pages](https://pages.github.com).
