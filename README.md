@@ -29,6 +29,7 @@ pod "Player", "~> 0.5.0"
 
 # Carthage
 github "piemonte/Player" ~> 0.5.0
+```
 
 ## Usage
 
@@ -64,6 +65,29 @@ Adjust the fill mode for the video, if needed.
 
 ``` Swift
  self.player.fillMode = FillMode.resizeAspectFit
+```
+
+Display video playback progress, if needed.
+
+``` Swift
+extension ViewController: PlayerPlaybackDelegate {
+
+    public func playerPlaybackWillStartFromBeginning(_ player: Player) {
+    }
+    
+    public func playerPlaybackDidEnd(_ player: Player) {
+    }
+    
+    public func playerCurrentTimeDidChange(_ player: Player) {
+        let fraction = Double(player.currentTime) / Double(player.maximumDuration)
+        self._playbackViewController?.setProgress(progress: CGFloat(fraction), animated: true)
+    }
+    
+    public func playerPlaybackWillLoop(_ player: Player) {
+        self. _playbackViewController?.reset()
+    }
+    
+}
 ```
 
 ## Documentation
