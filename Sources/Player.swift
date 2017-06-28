@@ -142,6 +142,13 @@ open class Player: UIViewController {
         }
     }
 
+    /// For setting up with AVAsset instead of URL
+    /// Note: Resets URL (cannot set both)
+    open var asset: AVAsset? {
+        get { return _asset }
+        set { _ = newValue.map { setupAsset($0) } }
+    }
+    
     /// Mutes audio playback when true.
     open var muted: Bool {
         get {
@@ -333,7 +340,11 @@ open class Player: UIViewController {
     open override func viewDidLoad() {
         super.viewDidLoad()
         
-        setup(url: url)
+        if let url = url {
+            setup(url: url)
+        } else if let asset = asset {
+            setupAsset(asset)
+        }
         
         self.addPlayerLayerObservers();
         self.addPlayerObservers();
@@ -461,6 +472,8 @@ extension Player {
     }
 
     fileprivate func setupAsset(_ asset: AVAsset) {
+        guard isViewLoaded else { return }
+        
         if self.playbackState == .playing {
             self.pause()
         }
