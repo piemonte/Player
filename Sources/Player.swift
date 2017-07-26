@@ -147,6 +147,13 @@ open class Player: UIViewController {
     /// - Parameter bool: defaults to true
     open var autoplay: Bool = true
 
+    /// For setting up with AVAsset instead of URL
+    /// Note: Resets URL (cannot set both)
+    open var asset: AVAsset? {
+        get { return _asset }
+        set { _ = newValue.map { setupAsset($0) } }
+    }
+    
     /// Mutes audio playback when true.
     open var muted: Bool {
         get {
@@ -343,7 +350,11 @@ open class Player: UIViewController {
     open override func viewDidLoad() {
         super.viewDidLoad()
         
-        setup(url: url)
+        if let url = url {
+            setup(url: url)
+        } else if let asset = asset {
+            setupAsset(asset)
+        }
         
         self.addPlayerLayerObservers();
         self.addPlayerObservers();
@@ -489,6 +500,11 @@ extension Player {
     }
 
     fileprivate func setupAsset(_ asset: AVAsset) {
+        guard isViewLoaded else { return }
+        
+        if self.playbackState == .playing {
+            self.pause()
+        }
 
         self.bufferingState = .unknown
 
@@ -689,10 +705,12 @@ extension Player {
                 // PlayerKeepUpKey
                 
                 if let item = self._playerItem {
-                    self.bufferingState = .ready
-                    
-                    if item.isPlaybackLikelyToKeepUp && self.playbackState == .playing {
-                        self.play()
+
+                  if item.isPlaybackLikelyToKeepUp {
+                        self.bufferingState = .ready
+                        if self.playbackState == .playing{
+                            self.playFromCurrentTime()
+                        }
                     }
                 }
                 
