@@ -104,6 +104,7 @@ public enum BufferingState: Int, CustomStringConvertible {
 public protocol PlayerDelegate: NSObjectProtocol {
     func playerReady(_ player: Player)
     func playerPlaybackStateDidChange(_ player: Player)
+    func playerPlaybackError(_ player: Player, error: NSError?)
     func playerBufferingStateDidChange(_ player: Player)
     
     // This is the time in seconds that the video has been buffered.
@@ -516,6 +517,7 @@ extension Player {
                 var error: NSError? = nil
                 let status = self._asset?.statusOfValue(forKey: key, error:&error)
                 if status == .failed {
+                    self.playerDelegate?.playerPlaybackError(self, error: error)
                     self.playbackState = .failed
                     return
                 }
