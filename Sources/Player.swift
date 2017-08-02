@@ -141,6 +141,11 @@ open class Player: UIViewController {
             setup(url: url)
         }
     }
+    
+    /// Determines if the video should autoplay when a url is set
+    ///
+    /// - Parameter bool: defaults to true
+    open var autoplay: Bool = true
 
     /// For setting up with AVAsset instead of URL
     /// Note: Resets URL (cannot set both)
@@ -293,6 +298,11 @@ open class Player: UIViewController {
     internal var _playerView: PlayerView = PlayerView(frame: .zero)
     internal var _seekTimeRequested: CMTime?
     
+    internal var _lastBufferTime:Double = 0
+    
+    //Boolean that determines if the user or calling coded has trigged autoplay manually.
+    internal var _hasAutoplayActivated : Bool = true
+    
     // MARK: - object lifecycle
 
     public convenience init() {
@@ -370,8 +380,18 @@ open class Player: UIViewController {
 
     /// Begins playback of the media from the current time.
     open func playFromCurrentTime() {
-        self.playbackState = .playing
-        self._avplayer.play()
+        if !autoplay{
+            //external call to this method with auto play off.  activate it before calling play
+            _hasAutoplayActivated = true
+        }
+        play()
+    }
+    
+    fileprivate func play(){
+        if autoplay || _hasAutoplayActivated{
+            self.playbackState = .playing
+            self._avplayer.play()
+        }
     }
 
     /// Pauses playback of the media.
@@ -461,6 +481,14 @@ extension Player {
         // ensure everything is reset beforehand
         if self.playbackState == .playing {
             self.pause()
+        }
+        
+        //Reset autoplay flag since a new url is set.
+        _hasAutoplayActivated = false
+        if autoplay {
+            playbackState = .playing
+        }else{
+            playbackState = .stopped
         }
         
         self.setupPlayerItem(nil)
@@ -598,7 +626,7 @@ extension Player {
   
     internal func handleApplicationWillEnterForeground(_ aNoticiation: Notification) {
         if self.playbackState != .playing && self.playbackResumesWhenEnteringForeground {
-            self.playFromCurrentTime()
+            self.play()
         }
     }
 
@@ -677,7 +705,8 @@ extension Player {
                 // PlayerKeepUpKey
                 
                 if let item = self._playerItem {
-                    if item.isPlaybackLikelyToKeepUp {
+
+                  if item.isPlaybackLikelyToKeepUp {
                         self.bufferingState = .ready
                         if self.playbackState == .playing{
                             self.playFromCurrentTime()
@@ -733,16 +762,23 @@ extension Player {
                     let timeRanges = item.loadedTimeRanges
                     if let timeRange = timeRanges.first?.timeRangeValue {
                         let bufferedTime = CMTimeGetSeconds(CMTimeAdd(timeRange.start, timeRange.duration))
-                        self.executeClosureOnMainQueueIfNecessary {
-                            self.playerDelegate?.playerBufferTimeDidChange(bufferedTime)
+                        if _lastBufferTime != bufferedTime{
+                            self.executeClosureOnMainQueueIfNecessary {
+                                self.playerDelegate?.playerBufferTimeDidChange(bufferedTime)
+                            }
+                            _lastBufferTime = bufferedTime
                         }
-                        let currentTime = CMTimeGetSeconds(item.currentTime())
-                        if (bufferedTime - currentTime) >= self.bufferSize && self.playbackState == .playing {
-                            self.playFromCurrentTime()
-                        }
-                    } else {
-                        self.playFromCurrentTime()
                     }
+                    
+                    let currentTime = CMTimeGetSeconds(item.currentTime())
+                    if ((_lastBufferTime - currentTime) >= self.bufferSize ||
+                        _lastBufferTime == maximumDuration ||
+                        timeRanges.first == nil)
+                        && self.playbackState == .playing
+                        {
+                        self.play()
+                    }
+                    
                 }
                 
             }
