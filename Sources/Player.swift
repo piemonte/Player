@@ -342,7 +342,6 @@ open class Player: UIViewController {
     // MARK: - view lifecycle
 
     open override func loadView() {
-        self._playerView.fillMode = PlayerFillMode.resizeAspectFit.avFoundationType
         self._playerView.playerLayer.isHidden = true
         self.view = self._playerView
     }
