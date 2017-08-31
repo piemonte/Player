@@ -20,8 +20,6 @@
 
 `Player` is available for installation using the Cocoa dependency manager [CocoaPods](http://cocoapods.org/).  Alternatively, you can simply copy the `Player.swift` file into your Xcode project.
 
-## Xcode 8 & Swift 3
-
 ```ruby
 # CocoaPods
 swift_version = "4.0"
