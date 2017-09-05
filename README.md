@@ -43,14 +43,14 @@ Allocate and add the `Player` controller to your view hierarchy.
     
  self.addChildViewController(self.player)
  self.view.addSubview(self.player.view)
- self.player.didMoveToParentViewController(self)
+ self.player.didMove(toParentViewController: self)
 ```
 
 Provide the file path to the resource you would like to play locally or stream. Ensure you're including the file extension.
 
 ``` Swift
-let videoUrl: NSURL = // file or http url
-self.player.setUrl(videoUrl)
+let videoUrl: URL = // file or http url
+self.player.url = videoUrl
 ```
 
 play/pause/chill
@@ -62,7 +62,7 @@ play/pause/chill
 Adjust the fill mode for the video, if needed.
 
 ``` Swift
- self.player.fillMode = FillMode.resizeAspectFit
+ self.player.fillMode = PlayerFillMode.resizeAspectFit.avFoundationType
 ```
 
 Display video playback progress, if needed.
