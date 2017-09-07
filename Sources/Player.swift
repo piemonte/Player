@@ -191,6 +191,9 @@ open class Player: UIViewController {
     /// Pauses playback automatically when backgrounded.
     open var playbackPausesWhenBackgrounded: Bool = true
     
+    /// Resumes playback when became active.
+    open var playbackResumesWhenBecameActive: Bool = true
+
     /// Resumes playback when entering foreground.
     open var playbackResumesWhenEnteringForeground: Bool = true
     
@@ -604,6 +607,7 @@ extension Player {
     
     internal func addApplicationObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleApplicationWillResignActive(_:)), name: .UIApplicationWillResignActive, object: UIApplication.shared)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleApplicationDidBecomeActive(_:)), name: .UIApplicationDidBecomeActive, object: UIApplication.shared)
         NotificationCenter.default.addObserver(self, selector: #selector(handleApplicationDidEnterBackground(_:)), name: .UIApplicationDidEnterBackground, object: UIApplication.shared)
         NotificationCenter.default.addObserver(self, selector: #selector(handleApplicationWillEnterForeground(_:)), name: .UIApplicationWillEnterForeground, object: UIApplication.shared)
     }
@@ -617,6 +621,12 @@ extension Player {
     @objc internal func handleApplicationWillResignActive(_ aNotification: Notification) {
         if self.playbackState == .playing && self.playbackPausesWhenResigningActive {
             self.pause()
+        }
+    }
+
+    @objc internal func handleApplicationDidBecomeActive(_ aNotification: Notification) {
+        if self.playbackState != .playing && self.playbackResumesWhenBecameActive {
+            self.play()
         }
     }
 
