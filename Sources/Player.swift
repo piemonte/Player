@@ -185,6 +185,9 @@ open class Player: UIViewController {
         }
     }
 
+    /// Pauses playback automatically when resigning active.
+    open var playbackPausesWhenResigningActive: Bool = true
+    
     /// Pauses playback automatically when backgrounded.
     open var playbackPausesWhenBackgrounded: Bool = true
     
@@ -612,7 +615,7 @@ extension Player {
     // MARK: - handlers
     
     @objc internal func handleApplicationWillResignActive(_ aNotification: Notification) {
-        if self.playbackState == .playing {
+        if self.playbackState == .playing && self.playbackPausesWhenResigningActive {
             self.pause()
         }
     }
