@@ -29,6 +29,8 @@ pod "Player", "~> 0.8.0"
 github "piemonte/Player" ~> 0.8.0
 ```
 
+Need Swift 3? Use release `0.7.0`
+
 ## Usage
 
 The sample project provides an example of how to integrate `Player`, otherwise you can follow these steps.
