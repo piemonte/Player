@@ -265,9 +265,11 @@ open class Player: UIViewController {
     /// The natural dimensions of the media.
     open var naturalSize: CGSize {
         get {
-            if let playerItem = self._playerItem {
-                let track = playerItem.asset.tracks(withMediaType: AVMediaType.video)[0]
-                return track.naturalSize
+            if let playerItem = self._playerItem,
+                let track = playerItem.asset.tracks(withMediaType: .video).first {
+
+                let size = track.naturalSize.applying(track.preferredTransform)
+                return CGSize(width: fabs(size.width), height: fabs(size.height))
             } else {
                 return CGSize.zero
             }
