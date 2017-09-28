@@ -422,27 +422,33 @@ open class Player: UIViewController {
         self.playbackDelegate?.playerPlaybackDidEnd(self)
     }
     
-    /// Updates playback to the specified time.
-    ///
-    /// - Parameter time: The time to switch to move the playback.
-    open func seek(to time: CMTime) {
-        if let playerItem = self._playerItem {
-            return playerItem.seek(to: time)
-        } else {
-            _seekTimeRequested = time
+    @available(iOS, deprecated: 11.0, message: "Use seek(to:completionHandler:(_ success: Bool) -> Void) leaving success unnamed (_) if you don't need the parameter")
+    @available(tvOS, deprecated: 11.0, message: "Use seek(to:completionHandler:(_ success: Bool) -> Void) leaving success unnamed (_) if you don't need the parameter")
+    open func seek(to time: CMTime, completionHandler: @escaping () -> Void) {
+        seek(to: time) { (_) in
+            completionHandler()
         }
     }
+    
+    @available(iOS, deprecated: 11.0, renamed: "seek(to:toleranceBefore:toleranceAfter:completionHandler:)")
+    @available(tvOS, deprecated: 11.0, renamed: "seek(to:toleranceBefore:toleranceAfter:completionHandler:)")
+    open func seekToTime(to time: CMTime, toleranceBefore: CMTime, toleranceAfter: CMTime) {
+        seek(to: time, toleranceBefore: toleranceBefore, toleranceAfter: toleranceAfter)
+    }
+    
+    /// The block to invoke when a seek operation has completed
+    ///
+    /// - parameter success: true if moved to the time, false if interrupted or time is out of range
+    public typealias SeekHandler = (_ success: Bool) -> Swift.Void
     
     /// Updates playback to the specified time.
     ///
     /// - Parameters:
     ///   - time: The time to switch to move the playback.
-    ///   - completionHandler: call block handler after seeking
-    open func seek(to time: CMTime, completionHandler: @escaping () -> Void) {
+    ///   - completionHandler: (optional) call block handler after seeking
+    open func seek(to time: CMTime, completionHandler: SeekHandler? = nil) {
         if let playerItem = self._playerItem {
-            return playerItem.seek(to: time, completionHandler: { (seeked) in
-                completionHandler()
-            })
+            return playerItem.seek(to: time, completionHandler: completionHandler)
         } else {
             _seekTimeRequested = time
         }
@@ -454,9 +460,10 @@ open class Player: UIViewController {
     ///   - time: The time to switch to move the playback.
     ///   - toleranceBefore: The tolerance allowed before time.
     ///   - toleranceAfter: The tolerance allowed after time.
-    open func seekToTime(to time: CMTime, toleranceBefore: CMTime, toleranceAfter: CMTime) {
+    ///   - completionHandler: (optional) The block called after seeking
+    open func seek(to time: CMTime, toleranceBefore: CMTime, toleranceAfter: CMTime, completionHandler: SeekHandler? = nil) {
         if let playerItem = self._playerItem {
-            return playerItem.seek(to: time, toleranceBefore: toleranceBefore, toleranceAfter: toleranceAfter)
+            return playerItem.seek(to: time, toleranceBefore: toleranceBefore, toleranceAfter: toleranceAfter, completionHandler: completionHandler)
         }
     }
     
