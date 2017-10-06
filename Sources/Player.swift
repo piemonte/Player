@@ -547,19 +547,19 @@ extension Player {
 
         self._playerItem = playerItem
 
+        if let seek = _seekTimeRequested, self._playerItem != nil{
+            _seekTimeRequested = nil
+            self.seek(to: seek)
+        }
+
         self._playerItem?.addObserver(self, forKeyPath: PlayerEmptyBufferKey, options: ([.new, .old]), context: &PlayerItemObserverContext)
         self._playerItem?.addObserver(self, forKeyPath: PlayerKeepUpKey, options: ([.new, .old]), context: &PlayerItemObserverContext)
         self._playerItem?.addObserver(self, forKeyPath: PlayerStatusKey, options: ([.new, .old]), context: &PlayerItemObserverContext)
         self._playerItem?.addObserver(self, forKeyPath: PlayerLoadedTimeRangesKey, options: ([.new, .old]), context: &PlayerItemObserverContext)
-        
+
         if let updatedPlayerItem = self._playerItem {
             NotificationCenter.default.addObserver(self, selector: #selector(playerItemDidPlayToEndTime(_:)), name: .AVPlayerItemDidPlayToEndTime, object: updatedPlayerItem)
             NotificationCenter.default.addObserver(self, selector: #selector(playerItemFailedToPlayToEndTime(_:)), name: .AVPlayerItemFailedToPlayToEndTime, object: updatedPlayerItem)
-        }
-        
-        if let seek = _seekTimeRequested, self._playerItem != nil{
-            _seekTimeRequested = nil
-            self.seek(to: seek)
         }
 
         self._avplayer.replaceCurrentItem(with: self._playerItem)
