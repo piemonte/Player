@@ -522,32 +522,32 @@ extension Player {
                     return
                 }
             }
-            self.executeClosureOnMainQueueIfNecessary {
-                if let asset = self._asset {
-                    if asset.isPlayable == false {
-                        self.playbackState = .failed
-                        return
-                    }
-                    
-                    let playerItem: AVPlayerItem = AVPlayerItem(asset:asset)
-                    self.setupPlayerItem(playerItem)
+            if let asset = self._asset {
+                if asset.isPlayable == false {
+                    self.playbackState = .failed
+                    return
                 }
+                
+                let playerItem: AVPlayerItem = AVPlayerItem(asset:asset)
+                self.setupPlayerItem(playerItem)
             }
         })
     }
 
     fileprivate func setupPlayerItem(_ playerItem: AVPlayerItem?) {
-        self._playerItem?.removeObserver(self, forKeyPath: PlayerEmptyBufferKey, context: &PlayerItemObserverContext)
-        self._playerItem?.removeObserver(self, forKeyPath: PlayerKeepUpKey, context: &PlayerItemObserverContext)
-        self._playerItem?.removeObserver(self, forKeyPath: PlayerStatusKey, context: &PlayerItemObserverContext)
-        self._playerItem?.removeObserver(self, forKeyPath: PlayerLoadedTimeRangesKey, context: &PlayerItemObserverContext)
+        self.executeClosureOnMainQueueIfNecessary {
+            self._playerItem?.removeObserver(self, forKeyPath: PlayerEmptyBufferKey, context: &PlayerItemObserverContext)
+            self._playerItem?.removeObserver(self, forKeyPath: PlayerKeepUpKey, context: &PlayerItemObserverContext)
+            self._playerItem?.removeObserver(self, forKeyPath: PlayerStatusKey, context: &PlayerItemObserverContext)
+            self._playerItem?.removeObserver(self, forKeyPath: PlayerLoadedTimeRangesKey, context: &PlayerItemObserverContext)
 
-        if let currentPlayerItem = self._playerItem {
-            NotificationCenter.default.removeObserver(self, name: .AVPlayerItemDidPlayToEndTime, object: currentPlayerItem)
-            NotificationCenter.default.removeObserver(self, name: .AVPlayerItemFailedToPlayToEndTime, object: currentPlayerItem)
+            if let currentPlayerItem = self._playerItem {
+                NotificationCenter.default.removeObserver(self, name: .AVPlayerItemDidPlayToEndTime, object: currentPlayerItem)
+                NotificationCenter.default.removeObserver(self, name: .AVPlayerItemFailedToPlayToEndTime, object: currentPlayerItem)
+            }
+
+            self._playerItem = playerItem
         }
-
-        self._playerItem = playerItem
 
         if let seek = _seekTimeRequested, self._playerItem != nil{
             _seekTimeRequested = nil
