@@ -522,15 +522,16 @@ extension Player {
                     return
                 }
             }
-
-            if let asset = self._asset {
-                if asset.isPlayable == false {
-                    self.playbackState = .failed
-                    return
+            self.executeClosureOnMainQueueIfNecessary {
+                if let asset = self._asset {
+                    if asset.isPlayable == false {
+                        self.playbackState = .failed
+                        return
+                    }
+                    
+                    let playerItem: AVPlayerItem = AVPlayerItem(asset:asset)
+                    self.setupPlayerItem(playerItem)
                 }
-                
-                let playerItem: AVPlayerItem = AVPlayerItem(asset:asset)
-                self.setupPlayerItem(playerItem)
             }
         })
     }
