@@ -14,7 +14,7 @@
     <a title="Player Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">Player Docs</a> (58% documented)</p>
+        <p><a href="../index.html">Player Docs</a> (60% documented)</p>
         <p class="header-right"><a href="https://github.com/piemonte/Player"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -37,16 +37,16 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a href="../Enums.html">Enums</a>
+            <a href="../Enums.html">Enumerations</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="../Enums/BufferingState.html">BufferingState</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Enums/FillMode.html">FillMode</a>
+                <a href="../Enums/PlaybackState.html">PlaybackState</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Enums/PlaybackState.html">PlaybackState</a>
+                <a href="../Enums/PlayerFillMode.html">PlayerFillMode</a>
               </li>
             </ul>
           </li>
@@ -82,9 +82,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:vC6Player6Player14playerDelegateXwGSqPS_14PlayerDelegate__"></a>
+                    <a name="/s:6PlayerAAC14playerDelegateAA0aC0_pSgXwv"></a>
                     <a name="//apple_ref/swift/Property/playerDelegate" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vC6Player6Player14playerDelegateXwGSqPS_14PlayerDelegate__">playerDelegate</a>
+                    <a class="token" href="#/s:6PlayerAAC14playerDelegateAA0aC0_pSgXwv">playerDelegate</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -109,9 +109,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:vC6Player6Player16playbackDelegateXwGSqPS_22PlayerPlaybackDelegate__"></a>
+                    <a name="/s:6PlayerAAC16playbackDelegateAA0a8PlaybackC0_pSgXwv"></a>
                     <a name="//apple_ref/swift/Property/playbackDelegate" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vC6Player6Player16playbackDelegateXwGSqPS_22PlayerPlaybackDelegate__">playbackDelegate</a>
+                    <a class="token" href="#/s:6PlayerAAC16playbackDelegateAA0a8PlaybackC0_pSgXwv">playbackDelegate</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -136,9 +136,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:vC6Player6Player3urlGSqV10Foundation3URL_"></a>
+                    <a name="/s:6PlayerAAC3url10Foundation3URLVSgv"></a>
                     <a name="//apple_ref/swift/Property/url" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vC6Player6Player3urlGSqV10Foundation3URL_">url</a>
+                    <a class="token" href="#/s:6PlayerAAC3url10Foundation3URLVSgv">url</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -147,12 +147,6 @@
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Local or remote URL for the file asset to be played.</p>
-
-<div class="aside aside-parameter">
-    <p class="aside-title">Parameter</p>
-    Parameter url: URL of the asset.
-
-</div>
 
                       </div>
                       <div class="declaration">
@@ -176,7 +170,6 @@
                               <td>
                                 <div>
                                   <p>URL of the asset.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -189,9 +182,83 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:vC6Player6Player5mutedSb"></a>
+                    <a name="/s:6PlayerAAC8autoplaySbv"></a>
+                    <a name="//apple_ref/swift/Property/autoplay" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PlayerAAC8autoplaySbv">autoplay</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Determines if the video should autoplay when a url is set</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="k">var</span> <span class="nv">autoplay</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">true</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>bool</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>defaults to true</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PlayerAAC5assetSo7AVAssetCSgv"></a>
+                    <a name="//apple_ref/swift/Property/asset" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PlayerAAC5assetSo7AVAssetCSgv">asset</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>For setting up with AVAsset instead of URL
+Note: Resets URL (cannot set both)</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="k">var</span> <span class="nv">asset</span><span class="p">:</span> <span class="kt">AVAsset</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PlayerAAC5mutedSbv"></a>
                     <a name="//apple_ref/swift/Property/muted" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vC6Player6Player5mutedSb">muted</a>
+                    <a class="token" href="#/s:6PlayerAAC5mutedSbv">muted</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -216,9 +283,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:vC6Player6Player6volumeSf"></a>
+                    <a name="/s:6PlayerAAC6volumeSfv"></a>
                     <a name="//apple_ref/swift/Property/volume" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vC6Player6Player6volumeSf">volume</a>
+                    <a class="token" href="#/s:6PlayerAAC6volumeSfv">volume</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -243,9 +310,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:vC6Player6Player8fillModeSS"></a>
+                    <a name="/s:6PlayerAAC8fillModeSSv"></a>
                     <a name="//apple_ref/swift/Property/fillMode" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vC6Player6Player8fillModeSS">fillMode</a>
+                    <a class="token" href="#/s:6PlayerAAC8fillModeSSv">fillMode</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -254,7 +321,7 @@
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Specifies how the video is displayed within a player layer’s bounds.
-The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code><a href="../Enums/FillMode.html">FillMode</a></code> enum.</p>
+The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code>FillMode</code> enum.</p>
 
                       </div>
                       <div class="declaration">
@@ -271,9 +338,36 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code><a 
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:vC6Player6Player30playbackPausesWhenBackgroundedSb"></a>
+                    <a name="/s:6PlayerAAC33playbackPausesWhenResigningActiveSbv"></a>
+                    <a name="//apple_ref/swift/Property/playbackPausesWhenResigningActive" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PlayerAAC33playbackPausesWhenResigningActiveSbv">playbackPausesWhenResigningActive</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Pauses playback automatically when resigning active.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="k">var</span> <span class="nv">playbackPausesWhenResigningActive</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">true</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PlayerAAC30playbackPausesWhenBackgroundedSbv"></a>
                     <a name="//apple_ref/swift/Property/playbackPausesWhenBackgrounded" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vC6Player6Player30playbackPausesWhenBackgroundedSb">playbackPausesWhenBackgrounded</a>
+                    <a class="token" href="#/s:6PlayerAAC30playbackPausesWhenBackgroundedSbv">playbackPausesWhenBackgrounded</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -288,7 +382,7 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code><a 
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="n">open</span> <span class="k">var</span> <span class="nv">playbackPausesWhenBackgrounded</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="k">var</span> <span class="nv">playbackPausesWhenBackgrounded</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">true</span></code></pre>
 
                         </div>
                       </div>
@@ -298,9 +392,36 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code><a 
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:vC6Player6Player37playbackResumesWhenEnteringForegroundSb"></a>
+                    <a name="/s:6PlayerAAC31playbackResumesWhenBecameActiveSbv"></a>
+                    <a name="//apple_ref/swift/Property/playbackResumesWhenBecameActive" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PlayerAAC31playbackResumesWhenBecameActiveSbv">playbackResumesWhenBecameActive</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Resumes playback when became active.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="k">var</span> <span class="nv">playbackResumesWhenBecameActive</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">true</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PlayerAAC37playbackResumesWhenEnteringForegroundSbv"></a>
                     <a name="//apple_ref/swift/Property/playbackResumesWhenEnteringForeground" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vC6Player6Player37playbackResumesWhenEnteringForegroundSb">playbackResumesWhenEnteringForeground</a>
+                    <a class="token" href="#/s:6PlayerAAC37playbackResumesWhenEnteringForegroundSbv">playbackResumesWhenEnteringForeground</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -315,7 +436,7 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code><a 
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="n">open</span> <span class="k">var</span> <span class="nv">playbackResumesWhenEnteringForeground</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="k">var</span> <span class="nv">playbackResumesWhenEnteringForeground</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">true</span></code></pre>
 
                         </div>
                       </div>
@@ -325,9 +446,9 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code><a 
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:vC6Player6Player13playbackLoopsSb"></a>
+                    <a name="/s:6PlayerAAC13playbackLoopsSbv"></a>
                     <a name="//apple_ref/swift/Property/playbackLoops" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vC6Player6Player13playbackLoopsSb">playbackLoops</a>
+                    <a class="token" href="#/s:6PlayerAAC13playbackLoopsSbv">playbackLoops</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -352,9 +473,9 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code><a 
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:vC6Player6Player20playbackFreezesAtEndSb"></a>
+                    <a name="/s:6PlayerAAC20playbackFreezesAtEndSbv"></a>
                     <a name="//apple_ref/swift/Property/playbackFreezesAtEnd" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vC6Player6Player20playbackFreezesAtEndSb">playbackFreezesAtEnd</a>
+                    <a class="token" href="#/s:6PlayerAAC20playbackFreezesAtEndSbv">playbackFreezesAtEnd</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -379,9 +500,9 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code><a 
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:vC6Player6Player13playbackStateOS_13PlaybackState"></a>
+                    <a name="/s:6PlayerAAC13playbackStateAA08PlaybackC0Ov"></a>
                     <a name="//apple_ref/swift/Property/playbackState" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vC6Player6Player13playbackStateOS_13PlaybackState">playbackState</a>
+                    <a class="token" href="#/s:6PlayerAAC13playbackStateAA08PlaybackC0Ov">playbackState</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -406,9 +527,9 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code><a 
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:vC6Player6Player14bufferingStateOS_14BufferingState"></a>
+                    <a name="/s:6PlayerAAC14bufferingStateAA09BufferingC0Ov"></a>
                     <a name="//apple_ref/swift/Property/bufferingState" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vC6Player6Player14bufferingStateOS_14BufferingState">bufferingState</a>
+                    <a class="token" href="#/s:6PlayerAAC14bufferingStateAA09BufferingC0Ov">bufferingState</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -433,9 +554,9 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code><a 
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:vC6Player6Player10bufferSizeSd"></a>
+                    <a name="/s:6PlayerAAC10bufferSizeSdv"></a>
                     <a name="//apple_ref/swift/Property/bufferSize" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vC6Player6Player10bufferSizeSd">bufferSize</a>
+                    <a class="token" href="#/s:6PlayerAAC10bufferSizeSdv">bufferSize</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -460,9 +581,9 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code><a 
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:vC6Player6Player21playbackEdgeTriggeredSb"></a>
+                    <a name="/s:6PlayerAAC21playbackEdgeTriggeredSbv"></a>
                     <a name="//apple_ref/swift/Property/playbackEdgeTriggered" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vC6Player6Player21playbackEdgeTriggeredSb">playbackEdgeTriggered</a>
+                    <a class="token" href="#/s:6PlayerAAC21playbackEdgeTriggeredSbv">playbackEdgeTriggered</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -487,9 +608,9 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code><a 
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:vC6Player6Player15maximumDurationSd"></a>
+                    <a name="/s:6PlayerAAC15maximumDurationSdv"></a>
                     <a name="//apple_ref/swift/Property/maximumDuration" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vC6Player6Player15maximumDurationSd">maximumDuration</a>
+                    <a class="token" href="#/s:6PlayerAAC15maximumDurationSdv">maximumDuration</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -514,9 +635,9 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code><a 
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:vC6Player6Player11currentTimeSd"></a>
+                    <a name="/s:6PlayerAAC11currentTimeSdv"></a>
                     <a name="//apple_ref/swift/Property/currentTime" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vC6Player6Player11currentTimeSd">currentTime</a>
+                    <a class="token" href="#/s:6PlayerAAC11currentTimeSdv">currentTime</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -541,9 +662,9 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code><a 
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:vC6Player6Player11naturalSizeVSC6CGSize"></a>
+                    <a name="/s:6PlayerAAC11naturalSizeSC6CGSizeVv"></a>
                     <a name="//apple_ref/swift/Property/naturalSize" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vC6Player6Player11naturalSizeVSC6CGSize">naturalSize</a>
+                    <a class="token" href="#/s:6PlayerAAC11naturalSizeSC6CGSizeVv">naturalSize</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -568,9 +689,9 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code><a 
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:vC6Player6Player20layerBackgroundColorGSqCSo7UIColor_"></a>
+                    <a name="/s:6PlayerAAC20layerBackgroundColorSo7UIColorCSgv"></a>
                     <a name="//apple_ref/swift/Property/layerBackgroundColor" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vC6Player6Player20layerBackgroundColorGSqCSo7UIColor_">layerBackgroundColor</a>
+                    <a class="token" href="#/s:6PlayerAAC20layerBackgroundColorSo7UIColorCSgv">layerBackgroundColor</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -606,9 +727,9 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code><a 
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FC6Player6PlayercFT_S0_"></a>
+                    <a name="/c:@M@Player@objc(cs)Player(im)init"></a>
                     <a name="//apple_ref/swift/Method/init()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FC6Player6PlayercFT_S0_">init()</a>
+                    <a class="token" href="#/c:@M@Player@objc(cs)Player(im)init">init()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -633,9 +754,9 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code><a 
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FC6Player6PlayercFT5coderCSo7NSCoder_GSqS0__"></a>
+                    <a name="/c:@M@Player@objc(cs)Player(im)initWithCoder:"></a>
                     <a name="//apple_ref/swift/Method/init(coder:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FC6Player6PlayercFT5coderCSo7NSCoder_GSqS0__">init(coder:)</a>
+                    <a class="token" href="#/c:@M@Player@objc(cs)Player(im)initWithCoder:">init(coder:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -660,9 +781,9 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code><a 
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FC6Player6PlayercFT7nibNameGSqSS_6bundleGSqCSo6Bundle__S0_"></a>
+                    <a name="/c:@M@Player@objc(cs)Player(im)initWithNibName:bundle:"></a>
                     <a name="//apple_ref/swift/Method/init(nibName:bundle:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FC6Player6PlayercFT7nibNameGSqSS_6bundleGSqCSo6Bundle__S0_">init(nibName:bundle:)</a>
+                    <a class="token" href="#/c:@M@Player@objc(cs)Player(im)initWithNibName:bundle:">init(nibName:bundle:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -698,9 +819,9 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code><a 
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FC6Player6Player8loadViewFT_T_"></a>
+                    <a name="/c:@M@Player@objc(cs)Player(im)loadView"></a>
                     <a name="//apple_ref/swift/Method/loadView()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FC6Player6Player8loadViewFT_T_">loadView()</a>
+                    <a class="token" href="#/c:@M@Player@objc(cs)Player(im)loadView">loadView()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -725,9 +846,9 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code><a 
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FC6Player6Player11viewDidLoadFT_T_"></a>
+                    <a name="/c:@M@Player@objc(cs)Player(im)viewDidLoad"></a>
                     <a name="//apple_ref/swift/Method/viewDidLoad()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FC6Player6Player11viewDidLoadFT_T_">viewDidLoad()</a>
+                    <a class="token" href="#/c:@M@Player@objc(cs)Player(im)viewDidLoad">viewDidLoad()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -752,9 +873,9 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code><a 
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FC6Player6Player16viewDidDisappearFSbT_"></a>
+                    <a name="/c:@M@Player@objc(cs)Player(im)viewDidDisappear:"></a>
                     <a name="//apple_ref/swift/Method/viewDidDisappear(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FC6Player6Player16viewDidDisappearFSbT_">viewDidDisappear(_:)</a>
+                    <a class="token" href="#/c:@M@Player@objc(cs)Player(im)viewDidDisappear:">viewDidDisappear(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -790,9 +911,9 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code><a 
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FC6Player6Player17playFromBeginningFT_T_"></a>
+                    <a name="/s:6PlayerAAC17playFromBeginningyyF"></a>
                     <a name="//apple_ref/swift/Method/playFromBeginning()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FC6Player6Player17playFromBeginningFT_T_">playFromBeginning()</a>
+                    <a class="token" href="#/s:6PlayerAAC17playFromBeginningyyF">playFromBeginning()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -817,9 +938,9 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code><a 
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FC6Player6Player19playFromCurrentTimeFT_T_"></a>
+                    <a name="/s:6PlayerAAC19playFromCurrentTimeyyF"></a>
                     <a name="//apple_ref/swift/Method/playFromCurrentTime()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FC6Player6Player19playFromCurrentTimeFT_T_">playFromCurrentTime()</a>
+                    <a class="token" href="#/s:6PlayerAAC19playFromCurrentTimeyyF">playFromCurrentTime()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -844,9 +965,9 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code><a 
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FC6Player6Player5pauseFT_T_"></a>
+                    <a name="/s:6PlayerAAC5pauseyyF"></a>
                     <a name="//apple_ref/swift/Method/pause()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FC6Player6Player5pauseFT_T_">pause()</a>
+                    <a class="token" href="#/s:6PlayerAAC5pauseyyF">pause()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -871,9 +992,9 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code><a 
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FC6Player6Player4stopFT_T_"></a>
+                    <a name="/s:6PlayerAAC4stopyyF"></a>
                     <a name="//apple_ref/swift/Method/stop()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FC6Player6Player4stopFT_T_">stop()</a>
+                    <a class="token" href="#/s:6PlayerAAC4stopyyF">stop()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -898,9 +1019,9 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code><a 
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FC6Player6Player4seekFT2toVSC6CMTime_T_"></a>
-                    <a name="//apple_ref/swift/Method/seek(to:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FC6Player6Player4seekFT2toVSC6CMTime_T_">seek(to:)</a>
+                    <a name="/s:6PlayerAAC4seekySC6CMTimeV2to_ySbcSg17completionHandlertF"></a>
+                    <a name="//apple_ref/swift/Method/seek(to:completionHandler:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PlayerAAC4seekySC6CMTimeV2to_ySbcSg17completionHandlertF">seek(to:completionHandler:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -910,18 +1031,12 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code><a 
                       <div class="abstract">
                         <p>Updates playback to the specified time.</p>
 
-<div class="aside aside-parameter">
-    <p class="aside-title">Parameter</p>
-    Parameter time: The time to switch to move the playback.
-
-</div>
-
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">func</span> <span class="nf">seek</span><span class="p">(</span><span class="n">to</span> <span class="nv">time</span><span class="p">:</span> <span class="kt">CMTime</span><span class="p">)</span></code></pre>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">func</span> <span class="nf">seek</span><span class="p">(</span><span class="n">to</span> <span class="nv">time</span><span class="p">:</span> <span class="kt">CMTime</span><span class="p">,</span> <span class="nv">completionHandler</span><span class="p">:</span> <span class="p">((</span><span class="kt">Bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Swift</span><span class="o">.</span><span class="kt">Void</span><span class="p">)?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -938,7 +1053,18 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code><a 
                               <td>
                                 <div>
                                   <p>The time to switch to move the playback.</p>
-
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completionHandler</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Call block handler after seeking/</p>
                                 </div>
                               </td>
                             </tr>
@@ -951,9 +1077,9 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code><a 
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FC6Player6Player10seekToTimeFT2toVSC6CMTime15toleranceBeforeS1_14toleranceAfterS1__T_"></a>
-                    <a name="//apple_ref/swift/Method/seekToTime(to:toleranceBefore:toleranceAfter:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FC6Player6Player10seekToTimeFT2toVSC6CMTime15toleranceBeforeS1_14toleranceAfterS1__T_">seekToTime(to:toleranceBefore:toleranceAfter:)</a>
+                    <a name="/s:6PlayerAAC10seekToTimeySC6CMTimeV2to_AE15toleranceBeforeAE0G5AfterySbcSg17completionHandlertF"></a>
+                    <a name="//apple_ref/swift/Method/seekToTime(to:toleranceBefore:toleranceAfter:completionHandler:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PlayerAAC10seekToTimeySC6CMTimeV2to_AE15toleranceBeforeAE0G5AfterySbcSg17completionHandlertF">seekToTime(to:toleranceBefore:toleranceAfter:completionHandler:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -963,22 +1089,12 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code><a 
                       <div class="abstract">
                         <p>Updates the playback time to the specified time bound.</p>
 
-<ul>
-<li>Parameters:
-
-<ul>
-<li>time: The time to switch to move the playback.</li>
-<li>toleranceBefore: The tolerance allowed before time.</li>
-<li>toleranceAfter: The tolerance allowed after time.</li>
-</ul></li>
-</ul>
-
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">func</span> <span class="nf">seekToTime</span><span class="p">(</span><span class="n">to</span> <span class="nv">time</span><span class="p">:</span> <span class="kt">CMTime</span><span class="p">,</span> <span class="nv">toleranceBefore</span><span class="p">:</span> <span class="kt">CMTime</span><span class="p">,</span> <span class="nv">toleranceAfter</span><span class="p">:</span> <span class="kt">CMTime</span><span class="p">)</span></code></pre>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">func</span> <span class="nf">seekToTime</span><span class="p">(</span><span class="n">to</span> <span class="nv">time</span><span class="p">:</span> <span class="kt">CMTime</span><span class="p">,</span> <span class="nv">toleranceBefore</span><span class="p">:</span> <span class="kt">CMTime</span><span class="p">,</span> <span class="nv">toleranceAfter</span><span class="p">:</span> <span class="kt">CMTime</span><span class="p">,</span> <span class="nv">completionHandler</span><span class="p">:</span> <span class="p">((</span><span class="kt">Bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Swift</span><span class="o">.</span><span class="kt">Void</span><span class="p">)?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -995,7 +1111,6 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code><a 
                               <td>
                                 <div>
                                   <p>The time to switch to move the playback.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -1008,7 +1123,6 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code><a 
                               <td>
                                 <div>
                                   <p>The tolerance allowed before time.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -1021,7 +1135,18 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code><a 
                               <td>
                                 <div>
                                   <p>The tolerance allowed after time.</p>
-
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completionHandler</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>call block handler after seeking</p>
                                 </div>
                               </td>
                             </tr>
@@ -1034,9 +1159,9 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code><a 
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FC6Player6Player12takeSnapshotFT_CSo7UIImage"></a>
+                    <a name="/s:6PlayerAAC12takeSnapshotSo7UIImageCyF"></a>
                     <a name="//apple_ref/swift/Method/takeSnapshot()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FC6Player6Player12takeSnapshotFT_CSo7UIImage">takeSnapshot()</a>
+                    <a class="token" href="#/s:6PlayerAAC12takeSnapshotSo7UIImageCyF">takeSnapshot()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1045,12 +1170,6 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code><a 
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Captures a snapshot of the current Player view.</p>
-
-<div class="aside aside-returns">
-    <p class="aside-title">Returns</p>
-    A UIImage of the player view.
-
-</div>
 
                       </div>
                       <div class="declaration">
@@ -1064,7 +1183,34 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code><a 
                       <div>
                         <h4>Return Value</h4>
                         <p>A UIImage of the player view.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PlayerAAC11playerLayerSo08AVPlayerC0CSgyF"></a>
+                    <a name="//apple_ref/swift/Method/playerLayer()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PlayerAAC11playerLayerSo08AVPlayerC0CSgyF">playerLayer()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Return the av player layer for consumption by
+things such as Picture in Picture</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">func</span> <span class="nf">playerLayer</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">AVPlayerLayer</span><span class="p">?</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -1076,9 +1222,9 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code><a 
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FC6Player6Player12observeValueFT10forKeyPathGSqSS_2ofGSqP__6changeGSqGVs10DictionaryVSC19NSKeyValueChangeKeyP___7contextGSqSv__T_"></a>
+                    <a name="/c:@CM@Player@objc(cs)Player(im)observeValueForKeyPath:ofObject:change:context:"></a>
                     <a name="//apple_ref/swift/Method/observeValue(forKeyPath:of:change:context:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FC6Player6Player12observeValueFT10forKeyPathGSqSS_2ofGSqP__6changeGSqGVs10DictionaryVSC19NSKeyValueChangeKeyP___7contextGSqSv__T_">observeValue(forKeyPath:of:change:context:)</a>
+                    <a class="token" href="#/c:@CM@Player@objc(cs)Player(im)observeValueForKeyPath:ofObject:change:context:">observeValue(forKeyPath:of:change:context:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1105,8 +1251,8 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code><a 
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2017 <a class="link" href="https://patrickpiemonte.com" target="_blank" rel="external">Patrick Piemonte</a>. All rights reserved. (Last updated: 2017-02-02)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2017 <a class="link" href="https://patrickpiemonte.com" target="_blank" rel="external">Patrick Piemonte</a>. All rights reserved. (Last updated: 2017-10-08)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.4</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>
