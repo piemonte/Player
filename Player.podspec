@@ -11,5 +11,6 @@ Pod::Spec.new do |s|
   s.tvos.deployment_target = '9.0'
   s.source_files = 'Sources/*.swift'
   s.requires_arc = true
+  s.swift_version = '4.0'
 #  s.screenshot = "https://raw.github.com/piemonte/Player/master/Player.gif"
 end
