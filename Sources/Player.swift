@@ -370,14 +370,6 @@ open class Player: UIViewController {
         self.addApplicationObservers()
     }
 
-    open override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-
-        if self.playbackState == .playing {
-            self.pause()
-        }
-    }
-    
     // MARK: - Playback funcs
 
     /// Begins playback of the media from the beginning.
