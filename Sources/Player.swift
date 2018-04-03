@@ -814,7 +814,7 @@ internal class PlayerView: UIView {
         }
     }
 
-    var playerViewController: AVPlayerViewController?
+    var playerViewController: PlayerAVPlayerViewController?
 
     var playerLayer: AVPlayerLayer {
         get {
@@ -929,7 +929,7 @@ internal class PlayerView: UIView {
     }
 
     private func addPlayerViewController() {
-        playerViewController = AVPlayerViewController()
+        playerViewController = PlayerAVPlayerViewController()
         if let playerVCView = playerViewController?.view {
             self.addSubview(playerVCView)
         }
@@ -939,5 +939,11 @@ internal class PlayerView: UIView {
         self.player?.pause()
         self.player = nil
     }
-    
+
+}
+
+internal class PlayerAVPlayerViewController: AVPlayerViewController {
+    override var shouldAutorotate: Bool {
+        return true
+    }
 }
