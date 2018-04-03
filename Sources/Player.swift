@@ -137,7 +137,12 @@ open class Player: UIViewController {
     open weak var playbackDelegate: PlayerPlaybackDelegate?
 
     // configuration
-    
+
+    /// Use the native UI
+    ///
+    /// - Parameter bool: defaults to true
+    open var useNativeUI: Bool = true
+
     /// Local or remote URL for the file asset to be played.
     ///
     /// - Parameter url: URL of the asset.
@@ -183,10 +188,17 @@ open class Player: UIViewController {
     /// The default value is `AVLayerVideoGravityResizeAspect`. See `PlayerFillMode`.
     open var fillMode: PlayerFillMode {
         get {
+            if let playerVC = self._nativePlayerViewController {
+                return playerVC.videoGravity
+            }
             return self._playerView.fillMode
         }
         set {
-            self._playerView.fillMode = newValue
+            if let playerVC = self._nativePlayerViewController {
+                playerVC.videoGravity = newValue
+            } else {
+                self._playerView.fillMode = newValue
+            }
         }
     }
 
@@ -284,14 +296,17 @@ open class Player: UIViewController {
     /// Player view's initial background color.
     open var layerBackgroundColor: UIColor? {
         get {
-            guard let backgroundColor = self._playerView.playerBackgroundColor
-                else {
-                    return nil
+            if let playerVC = self._nativePlayerViewController {
+                return playerVC.view.backgroundColor
             }
-            return backgroundColor
+            return self._playerView.playerBackgroundColor
         }
         set {
-            self._playerView.playerBackgroundColor = newValue
+            if let playerVC = self._nativePlayerViewController {
+                playerVC.view.backgroundColor = newValue
+            } else {
+                self._playerView.playerBackgroundColor = newValue
+            }
         }
     }
     
@@ -307,8 +322,9 @@ open class Player: UIViewController {
     internal var _avplayer: AVPlayer
     internal var _playerItem: AVPlayerItem?
     internal var _timeObserver: Any?
-    
-    internal var _playerView: PlayerView = PlayerView(frame: .zero)
+
+    internal var _playerView: PlayerView
+    internal var _nativePlayerViewController: AVPlayerViewController?
     internal var _seekTimeRequested: CMTime?
     
     internal var _lastBufferTime: Double = 0
@@ -323,6 +339,8 @@ open class Player: UIViewController {
     }
 
     public required init?(coder aDecoder: NSCoder) {
+        self._playerView = PlayerView(frame: .zero)
+        self._nativePlayerViewController = AVPlayerViewController()
         self._avplayer = AVPlayer()
         self._avplayer.actionAtItemEnd = .pause
         self._timeObserver = nil
@@ -331,6 +349,8 @@ open class Player: UIViewController {
     }
 
     public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        self._playerView = PlayerView(frame: .zero)
+        self._nativePlayerViewController = AVPlayerViewController()
         self._avplayer = AVPlayer()
         self._avplayer.actionAtItemEnd = .pause
         self._timeObserver = nil
@@ -349,19 +369,33 @@ open class Player: UIViewController {
  
         self.playbackDelegate = nil
         self.removePlayerLayerObservers()
-        self._playerView.player = nil
+        if let playerVC = self._nativePlayerViewController {
+            playerVC.player = nil
+        } else {
+            self._playerView.player = nil
+        }
     }
 
     // MARK: - view lifecycle
 
-    open override func loadView() {
-        self._playerView.playerIsHidden = false
-        self.view = self._playerView
-    }
-    
     open override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        if useNativeUI {
+            self._nativePlayerViewController = AVPlayerViewController()
+        }
+
+        if let playerVC = self._nativePlayerViewController {
+            self.view.addSubview(playerVC.view)
+            playerVC.view.translatesAutoresizingMaskIntoConstraints = false
+            self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-\(0)-[subview]-\(0)-|", options: [], metrics: nil, views: ["subview": playerVC.view]))
+            self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-\(0)-[subview]-\(0)-|", options: [], metrics: nil, views: ["subview": playerVC.view]))
+            self.addChildViewController(playerVC)
+        } else {
+            self._playerView.playerIsHidden = false
+            self.view = self._playerView
+        }
+
         if let url = url {
             setup(url: url)
         } else if let asset = asset {
@@ -376,8 +410,13 @@ open class Player: UIViewController {
     // MARK: - Playback funcs
 
     open func playerViewSet(player: AVPlayer) {
-        self._playerView.player = player
-        self._playerView.playerIsHidden = false
+        if let playerVC = self._nativePlayerViewController {
+            playerVC.player = player
+            playerVC.view.isHidden = false
+        } else {
+            self._playerView.player = player
+            self._playerView.playerIsHidden = false
+        }
     }
 
     /// Begins playback of the media from the beginning.
@@ -454,8 +493,13 @@ open class Player: UIViewController {
     ///
     /// - Returns: A UIImage of the player view.
     open func takeSnapshot() -> UIImage {
-        UIGraphicsBeginImageContextWithOptions(self._playerView.frame.size, false, UIScreen.main.scale)
-        self._playerView.drawHierarchy(in: self._playerView.bounds, afterScreenUpdates: true)
+        if let playerVC = self._nativePlayerViewController {
+            UIGraphicsBeginImageContextWithOptions(playerVC.view.frame.size, false, UIScreen.main.scale)
+            playerVC.view.drawHierarchy(in: playerVC.view.bounds, afterScreenUpdates: true)
+        } else {
+            UIGraphicsBeginImageContextWithOptions(self._playerView.frame.size, false, UIScreen.main.scale)
+            self._playerView.drawHierarchy(in: self._playerView.bounds, afterScreenUpdates: true)
+        }
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return image!
@@ -667,11 +711,19 @@ extension Player {
     // MARK: - AVPlayerLayerObservers
     
     internal func addPlayerLayerObservers() {
-        self._playerView.layer.addObserver(self, forKeyPath: PlayerReadyForDisplayKey, options: [.new, .old], context: &PlayerLayerObserverContext)
+        if let playerVC = self._nativePlayerViewController {
+            playerVC.view.addObserver(self, forKeyPath: PlayerReadyForDisplayKey, options: [.new, .old], context: &PlayerLayerObserverContext)
+        } else {
+            self._playerView.layer.addObserver(self, forKeyPath: PlayerReadyForDisplayKey, options: [.new, .old], context: &PlayerLayerObserverContext)
+        }
     }
     
     internal func removePlayerLayerObservers() {
-        self._playerView.layer.removeObserver(self, forKeyPath: PlayerReadyForDisplayKey, context: &PlayerLayerObserverContext)
+        if let playerVC = self._nativePlayerViewController {
+            playerVC.view.removeObserver(self, forKeyPath: PlayerReadyForDisplayKey, context: &PlayerLayerObserverContext)
+        } else {
+            self._playerView.layer.removeObserver(self, forKeyPath: PlayerReadyForDisplayKey, context: &PlayerLayerObserverContext)
+        }
     }
     
     // MARK: - AVPlayerObservers
@@ -782,7 +834,13 @@ extension Player {
             }
         
         } else if context == &PlayerLayerObserverContext {
-            if self._playerView.playerIsReadyForDisplay {
+            if let playerVC = self._nativePlayerViewController {
+                if playerVC.isReadyForDisplay {
+                    self.executeClosureOnMainQueueIfNecessary {
+                        self.playerDelegate?.playerReady(self)
+                    }
+                }
+            } else if self._playerView.playerIsReadyForDisplay {
                 self.executeClosureOnMainQueueIfNecessary {
                     self.playerDelegate?.playerReady(self)
                 }
@@ -819,8 +877,6 @@ internal class PlayerView: UIView {
         }
     }
 
-    var playerViewController: PlayerAVPlayerViewController?
-
     var playerLayer: AVPlayerLayer {
         get {
             return self.layer as! AVPlayerLayer
@@ -829,90 +885,54 @@ internal class PlayerView: UIView {
 
     var player: AVPlayer? {
         get {
-            if let playerVC = self.playerViewController {
-                return playerVC.player
-            }
             return self.playerLayer.player
         }
         set {
-            if let playerVC = self.playerViewController {
-                playerVC.player = newValue
-            } else {
-                self.playerLayer.player = newValue
-            }
+            self.playerLayer.player = newValue
         }
     }
 
     var fillMode: PlayerFillMode {
         get {
-            if let playerVC = self.playerViewController {
-                return playerVC.videoGravity
-            }
             return self.playerLayer.videoGravity.rawValue
         }
         set {
-            if let playerVC = self.playerViewController {
-                playerVC.videoGravity = newValue
-            } else {
-                self.playerLayer.videoGravity = AVLayerVideoGravity(rawValue: newValue)
-            }
+            self.playerLayer.videoGravity = AVLayerVideoGravity(rawValue: newValue)
         }
     }
 
     var playerIsReadyForDisplay: Bool {
         get {
-            if let playerVC = self.playerViewController {
-                return playerVC.isReadyForDisplay
-            }
             return self.playerLayer.isReadyForDisplay
         }
     }
 
     var playerIsHidden: Bool {
         get {
-            if let playerVC = self.playerViewController {
-                return playerVC.view.isHidden
-            }
             return self.playerLayer.isHidden
         }
         set {
-            if let playerVC = self.playerViewController {
-                playerVC.view.isHidden = newValue
-            } else {
-                self.playerLayer.isHidden = newValue
-            }
+            self.playerLayer.isHidden = newValue
         }
     }
 
     var playerBackgroundColor: UIColor? {
         get {
-            if let playerVC = self.playerViewController {
-                return playerVC.view.backgroundColor
-            } else if let cgColor = self.playerLayer.backgroundColor {
+            if let cgColor = self.playerLayer.backgroundColor {
                 return UIColor(cgColor: cgColor)
             }
             return nil
         }
         set {
-            if let playerVC = self.playerViewController {
-                playerVC.view.backgroundColor = newValue
-            } else {
-                self.playerLayer.backgroundColor = newValue?.cgColor
-            }
+            self.playerLayer.backgroundColor = newValue?.cgColor
         }
     }
 
     var playerFillMode: String {
         get {
-            if let playerVC = self.playerViewController {
-                return playerVC.view.layer.fillMode
-            }
             return self.playerLayer.fillMode
         }
         set {
-            if let playerVC = self.playerViewController {
-                playerVC.view.layer.fillMode = newValue
-            }
             self.playerLayer.fillMode = newValue
         }
     }
@@ -923,21 +943,12 @@ internal class PlayerView: UIView {
         super.init(frame: frame)
         playerBackgroundColor = UIColor.black
         playerFillMode = PlayerFillMode.resizeAspectFit.avFoundationType
-        addPlayerViewController() // TODO: Make this an option
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         playerBackgroundColor = UIColor.black
         playerFillMode = PlayerFillMode.resizeAspectFit.avFoundationType
-        addPlayerViewController() // TODO: Make this an option
-    }
-
-    private func addPlayerViewController() {
-        playerViewController = PlayerAVPlayerViewController()
-        if let playerVCView = playerViewController?.view {
-            self.addSubview(playerVCView)
-        }
     }
 
     deinit {
