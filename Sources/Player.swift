@@ -105,6 +105,7 @@ public enum PlayerError: Error, CustomStringConvertible {
 /// Player delegate protocol
 public protocol PlayerDelegate: NSObjectProtocol {
     func playerReady(_ player: Player)
+    func playerPlaybackError(_ player: Player, error: NSError?)
     func playerPlaybackStateDidChange(_ player: Player)
     func playerBufferingStateDidChange(_ player: Player)
     
