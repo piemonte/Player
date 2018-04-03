@@ -372,6 +372,11 @@ open class Player: UIViewController {
 
     // MARK: - Playback funcs
 
+    open func playerViewSet(player: AVPlayer) {
+        self._playerView.player = player
+        self._playerView.playerIsHidden = false
+    }
+
     /// Begins playback of the media from the beginning.
     open func playFromBeginning() {
         self.playbackDelegate?.playerPlaybackWillStartFromBeginning(self)
@@ -714,8 +719,7 @@ extension Player {
                 if let status = change?[NSKeyValueChangeKey.newKey] as? NSNumber {
                     switch status.intValue as AVPlayerStatus.RawValue {
                     case AVPlayerStatus.readyToPlay.rawValue:
-                        self._playerView.player = self._avplayer
-                        self._playerView.playerIsHidden = false
+                        self.playerViewSet(player: self._avplayer)
                     case AVPlayerStatus.failed.rawValue:
                         self.playbackState = PlaybackState.failed
                     default:
@@ -736,8 +740,7 @@ extension Player {
                 if let status = change?[NSKeyValueChangeKey.newKey] as? NSNumber {
                     switch status.intValue as AVPlayerStatus.RawValue {
                     case AVPlayerStatus.readyToPlay.rawValue:
-                        self._playerView.player = self._avplayer
-                        self._playerView.playerIsHidden = false
+                        self.playerViewSet(player: self._avplayer)
                     case AVPlayerStatus.failed.rawValue:
                         self.playbackState = PlaybackState.failed
                     default:
