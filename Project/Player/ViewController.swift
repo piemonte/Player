@@ -102,6 +102,9 @@ extension ViewController: PlayerDelegate {
     
     func playerReady(_ player: Player) {
     }
+
+    func playerPlaybackError(_ player: Player, error: NSError?) {
+    }
     
     func playerPlaybackStateDidChange(_ player: Player) {
     }
