@@ -352,11 +352,7 @@ open class Player: UIViewController {
     // MARK: - view lifecycle
 
     open override func loadView() {
-        if let playerVC = self._playerView.playerViewController {
-            playerVC.view.isHidden = false
-        } else {
-            self._playerView.playerLayer.isHidden = false
-        }
+        self._playerView.playerIsHidden = false
         self.view = self._playerView
     }
     
@@ -789,13 +785,7 @@ extension Player {
             }
         
         } else if context == &PlayerLayerObserverContext {
-            if let playerVC = self._playerView.playerViewController {
-                if playerVC.isReadyForDisplay {
-                    self.executeClosureOnMainQueueIfNecessary {
-                        self.playerDelegate?.playerReady(self)
-                    }
-                }
-            } else if self._playerView.playerLayer.isReadyForDisplay {
+            if self._playerView.playerIsReadyForDisplay {
                 self.executeClosureOnMainQueueIfNecessary {
                     self.playerDelegate?.playerReady(self)
                 }
@@ -869,6 +859,15 @@ internal class PlayerView: UIView {
             } else {
                 self.playerLayer.videoGravity = AVLayerVideoGravity(rawValue: newValue)
             }
+        }
+    }
+
+    var playerIsReadyForDisplay: Bool {
+        get {
+            if let playerVC = self.playerViewController {
+                return playerVC.isReadyForDisplay
+            }
+            return self.playerLayer.isReadyForDisplay
         }
     }
 
