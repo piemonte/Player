@@ -697,6 +697,7 @@ private let PlayerTracksKey = "tracks"
 private let PlayerPlayableKey = "playable"
 private let PlayerDurationKey = "duration"
 private let PlayerRateKey = "rate"
+private let PlayerTimeControlStatusKey = "timeControlStatus"
 
 // KVO player item keys
 
@@ -740,6 +741,7 @@ extension Player {
             strongSelf.playbackDelegate?.playerCurrentTimeDidChange(strongSelf)
         })
         self._avplayer.addObserver(self, forKeyPath: PlayerRateKey, options: [.new, .old], context: &PlayerObserverContext)
+        self._avplayer.addObserver(self, forKeyPath: PlayerTimeControlStatusKey, options: [.new, .old], context: &PlayerObserverContext)
     }
 
     internal func removePlayerObservers() {
@@ -747,6 +749,7 @@ extension Player {
             self._avplayer.removeTimeObserver(observer)
         }
         self._avplayer.removeObserver(self, forKeyPath: PlayerRateKey, context: &PlayerObserverContext)
+        self._avplayer.removeObserver(self, forKeyPath: PlayerTimeControlStatusKey, context: &PlayerObserverContext)
     }
 
     // MARK: -
@@ -846,6 +849,17 @@ extension Player {
             } else if self._playerView.playerIsReadyForDisplay {
                 self.executeClosureOnMainQueueIfNecessary {
                     self.playerDelegate?.playerReady(self)
+                }
+            }
+
+        } else if context == &PlayerObserverContext {
+            if keyPath == PlayerTimeControlStatusKey {
+                if let rawNewValue = change?[.newKey] as? Int, let newStatus = AVPlayerTimeControlStatus(rawValue: rawNewValue) {
+                    if newStatus == .paused {
+                        self.playbackState = .paused
+                    } else if newStatus == .playing {
+                        self.playbackState = .playing
+                    }
                 }
             }
         }
