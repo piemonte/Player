@@ -283,7 +283,8 @@ open class Player: UIViewController {
     open var naturalSize: CGSize {
         get {
             if let playerItem = self._playerItem,
-                let track = playerItem.asset.tracks(withMediaType: AVMediaTypeVideo).first {
+                let track = playerItem.asset.tracks(withMediaType: .video).first {
+
                 let size = track.naturalSize.applying(track.preferredTransform)
                 return CGSize(width: fabs(size.width), height: fabs(size.height))
             } else {
@@ -911,11 +912,10 @@ internal class PlayerView: UIView {
 
     var fillMode: PlayerFillMode {
         get {
-
-            return self.playerLayer.videoGravity
+            return self.playerLayer.videoGravity.rawValue
         }
         set {
-            self.playerLayer.videoGravity = newValue
+            self.playerLayer.videoGravity = AVLayerVideoGravity(rawValue: newValue)
         }
     }
 
