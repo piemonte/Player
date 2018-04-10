@@ -954,8 +954,3 @@ internal class PlayerView: UIView {
 
 }
 
-internal class PlayerAVPlayerViewController: AVPlayerViewController {
-    override var shouldAutorotate: Bool {
-        return true
-    }
-}
