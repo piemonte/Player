@@ -464,7 +464,10 @@ open class Player: UIViewController {
     ///   - completionHandler: Call block handler after seeking/
     open func seek(to time: CMTime, completionHandler: ((Bool) -> Swift.Void)? = nil) {
         if let playerItem = self._playerItem {
-            return playerItem.seek(to: time, completionHandler: completionHandler)
+            return playerItem.seek(to: time) {
+                didSeek in
+                completionHandler?(didSeek)
+            }
         } else {
             _seekTimeRequested = time
         }
@@ -479,7 +482,10 @@ open class Player: UIViewController {
     ///   - completionHandler: call block handler after seeking
     open func seekToTime(to time: CMTime, toleranceBefore: CMTime, toleranceAfter: CMTime, completionHandler: ((Bool) -> Swift.Void)? = nil) {
         if let playerItem = self._playerItem {
-            return playerItem.seek(to: time, toleranceBefore: toleranceBefore, toleranceAfter: toleranceAfter, completionHandler: completionHandler)
+            return playerItem.seek(to: time, toleranceBefore: toleranceBefore, toleranceAfter: toleranceAfter) {
+                didSeek in
+                completionHandler?(didSeek)
+            }
         }
     }
 
