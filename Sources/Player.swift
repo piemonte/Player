@@ -46,11 +46,11 @@ public enum PlayerFillMode {
         get {
             switch self {
             case .resize:
-                return AVLayerVideoGravity.resize.rawValue
+                return AVLayerVideoGravityResize
             case .resizeAspectFill:
-                return AVLayerVideoGravity.resizeAspectFill.rawValue
+                return AVLayerVideoGravityResizeAspectFill
             case .resizeAspectFit:
-                return AVLayerVideoGravity.resizeAspect.rawValue
+                return AVLayerVideoGravityResizeAspect
             }
         }
     }
@@ -280,8 +280,7 @@ open class Player: UIViewController {
     open var naturalSize: CGSize {
         get {
             if let playerItem = self._playerItem,
-                let track = playerItem.asset.tracks(withMediaType: .video).first {
-
+                let track = playerItem.asset.tracks(withMediaType: AVMediaTypeVideo).first {
                 let size = track.naturalSize.applying(track.preferredTransform)
                 return CGSize(width: fabs(size.width), height: fabs(size.height))
             } else {
@@ -890,10 +889,11 @@ internal class PlayerView: UIView {
 
     var fillMode: String {
         get {
-            return self.playerLayer.videoGravity.rawValue
+
+            return self.playerLayer.videoGravity
         }
         set {
-            self.playerLayer.videoGravity = AVLayerVideoGravity(rawValue: newValue)
+            self.playerLayer.videoGravity = newValue
         }
     }
 
