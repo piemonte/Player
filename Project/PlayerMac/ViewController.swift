@@ -25,6 +25,7 @@
 //  SOFTWARE.
 
 import AppKit
+import Player
 
 class ViewController: NSViewController {
     internal var player = Player()

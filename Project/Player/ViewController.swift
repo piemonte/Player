@@ -25,8 +25,7 @@
 //  SOFTWARE.
 
 import UIKit
-
-let videoUrl = URL(string: "https://v.cdn.vine.co/r/videos/AA3C120C521177175800441692160_38f2cbd1ffb.1.5.13763579289575020226.mp4")!
+import Player
 
 class ViewController: UIViewController {
     fileprivate var player = Player()
@@ -44,23 +43,37 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-
         player.playerDelegate = self
         player.playbackDelegate = self
-        player.view.frame = view.bounds
+        player.view.translatesAutoresizingMaskIntoConstraints = false
 
         addChildViewController(player)
-        view.addSubview(player.view)
         player.didMove(toParentViewController: self)
+        view.addSubview(player.view)
 
-        player.url = videoUrl
+        let uri = "https://www.apple.com/105/media/us/iphone-x/2017/01df5b43-28e4-4848-bf20-490c34a926a7"
+            + "/films/meet-iphone-x/iphone-x-meet-iphone-tpl-cc-us-20171129_1280x720h.mp4"
+        player.url = URL(string: uri)!
 
         player.playbackLoops = true
 
         let tapGestureRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTapGestureRecognizer(_:)))
         tapGestureRecognizer.numberOfTapsRequired = 1
         player.view.addGestureRecognizer(tapGestureRecognizer)
+
+        NSLayoutConstraint.activate([
+            player.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            player.view.topAnchor.constraint(equalTo: view.topAnchor),
+            player.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            player.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            ])
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(orientationWillChange), name: .UIDeviceOrientationDidChange, object: nil)
+
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -68,6 +81,20 @@ class ViewController: UIViewController {
 
         player.playFromBeginning()
     }
+
+    @objc private func orientationWillChange() {
+        let currentOrientation = UIDevice.current.orientation
+        if UIDeviceOrientationIsLandscape(currentOrientation) {
+            print("Landscape")
+            player.fillMode = .resizeAspectFill
+            // Resize other things
+        } else if UIDeviceOrientationIsPortrait(currentOrientation) {
+            print("Portrait")
+            // Resize other things
+            player.fillMode = .resizeAspect
+        }
+    }
+
 }
 
 // MARK: - UIGestureRecognizer

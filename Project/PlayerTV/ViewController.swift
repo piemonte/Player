@@ -25,8 +25,7 @@
 //  SOFTWARE.
 
 import UIKit
-
-let videoUrl = URL(string: "https://v.cdn.vine.co/r/videos/AA3C120C521177175800441692160_38f2cbd1ffb.1.5.13763579289575020226.mp4")!
+import Player
 
 class ViewController: UIViewController {
     internal var player = Player()
@@ -51,10 +50,12 @@ class ViewController: UIViewController {
         player.view.frame = view.bounds
 
         addChildViewController(player)
-        view.addSubview(player.view)
         player.didMove(toParentViewController: self)
+        view.addSubview(player.view)
 
-        player.url = videoUrl
+        let uri = "https://www.apple.com/105/media/us/iphone-x/2017/01df5b43-28e4-4848-bf20-490c34a926a7"
+            + "/films/meet-iphone-x/iphone-x-meet-iphone-tpl-cc-us-20171129_1280x720h.mp4"
+        player.url = URL(string: uri)!
 
         player.playbackLoops = true
 
