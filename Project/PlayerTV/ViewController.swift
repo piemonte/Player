@@ -29,101 +29,86 @@ import UIKit
 let videoUrl = URL(string: "https://v.cdn.vine.co/r/videos/AA3C120C521177175800441692160_38f2cbd1ffb.1.5.13763579289575020226.mp4")!
 
 class ViewController: UIViewController {
-    
     internal var player = Player()
-	
-	// MARK: object lifecycle
+
+    // MARK: object lifecycle
+
     deinit {
-        self.player.willMove(toParentViewController: self)
-        self.player.view.removeFromSuperview()
-        self.player.removeFromParentViewController()
+        player.willMove(toParentViewController: self)
+        player.view.removeFromSuperview()
+        player.removeFromParentViewController()
     }
-	
+
     // MARK: view lifecycle
-	
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.view.autoresizingMask = ([.flexibleWidth, .flexibleHeight])
-        
-        self.player.playerDelegate = self
-        self.player.playbackDelegate = self
-        self.player.view.frame = self.view.bounds
-        
-        self.addChildViewController(self.player)
-        self.view.addSubview(self.player.view)
-        self.player.didMove(toParentViewController: self)
-        
-        self.player.url = videoUrl
-        
-        self.player.playbackLoops = true
-		
-		let tapGestureRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTapGestureRecognizer(_:)))
-        tapGestureRecognizer.allowedPressTypes = [NSNumber(value: UIPressType.playPause.rawValue)];
-        self.view.addGestureRecognizer(tapGestureRecognizer)
+
+        view.autoresizingMask = ([.flexibleWidth, .flexibleHeight])
+
+        player.playerDelegate = self
+        player.playbackDelegate = self
+        player.view.frame = view.bounds
+
+        addChildViewController(player)
+        view.addSubview(player.view)
+        player.didMove(toParentViewController: self)
+
+        player.url = videoUrl
+
+        player.playbackLoops = true
+
+        let tapGestureRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTapGestureRecognizer(_:)))
+        tapGestureRecognizer.allowedPressTypes = [NSNumber(value: UIPressType.playPause.rawValue)]
+        view.addGestureRecognizer(tapGestureRecognizer)
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        self.player.playFromBeginning()
+
+        player.playFromBeginning()
     }
 }
 
 // MARK: - UIGestureRecognizer
 
 extension ViewController {
-    
     @objc func handleTapGestureRecognizer(_ gestureRecognizer: UITapGestureRecognizer) {
-        switch (self.player.playbackState.rawValue) {
+        switch player.playbackState.rawValue {
         case PlaybackState.stopped.rawValue:
-            self.player.playFromBeginning()
+            player.playFromBeginning()
         case PlaybackState.paused.rawValue:
-            self.player.playFromCurrentTime()
+            player.playFromCurrentTime()
         case PlaybackState.playing.rawValue:
-            self.player.pause()
+            player.pause()
         case PlaybackState.failed.rawValue:
-            self.player.pause()
+            player.pause()
         default:
-            self.player.pause()
+            player.pause()
         }
     }
-    
 }
 
 // MARK: - PlayerDelegate
-    
+
 extension ViewController: PlayerDelegate {
-    
-    func playerReady(_ player: Player) {
-    }
-    
-    func playerPlaybackStateDidChange(_ player: Player) {
-    }
-    
-    func playerBufferingStateDidChange(_ player: Player) {
-    }
-    
-    func playerBufferTimeDidChange(_ bufferTime: Double) {
-        
-    }
+    func playerReady(player: Player) {}
+
+    func playerPlaybackStateDidChange(player: Player) {}
+
+    func playerBufferingStateDidChange(player: Player) {}
+
+    func playerBufferTimeDidChange(bufferTime: Double) {}
 }
 
 // MARK: - PlayerPlaybackDelegate
 
 extension ViewController: PlayerPlaybackDelegate {
-    
-    func playerCurrentTimeDidChange(_ player: Player) {
-    }
-    
-    func playerPlaybackWillStartFromBeginning(_ player: Player) {
-    }
-    
-    func playerPlaybackDidEnd(_ player: Player) {
-    }
-    
-    func playerPlaybackWillLoop(_ player: Player) {
-    }
-    
-}
+    func playerCurrentTimeDidChange(player: Player) {}
 
+    func playerPlaybackWillStartFromBeginning(player: Player) {}
+
+    func playerPlaybackDidEnd(player: Player) {}
+
+    func playerPlaybackWillLoop(player: Player) {}
+}

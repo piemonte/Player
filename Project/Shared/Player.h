@@ -1,4 +1,4 @@
-//  AppDelegate.swift
+//  Player.h
 //
 //  Created by patrick piemonte on 11/26/14.
 //
@@ -24,19 +24,10 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-import UIKit
+#import <Foundation/Foundation.h>
 
-@UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
-    var window: UIWindow?
+//! Project version number for Player.
+FOUNDATION_EXPORT double PlayerVersionNumber;
 
-    // MARK: UIApplicationDelegate
-
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]? = nil) -> Bool {
-        window = UIWindow(frame: UIScreen.main.bounds)
-        window!.backgroundColor = .black
-        window!.rootViewController = ViewController()
-        window!.makeKeyAndVisible()
-        return true
-    }
-}
+//! Project version string for Player.
+FOUNDATION_EXPORT const unsigned char PlayerVersionString[];

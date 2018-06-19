@@ -1,6 +1,6 @@
-//  Player.h
+//  AppDelegate.swift
 //
-//  Created by patrick piemonte on 11/26/14.
+//  Created by Chris Zielinski on 06/18/18.
 //
 //  The MIT License (MIT)
 //
@@ -24,10 +24,20 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <UIKit/UIKit.h>
+import Cocoa
 
-//! Project version number for Player.
-FOUNDATION_EXPORT double PlayerVersionNumber;
+@NSApplicationMain
+class AppDelegate: NSObject, NSApplicationDelegate {
+    @IBOutlet var window: NSWindow!
 
-//! Project version string for Player.
-FOUNDATION_EXPORT const unsigned char PlayerVersionString[];
+    func applicationDidFinishLaunching(_ aNotification: Notification) {
+        // Insert code here to initialize your application
+
+        window.contentViewController = ViewController()
+        window!.makeMain()
+    }
+
+    func applicationWillTerminate(_ aNotification: Notification) {
+        // Insert code here to tear down your application
+    }
+}

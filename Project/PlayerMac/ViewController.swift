@@ -1,6 +1,6 @@
 //  ViewController.swift
 //
-//  Created by patrick piemonte on 11/26/14.
+//  Created by Chris Zielinski on 06/18/18.
 //
 //  The MIT License (MIT)
 //
@@ -24,19 +24,22 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-import UIKit
+import AppKit
 
-let videoUrl = URL(string: "https://v.cdn.vine.co/r/videos/AA3C120C521177175800441692160_38f2cbd1ffb.1.5.13763579289575020226.mp4")!
-
-class ViewController: UIViewController {
-    fileprivate var player = Player()
+class ViewController: NSViewController {
+    internal var player = Player()
 
     // MARK: object lifecycle
 
     deinit {
-        player.willMove(toParentViewController: self)
         player.view.removeFromSuperview()
         player.removeFromParentViewController()
+    }
+
+    override func loadView() {
+        view = player.view
+        view.autoresizingMask = [.height, .width]
+        view.setFrameSize(NSSize(width: 400 * (16.0 / 9), height: 400))
     }
 
     // MARK: view lifecycle
@@ -44,48 +47,21 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-
         player.playerDelegate = self
         player.playbackDelegate = self
-        player.view.frame = view.bounds
 
-        addChildViewController(player)
-        view.addSubview(player.view)
-        player.didMove(toParentViewController: self)
-
-        player.url = videoUrl
-
+        let uri = "https://www.apple.com/105/media/us/iphone-x/2017/01df5b43-28e4-4848-bf20-490c34a926a7"
+            + "/films/meet-iphone-x/iphone-x-meet-iphone-tpl-cc-us-20171129_1280x720h.mp4"
+        player.url = URL(string: uri)!
         player.playbackLoops = true
-
-        let tapGestureRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTapGestureRecognizer(_:)))
-        tapGestureRecognizer.numberOfTapsRequired = 1
-        player.view.addGestureRecognizer(tapGestureRecognizer)
+        player.fillMode = .resizeAspectFill
+        player.controlsStyle = .floating
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewDidAppear() {
+        super.viewDidAppear()
 
         player.playFromBeginning()
-    }
-}
-
-// MARK: - UIGestureRecognizer
-
-extension ViewController {
-    @objc func handleTapGestureRecognizer(_ gestureRecognizer: UITapGestureRecognizer) {
-        switch player.playbackState.rawValue {
-            case PlaybackState.stopped.rawValue:
-                player.playFromBeginning()
-            case PlaybackState.paused.rawValue:
-                player.playFromCurrentTime()
-            case PlaybackState.playing.rawValue:
-                player.pause()
-            case PlaybackState.failed.rawValue:
-                player.pause()
-            default:
-                player.pause()
-        }
     }
 }
 

@@ -28,17 +28,15 @@ import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
     var window: UIWindow?
 
     // MARK: UIApplicationDelegate
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
-        self.window = UIWindow(frame:UIScreen.main.bounds)
-        self.window!.backgroundColor = UIColor.black
-        self.window!.rootViewController = ViewController()
-        self.window!.makeKeyAndVisible()
-        return true        
+
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]? = nil) -> Bool {
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window!.backgroundColor = UIColor.black
+        window!.rootViewController = ViewController()
+        window!.makeKeyAndVisible()
+        return true
     }
-
 }
-
