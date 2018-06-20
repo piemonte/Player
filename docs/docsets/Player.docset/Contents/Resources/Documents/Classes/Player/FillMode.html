@@ -1,63 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>PlayerFillMode Enumeration Reference</title>
-    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
-    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <title>FillMode Enumeration Reference</title>
+    <link rel="stylesheet" type="text/css" href="../../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/highlight.css" />
     <meta charset='utf-8'>
-    <script src="../js/jquery.min.js" defer></script>
-    <script src="../js/jazzy.js" defer></script>
+    <script src="../../js/jquery.min.js" defer></script>
+    <script src="../../js/jazzy.js" defer></script>
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Enum/PlayerFillMode" class="dashAnchor"></a>
-    <a title="PlayerFillMode Enumeration Reference"></a>
+    <a name="//apple_ref/swift/Enum/FillMode" class="dashAnchor"></a>
+    <a title="FillMode Enumeration Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">Player Docs</a> (60% documented)</p>
-        <p class="header-right"><a href="https://github.com/piemonte/Player"><img src="../img/gh.png"/>View on GitHub</a></p>
+        <p><a href="../../index.html">Player Docs</a> (59% documented)</p>
+        <p class="header-right"><a href="https://github.com/piemonte/Player"><img src="../../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
     <div class="content-wrapper">
       <p id="breadcrumbs">
-        <a href="../index.html">Player Reference</a>
-        <img id="carat" src="../img/carat.png" />
-        PlayerFillMode Enumeration Reference
+        <a href="../../index.html">Player Reference</a>
+        <img id="carat" src="../../img/carat.png" />
+        FillMode Enumeration Reference
       </p>
     </div>
     <div class="content-wrapper">
       <nav class="sidebar">
         <ul class="nav-groups">
           <li class="nav-group-name">
-            <a href="../Classes.html">Classes</a>
+            <a href="../../Classes.html">Classes</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Classes/Player.html">Player</a>
+                <a href="../../Classes/Player.html">Player</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/Player/PlaybackState.html">– PlaybackState</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/Player/BufferingState.html">– BufferingState</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/Player/FillMode.html">– FillMode</a>
               </li>
             </ul>
           </li>
           <li class="nav-group-name">
-            <a href="../Enums.html">Enumerations</a>
+            <a href="../../Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Enums/BufferingState.html">BufferingState</a>
+                <a href="../../Protocols/PlayerDelegate.html">PlayerDelegate</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Enums/PlaybackState.html">PlaybackState</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Enums/PlayerFillMode.html">PlayerFillMode</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
-            <a href="../Protocols.html">Protocols</a>
-            <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="../Protocols/PlayerDelegate.html">PlayerDelegate</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Protocols/PlayerPlaybackDelegate.html">PlayerPlaybackDelegate</a>
+                <a href="../../Protocols/PlayerPlaybackDelegate.html">PlayerPlaybackDelegate</a>
               </li>
             </ul>
           </li>
@@ -66,20 +61,14 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>PlayerFillMode</h1>
+            <h1>FillMode</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">PlayerFillMode</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">FillMode</span> <span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="kt">CustomStringConvertible</span></code></pre>
 
                 </div>
               </div>
-            <p>Video fill mode options for <code><a href="../Classes/Player.html#/s:6PlayerAAC8fillModeSSv">Player.fillMode</a></code>.</p>
-
-<ul>
-<li>resize: Stretch to fill.</li>
-<li>resizeAspectFill: Preserve aspect ratio, filling bounds.</li>
-<li>resizeAspectFit: Preserve aspect ratio, fill within bounds.</li>
-</ul>
+            <p>Video fill mode options for the <code><a href="../../Classes/Player.html#/s:6PlayerAAC8fillModeAB04FillC0Ovp">fillMode</a></code> property.</p>
 
           </section>
           <section class="section task-group-section">
@@ -88,9 +77,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6Player0A8FillModeO6resizeA2CmF"></a>
-                    <a name="//apple_ref/swift/Element/resize" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6Player0A8FillModeO6resizeA2CmF">resize</a>
+                    <a name="/s:6PlayerAAC8FillModeO13resizeStretchA2DmF"></a>
+                    <a name="//apple_ref/swift/Element/resizeStretch" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PlayerAAC8FillModeO13resizeStretchA2DmF">resizeStretch</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -98,30 +87,26 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Specifies that the video should be stretched to fill the layer’s bounds.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">PlayerFillMode</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">resizeStretch</span> <span class="o">=</span> <span class="s">"AVLayerVideoGravityResize"</span></code></pre>
 
                         </div>
                       </div>
                     </section>
                   </div>
                 </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6Player0A8FillModeO012resizeAspectB0A2CmF"></a>
+                    <a name="/s:6PlayerAAC8FillModeO012resizeAspectB0A2DmF"></a>
                     <a name="//apple_ref/swift/Element/resizeAspectFill" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6Player0A8FillModeO012resizeAspectB0A2CmF">resizeAspectFill</a>
+                    <a class="token" href="#/s:6PlayerAAC8FillModeO012resizeAspectB0A2DmF">resizeAspectFill</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -129,30 +114,26 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Specifies that the player should preserve the video’s aspect ratio and fill the layer’s bounds.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">PlayerFillMode</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">resizeAspectFill</span> <span class="o">=</span> <span class="s">"AVLayerVideoGravityResizeAspectFill"</span></code></pre>
 
                         </div>
                       </div>
                     </section>
                   </div>
                 </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6Player0A8FillModeO15resizeAspectFitA2CmF"></a>
+                    <a name="/s:6PlayerAAC8FillModeO15resizeAspectFitA2DmF"></a>
                     <a name="//apple_ref/swift/Element/resizeAspectFit" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6Player0A8FillModeO15resizeAspectFitA2CmF">resizeAspectFit</a>
+                    <a class="token" href="#/s:6PlayerAAC8FillModeO15resizeAspectFitA2DmF">resizeAspectFit</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -160,30 +141,26 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Specifies that the player should preserve the video’s aspect ratio and fit the video within the layer’s bounds.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">PlayerFillMode</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">resizeAspectFit</span> <span class="o">=</span> <span class="s">"AVLayerVideoGravityResizeAspect"</span></code></pre>
 
                         </div>
                       </div>
                     </section>
                   </div>
                 </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6Player0A8FillModeO16avFoundationTypeSSv"></a>
-                    <a name="//apple_ref/swift/Property/avFoundationType" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6Player0A8FillModeO16avFoundationTypeSSv">avFoundationType</a>
+                    <a name="/s:s23CustomStringConvertibleP11descriptionSSvp"></a>
+                    <a name="//apple_ref/swift/Property/description" class="dashAnchor"></a>
+                    <a class="token" href="#/s:s23CustomStringConvertibleP11descriptionSSvp">description</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -191,14 +168,13 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
-
+                        
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">PlayerFillMode</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">description</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -210,8 +186,8 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2017 <a class="link" href="https://patrickpiemonte.com" target="_blank" rel="external">Patrick Piemonte</a>. All rights reserved. (Last updated: 2017-10-08)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.4</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2018 <a class="link" href="https://patrickpiemonte.com" target="_blank" rel="external">Patrick Piemonte</a>. All rights reserved. (Last updated: 2018-06-20)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

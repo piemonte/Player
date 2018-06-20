@@ -13,7 +13,7 @@
     <a title="Player  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">Player Docs</a> (60% documented)</p>
+        <p><a href="index.html">Player Docs</a> (59% documented)</p>
         <p class="header-right"><a href="https://github.com/piemonte/Player"><img src="img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -33,19 +33,14 @@
               <li class="nav-group-task">
                 <a href="Classes/Player.html">Player</a>
               </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
-            <a href="Enums.html">Enumerations</a>
-            <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="Enums/BufferingState.html">BufferingState</a>
+                <a href="Classes/Player/PlaybackState.html">– PlaybackState</a>
               </li>
               <li class="nav-group-task">
-                <a href="Enums/PlaybackState.html">PlaybackState</a>
+                <a href="Classes/Player/BufferingState.html">– BufferingState</a>
               </li>
               <li class="nav-group-task">
-                <a href="Enums/PlayerFillMode.html">PlayerFillMode</a>
+                <a href="Classes/Player/FillMode.html">– FillMode</a>
               </li>
             </ul>
           </li>
@@ -66,16 +61,26 @@
         <section>
           <section class="section">
             
-            <p><img src="https://github.com/piemonte/Player/raw/master/Player.gif" alt="Player"></p>
-<h2 id='player' class='heading'>Player</h2>
+            <h1 id='player' class='heading'>Player</h1>
 
-<p><code><a href="Classes/Player.html">Player</a></code> is a simple iOS video player library written in <a href="https://developer.apple.com/swift/">Swift</a>.</p>
+<p><a href="https://travis-ci.org/piemonte/Player"><img src="https://travis-ci.org/piemonte/Player.svg?branch=master" alt="Build Status"></a>
+<a href="http://cocoadocs.org/docsets/Player"><img src="https://img.shields.io/cocoapods/p/Player.svg?style=flat" alt="Platform"></a> 
+<a href="http://cocoadocs.org/docsets/Player/"><img src="https://img.shields.io/cocoapods/v/Player.svg?style=flat" alt="Pod Version"></a> 
+<a href="https://github.com/Carthage/Carthage"><img src="https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat" alt="Carthage compatible"></a>
+<a href="https://developer.apple.com/swift"><img src="https://img.shields.io/badge/language-swift%204.1-brightgreen.svg" alt="Swift Version"></a> 
+<a href="https://github.com/piemonte/Player/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-lightgrey.svg" alt="GitHub license"></a></p>
 
-<p><a href="https://travis-ci.org/piemonte/Player"><img src="https://travis-ci.org/piemonte/Player.svg?branch=master" alt="Build Status"></a> <a href="http://cocoadocs.org/docsets/Player/"><img src="https://img.shields.io/cocoapods/v/Player.svg?style=flat" alt="Pod Version"></a> <a href="https://developer.apple.com/swift"><img src="https://img.shields.io/badge/language-swift%204.0-brightgreen.svg" alt="Swift Version"></a> <a href="https://github.com/piemonte/Player/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-lightgrey.svg" alt="GitHub license"></a></p>
+<p><img src="https://github.com/chriszielinski/Player/raw/master/readme-assets/player.gif" alt="Overview"></p>
+
+<p align="center"><b>Player is a simple cross-platform video player library written in Swift.</b>
+<br>
+<br>
+⚠️ <b>Warning</b>: version 0.9 has breaking API changes. ⚠️</p>
+<h3 id='looking-for' class='heading'>Looking for&hellip;</h3>
 
 <ul>
-<li>Looking for an obj-c video player? Check out <a href="https://github.com/piemonte/PBJVideoPlayer">PBJVideoPlayer (obj-c)</a>.</li>
-<li>Looking for a Swift camera library? Check out <a href="https://github.com/NextLevel/NextLevel">Next Level</a>.</li>
+<li>An obj-c video player? Check out <a href="https://github.com/piemonte/PBJVideoPlayer">PBJVideoPlayer (obj-c)</a>.</li>
+<li>A Swift camera library? Check out <a href="https://github.com/NextLevel/NextLevel">Next Level</a>.</li>
 </ul>
 <h3 id='features' class='heading'>Features</h3>
 
@@ -86,66 +91,98 @@
 <li>[x] orientation change support</li>
 <li>[x] simple API</li>
 </ul>
-<h1 id='quick-start' class='heading'>Quick Start</h1>
+<h3 id='future-features' class='heading'>Future Features</h3>
 
-<p><code><a href="Classes/Player.html">Player</a></code> is available for installation using the Cocoa dependency manager <a href="http://cocoapods.org/">CocoaPods</a>.  Alternatively, you can simply copy the <code>Player.swift</code> file into your Xcode project.</p>
-<pre class="highlight ruby"><code><span class="c1"># CocoaPods</span>
-<span class="n">swift_version</span> <span class="o">=</span> <span class="s2">"4.0"</span>
-<span class="n">pod</span> <span class="s2">"Player"</span><span class="p">,</span> <span class="s2">"~&gt; 0.8.0"</span>
+<ul>
+<li>[ ] use <code>AVPlayerViewController</code> for iOS/tvOS platforms</li>
+</ul>
+<h2 id='installation' class='heading'>Installation</h2>
 
-<span class="c1"># Carthage</span>
-<span class="n">github</span> <span class="s2">"piemonte/Player"</span> <span class="o">~&gt;</span> <span class="mi">0</span><span class="o">.</span><span class="mi">8</span><span class="o">.</span><span class="mi">0</span>
+<p><code><a href="Classes/Player.html">Player</a></code> is available for installation using CocoaPods or Carthage.  Alternatively, you can simply copy the <code>Player.swift</code> file into your Xcode project.</p>
+<h3 id='using-a-href-http-cocoapods-org-cocoapods-a' class='heading'>Using <a href="http://cocoapods.org/">CocoaPods</a></h3>
+<pre class="highlight ruby"><code><span class="n">pod</span> <span class="s2">"Player"</span>
 </code></pre>
 
 <p>Need Swift 3? Use release <code>0.7.0</code></p>
-<h2 id='usage' class='heading'>Usage</h2>
+<pre class="highlight ruby"><code><span class="n">pod</span> <span class="s2">"Player"</span><span class="p">,</span> <span class="s2">"~&gt; 0.7.0"</span>
+</code></pre>
+<h3 id='using-a-href-https-github-com-carthage-carthage-carthage-a' class='heading'>Using <a href="https://github.com/Carthage/Carthage">Carthage</a></h3>
+<pre class="highlight ruby"><code><span class="n">github</span> <span class="s2">"piemonte/Player"</span>
+</code></pre>
+<h2 id='quick-start' class='heading'>Quick Start</h2>
 
-<p>The sample project provides an example of how to integrate <code><a href="Classes/Player.html">Player</a></code>, otherwise you can follow these steps.</p>
+<p>The sample projects provide an example of how to integrate <code><a href="Classes/Player.html">Player</a></code>, otherwise you can follow these steps.</p>
 
-<p>Allocate and add the <code><a href="Classes/Player.html">Player</a></code> controller to your view hierarchy.</p>
-<pre class="highlight plaintext"><code> self.player = Player()
- self.player.playerDelegate = self
- self.player.playbackDelegate = self
- self.player.view.frame = self.view.bounds
-
- self.addChildViewController(self.player)
- self.view.addSubview(self.player.view)
- self.player.didMove(toParentViewController: self)
+<p>Create and add the <code><a href="Classes/Player.html">Player</a></code> to your view controller.</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">player</span> <span class="o">=</span> <span class="kt">Player</span><span class="p">()</span>
+<span class="c1">// Optional</span>
+<span class="n">player</span><span class="o">.</span><span class="n">playerDelegate</span> <span class="o">=</span> <span class="k">self</span>
+<span class="c1">// Optional</span>
+<span class="n">player</span><span class="o">.</span><span class="n">playbackDelegate</span> <span class="o">=</span> <span class="k">self</span>
+<span class="n">player</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">frame</span> <span class="o">=</span> <span class="n">view</span><span class="o">.</span><span class="n">bounds</span>
+<span class="n">player</span><span class="o">.</span><span class="nf">add</span><span class="p">(</span><span class="nv">to</span><span class="p">:</span> <span class="k">self</span><span class="p">)</span>
 </code></pre>
 
 <p>Provide the file path to the resource you would like to play locally or stream. Ensure you&rsquo;re including the file extension.</p>
-<pre class="highlight plaintext"><code>let videoUrl: URL = // file or http url
-self.player.url = videoUrl
+<pre class="highlight swift"><code><span class="n">player</span><span class="o">.</span><span class="n">url</span> <span class="o">=</span> <span class="kt">URL</span><span class="p">(</span><span class="nv">string</span><span class="p">:</span> <span class="s">"https://www.apple.com/105/media/us/iphone-x/2017/01df5b43-28e4-4848-bf20-490c34a926a7/films/meet-iphone-x/iphone-x-meet-iphone-tpl-cc-us-20171129_1280x720h.mp4"</span><span class="p">)</span>
 </code></pre>
 
-<p>play/pause/chill</p>
-<pre class="highlight plaintext"><code> self.player.playFromBeginning()
+<p>play/pause/chill 🏖️</p>
+<pre class="highlight swift"><code><span class="n">player</span><span class="o">.</span><span class="nf">playFromBeginning</span><span class="p">()</span>
+<span class="n">player</span><span class="o">.</span><span class="nf">pause</span><span class="p">()</span>
 </code></pre>
 
 <p>Adjust the fill mode for the video, if needed.</p>
-<pre class="highlight plaintext"><code> self.player.fillMode = PlayerFillMode.resizeAspectFit.avFoundationType
+<pre class="highlight swift"><code><span class="n">player</span><span class="o">.</span><span class="n">fillMode</span> <span class="o">=</span> <span class="o">.</span><span class="n">resizeAspectFit</span>
 </code></pre>
 
-<p>Display video playback progress, if needed.</p>
-<pre class="highlight plaintext"><code>extension ViewController: PlayerPlaybackDelegate {
+<p>The fill mode can be set to the following values:</p>
 
-    public func playerPlaybackWillStartFromBeginning(_ player: Player) {
-    }
+<p><code>.resizeAspectFit</code> (default)
+<img src="https://github.com/chriszielinski/Player/raw/master/readme-assets/aspectFit.png" alt="Player"></p>
 
-    public func playerPlaybackDidEnd(_ player: Player) {
-    }
+<p><code>.resizeAspectFill</code>
+<img src="https://github.com/chriszielinski/Player/raw/master/readme-assets/aspectFill.png" alt="Player"></p>
 
-    public func playerCurrentTimeDidChange(_ player: Player) {
-        let fraction = Double(player.currentTime) / Double(player.maximumDuration)
-        self._playbackViewController?.setProgress(progress: CGFloat(fraction), animated: true)
-    }
+<p><code>.resizeStretch</code> (aka please don&rsquo;t. I mean look at the poor thing)
+<img src="https://github.com/chriszielinski/Player/raw/master/readme-assets/stretch.png" alt="Player"></p>
 
-    public func playerPlaybackWillLoop(_ player: Player) {
-        self. _playbackViewController?.reset()
-    }
+<p>Display video playback progress, if desired. Note, all delegate methods are optional.</p>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ViewController</span><span class="p">:</span> <span class="kt">PlayerPlaybackDelegate</span> <span class="p">{</span>
 
-}
+    <span class="kd">public</span> <span class="kd">func</span> <span class="nf">playerPlaybackWillStartFromBeginning</span><span class="p">(</span><span class="nv">player</span><span class="p">:</span> <span class="kt">Player</span><span class="p">)</span> <span class="p">{}</span>
+
+    <span class="kd">public</span> <span class="kd">func</span> <span class="nf">playerPlaybackDidEnd</span><span class="p">(</span><span class="nv">player</span><span class="p">:</span> <span class="kt">Player</span><span class="p">)</span> <span class="p">{}</span>
+
+    <span class="kd">public</span> <span class="kd">func</span> <span class="nf">playerCurrentTimeDidChange</span><span class="p">(</span><span class="nv">player</span><span class="p">:</span> <span class="kt">Player</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">let</span> <span class="nv">currentProgress</span> <span class="o">=</span> <span class="kt">Float</span><span class="p">(</span><span class="n">player</span><span class="o">.</span><span class="n">currentTime</span> <span class="o">/</span> <span class="n">player</span><span class="o">.</span><span class="n">maximumDuration</span><span class="p">)</span>
+        <span class="n">progressView</span><span class="o">.</span><span class="nf">setProgress</span><span class="p">(</span><span class="n">currentProgress</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="kc">true</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="kd">public</span> <span class="kd">func</span> <span class="nf">playerPlaybackWillLoop</span><span class="p">(</span><span class="nv">player</span><span class="p">:</span> <span class="kt">Player</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">progressView</span><span class="o">.</span><span class="nf">setProgress</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="kc">false</span><span class="p">)</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
 </code></pre>
+<h3 id='macos' class='heading'>macOS</h3>
+
+<p>On the macOS platform, the player can display media controls. </p>
+<pre class="highlight swift"><code><span class="n">player</span><span class="o">.</span><span class="n">controlsStyle</span> <span class="o">=</span> <span class="o">.</span><span class="n">floating</span>
+</code></pre>
+
+<p>The controls&rsquo; style can be set to the following:</p>
+
+<p><code>.none</code></p>
+
+<p><code>.inline</code> (default)
+<img src="https://github.com/chriszielinski/Player/raw/master/readme-assets/inline.png" alt="Player"></p>
+
+<p><code>.minimal</code>
+<img src="https://github.com/chriszielinski/Player/raw/master/readme-assets/minimal.png" alt="Player"></p>
+
+<p><code>.floating</code>
+<img src="https://github.com/chriszielinski/Player/raw/master/readme-assets/floating.png" alt="Player"></p>
 <h2 id='documentation' class='heading'>Documentation</h2>
 
 <p>You can find <a href="http://piemonte.github.io/Player/">the docs here</a>. Documentation is generated with <a href="https://github.com/realm/jazzy">jazzy</a> and hosted on <a href="https://pages.github.com">GitHub-Pages</a>.</p>
@@ -155,8 +192,13 @@ self.player.url = videoUrl
 <li>Need help? Use <a href="http://stackoverflow.com/questions/tagged/player-swift">Stack Overflow</a> with the tag &lsquo;player-swift&rsquo;.</li>
 <li>Questions? Use <a href="http://stackoverflow.com/questions/tagged/player-swift">Stack Overflow</a> with the tag &lsquo;player-swift&rsquo;.</li>
 <li>Found a bug? Open an <a href="https://github.com/piemonte/player/issues">issue</a>.</li>
-<li>Feature idea? Open an <a href="https://github.com/piemonte/player/issues">issue</a>.</li>
+<li>Feature idea? <del>Open an <a href="https://github.com/piemonte/player/issues">issue</a>.</del> Do it yourself &amp; PR when done 😅.</li>
 <li>Want to contribute? Submit a <a href="https://github.com/piemonte/player/pulls">pull request</a>.</li>
+</ul>
+<h2 id='used-in' class='heading'>Used In</h2>
+
+<ul>
+<li><a href="https://github.com/PaoloCuscela/Cards">Cards</a> — Awesome iOS 11 appstore cards written in Swift.</li>
 </ul>
 <h2 id='resources' class='heading'>Resources</h2>
 
@@ -174,8 +216,8 @@ self.player.url = videoUrl
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2017 <a class="link" href="https://patrickpiemonte.com" target="_blank" rel="external">Patrick Piemonte</a>. All rights reserved. (Last updated: 2017-10-08)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.4</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2018 <a class="link" href="https://patrickpiemonte.com" target="_blank" rel="external">Patrick Piemonte</a>. All rights reserved. (Last updated: 2018-06-20)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

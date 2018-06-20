@@ -30,7 +30,7 @@ import Player
 class ViewController: UIViewController {
     fileprivate var player = Player()
 
-    // MARK: object lifecycle
+    // MARK: Object lifecycle
 
     deinit {
         player.willMove(toParentViewController: self)
@@ -38,16 +38,18 @@ class ViewController: UIViewController {
         player.removeFromParentViewController()
     }
 
-    // MARK: view lifecycle
+    // MARK: View lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        player.add(to: self)
+
+        // Optional
         player.playerDelegate = self
+        // Optional
         player.playbackDelegate = self
         player.view.translatesAutoresizingMaskIntoConstraints = false
-
-        player.add(to: self)
 
         let uri = "https://www.apple.com/105/media/us/iphone-x/2017/01df5b43-28e4-4848-bf20-490c34a926a7"
             + "/films/meet-iphone-x/iphone-x-meet-iphone-tpl-cc-us-20171129_1280x720h.mp4"
@@ -103,22 +105,20 @@ class ViewController: UIViewController {
 
 extension ViewController {
     @objc func handleTapGestureRecognizer(_ gestureRecognizer: UITapGestureRecognizer) {
-        switch player.playbackState.rawValue {
-        case PlaybackState.stopped.rawValue:
+        switch player.playbackState {
+        case .stopped:
             player.playFromBeginning()
-        case PlaybackState.paused.rawValue:
+        case .paused:
             player.playFromCurrentTime()
-        case PlaybackState.playing.rawValue:
+        case .playing:
             player.pause()
-        case PlaybackState.failed.rawValue:
-            player.pause()
-        default:
+        case .failed:
             player.pause()
         }
     }
 }
 
-// MARK: - PlayerDelegate
+// MARK: - PlayerDelegate (optional)
 
 extension ViewController: PlayerDelegate {
     func playerReady(player: Player) {}
@@ -130,7 +130,7 @@ extension ViewController: PlayerDelegate {
     func playerBufferTimeDidChange(bufferTime: Double) {}
 }
 
-// MARK: - PlayerPlaybackDelegate
+// MARK: - PlayerPlaybackDelegate (optional)
 
 extension ViewController: PlayerPlaybackDelegate {
     func playerCurrentTimeDidChange(player: Player) {}

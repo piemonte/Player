@@ -30,7 +30,7 @@ import Player
 class ViewController: NSViewController {
     internal var player = Player()
 
-    // MARK: object lifecycle
+    // MARK: Object lifecycle
 
     deinit {
         player.view.removeFromSuperview()
@@ -43,16 +43,19 @@ class ViewController: NSViewController {
         view.setFrameSize(NSSize(width: 400 * (16.0 / 9), height: 400))
     }
 
-    // MARK: view lifecycle
+    // MARK: View lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         player.view.autoresizingMask = [.height, .width]
         player.view.frame = view.bounds
+
         player.add(to: self)
 
+        // Optional
         player.playerDelegate = self
+        // Optional
         player.playbackDelegate = self
 
         let uri = "https://www.apple.com/105/media/us/iphone-x/2017/01df5b43-28e4-4848-bf20-490c34a926a7"
@@ -71,7 +74,7 @@ class ViewController: NSViewController {
     }
 }
 
-// MARK: - PlayerDelegate
+// MARK: - PlayerDelegate (optional)
 
 extension ViewController: PlayerDelegate {
     func playerReady(player: Player) {}
@@ -83,7 +86,7 @@ extension ViewController: PlayerDelegate {
     func playerBufferTimeDidChange(bufferTime: Double) {}
 }
 
-// MARK: - PlayerPlaybackDelegate
+// MARK: - PlayerPlaybackDelegate (optional)
 
 extension ViewController: PlayerPlaybackDelegate {
     func playerCurrentTimeDidChange(player: Player) {}

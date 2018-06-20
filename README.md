@@ -7,7 +7,7 @@
 [![Swift Version](https://img.shields.io/badge/language-swift%204.1-brightgreen.svg)](https://developer.apple.com/swift) 
 [![GitHub license](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://github.com/piemonte/Player/blob/master/LICENSE)
 
-![Overview](readme-assets/player.gif)
+![Overview](https://github.com/chriszielinski/Player/raw/master/readme-assets/player.gif)
 
 <p align="center"><b>Player is a simple cross-platform video player library written in Swift.</b>
 <br>
@@ -56,11 +56,13 @@ The sample projects provide an example of how to integrate `Player`, otherwise y
 Create and add the `Player` to your view controller.
 
 ```swift
- let player = Player()
- player.playerDelegate = self
- player.playbackDelegate = self
- player.view.frame = view.bounds
- player.add(to: self)
+let player = Player()
+// Optional
+player.playerDelegate = self
+// Optional
+player.playbackDelegate = self
+player.view.frame = view.bounds
+player.add(to: self)
 ```
 
 Provide the file path to the resource you would like to play locally or stream. Ensure you're including the file extension.
@@ -79,26 +81,26 @@ player.pause()
 Adjust the fill mode for the video, if needed.
 
 ```swift
- player.fillMode = .resizeAspectFit
+player.fillMode = .resizeAspectFit
 ```
 
 The fill mode can be set to the following values:
 
 `.resizeAspectFit` (default)
-![Player](readme-assets/aspectFit.png)
+![Player](https://github.com/chriszielinski/Player/raw/master/readme-assets/aspectFit.png)
 
 `.resizeAspectFill`
-![Player](readme-assets/aspectFill.png)
+![Player](https://github.com/chriszielinski/Player/raw/master/readme-assets/aspectFill.png)
 
 `.resizeStretch` (aka please don't. I mean look at the poor thing)
-![Player](readme-assets/stretch.png)
+![Player](https://github.com/chriszielinski/Player/raw/master/readme-assets/stretch.png)
 
 Display video playback progress, if desired. Note, all delegate methods are optional.
 
 ```swift
 extension ViewController: PlayerPlaybackDelegate {
 
-	public func playerPlaybackWillStartFromBeginning(player: Player) {}
+    public func playerPlaybackWillStartFromBeginning(player: Player) {}
     
     public func playerPlaybackDidEnd(player: Player) {}
     
@@ -126,13 +128,13 @@ The controls' style can be set to the following:
 `.none`
 
 `.inline` (default)
-![Player](readme-assets/inline.png)
+![Player](https://github.com/chriszielinski/Player/raw/master/readme-assets/inline.png)
 
 `.minimal`
-![Player](readme-assets/minimal.png)
+![Player](https://github.com/chriszielinski/Player/raw/master/readme-assets/minimal.png)
 
 `.floating`
-![Player](readme-assets/floating.png)
+![Player](https://github.com/chriszielinski/Player/raw/master/readme-assets/floating.png)
 
 ## Documentation
 
@@ -143,7 +145,7 @@ You can find [the docs here](http://piemonte.github.io/Player/). Documentation i
 - Need help? Use [Stack Overflow](http://stackoverflow.com/questions/tagged/player-swift) with the tag 'player-swift'.
 - Questions? Use [Stack Overflow](http://stackoverflow.com/questions/tagged/player-swift) with the tag 'player-swift'.
 - Found a bug? Open an [issue](https://github.com/piemonte/player/issues).
-- Feature idea? ~~Open an [issue](https://github.com/piemonte/player/issues).~~ Do it yourself & PR when done 😅.
+- Feature idea? ~~Open an [issue](https://github.com/piemonte/player/issues).~~ Do it yourself & PR when done 😅 (or you can open an issue).
 - Want to contribute? Submit a [pull request](https://github.com/piemonte/player/pulls).
 
 ## Used In
@@ -157,6 +159,11 @@ You can find [the docs here](http://piemonte.github.io/Player/). Documentation i
 * [Next Level](https://github.com/NextLevel/NextLevel/), rad media capture in Swift
 * [PBJVision](https://github.com/piemonte/PBJVision), iOS camera engine, features touch-to-record video, slow motion video, and photo capture
 * [PBJVideoPlayer](https://github.com/piemonte/PBJVideoPlayer), a simple iOS video player library, written in obj-c
+
+## Contributors
+
+- [Patrick Piemonte](https://github.com/piemonte) — Original author, iOS/tvOS platforms.
+- [Chris Zielinski](https://github.com/chriszielinski) — macOS platform.
 
 ## License
 

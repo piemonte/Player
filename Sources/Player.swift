@@ -34,47 +34,6 @@ import AVFoundation
 import CoreGraphics
 import Foundation
 
-// MARK: - types
-
-/// Asset playback states.
-public enum PlaybackState: Int, CustomStringConvertible {
-    case stopped = 0
-    case playing
-    case paused
-    case failed
-
-    public var description: String {
-        switch self {
-        case .stopped:
-            return "Stopped"
-        case .playing:
-            return "Playing"
-        case .failed:
-            return "Failed"
-        case .paused:
-            return "Paused"
-        }
-    }
-}
-
-/// Asset buffering states.
-public enum BufferingState: Int, CustomStringConvertible {
-    case unknown = 0
-    case ready
-    case delayed
-
-    public var description: String {
-        switch self {
-        case .unknown:
-            return "Unknown"
-        case .ready:
-            return "Ready"
-        case .delayed:
-            return "Delayed"
-        }
-    }
-}
-
 // MARK: - PlayerDelegate
 
 /// Player delegate protocol
@@ -89,6 +48,8 @@ public protocol PlayerDelegate: NSObjectProtocol {
     @objc optional func playerBufferTimeDidChange(bufferTime: Double)
 }
 
+// MARK: - PlayerPlaybackDelegate
+
 /// Player playback protocol
 @objc
 public protocol PlayerPlaybackDelegate: NSObjectProtocol {
@@ -98,10 +59,17 @@ public protocol PlayerPlaybackDelegate: NSObjectProtocol {
     @objc optional func playerPlaybackWillLoop(player: Player)
 }
 
+extension String {
+    var withSentenceCasing: String {
+        return prefix(1).capitalized + dropFirst()
+    }
+}
+
 // MARK: - Player
 
 /// ▶️ Player, simple way to play and stream media
 open class Player: Player.ViewController {
+
     // MARK: - Type Aliases
 
     #if canImport(AppKit)
@@ -119,28 +87,57 @@ open class Player: Player.ViewController {
     public typealias NibName = String?
     #endif
 
-    /// Video fill mode options for `Player.fillMode`.
-    ///
-    /// - resizeStretch: Specifies that the video should be stretched to fill the layer’s bounds.
-    /// - resizeAspectFill: Specifies that the player should preserve the video’s aspect ratio and fill the layer’s bounds.
-    /// - resizeAspectFit: Specifies that the player should preserve the video’s aspect ratio and fit the video within the layer’s bounds.
-    public enum FillMode: String {
-        case resizeStretch = "AVLayerVideoGravityResize"
+    // MARK: - Types
+
+    /// Asset playback states.
+    public enum PlaybackState: String, CustomStringConvertible {
+        case stopped
+        case playing
+        case paused
+        case failed
+
+        public var description: String {
+            return rawValue.withSentenceCasing
+        }
+    }
+
+    /// Asset buffering states.
+    public enum BufferingState: String, CustomStringConvertible {
+        case unknown
+        case ready
+        case delayed
+
+        public var description: String {
+            return rawValue.withSentenceCasing
+        }
+    }
+
+    /// Video fill mode options for the `fillMode` property.
+    public enum FillMode: String, CustomStringConvertible {
+        /// Specifies that the video should be stretched to fill the layer’s bounds.
+        case resizeStretch    = "AVLayerVideoGravityResize"
+        /// Specifies that the player should preserve the video’s aspect ratio and fill the layer’s bounds.
         case resizeAspectFill = "AVLayerVideoGravityResizeAspectFill"
-        case resizeAspectFit = "AVLayerVideoGravityResizeAspect" // default
+        /// Specifies that the player should preserve the video’s aspect ratio and fit the video within the layer’s bounds.
+        case resizeAspectFit  = "AVLayerVideoGravityResizeAspect"
 
         fileprivate var avLayerVideoGravityValue: AVLayerVideoGravity {
             return AVLayerVideoGravity(rawValue: self.rawValue)
-//            switch self {
-//            case .resizeFill:
-//                return .resize
-//            case .resizeAspectFill:
-//                return .resizeAspectFill
-//            case .resizeAspectFit:
-//                return .resizeAspect
-//            }
+        }
+
+        public var description: String {
+            switch self {
+            case .resizeStretch:
+                return "resizeStretch"
+            case .resizeAspectFill:
+                return "resizeAspectFill"
+            case .resizeAspectFit:
+                return "resizeAspectFit"
+            }
         }
     }
+
+    // MARK: - Properties
 
     /// Player delegate.
     open weak var playerDelegate: PlayerDelegate?
@@ -148,7 +145,7 @@ open class Player: Player.ViewController {
     /// Playback delegate.
     open weak var playbackDelegate: PlayerPlaybackDelegate?
 
-    // configuration
+    // MARK: Configuration
 
     /// Local or remote URL for the file asset to be played.
     ///
@@ -211,12 +208,41 @@ open class Player: Player.ViewController {
         }
     }
 
-    /// Whether the player is currently playing.
-    ///
-    /// - Returns: Returns `true` if the `playbackState` is `.playing`.
-    open var isPlaying: Bool {
-        return playbackState == .playing
+    /// Player view's initial background color.
+    open var layerBackgroundColor: Color? {
+        get {
+            #if canImport(AppKit)
+            let backgroundColor = playerView.layer?.backgroundColor
+            #else
+            let backgroundColor = playerView.playerLayer.backgroundColor
+            #endif
+            guard let cgColor = backgroundColor else { return nil }
+            return Color(cgColor: cgColor)
+        }
+        set {
+            #if canImport(AppKit)
+            playerView.layer?.backgroundColor = newValue?.cgColor
+            #else
+            playerView.playerLayer.backgroundColor = newValue?.cgColor
+            #endif
+        }
     }
+
+    #if canImport(AppKit)
+    /// The player view’s controls style.
+    ///
+    /// The player view supports a number of different control styles that you can use to customize the player view’s appearance and behavior. See `AVPlayerViewControlsStyle` for the possible values. The default value of this property is `.default`
+    ///
+    /// - Important: Only available on the macOS platform.
+    open var controlsStyle: AVPlayerViewControlsStyle {
+        get {
+            return playerView.controlsStyle
+        }
+        set {
+            playerView.controlsStyle = newValue
+        }
+    }
+    #endif
 
     /// Pauses playback automatically when resigning active.
     ///
@@ -238,7 +264,13 @@ open class Player: Player.ViewController {
     /// The default value of this property is `true`.
     open var playbackResumesWhenEnteringForeground: Bool = true
 
-    // state
+    // MARK: State
+
+    /// Whether the player is currently playing.
+    // Returns `true` if the `playbackState` is `.playing`.
+    open var isPlaying: Bool {
+        return playbackState == .playing
+    }
 
     /// Playback automatically loops continuously when true.
     open var playbackLoops: Bool {
@@ -302,51 +334,24 @@ open class Player: Player.ViewController {
     }
 
     /// The natural dimensions of the media.
-    open var naturalSize: CGSize {
+    ///
+    /// - Note: The `avPlayerItem` must exist and have had its tracks loaded.
+    open var naturalSize: CGSize? {
         if let playerItem = avPlayerItem,
             let track = playerItem.asset.tracks(withMediaType: .video).first {
             let size = track.naturalSize.applying(track.preferredTransform)
             return CGSize(width: fabs(size.width), height: fabs(size.height))
-        } else {
-            return .zero
         }
+
+        return nil
     }
 
-    /// Player view's initial background color.
-    open var layerBackgroundColor: Color? {
-        get {
-            #if canImport(AppKit)
-                let backgroundColor = playerView.layer?.backgroundColor
-            #else
-                let backgroundColor = playerView.playerLayer.backgroundColor
-            #endif
-            guard let cgColor = backgroundColor else { return nil }
-            return Color(cgColor: cgColor)
-        }
-        set {
-            #if canImport(AppKit)
-                playerView.layer?.backgroundColor = newValue?.cgColor
-            #else
-                playerView.playerLayer.backgroundColor = newValue?.cgColor
-            #endif
-        }
-    }
+    // MARK: Public Objects
 
-    #if canImport(AppKit)
-        /// The player view’s controls style.
-        ///
-        /// The player view supports a number of different control styles that you can use to customize the player view’s appearance and behavior. See `AVPlayerViewControlsStyle` for the possible values. The default value of this property is `.default`
-        open var controlsStyle: AVPlayerViewControlsStyle {
-            get {
-                return playerView.controlsStyle
-            }
-            set {
-                playerView.controlsStyle = newValue
-            }
-        }
-    #endif
+    public var avPlayer: AVPlayer
+    public var avPlayerItem: AVPlayerItem?
 
-    // MARK: - private instance vars
+    // MARK: Private Objects
 
     fileprivate var avAsset: AVAsset? {
         didSet {
@@ -355,9 +360,6 @@ open class Player: Player.ViewController {
             }
         }
     }
-
-    public var avPlayer: AVPlayer
-    public var avPlayerItem: AVPlayerItem?
 
     fileprivate var timeObserver: Any?
     fileprivate var playerView: PlayerView
@@ -372,7 +374,7 @@ open class Player: Player.ViewController {
         fileprivate var playerViewObservation: NSKeyValueObservation!
     #endif
 
-    // MARK: - object lifecycle
+    // MARK: - Object Lifecycle
 
     public convenience init() {
         self.init(nibName: nil, bundle: nil)
@@ -421,8 +423,6 @@ open class Player: Player.ViewController {
         playerView.player = nil
     }
 
-    // MARK: - view lifecycle
-
     /// A convenience method for adding a player to the given view controller.
     /// The player will be added to `viewController`'s `childViewControllers` array and its view hierarchy.
     ///
@@ -432,9 +432,11 @@ open class Player: Player.ViewController {
         viewController.view.addSubview(view)
 
         #if canImport(UIKit)
-            didMove(toParentViewController: viewController)
+        didMove(toParentViewController: viewController)
         #endif
     }
+
+    // MARK: - View Lifecycle
 
     open override func loadView() {
         view = playerView
@@ -453,7 +455,7 @@ open class Player: Player.ViewController {
             setupAsset(asset)
         }
 
-        addPlayerViewObservers()
+        addPlayerLayerObservers()
         addPlayerObservers()
         addApplicationObservers()
     }
@@ -477,7 +479,7 @@ open class Player: Player.ViewController {
         }
     #endif
 
-    // MARK: - Playback funcs
+    // MARK: - Playback Methods
 
     /// Begins playback of the media from the beginning.
     open func playFromBeginning() {
@@ -585,8 +587,9 @@ open class Player: Player.ViewController {
         return image
     }
 
-    /// Return the av player layer for consumption by
-    /// things such as Picture in Picture
+    /// Return the `AVPlayerLayer` for consumption by things such as Picture in Picture.
+    ///
+    /// - Note: Player must be loaded.
     open func playerLayer() -> AVPlayerLayer? {
         #if canImport(AppKit)
             return avPlayerLayer
@@ -596,10 +599,10 @@ open class Player: Player.ViewController {
     }
 }
 
-// MARK: - loading funcs
+// MARK: - Setup Methods
 
-extension Player {
-    fileprivate func setup(url: URL?) {
+fileprivate extension Player {
+    func setup(url: URL?) {
         guard isViewLoaded else { return }
 
         // ensure everything is reset beforehand
@@ -623,7 +626,7 @@ extension Player {
         }
     }
 
-    fileprivate func setupAsset(_ asset: AVAsset) {
+    func setupAsset(_ asset: AVAsset) {
         guard isViewLoaded else { return }
 
         if playbackState == .playing {
@@ -656,7 +659,7 @@ extension Player {
         }
     }
 
-    fileprivate func setupPlayerItem(_ playerItem: AVPlayerItem?) {
+    func setupPlayerItem(_ playerItem: AVPlayerItem?) {
         avPlayerItem?.removeObserver(self, forKeyPath: PlayerItemEmptyBufferKey, context: &PlayerItemObserverContext)
         avPlayerItem?.removeObserver(self, forKeyPath: PlayerItemKeepUpKey, context: &PlayerItemObserverContext)
         avPlayerItem?.removeObserver(self, forKeyPath: PlayerItemStatusKey, context: &PlayerItemObserverContext)
@@ -699,7 +702,7 @@ extension Player {
 
 private extension Player {
 
-    // MARK: - AVPlayerItem
+    // MARK: AVPlayerItem
 
     @objc func playerItemDidPlayToEndTime(_ aNotification: Notification) {
         if playbackLoops {
@@ -720,7 +723,7 @@ private extension Player {
         playbackState = .failed
     }
 
-    // MARK: - UIApplication
+    // MARK: UIApplication/NSApplication
 
     func addApplicationObservers() {
         #if canImport(AppKit)
@@ -740,7 +743,7 @@ private extension Player {
         NotificationCenter.default.removeObserver(self)
     }
 
-    // MARK: - handlers
+    // MARK: Notification Handlers
 
     @objc func handleApplicationWillResignActive(_ aNotification: Notification) {
         if playbackState == .playing && playbackPausesWhenResigningActive {
@@ -770,37 +773,38 @@ private extension Player {
 // MARK: - KVO
 
 // KVO contexts
-
-private var PlayerObserverContext = 0
-private var PlayerItemObserverContext = 0
-private var PlayerLayerObserverContext = 0
+private var PlayerObserverContext: Int?
+private var PlayerItemObserverContext: Int?
+private var PlayerLayerObserverContext: Int?
 
 // KVO asset keys
-
 private let AssetTracksKey = #keyPath(AVAsset.tracks)
 private let AssetPlayableKey = #keyPath(AVAsset.isPlayable)
 private let AssetDurationKey = #keyPath(AVAsset.duration)
 private let AssetRateKey = #keyPath(AVAsset.preferredRate)
 
 // KVO player item keys
-
 private let PlayerItemStatusKey = #keyPath(AVPlayerItem.status)
 private let PlayerItemEmptyBufferKey = #keyPath(AVPlayerItem.playbackBufferEmpty)
 private let PlayerItemKeepUpKey = #keyPath(AVPlayerItem.playbackLikelyToKeepUp)
 private let PlayerItemLoadedTimeRangesKey = #keyPath(AVPlayerItem.loadedTimeRanges)
 
-// KVO player view keys
+// KVO player keys
+private let PlayerRateKey = #keyPath(AVPlayer.rate)
 
+// KVO player layer keys
 private let PlayerLayerReadyForDisplayKey = #keyPath(AVPlayerLayer.isReadyForDisplay)
 
 private extension Player {
 
-    // MARK: - AVPlayerViewObservers
+    // MARK: AVPlayerViewObservers
 
-    func addPlayerViewObservers() {
+    func addPlayerLayerObservers() {
         #if canImport(AppKit)
-            // Should work, but doesn't...
-            // playerView.addObserver(self, forKeyPath: PlayerReadyForDisplayKey, options: [.new, .old], context: &PlayerLayerObserverContext)
+            avPlayer.addObserver(self, forKeyPath: PlayerRateKey, context: &PlayerObserverContext)
+
+            // Should work, but doesn't... radar://41298723
+//            playerView.addObserver(self, forKeyPath: #keyPath(AVPlayerView.isReadyForDisplay), context: &PlayerLayerObserverContext)
 
             // Current workaround.
             playerViewObservation = playerView.observe(\.layer, options: [.new]) { [weak self] playerView, _ in
@@ -824,7 +828,7 @@ private extension Player {
         #endif
     }
 
-    // MARK: - AVPlayerObservers
+    // MARK: AVPlayerObservers
 
     func addPlayerObservers() {
         timeObserver = avPlayer.addPeriodicTimeObserver(forInterval: CMTimeMake(1, 100), queue: DispatchQueue.main) { [weak self] _ in
@@ -854,9 +858,14 @@ extension Player {
                 if let item = avPlayerItem {
                     if item.isPlaybackLikelyToKeepUp {
                         bufferingState = .ready
+
+                        // Don't want this on macOS (not only does `AVPlayerView` handle it for us, this causes
+                        // unwanted interaction with keyboard shortcuts for controlling playback).
+                        #if canImport(UIKit)
                         if playbackState == .playing {
                             playFromCurrentTime()
                         }
+                        #endif
                     }
                 }
 
@@ -914,13 +923,15 @@ extension Player {
                         }
                     }
 
-                    // Don't need this on macOS (`AVPlayerView` takes care of it for us + unwanted interaction with keyboard shortcuts).
+                    // Don't want this on macOS (not only does `AVPlayerView` handle it for us, this causes
+                    // unwanted interaction with keyboard shortcuts for controlling playback).
                     #if canImport(UIKit)
                         let currentTime = CMTimeGetSeconds(item.currentTime())
                         if ((lastBufferTime - currentTime) >= bufferSize ||
                                 lastBufferTime == maximumDuration ||
                                 timeRanges.first == nil)
                             && playbackState == .playing {
+
                             play()
                         }
                     #endif
@@ -939,11 +950,21 @@ extension Player {
                     self.playerDelegate?.playerReady?(player: self)
                 }
             }
+        } else if context == &PlayerObserverContext {
+            // Currently, only observed on the macOS platform.
+            // Needed for interaction with controls or keyboard shortcuts.
+            if keyPath == PlayerRateKey {
+                if avPlayer.rate == 0 {
+                    playbackState = .paused
+                } else {
+                    playbackState = .playing
+                }
+            }
         }
     }
 }
 
-// MARK: - Queues
+// MARK: - Dispatch
 
 extension Player {
     public func executeClosureOnMainQueueIfNecessary(withClosure closure: @escaping () -> Void) {
@@ -955,12 +976,12 @@ extension Player {
     }
 }
 
-// MARK: - PlayerView
+// MARK: - PlayerView (UIKit)
 
 #if canImport(UIKit)
     internal class PlayerView: UIView {
 
-        // MARK: - properties
+        // MARK: - Properties
 
         override class var layerClass: AnyClass {
             return AVPlayerLayer.self
@@ -988,7 +1009,7 @@ extension Player {
             }
         }
 
-        // MARK: - object lifecycle
+        // MARK: - Object Lifecycle
 
         override init(frame: CGRect) {
             super.init(frame: frame)

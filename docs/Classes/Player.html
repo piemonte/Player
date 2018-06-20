@@ -14,7 +14,7 @@
     <a title="Player Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">Player Docs</a> (60% documented)</p>
+        <p><a href="../index.html">Player Docs</a> (59% documented)</p>
         <p class="header-right"><a href="https://github.com/piemonte/Player"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -34,19 +34,14 @@
               <li class="nav-group-task">
                 <a href="../Classes/Player.html">Player</a>
               </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
-            <a href="../Enums.html">Enumerations</a>
-            <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Enums/BufferingState.html">BufferingState</a>
+                <a href="../Classes/Player/PlaybackState.html">– PlaybackState</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Enums/PlaybackState.html">PlaybackState</a>
+                <a href="../Classes/Player/BufferingState.html">– BufferingState</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Enums/PlayerFillMode.html">PlayerFillMode</a>
+                <a href="../Classes/Player/FillMode.html">– FillMode</a>
               </li>
             </ul>
           </li>
@@ -69,7 +64,7 @@
             <h1>Player</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight"><code><span class="n">open</span> <span class="kd">class</span> <span class="kt">Player</span><span class="p">:</span> <span class="kt">UIViewController</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">Player</span> <span class="p">:</span> <span class="kt">Player</span><span class="o">.</span><span class="kt">ViewController</span></code></pre>
 
                 </div>
               </div>
@@ -78,13 +73,378 @@
           </section>
           <section class="section task-group-section">
             <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Type%20Aliases"></a>
+                <a name="//apple_ref/swift/Section/Type Aliases" class="dashAnchor"></a>
+                <a href="#/Type%20Aliases">
+                  <h3 class="section-name">Type Aliases</h3>
+                </a>
+              </div>
               <ul>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6PlayerAAC14playerDelegateAA0aC0_pSgXwv"></a>
+                    <a name="/s:6PlayerAAC14ViewControllera"></a>
+                    <a name="//apple_ref/swift/Alias/ViewController" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PlayerAAC14ViewControllera">ViewController</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">ViewController</span> <span class="o">=</span> <span class="kt">NSViewController</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PlayerAAC0A4Viewa"></a>
+                    <a name="//apple_ref/swift/Alias/PlayerView" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PlayerAAC0A4Viewa">PlayerView</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">PlayerView</span> <span class="o">=</span> <span class="kt">AVPlayerView</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PlayerAAC5Imagea"></a>
+                    <a name="//apple_ref/swift/Alias/Image" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PlayerAAC5Imagea">Image</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">Image</span> <span class="o">=</span> <span class="kt">NSImage</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PlayerAAC5Colora"></a>
+                    <a name="//apple_ref/swift/Alias/Color" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PlayerAAC5Colora">Color</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">Color</span> <span class="o">=</span> <span class="kt">NSColor</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PlayerAAC14SnapshotResulta"></a>
+                    <a name="//apple_ref/swift/Alias/SnapshotResult" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PlayerAAC14SnapshotResulta">SnapshotResult</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">SnapshotResult</span> <span class="o">=</span> <span class="kt"><a href="../Classes/Player.html#/s:6PlayerAAC5Imagea">Image</a></span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PlayerAAC7NibNamea"></a>
+                    <a name="//apple_ref/swift/Alias/NibName" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PlayerAAC7NibNamea">NibName</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">NibName</span> <span class="o">=</span> <span class="kt">NSNib</span><span class="o">.</span><span class="kt">Name</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Alias/ViewController" class="dashAnchor"></a>
+                    <a class="token" href="#/">ViewController</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Alias/Image" class="dashAnchor"></a>
+                    <a class="token" href="#/">Image</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Alias/Color" class="dashAnchor"></a>
+                    <a class="token" href="#/">Color</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Alias/SnapshotResult" class="dashAnchor"></a>
+                    <a class="token" href="#/">SnapshotResult</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Alias/NibName" class="dashAnchor"></a>
+                    <a class="token" href="#/">NibName</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Types"></a>
+                <a name="//apple_ref/swift/Section/Types" class="dashAnchor"></a>
+                <a href="#/Types">
+                  <h3 class="section-name">Types</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PlayerAAC13PlaybackStateO"></a>
+                    <a name="//apple_ref/swift/Enum/PlaybackState" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PlayerAAC13PlaybackStateO">PlaybackState</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Asset playback states.</p>
+
+                        <a href="../Classes/Player/PlaybackState.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">PlaybackState</span> <span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="kt">CustomStringConvertible</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PlayerAAC14BufferingStateO"></a>
+                    <a name="//apple_ref/swift/Enum/BufferingState" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PlayerAAC14BufferingStateO">BufferingState</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Asset buffering states.</p>
+
+                        <a href="../Classes/Player/BufferingState.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">BufferingState</span> <span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="kt">CustomStringConvertible</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PlayerAAC8FillModeO"></a>
+                    <a name="//apple_ref/swift/Enum/FillMode" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PlayerAAC8FillModeO">FillMode</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Video fill mode options for the <code><a href="../Classes/Player.html#/s:6PlayerAAC8fillModeAB04FillC0Ovp">fillMode</a></code> property.</p>
+
+                        <a href="../Classes/Player/FillMode.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">FillMode</span> <span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="kt">CustomStringConvertible</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Properties"></a>
+                <a name="//apple_ref/swift/Section/Properties" class="dashAnchor"></a>
+                <a href="#/Properties">
+                  <h3 class="section-name">Properties</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PlayerAAC14playerDelegateAA0aC0_pSgXwvp"></a>
                     <a name="//apple_ref/swift/Property/playerDelegate" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6PlayerAAC14playerDelegateAA0aC0_pSgXwv">playerDelegate</a>
+                    <a class="token" href="#/s:6PlayerAAC14playerDelegateAA0aC0_pSgXwvp">playerDelegate</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -99,7 +459,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="n">open</span> <span class="k">weak</span> <span class="k">var</span> <span class="nv">playerDelegate</span><span class="p">:</span> <span class="kt"><a href="../Protocols/PlayerDelegate.html">PlayerDelegate</a></span><span class="p">?</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">weak</span> <span class="k">var</span> <span class="nv">playerDelegate</span><span class="p">:</span> <span class="kt"><a href="../Protocols/PlayerDelegate.html">PlayerDelegate</a></span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
@@ -109,9 +469,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6PlayerAAC16playbackDelegateAA0a8PlaybackC0_pSgXwv"></a>
+                    <a name="/s:6PlayerAAC16playbackDelegateAA0a8PlaybackC0_pSgXwvp"></a>
                     <a name="//apple_ref/swift/Property/playbackDelegate" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6PlayerAAC16playbackDelegateAA0a8PlaybackC0_pSgXwv">playbackDelegate</a>
+                    <a class="token" href="#/s:6PlayerAAC16playbackDelegateAA0a8PlaybackC0_pSgXwvp">playbackDelegate</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -126,19 +486,30 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="n">open</span> <span class="k">weak</span> <span class="k">var</span> <span class="nv">playbackDelegate</span><span class="p">:</span> <span class="kt"><a href="../Protocols/PlayerPlaybackDelegate.html">PlayerPlaybackDelegate</a></span><span class="p">?</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">weak</span> <span class="k">var</span> <span class="nv">playbackDelegate</span><span class="p">:</span> <span class="kt"><a href="../Protocols/PlayerPlaybackDelegate.html">PlayerPlaybackDelegate</a></span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
                     </section>
                   </div>
                 </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Configuration"></a>
+                <a name="//apple_ref/swift/Section/Configuration" class="dashAnchor"></a>
+                <a href="#/Configuration">
+                  <h3 class="section-name">Configuration</h3>
+                </a>
+              </div>
+              <ul>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6PlayerAAC3url10Foundation3URLVSgv"></a>
+                    <a name="/s:6PlayerAAC3url10Foundation3URLVSgvp"></a>
                     <a name="//apple_ref/swift/Property/url" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6PlayerAAC3url10Foundation3URLVSgv">url</a>
+                    <a class="token" href="#/s:6PlayerAAC3url10Foundation3URLVSgvp">url</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -153,7 +524,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="n">open</span> <span class="k">var</span> <span class="nv">url</span><span class="p">:</span> <span class="kt">URL</span><span class="p">?</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">url</span><span class="p">:</span> <span class="kt">URL</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -182,9 +553,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6PlayerAAC8autoplaySbv"></a>
+                    <a name="/s:6PlayerAAC8autoplaySbvp"></a>
                     <a name="//apple_ref/swift/Property/autoplay" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6PlayerAAC8autoplaySbv">autoplay</a>
+                    <a class="token" href="#/s:6PlayerAAC8autoplaySbvp">autoplay</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -199,7 +570,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="n">open</span> <span class="k">var</span> <span class="nv">autoplay</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">true</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">autoplay</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
                       </div>
@@ -228,9 +599,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6PlayerAAC5assetSo7AVAssetCSgv"></a>
+                    <a name="/s:6PlayerAAC5assetSo7AVAssetCSgvp"></a>
                     <a name="//apple_ref/swift/Property/asset" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6PlayerAAC5assetSo7AVAssetCSgv">asset</a>
+                    <a class="token" href="#/s:6PlayerAAC5assetSo7AVAssetCSgvp">asset</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -238,15 +609,16 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>For setting up with AVAsset instead of URL
-Note: Resets URL (cannot set both)</p>
+                        <p>For setting up with AVAsset instead of URL</p>
+
+<p>Note: Resets URL (cannot set both)</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="n">open</span> <span class="k">var</span> <span class="nv">asset</span><span class="p">:</span> <span class="kt">AVAsset</span><span class="p">?</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">asset</span><span class="p">:</span> <span class="kt">AVAsset</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -256,9 +628,9 @@ Note: Resets URL (cannot set both)</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6PlayerAAC5mutedSbv"></a>
+                    <a name="/s:6PlayerAAC5mutedSbvp"></a>
                     <a name="//apple_ref/swift/Property/muted" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6PlayerAAC5mutedSbv">muted</a>
+                    <a class="token" href="#/s:6PlayerAAC5mutedSbvp">muted</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -273,7 +645,7 @@ Note: Resets URL (cannot set both)</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="n">open</span> <span class="k">var</span> <span class="nv">muted</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">muted</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -283,9 +655,9 @@ Note: Resets URL (cannot set both)</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6PlayerAAC6volumeSfv"></a>
+                    <a name="/s:6PlayerAAC6volumeSfvp"></a>
                     <a name="//apple_ref/swift/Property/volume" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6PlayerAAC6volumeSfv">volume</a>
+                    <a class="token" href="#/s:6PlayerAAC6volumeSfvp">volume</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -300,7 +672,7 @@ Note: Resets URL (cannot set both)</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="n">open</span> <span class="k">var</span> <span class="nv">volume</span><span class="p">:</span> <span class="kt">Float</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">volume</span><span class="p">:</span> <span class="kt">Float</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -310,9 +682,9 @@ Note: Resets URL (cannot set both)</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6PlayerAAC8fillModeSSv"></a>
+                    <a name="/s:6PlayerAAC8fillModeAB04FillC0Ovp"></a>
                     <a name="//apple_ref/swift/Property/fillMode" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6PlayerAAC8fillModeSSv">fillMode</a>
+                    <a class="token" href="#/s:6PlayerAAC8fillModeAB04FillC0Ovp">fillMode</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -321,14 +693,14 @@ Note: Resets URL (cannot set both)</p>
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Specifies how the video is displayed within a player layer’s bounds.
-The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code>FillMode</code> enum.</p>
+The default value is <code>.resizeAspectFit</code>. See the <code><a href="../Classes/Player/FillMode.html">FillMode</a></code> enum.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="n">open</span> <span class="k">var</span> <span class="nv">fillMode</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">fillMode</span><span class="p">:</span> <span class="kt"><a href="../Classes/Player/FillMode.html">FillMode</a></span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -338,360 +710,9 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code>Fil
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6PlayerAAC33playbackPausesWhenResigningActiveSbv"></a>
-                    <a name="//apple_ref/swift/Property/playbackPausesWhenResigningActive" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6PlayerAAC33playbackPausesWhenResigningActiveSbv">playbackPausesWhenResigningActive</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Pauses playback automatically when resigning active.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="n">open</span> <span class="k">var</span> <span class="nv">playbackPausesWhenResigningActive</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">true</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:6PlayerAAC30playbackPausesWhenBackgroundedSbv"></a>
-                    <a name="//apple_ref/swift/Property/playbackPausesWhenBackgrounded" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6PlayerAAC30playbackPausesWhenBackgroundedSbv">playbackPausesWhenBackgrounded</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Pauses playback automatically when backgrounded.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="n">open</span> <span class="k">var</span> <span class="nv">playbackPausesWhenBackgrounded</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">true</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:6PlayerAAC31playbackResumesWhenBecameActiveSbv"></a>
-                    <a name="//apple_ref/swift/Property/playbackResumesWhenBecameActive" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6PlayerAAC31playbackResumesWhenBecameActiveSbv">playbackResumesWhenBecameActive</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Resumes playback when became active.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="n">open</span> <span class="k">var</span> <span class="nv">playbackResumesWhenBecameActive</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">true</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:6PlayerAAC37playbackResumesWhenEnteringForegroundSbv"></a>
-                    <a name="//apple_ref/swift/Property/playbackResumesWhenEnteringForeground" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6PlayerAAC37playbackResumesWhenEnteringForegroundSbv">playbackResumesWhenEnteringForeground</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Resumes playback when entering foreground.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="n">open</span> <span class="k">var</span> <span class="nv">playbackResumesWhenEnteringForeground</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">true</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:6PlayerAAC13playbackLoopsSbv"></a>
-                    <a name="//apple_ref/swift/Property/playbackLoops" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6PlayerAAC13playbackLoopsSbv">playbackLoops</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Playback automatically loops continuously when true.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="n">open</span> <span class="k">var</span> <span class="nv">playbackLoops</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:6PlayerAAC20playbackFreezesAtEndSbv"></a>
-                    <a name="//apple_ref/swift/Property/playbackFreezesAtEnd" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6PlayerAAC20playbackFreezesAtEndSbv">playbackFreezesAtEnd</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Playback freezes on last frame frame at end when true.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="n">open</span> <span class="k">var</span> <span class="nv">playbackFreezesAtEnd</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:6PlayerAAC13playbackStateAA08PlaybackC0Ov"></a>
-                    <a name="//apple_ref/swift/Property/playbackState" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6PlayerAAC13playbackStateAA08PlaybackC0Ov">playbackState</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Current playback state of the Player.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="n">open</span> <span class="k">var</span> <span class="nv">playbackState</span><span class="p">:</span> <span class="kt"><a href="../Enums/PlaybackState.html">PlaybackState</a></span> <span class="o">=</span> <span class="o">.</span><span class="n">stopped</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:6PlayerAAC14bufferingStateAA09BufferingC0Ov"></a>
-                    <a name="//apple_ref/swift/Property/bufferingState" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6PlayerAAC14bufferingStateAA09BufferingC0Ov">bufferingState</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Current buffering state of the Player.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="n">open</span> <span class="k">var</span> <span class="nv">bufferingState</span><span class="p">:</span> <span class="kt"><a href="../Enums/BufferingState.html">BufferingState</a></span> <span class="o">=</span> <span class="o">.</span><span class="n">unknown</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:6PlayerAAC10bufferSizeSdv"></a>
-                    <a name="//apple_ref/swift/Property/bufferSize" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6PlayerAAC10bufferSizeSdv">bufferSize</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Playback buffering size in seconds.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="n">open</span> <span class="k">var</span> <span class="nv">bufferSize</span><span class="p">:</span> <span class="kt">Double</span> <span class="o">=</span> <span class="mi">10</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:6PlayerAAC21playbackEdgeTriggeredSbv"></a>
-                    <a name="//apple_ref/swift/Property/playbackEdgeTriggered" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6PlayerAAC21playbackEdgeTriggeredSbv">playbackEdgeTriggered</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Playback is not automatically triggered from state changes when true.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="n">open</span> <span class="k">var</span> <span class="nv">playbackEdgeTriggered</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">true</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:6PlayerAAC15maximumDurationSdv"></a>
-                    <a name="//apple_ref/swift/Property/maximumDuration" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6PlayerAAC15maximumDurationSdv">maximumDuration</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Maximum duration of playback.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="n">open</span> <span class="k">var</span> <span class="nv">maximumDuration</span><span class="p">:</span> <span class="kt">TimeInterval</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:6PlayerAAC11currentTimeSdv"></a>
-                    <a name="//apple_ref/swift/Property/currentTime" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6PlayerAAC11currentTimeSdv">currentTime</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Media playback&rsquo;s current time.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="n">open</span> <span class="k">var</span> <span class="nv">currentTime</span><span class="p">:</span> <span class="kt">TimeInterval</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:6PlayerAAC11naturalSizeSC6CGSizeVv"></a>
-                    <a name="//apple_ref/swift/Property/naturalSize" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6PlayerAAC11naturalSizeSC6CGSizeVv">naturalSize</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The natural dimensions of the media.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="n">open</span> <span class="k">var</span> <span class="nv">naturalSize</span><span class="p">:</span> <span class="kt">CGSize</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:6PlayerAAC20layerBackgroundColorSo7UIColorCSgv"></a>
+                    <a name="/s:6PlayerAAC20layerBackgroundColorSo7NSColorCSgvp"></a>
                     <a name="//apple_ref/swift/Property/layerBackgroundColor" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6PlayerAAC20layerBackgroundColorSo7UIColorCSgv">layerBackgroundColor</a>
+                    <a class="token" href="#/s:6PlayerAAC20layerBackgroundColorSo7NSColorCSgvp">layerBackgroundColor</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -706,7 +727,157 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code>Fil
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="n">open</span> <span class="k">var</span> <span class="nv">layerBackgroundColor</span><span class="p">:</span> <span class="kt">UIColor</span><span class="p">?</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">layerBackgroundColor</span><span class="p">:</span> <span class="kt"><a href="../Classes/Player.html#/s:6PlayerAAC5Colora">Color</a></span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PlayerAAC13controlsStyleSC020AVPlayerViewControlsC0Ovp"></a>
+                    <a name="//apple_ref/swift/Property/controlsStyle" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PlayerAAC13controlsStyleSC020AVPlayerViewControlsC0Ovp">controlsStyle</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The player view’s controls style.</p>
+
+<p>The player view supports a number of different control styles that you can use to customize the player view’s appearance and behavior. See <code>AVPlayerViewControlsStyle</code> for the possible values. The default value of this property is <code>.default</code></p>
+<div class="aside aside-important">
+    <p class="aside-title">Important</p>
+    Only available on the macOS platform.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">controlsStyle</span><span class="p">:</span> <span class="kt">AVPlayerViewControlsStyle</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PlayerAAC33playbackPausesWhenResigningActiveSbvp"></a>
+                    <a name="//apple_ref/swift/Property/playbackPausesWhenResigningActive" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PlayerAAC33playbackPausesWhenResigningActiveSbvp">playbackPausesWhenResigningActive</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Pauses playback automatically when resigning active.</p>
+
+<p>The default value of this property is <code>true</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">playbackPausesWhenResigningActive</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PlayerAAC30playbackPausesWhenBackgroundedSbvp"></a>
+                    <a name="//apple_ref/swift/Property/playbackPausesWhenBackgrounded" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PlayerAAC30playbackPausesWhenBackgroundedSbvp">playbackPausesWhenBackgrounded</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Pauses playback automatically when backgrounded (on macOS, when hidden).</p>
+
+<p>The default value of this property is <code>true</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">playbackPausesWhenBackgrounded</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PlayerAAC31playbackResumesWhenBecameActiveSbvp"></a>
+                    <a name="//apple_ref/swift/Property/playbackResumesWhenBecameActive" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PlayerAAC31playbackResumesWhenBecameActiveSbvp">playbackResumesWhenBecameActive</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Resumes playback when became active.</p>
+
+<p>The default value of this property is <code>true</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">playbackResumesWhenBecameActive</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PlayerAAC37playbackResumesWhenEnteringForegroundSbvp"></a>
+                    <a name="//apple_ref/swift/Property/playbackResumesWhenEnteringForeground" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PlayerAAC37playbackResumesWhenEnteringForegroundSbvp">playbackResumesWhenEnteringForeground</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Resumes playback when entering foreground. (on macOS, when unhidden)</p>
+
+<p>The default value of this property is <code>true</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">playbackResumesWhenEnteringForeground</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
                       </div>
@@ -717,10 +888,363 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code>Fil
             </div>
             <div class="task-group">
               <div class="task-name-container">
-                <a name="/object%20lifecycle"></a>
-                <a name="//apple_ref/swift/Section/object lifecycle" class="dashAnchor"></a>
-                <a href="#/object%20lifecycle">
-                  <h3 class="section-name">object lifecycle</h3>
+                <a name="/State"></a>
+                <a name="//apple_ref/swift/Section/State" class="dashAnchor"></a>
+                <a href="#/State">
+                  <h3 class="section-name">State</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PlayerAAC9isPlayingSbvp"></a>
+                    <a name="//apple_ref/swift/Property/isPlaying" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PlayerAAC9isPlayingSbvp">isPlaying</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">isPlaying</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PlayerAAC13playbackLoopsSbvp"></a>
+                    <a name="//apple_ref/swift/Property/playbackLoops" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PlayerAAC13playbackLoopsSbvp">playbackLoops</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Playback automatically loops continuously when true.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">playbackLoops</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PlayerAAC20playbackFreezesAtEndSbvp"></a>
+                    <a name="//apple_ref/swift/Property/playbackFreezesAtEnd" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PlayerAAC20playbackFreezesAtEndSbvp">playbackFreezesAtEnd</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Playback freezes on last frame frame at end when true.</p>
+
+<p>The default value of this property is <code>false</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">playbackFreezesAtEnd</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PlayerAAC13playbackStateAB08PlaybackC0Ovp"></a>
+                    <a name="//apple_ref/swift/Property/playbackState" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PlayerAAC13playbackStateAB08PlaybackC0Ovp">playbackState</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Current playback state of the Player.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">playbackState</span><span class="p">:</span> <span class="kt">Player</span><span class="o">.</span><span class="kt"><a href="../Classes/Player/PlaybackState.html">PlaybackState</a></span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PlayerAAC14bufferingStateAB09BufferingC0Ovp"></a>
+                    <a name="//apple_ref/swift/Property/bufferingState" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PlayerAAC14bufferingStateAB09BufferingC0Ovp">bufferingState</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Current buffering state of the Player.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">bufferingState</span><span class="p">:</span> <span class="kt">Player</span><span class="o">.</span><span class="kt"><a href="../Classes/Player/BufferingState.html">BufferingState</a></span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PlayerAAC10bufferSizeSdvp"></a>
+                    <a name="//apple_ref/swift/Property/bufferSize" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PlayerAAC10bufferSizeSdvp">bufferSize</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Playback buffering size in seconds.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">bufferSize</span><span class="p">:</span> <span class="kt">Double</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PlayerAAC21playbackEdgeTriggeredSbvp"></a>
+                    <a name="//apple_ref/swift/Property/playbackEdgeTriggered" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PlayerAAC21playbackEdgeTriggeredSbvp">playbackEdgeTriggered</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Playback is not automatically triggered from state changes when true.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">playbackEdgeTriggered</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PlayerAAC15maximumDurationSdvp"></a>
+                    <a name="//apple_ref/swift/Property/maximumDuration" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PlayerAAC15maximumDurationSdvp">maximumDuration</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Maximum duration of playback.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">maximumDuration</span><span class="p">:</span> <span class="kt">TimeInterval</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PlayerAAC11currentTimeSdvp"></a>
+                    <a name="//apple_ref/swift/Property/currentTime" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PlayerAAC11currentTimeSdvp">currentTime</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Media playback&rsquo;s current time.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">currentTime</span><span class="p">:</span> <span class="kt">TimeInterval</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PlayerAAC11naturalSizeSC6CGSizeVSgvp"></a>
+                    <a name="//apple_ref/swift/Property/naturalSize" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PlayerAAC11naturalSizeSC6CGSizeVSgvp">naturalSize</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The natural dimensions of the media.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    The <code><a href="../Classes/Player.html#/s:6PlayerAAC02avA4ItemSo08AVPlayerC0CSgvp">avPlayerItem</a></code> must exist and have had its tracks loaded.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">naturalSize</span><span class="p">:</span> <span class="kt">CGSize</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Public%20Objects"></a>
+                <a name="//apple_ref/swift/Section/Public Objects" class="dashAnchor"></a>
+                <a href="#/Public%20Objects">
+                  <h3 class="section-name">Public Objects</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PlayerAAC02avA0So8AVPlayerCvp"></a>
+                    <a name="//apple_ref/swift/Property/avPlayer" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PlayerAAC02avA0So8AVPlayerCvp">avPlayer</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">avPlayer</span><span class="p">:</span> <span class="kt">AVPlayer</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PlayerAAC02avA4ItemSo08AVPlayerC0CSgvp"></a>
+                    <a name="//apple_ref/swift/Property/avPlayerItem" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PlayerAAC02avA4ItemSo08AVPlayerC0CSgvp">avPlayerItem</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">avPlayerItem</span><span class="p">:</span> <span class="kt">AVPlayerItem</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Object%20Lifecycle"></a>
+                <a name="//apple_ref/swift/Section/Object Lifecycle" class="dashAnchor"></a>
+                <a href="#/Object%20Lifecycle">
+                  <h3 class="section-name">Object Lifecycle</h3>
                 </a>
               </div>
               <ul>
@@ -744,7 +1268,7 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code>Fil
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">class</span> <span class="kt">Player</span><span class="p">:</span> <span class="kt">UIViewController</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="n">convenience</span> <span class="nf">init</span><span class="p">()</span></code></pre>
 
                         </div>
                       </div>
@@ -771,7 +1295,7 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code>Fil
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">class</span> <span class="kt">Player</span><span class="p">:</span> <span class="kt">UIViewController</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">required</span> <span class="nf">init</span><span class="p">?(</span><span class="n">coder</span> <span class="nv">aDecoder</span><span class="p">:</span> <span class="kt">NSCoder</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -798,9 +1322,56 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code>Fil
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">class</span> <span class="kt">Player</span><span class="p">:</span> <span class="kt">UIViewController</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">override</span> <span class="nf">init</span><span class="p">(</span><span class="n">nibName</span> <span class="nv">nibNameOrNil</span><span class="p">:</span> <span class="kt"><a href="../Classes/Player.html#/s:6PlayerAAC7NibNamea">NibName</a></span><span class="p">,</span> <span class="n">bundle</span> <span class="nv">nibBundleOrNil</span><span class="p">:</span> <span class="kt">Bundle</span><span class="p">?)</span></code></pre>
 
                         </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PlayerAAC3addySo16NSViewControllerC2to_tF"></a>
+                    <a name="//apple_ref/swift/Method/add(to:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PlayerAAC3addySo16NSViewControllerC2to_tF">add(to:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A convenience method for adding a player to the given view controller.
+The player will be added to <code>viewController</code>&lsquo;s <code>childViewControllers</code> array and its view hierarchy.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">add</span><span class="p">(</span><span class="n">to</span> <span class="nv">viewController</span><span class="p">:</span> <span class="kt"><a href="../Classes/Player.html#/s:6PlayerAAC14ViewControllera">ViewController</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>viewController</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The parent view controller that the player will be added to.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -809,10 +1380,10 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code>Fil
             </div>
             <div class="task-group">
               <div class="task-name-container">
-                <a name="/view%20lifecycle"></a>
-                <a name="//apple_ref/swift/Section/view lifecycle" class="dashAnchor"></a>
-                <a href="#/view%20lifecycle">
-                  <h3 class="section-name">view lifecycle</h3>
+                <a name="/View%20Lifecycle"></a>
+                <a name="//apple_ref/swift/Section/View Lifecycle" class="dashAnchor"></a>
+                <a href="#/View%20Lifecycle">
+                  <h3 class="section-name">View Lifecycle</h3>
                 </a>
               </div>
               <ul>
@@ -836,7 +1407,7 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code>Fil
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">class</span> <span class="kt">Player</span><span class="p">:</span> <span class="kt">UIViewController</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">override</span> <span class="kd">func</span> <span class="nf">loadView</span><span class="p">()</span></code></pre>
 
                         </div>
                       </div>
@@ -863,7 +1434,7 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code>Fil
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">class</span> <span class="kt">Player</span><span class="p">:</span> <span class="kt">UIViewController</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">override</span> <span class="kd">func</span> <span class="nf">viewDidLoad</span><span class="p">()</span></code></pre>
 
                         </div>
                       </div>
@@ -873,9 +1444,9 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code>Fil
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@Player@objc(cs)Player(im)viewDidDisappear:"></a>
-                    <a name="//apple_ref/swift/Method/viewDidDisappear(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@Player@objc(cs)Player(im)viewDidDisappear:">viewDidDisappear(_:)</a>
+                    <a name="/c:@M@Player@objc(cs)Player(im)viewDidDisappear"></a>
+                    <a name="//apple_ref/swift/Method/viewDidDisappear()" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@Player@objc(cs)Player(im)viewDidDisappear">viewDidDisappear()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -890,9 +1461,27 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code>Fil
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">class</span> <span class="kt">Player</span><span class="p">:</span> <span class="kt">UIViewController</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">override</span> <span class="kd">func</span> <span class="nf">viewDidDisappear</span><span class="p">()</span></code></pre>
 
                         </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Method/viewDidDisappear(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/">viewDidDisappear(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
                       </div>
                     </section>
                   </div>
@@ -901,10 +1490,10 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code>Fil
             </div>
             <div class="task-group">
               <div class="task-name-container">
-                <a name="/Playback%20funcs"></a>
-                <a name="//apple_ref/swift/Section/Playback funcs" class="dashAnchor"></a>
-                <a href="#/Playback%20funcs">
-                  <h3 class="section-name">Playback funcs</h3>
+                <a name="/Playback%20Methods"></a>
+                <a name="//apple_ref/swift/Section/Playback Methods" class="dashAnchor"></a>
+                <a href="#/Playback%20Methods">
+                  <h3 class="section-name">Playback Methods</h3>
                 </a>
               </div>
               <ul>
@@ -928,7 +1517,7 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code>Fil
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">func</span> <span class="nf">playFromBeginning</span><span class="p">()</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">playFromBeginning</span><span class="p">()</span></code></pre>
 
                         </div>
                       </div>
@@ -955,7 +1544,7 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code>Fil
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">func</span> <span class="nf">playFromCurrentTime</span><span class="p">()</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">playFromCurrentTime</span><span class="p">()</span></code></pre>
 
                         </div>
                       </div>
@@ -982,7 +1571,7 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code>Fil
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">func</span> <span class="nf">pause</span><span class="p">()</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">pause</span><span class="p">()</span></code></pre>
 
                         </div>
                       </div>
@@ -1009,7 +1598,7 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code>Fil
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">func</span> <span class="nf">stop</span><span class="p">()</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">stop</span><span class="p">()</span></code></pre>
 
                         </div>
                       </div>
@@ -1036,7 +1625,7 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code>Fil
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">func</span> <span class="nf">seek</span><span class="p">(</span><span class="n">to</span> <span class="nv">time</span><span class="p">:</span> <span class="kt">CMTime</span><span class="p">,</span> <span class="nv">completionHandler</span><span class="p">:</span> <span class="p">((</span><span class="kt">Bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Swift</span><span class="o">.</span><span class="kt">Void</span><span class="p">)?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">seek</span><span class="p">(</span><span class="n">to</span> <span class="nv">time</span><span class="p">:</span> <span class="kt">CMTime</span><span class="p">,</span> <span class="nv">completionHandler</span><span class="p">:</span> <span class="p">((</span><span class="kt">Bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Swift</span><span class="o">.</span><span class="kt">Void</span><span class="p">)?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -1077,6 +1666,64 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code>Fil
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:6PlayerAAC4seekySi8toSecond_ySbcSg17completionHandlertF"></a>
+                    <a name="//apple_ref/swift/Method/seek(toSecond:completionHandler:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PlayerAAC4seekySi8toSecond_ySbcSg17completionHandlertF">seek(toSecond:completionHandler:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Sets the current playback time to the specified second mark and executes the specified block when the seek operation completes or is interrupted.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">seek</span><span class="p">(</span><span class="n">toSecond</span> <span class="nv">second</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">completionHandler</span><span class="p">:</span> <span class="p">((</span><span class="kt">Bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Swift</span><span class="o">.</span><span class="kt">Void</span><span class="p">)?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>time</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The time (in seconds) to seek to.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completionHandler</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Call block handler after seeking.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:6PlayerAAC10seekToTimeySC6CMTimeV2to_AE15toleranceBeforeAE0G5AfterySbcSg17completionHandlertF"></a>
                     <a name="//apple_ref/swift/Method/seekToTime(to:toleranceBefore:toleranceAfter:completionHandler:)" class="dashAnchor"></a>
                     <a class="token" href="#/s:6PlayerAAC10seekToTimeySC6CMTimeV2to_AE15toleranceBeforeAE0G5AfterySbcSg17completionHandlertF">seekToTime(to:toleranceBefore:toleranceAfter:completionHandler:)</a>
@@ -1094,7 +1741,7 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code>Fil
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">func</span> <span class="nf">seekToTime</span><span class="p">(</span><span class="n">to</span> <span class="nv">time</span><span class="p">:</span> <span class="kt">CMTime</span><span class="p">,</span> <span class="nv">toleranceBefore</span><span class="p">:</span> <span class="kt">CMTime</span><span class="p">,</span> <span class="nv">toleranceAfter</span><span class="p">:</span> <span class="kt">CMTime</span><span class="p">,</span> <span class="nv">completionHandler</span><span class="p">:</span> <span class="p">((</span><span class="kt">Bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Swift</span><span class="o">.</span><span class="kt">Void</span><span class="p">)?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">seekToTime</span><span class="p">(</span><span class="n">to</span> <span class="nv">time</span><span class="p">:</span> <span class="kt">CMTime</span><span class="p">,</span> <span class="nv">toleranceBefore</span><span class="p">:</span> <span class="kt">CMTime</span><span class="p">,</span> <span class="nv">toleranceAfter</span><span class="p">:</span> <span class="kt">CMTime</span><span class="p">,</span> <span class="nv">completionHandler</span><span class="p">:</span> <span class="p">((</span><span class="kt">Bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Swift</span><span class="o">.</span><span class="kt">Void</span><span class="p">)?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -1159,9 +1806,9 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code>Fil
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6PlayerAAC12takeSnapshotSo7UIImageCyF"></a>
+                    <a name="/s:6PlayerAAC12takeSnapshotSo7NSImageCSgyF"></a>
                     <a name="//apple_ref/swift/Method/takeSnapshot()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6PlayerAAC12takeSnapshotSo7UIImageCyF">takeSnapshot()</a>
+                    <a class="token" href="#/s:6PlayerAAC12takeSnapshotSo7NSImageCSgyF">takeSnapshot()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1169,20 +1816,20 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code>Fil
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Captures a snapshot of the current Player view.</p>
+                        <p>Captures a snapshot of the current player view.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">func</span> <span class="nf">takeSnapshot</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">UIImage</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">takeSnapshot</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/Player.html#/s:6PlayerAAC14SnapshotResulta">SnapshotResult</a></span></code></pre>
 
                         </div>
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>A UIImage of the player view.</p>
+                        <p>A image of the player view.</p>
                       </div>
                     </section>
                   </div>
@@ -1200,15 +1847,19 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code>Fil
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Return the av player layer for consumption by
-things such as Picture in Picture</p>
+                        <p>Return the <code>AVPlayerLayer</code> for consumption by things such as Picture in Picture.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    Player must be loaded.
+
+</div>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">func</span> <span class="nf">playerLayer</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">AVPlayerLayer</span><span class="p">?</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">playerLayer</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">AVPlayerLayer</span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
@@ -1218,6 +1869,13 @@ things such as Picture in Picture</p>
               </ul>
             </div>
             <div class="task-group">
+              <div class="task-name-container">
+                <a name="/KVO"></a>
+                <a name="//apple_ref/swift/Section/KVO" class="dashAnchor"></a>
+                <a href="#/KVO">
+                  <h3 class="section-name">KVO</h3>
+                </a>
+              </div>
               <ul>
                 <li class="item">
                   <div>
@@ -1239,7 +1897,45 @@ things such as Picture in Picture</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">class</span> <span class="kt">Player</span><span class="p">:</span> <span class="kt">UIViewController</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">override</span> <span class="kd">func</span> <span class="nf">observeValue</span><span class="p">(</span><span class="n">forKeyPath</span> <span class="nv">keyPath</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="n">of</span> <span class="nv">object</span><span class="p">:</span> <span class="kt">Any</span><span class="p">?,</span> <span class="nv">change</span><span class="p">:</span> <span class="p">[</span><span class="kt">NSKeyValueChangeKey</span> <span class="p">:</span> <span class="kt">Any</span><span class="p">]?,</span> <span class="nv">context</span><span class="p">:</span> <span class="kt">UnsafeMutableRawPointer</span><span class="p">?)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Dispatch"></a>
+                <a name="//apple_ref/swift/Section/Dispatch" class="dashAnchor"></a>
+                <a href="#/Dispatch">
+                  <h3 class="section-name">Dispatch</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PlayerAAC36executeClosureOnMainQueueIfNecessaryyyyc04withC0_tF"></a>
+                    <a name="//apple_ref/swift/Method/executeClosureOnMainQueueIfNecessary(withClosure:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PlayerAAC36executeClosureOnMainQueueIfNecessaryyyyc04withC0_tF">executeClosureOnMainQueueIfNecessary(withClosure:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">executeClosureOnMainQueueIfNecessary</span><span class="p">(</span><span class="n">withClosure</span> <span class="nv">closure</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -1251,8 +1947,8 @@ things such as Picture in Picture</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2017 <a class="link" href="https://patrickpiemonte.com" target="_blank" rel="external">Patrick Piemonte</a>. All rights reserved. (Last updated: 2017-10-08)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.4</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2018 <a class="link" href="https://patrickpiemonte.com" target="_blank" rel="external">Patrick Piemonte</a>. All rights reserved. (Last updated: 2018-06-20)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>
