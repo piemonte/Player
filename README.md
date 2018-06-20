@@ -4,7 +4,7 @@
 [![Platform](https://img.shields.io/cocoapods/p/Player.svg?style=flat)](http://cocoadocs.org/docsets/Player) 
 [![Pod Version](https://img.shields.io/cocoapods/v/Player.svg?style=flat)](http://cocoadocs.org/docsets/Player/) 
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
-[![Swift Version](https://img.shields.io/badge/language-swift%204.0-brightgreen.svg)](https://developer.apple.com/swift) 
+[![Swift Version](https://img.shields.io/badge/language-swift%204.1-brightgreen.svg)](https://developer.apple.com/swift) 
 [![GitHub license](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://github.com/piemonte/Player/blob/master/LICENSE)
 
 ![Overview](readme-assets/player.gif)
@@ -29,7 +29,7 @@
 - [ ] use `AVPlayerViewController` for iOS/tvOS platforms
 
 ## Installation
-`Player` is available for installation using the Cocoa dependency manager CocoaPods & Carthage.  Alternatively, you can simply copy the `Player.swift` file into your Xcode project.
+`Player` is available for installation using CocoaPods or Carthage.  Alternatively, you can simply copy the `Player.swift` file into your Xcode project.
 
 ### Using [CocoaPods](http://cocoapods.org/)
 
@@ -66,14 +66,14 @@ Create and add the `Player` to your view controller.
 Provide the file path to the resource you would like to play locally or stream. Ensure you're including the file extension.
 
 ```swift
-let videoUrl: URL = // file or http url
-player.url = videoUrl
+player.url = URL(string: "https://www.apple.com/105/media/us/iphone-x/2017/01df5b43-28e4-4848-bf20-490c34a926a7/films/meet-iphone-x/iphone-x-meet-iphone-tpl-cc-us-20171129_1280x720h.mp4")
 ```
 
-play/pause/chill
+play/pause/chill 🏖️
 
 ```swift
 player.playFromBeginning()
+player.pause()
 ```
 
 Adjust the fill mode for the video, if needed.
@@ -148,7 +148,7 @@ You can find [the docs here](http://piemonte.github.io/Player/). Documentation i
 
 ## Used In
 
-- [Cards](https://github.com/PaoloCuscela/Cards) — Awesome iOS 11 appstore cards written in swift 4.
+- [Cards](https://github.com/PaoloCuscela/Cards) — Awesome iOS 11 appstore cards written in Swift.
 
 ## Resources
 

@@ -51,7 +51,7 @@ class ViewController: UIViewController {
 
         let uri = "https://www.apple.com/105/media/us/iphone-x/2017/01df5b43-28e4-4848-bf20-490c34a926a7"
             + "/films/meet-iphone-x/iphone-x-meet-iphone-tpl-cc-us-20171129_1280x720h.mp4"
-        player.url = URL(string: uri)!
+        player.url = URL(string: uri)
 
         player.playbackLoops = true
 
