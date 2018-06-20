@@ -125,7 +125,7 @@ open class Player: PlayerViewController {
     /// - resizeAspectFill: Preserve aspect ratio, filling bounds.
     /// - resizeAspectFit: Preserve aspect ratio, fill within bounds.
     public enum FillMode: String {
-        case resize = "AVLayerVideoGravityResize"
+        case resizeFill = "AVLayerVideoGravityResize"
         case resizeAspectFill = "AVLayerVideoGravityResizeAspectFill"
         case resizeAspectFit = "AVLayerVideoGravityResizeAspect" // default
     }
