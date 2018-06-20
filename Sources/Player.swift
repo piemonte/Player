@@ -78,22 +78,24 @@ public enum BufferingState: Int, CustomStringConvertible {
 // MARK: - PlayerDelegate
 
 /// Player delegate protocol
+@objc
 public protocol PlayerDelegate: NSObjectProtocol {
-    func playerReady(player: Player)
-    func playerPlaybackStateDidChange(player: Player)
-    func playerBufferingStateDidChange(player: Player)
+    @objc optional func playerReady(player: Player)
+    @objc optional func playerPlaybackStateDidChange(player: Player)
+    @objc optional func playerBufferingStateDidChange(player: Player)
 
     // This is the time in seconds that the video has been buffered.
     // If implementing a UIProgressView, use this value / player.maximumDuration to set progress.
-    func playerBufferTimeDidChange(bufferTime: Double)
+    @objc optional func playerBufferTimeDidChange(bufferTime: Double)
 }
 
 /// Player playback protocol
+@objc
 public protocol PlayerPlaybackDelegate: NSObjectProtocol {
-    func playerCurrentTimeDidChange(player: Player)
-    func playerPlaybackWillStartFromBeginning(player: Player)
-    func playerPlaybackDidEnd(player: Player)
-    func playerPlaybackWillLoop(player: Player)
+    @objc optional func playerCurrentTimeDidChange(player: Player)
+    @objc optional func playerPlaybackWillStartFromBeginning(player: Player)
+    @objc optional func playerPlaybackDidEnd(player: Player)
+    @objc optional func playerPlaybackWillLoop(player: Player)
 }
 
 // MARK: - Type Aliases
@@ -124,8 +126,8 @@ open class Player: PlayerViewController {
     /// - resizeAspectFit: Preserve aspect ratio, fill within bounds.
     public enum FillMode: String {
         case resize = "AVLayerVideoGravityResize"
-        case resizeAspectFill = "AVLayerVideoGravityResizeAspect"
-        case resizeAspectFit = "AVLayerVideoGravityResizeAspectFill" // default
+        case resizeAspectFill = "AVLayerVideoGravityResizeAspectFill"
+        case resizeAspectFit = "AVLayerVideoGravityResizeAspect" // default
     }
 
     /// Player delegate.
@@ -209,7 +211,7 @@ open class Player: PlayerViewController {
     /// The default value of this property is `true`.
     open var playbackPausesWhenResigningActive: Bool = true
 
-    /// Pauses playback automatically when backgrounded.
+    /// Pauses playback automatically when backgrounded (on macOS, when hidden).
     ///
     /// The default value of this property is `true`.
     open var playbackPausesWhenBackgrounded: Bool = true
@@ -219,7 +221,7 @@ open class Player: PlayerViewController {
     /// The default value of this property is `true`.
     open var playbackResumesWhenBecameActive: Bool = true
 
-    /// Resumes playback when entering foreground.
+    /// Resumes playback when entering foreground. (on macOS, when unhidden)
     ///
     /// The default value of this property is `true`.
     open var playbackResumesWhenEnteringForeground: Bool = true
@@ -249,7 +251,7 @@ open class Player: PlayerViewController {
     open var playbackState: PlaybackState = .stopped {
         didSet {
             if playbackState != oldValue || !playbackEdgeTriggered {
-                playerDelegate?.playerPlaybackStateDidChange(player: self)
+                playerDelegate?.playerPlaybackStateDidChange?(player: self)
             }
         }
     }
@@ -258,7 +260,7 @@ open class Player: PlayerViewController {
     open var bufferingState: BufferingState = .unknown {
         didSet {
             if bufferingState != oldValue || !playbackEdgeTriggered {
-                playerDelegate?.playerBufferingStateDidChange(player: self)
+                playerDelegate?.playerBufferingStateDidChange?(player: self)
             }
         }
     }
@@ -453,7 +455,7 @@ open class Player: PlayerViewController {
 
     /// Begins playback of the media from the beginning.
     open func playFromBeginning() {
-        playbackDelegate?.playerPlaybackWillStartFromBeginning(player: self)
+        playbackDelegate?.playerPlaybackWillStartFromBeginning?(player: self)
         avPlayer.seek(to: kCMTimeZero)
         playFromCurrentTime()
     }
@@ -492,7 +494,7 @@ open class Player: PlayerViewController {
 
         avPlayer.pause()
         playbackState = .stopped
-        playbackDelegate?.playerPlaybackDidEnd(player: self)
+        playbackDelegate?.playerPlaybackDidEnd?(player: self)
     }
 
     /// Updates playback to the specified time.
@@ -675,7 +677,7 @@ private extension Player {
 
     @objc func playerItemDidPlayToEndTime(_ aNotification: Notification) {
         if playbackLoops {
-            playbackDelegate?.playerPlaybackWillLoop(player: self)
+            playbackDelegate?.playerPlaybackWillLoop?(player: self)
             avPlayer.seek(to: kCMTimeZero)
         } else {
             if playbackFreezesAtEnd {
@@ -801,7 +803,7 @@ private extension Player {
     func addPlayerObservers() {
         timeObserver = avPlayer.addPeriodicTimeObserver(forInterval: CMTimeMake(1, 100), queue: DispatchQueue.main) { [weak self] _ in
             guard let strongSelf = self else { return }
-            strongSelf.playbackDelegate?.playerCurrentTimeDidChange(player: strongSelf)
+            strongSelf.playbackDelegate?.playerCurrentTimeDidChange?(player: strongSelf)
         }
         avPlayer.addObserver(self, forKeyPath: AssetRateKey, options: [.new, .old], context: &PlayerObserverContext)
     }
@@ -880,7 +882,7 @@ extension Player {
                         let bufferedTime = CMTimeGetSeconds(CMTimeAdd(timeRange.start, timeRange.duration))
                         if lastBufferTime != bufferedTime {
                             executeClosureOnMainQueueIfNecessary {
-                                self.playerDelegate?.playerBufferTimeDidChange(bufferTime: bufferedTime)
+                                self.playerDelegate?.playerBufferTimeDidChange?(bufferTime: bufferedTime)
                             }
                             lastBufferTime = bufferedTime
                         }
@@ -908,7 +910,7 @@ extension Player {
 
             if isReadyForDisplay {
                 executeClosureOnMainQueueIfNecessary {
-                    self.playerDelegate?.playerReady(player: self)
+                    self.playerDelegate?.playerReady?(player: self)
                 }
             }
         }
