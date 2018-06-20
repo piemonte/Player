@@ -47,9 +47,7 @@ class ViewController: UIViewController {
         player.playbackDelegate = self
         player.view.translatesAutoresizingMaskIntoConstraints = false
 
-        addChildViewController(player)
-        player.didMove(toParentViewController: self)
-        view.addSubview(player.view)
+        player.add(to: self)
 
         let uri = "https://www.apple.com/105/media/us/iphone-x/2017/01df5b43-28e4-4848-bf20-490c34a926a7"
             + "/films/meet-iphone-x/iphone-x-meet-iphone-tpl-cc-us-20171129_1280x720h.mp4"
@@ -85,13 +83,9 @@ class ViewController: UIViewController {
     @objc private func orientationWillChange() {
         let currentOrientation = UIDevice.current.orientation
         if UIDeviceOrientationIsLandscape(currentOrientation) {
-            print("Landscape")
             player.fillMode = .resizeAspectFill
-            // Resize other things
         } else if UIDeviceOrientationIsPortrait(currentOrientation) {
-            print("Portrait")
-            // Resize other things
-            player.fillMode = .resizeAspect
+            player.fillMode = .resizeAspectFit
         }
     }
 

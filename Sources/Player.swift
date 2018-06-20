@@ -98,36 +98,48 @@ public protocol PlayerPlaybackDelegate: NSObjectProtocol {
     @objc optional func playerPlaybackWillLoop(player: Player)
 }
 
-// MARK: - Type Aliases
+// MARK: - Player
 
-#if canImport(AppKit)
-    public typealias PlayerViewController = NSViewController
+/// ▶️ Player, simple way to play and stream media
+open class Player: Player.ViewController {
+    // MARK: - Type Aliases
+
+    #if canImport(AppKit)
+    public typealias ViewController = NSViewController
     public typealias PlayerView = AVPlayerView
     public typealias Image = NSImage
     public typealias Color = NSColor
     public typealias SnapshotResult = Image?
     public typealias NibName = NSNib.Name?
-#else
-    public typealias PlayerViewController = UIViewController
+    #else
+    public typealias ViewController = UIViewController
     public typealias Image = UIImage
     public typealias Color = UIColor
     public typealias SnapshotResult = Image
     public typealias NibName = String?
-#endif
+    #endif
 
-// MARK: - Player
-
-/// ▶️ Player, simple way to play and stream media
-open class Player: PlayerViewController {
     /// Video fill mode options for `Player.fillMode`.
     ///
-    /// - resize: Stretch to fill.
-    /// - resizeAspectFill: Preserve aspect ratio, filling bounds.
-    /// - resizeAspectFit: Preserve aspect ratio, fill within bounds.
+    /// - resizeStretch: Specifies that the video should be stretched to fill the layer’s bounds.
+    /// - resizeAspectFill: Specifies that the player should preserve the video’s aspect ratio and fill the layer’s bounds.
+    /// - resizeAspectFit: Specifies that the player should preserve the video’s aspect ratio and fit the video within the layer’s bounds.
     public enum FillMode: String {
-        case resizeFill = "AVLayerVideoGravityResize"
+        case resizeStretch = "AVLayerVideoGravityResize"
         case resizeAspectFill = "AVLayerVideoGravityResizeAspectFill"
         case resizeAspectFit = "AVLayerVideoGravityResizeAspect" // default
+
+        fileprivate var avLayerVideoGravityValue: AVLayerVideoGravity {
+            return AVLayerVideoGravity(rawValue: self.rawValue)
+//            switch self {
+//            case .resizeFill:
+//                return .resize
+//            case .resizeAspectFill:
+//                return .resizeAspectFill
+//            case .resizeAspectFit:
+//                return .resizeAspect
+//            }
+        }
     }
 
     /// Player delegate.
@@ -181,20 +193,20 @@ open class Player: PlayerViewController {
     }
 
     /// Specifies how the video is displayed within a player layer’s bounds.
-    /// The default value is `AVLayerVideoGravityResizeAspect`. See `FillMode` enum.
-    open var fillMode: AVLayerVideoGravity {
+    /// The default value is `.resizeAspectFit`. See the `FillMode` enum.
+    open var fillMode: FillMode {
         get {
             #if canImport(AppKit)
-                return AVLayerVideoGravity(rawValue: playerView.videoGravity)
+                return FillMode(rawValue: playerView.videoGravity)!
             #else
-                return playerView.fillMode
+                return FillMode(rawValue: playerView.fillMode.rawValue)!
             #endif
         }
         set {
             #if canImport(AppKit)
                 playerView.videoGravity = newValue.rawValue
             #else
-                playerView.fillMode = newValue
+                playerView.fillMode = newValue.avLayerVideoGravityValue
             #endif
         }
     }
@@ -323,7 +335,7 @@ open class Player: PlayerViewController {
     #if canImport(AppKit)
         /// The player view’s controls style.
         ///
-        /// The player view supports a number of different control styles that you can use to customize the player view’s appearance and behavior. See `AVPlayerViewControlsStyle` for the possible values. The default value of this property is `.minimal`
+        /// The player view supports a number of different control styles that you can use to customize the player view’s appearance and behavior. See `AVPlayerViewControlsStyle` for the possible values. The default value of this property is `.default`
         open var controlsStyle: AVPlayerViewControlsStyle {
             get {
                 return playerView.controlsStyle
@@ -387,10 +399,11 @@ open class Player: PlayerViewController {
     private func sharedInit() {
         avPlayer.actionAtItemEnd = .pause
         timeObserver = nil
+        fillMode = .resizeAspectFit
 
         #if canImport(AppKit)
             playerView.player = avPlayer
-            playerView.controlsStyle = .minimal
+            playerView.controlsStyle = .default
         #endif
     }
 
@@ -410,12 +423,25 @@ open class Player: PlayerViewController {
 
     // MARK: - view lifecycle
 
+    /// A convenience method for adding a player to the given view controller.
+    /// The player will be added to `viewController`'s `childViewControllers` array and its view hierarchy.
+    ///
+    /// - Parameter viewController: The parent view controller that the player will be added to.
+    open func add(to viewController: ViewController) {
+        viewController.addChildViewController(self)
+        viewController.view.addSubview(view)
+
+        #if canImport(UIKit)
+            didMove(toParentViewController: viewController)
+        #endif
+    }
+
     open override func loadView() {
+        view = playerView
+
         #if canImport(UIKit)
             playerView.playerLayer.isHidden = true
         #endif
-
-        view = playerView
     }
 
     open override func viewDidLoad() {

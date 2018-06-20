@@ -38,7 +38,7 @@ class ViewController: NSViewController {
     }
 
     override func loadView() {
-        view = player.view
+        view = NSView()
         view.autoresizingMask = [.height, .width]
         view.setFrameSize(NSSize(width: 400 * (16.0 / 9), height: 400))
     }
@@ -47,6 +47,10 @@ class ViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        player.view.autoresizingMask = [.height, .width]
+        player.view.frame = view.bounds
+        player.add(to: self)
 
         player.playerDelegate = self
         player.playbackDelegate = self
@@ -57,6 +61,7 @@ class ViewController: NSViewController {
         player.playbackLoops = true
         player.fillMode = .resizeAspectFill
         player.controlsStyle = .floating
+        player.playbackPausesWhenResigningActive = false
     }
 
     override func viewDidAppear() {
