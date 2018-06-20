@@ -55,7 +55,8 @@ class ViewController: UIViewController {
 
         player.playbackLoops = true
 
-        let tapGestureRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTapGestureRecognizer(_:)))
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self,
+                                                          action: #selector(handleTapGestureRecognizer(_:)))
         tapGestureRecognizer.numberOfTapsRequired = 1
         player.view.addGestureRecognizer(tapGestureRecognizer)
 
@@ -70,8 +71,15 @@ class ViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        NotificationCenter.default.addObserver(self, selector: #selector(orientationWillChange), name: .UIDeviceOrientationDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(orientationWillChange),
+                                               name: .UIDeviceOrientationDidChange, object: nil)
 
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+
+        NotificationCenter.default.removeObserver(self, name: .UIDeviceOrientationDidChange, object: nil)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -96,16 +104,16 @@ class ViewController: UIViewController {
 extension ViewController {
     @objc func handleTapGestureRecognizer(_ gestureRecognizer: UITapGestureRecognizer) {
         switch player.playbackState.rawValue {
-            case PlaybackState.stopped.rawValue:
-                player.playFromBeginning()
-            case PlaybackState.paused.rawValue:
-                player.playFromCurrentTime()
-            case PlaybackState.playing.rawValue:
-                player.pause()
-            case PlaybackState.failed.rawValue:
-                player.pause()
-            default:
-                player.pause()
+        case PlaybackState.stopped.rawValue:
+            player.playFromBeginning()
+        case PlaybackState.paused.rawValue:
+            player.playFromCurrentTime()
+        case PlaybackState.playing.rawValue:
+            player.pause()
+        case PlaybackState.failed.rawValue:
+            player.pause()
+        default:
+            player.pause()
         }
     }
 }

@@ -59,7 +59,8 @@ class ViewController: UIViewController {
 
         player.playbackLoops = true
 
-        let tapGestureRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTapGestureRecognizer(_:)))
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self,
+                                                          action: #selector(handleTapGestureRecognizer(_:)))
         tapGestureRecognizer.allowedPressTypes = [NSNumber(value: UIPressType.playPause.rawValue)]
         view.addGestureRecognizer(tapGestureRecognizer)
     }
