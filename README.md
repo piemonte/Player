@@ -1,8 +1,5 @@
 # Player
 
-<!--![Player](readme-assets/player.gif)-->
-
-<!--[![GitHub Stars](https://img.shields.io/github/stars/piemonte/Player.svg)](https://github.com/piemonte/Player/stargazers) -->
 [![Build Status](https://travis-ci.org/piemonte/Player.svg?branch=master)](https://travis-ci.org/piemonte/Player)
 [![Platform](https://img.shields.io/cocoapods/p/Player.svg?style=flat)](http://cocoadocs.org/docsets/Player) 
 [![Pod Version](https://img.shields.io/cocoapods/v/Player.svg?style=flat)](http://cocoadocs.org/docsets/Player/) 
@@ -29,7 +26,7 @@
 - [x] simple API
 
 ### Future Features
-- [] use `AVPlayerViewController` for iOS/tvOS platforms
+- [ ] use `AVPlayerViewController` for iOS/tvOS platforms
 
 ## Installation
 `Player` is available for installation using the Cocoa dependency manager CocoaPods & Carthage.  Alternatively, you can simply copy the `Player.swift` file into your Xcode project.
