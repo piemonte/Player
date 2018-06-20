@@ -1,13 +1,25 @@
-![Player](https://github.com/piemonte/Player/raw/master/Player.gif)
+# Player
 
-## Player
+<!--![Player](readme-assets/player.gif)-->
 
-`Player` is a simple iOS video player library written in [Swift](https://developer.apple.com/swift/).
+<!--[![GitHub Stars](https://img.shields.io/github/stars/piemonte/Player.svg)](https://github.com/piemonte/Player/stargazers) -->
+[![Build Status](https://travis-ci.org/piemonte/Player.svg?branch=master)](https://travis-ci.org/piemonte/Player)
+[![Platform](https://img.shields.io/cocoapods/p/Player.svg?style=flat)](http://cocoadocs.org/docsets/Player) 
+[![Pod Version](https://img.shields.io/cocoapods/v/Player.svg?style=flat)](http://cocoadocs.org/docsets/Player/) 
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![Swift Version](https://img.shields.io/badge/language-swift%204.0-brightgreen.svg)](https://developer.apple.com/swift) 
+[![GitHub license](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://github.com/piemonte/Player/blob/master/LICENSE)
 
-[![Build Status](https://travis-ci.org/piemonte/Player.svg?branch=master)](https://travis-ci.org/piemonte/Player) [![Pod Version](https://img.shields.io/cocoapods/v/Player.svg?style=flat)](http://cocoadocs.org/docsets/Player/) [![Swift Version](https://img.shields.io/badge/language-swift%204.0-brightgreen.svg)](https://developer.apple.com/swift) [![GitHub license](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://github.com/piemonte/Player/blob/master/LICENSE)
+![Overview](readme-assets/player.gif)
 
-- Looking for an obj-c video player? Check out [PBJVideoPlayer (obj-c)](https://github.com/piemonte/PBJVideoPlayer).
-- Looking for a Swift camera library? Check out [Next Level](https://github.com/NextLevel/NextLevel).
+<p align="center"><b>Player is a simple cross-platform video player library written in Swift.</b>
+<br>
+<br>
+⚠️ <b>Warning</b>: version 0.9 has breaking API changes. ⚠️</p>
+
+### Looking for...
+- An obj-c video player? Check out [PBJVideoPlayer (obj-c)](https://github.com/piemonte/PBJVideoPlayer).
+- A Swift camera library? Check out [Next Level](https://github.com/NextLevel/NextLevel).
 
 ### Features
 - [x] plays local media or streams remote media over HTTP
@@ -16,79 +28,114 @@
 - [x] orientation change support
 - [x] simple API
 
-# Quick Start
+### Future Features
+- [] use `AVPlayerViewController` for iOS/tvOS platforms
 
-`Player` is available for installation using the Cocoa dependency manager [CocoaPods](http://cocoapods.org/).  Alternatively, you can simply copy the `Player.swift` file into your Xcode project.
+## Installation
+`Player` is available for installation using the Cocoa dependency manager CocoaPods & Carthage.  Alternatively, you can simply copy the `Player.swift` file into your Xcode project.
+
+### Using [CocoaPods](http://cocoapods.org/)
 
 ```ruby
-# CocoaPods
-swift_version = "4.0"
-pod "Player", "~> 0.8.0"
-
-# Carthage
-github "piemonte/Player" ~> 0.8.0
+pod "Player"
 ```
 
 Need Swift 3? Use release `0.7.0`
 
-## Usage
+```ruby
+pod "Player", "~> 0.7.0"
+```
 
-The sample project provides an example of how to integrate `Player`, otherwise you can follow these steps.
+### Using [Carthage](https://github.com/Carthage/Carthage)
 
-Allocate and add the `Player` controller to your view hierarchy.
+```ruby
+github "piemonte/Player"
+```
 
-``` Swift
- self.player = Player()
- self.player.playerDelegate = self
- self.player.playbackDelegate = self
- self.player.view.frame = self.view.bounds
-    
- self.addChildViewController(self.player)
- self.view.addSubview(self.player.view)
- self.player.didMove(toParentViewController: self)
+## Quick Start
+
+The sample projects provide an example of how to integrate `Player`, otherwise you can follow these steps.
+
+Create and add the `Player` to your view controller.
+
+```swift
+ let player = Player()
+ player.playerDelegate = self
+ player.playbackDelegate = self
+ player.view.frame = view.bounds
+ player.add(to: self)
 ```
 
 Provide the file path to the resource you would like to play locally or stream. Ensure you're including the file extension.
 
-``` Swift
+```swift
 let videoUrl: URL = // file or http url
-self.player.url = videoUrl
+player.url = videoUrl
 ```
 
 play/pause/chill
 
-``` Swift
- self.player.playFromBeginning()
+```swift
+player.playFromBeginning()
 ```
 
 Adjust the fill mode for the video, if needed.
 
-``` Swift
- self.player.fillMode = PlayerFillMode.resizeAspectFit.avFoundationType
+```swift
+ player.fillMode = .resizeAspectFit
 ```
 
-Display video playback progress, if needed.
+The fill mode can be set to the following values:
 
-``` Swift
+`.resizeAspectFit` (default)
+![Player](readme-assets/aspectFit.png)
+
+`.resizeAspectFill`
+![Player](readme-assets/aspectFill.png)
+
+`.resizeStretch` (aka please don't. I mean look at the poor thing)
+![Player](readme-assets/stretch.png)
+
+Display video playback progress, if desired. Note, all delegate methods are optional.
+
+```swift
 extension ViewController: PlayerPlaybackDelegate {
 
-    public func playerPlaybackWillStartFromBeginning(_ player: Player) {
+	public func playerPlaybackWillStartFromBeginning(player: Player) {}
+    
+    public func playerPlaybackDidEnd(player: Player) {}
+    
+    public func playerCurrentTimeDidChange(player: Player) {
+        let currentProgress = Float(player.currentTime / player.maximumDuration)
+        progressView.setProgress(currentProgress, animated: true)
     }
     
-    public func playerPlaybackDidEnd(_ player: Player) {
-    }
-    
-    public func playerCurrentTimeDidChange(_ player: Player) {
-        let fraction = Double(player.currentTime) / Double(player.maximumDuration)
-        self._playbackViewController?.setProgress(progress: CGFloat(fraction), animated: true)
-    }
-    
-    public func playerPlaybackWillLoop(_ player: Player) {
-        self. _playbackViewController?.reset()
+    public func playerPlaybackWillLoop(player: Player) {
+        progressView.setProgress(0.0, animated: false)
     }
     
 }
 ```
+
+### macOS
+On the macOS platform, the player can display media controls. 
+
+```swift
+player.controlsStyle = .floating
+```
+
+The controls' style can be set to the following:
+
+`.none`
+
+`.inline` (default)
+![Player](readme-assets/inline.png)
+
+`.minimal`
+![Player](readme-assets/minimal.png)
+
+`.floating`
+![Player](readme-assets/floating.png)
 
 ## Documentation
 
@@ -99,8 +146,12 @@ You can find [the docs here](http://piemonte.github.io/Player/). Documentation i
 - Need help? Use [Stack Overflow](http://stackoverflow.com/questions/tagged/player-swift) with the tag 'player-swift'.
 - Questions? Use [Stack Overflow](http://stackoverflow.com/questions/tagged/player-swift) with the tag 'player-swift'.
 - Found a bug? Open an [issue](https://github.com/piemonte/player/issues).
-- Feature idea? Open an [issue](https://github.com/piemonte/player/issues).
+- Feature idea? ~~Open an [issue](https://github.com/piemonte/player/issues).~~ Do it yourself & PR when done 😅.
 - Want to contribute? Submit a [pull request](https://github.com/piemonte/player/pulls).
+
+## Used In
+
+- [Cards](https://github.com/PaoloCuscela/Cards) — Awesome iOS 11 appstore cards written in swift 4.
 
 ## Resources
 
