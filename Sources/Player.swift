@@ -26,13 +26,12 @@
 
 #if canImport(AppKit)
     import AppKit
-    import AVKit
 #else
     import UIKit
 #endif
 import AVFoundation
+import AVKit
 import CoreGraphics
-import Foundation
 
 // MARK: - PlayerDelegate
 
@@ -40,6 +39,7 @@ import Foundation
 @objc
 public protocol PlayerDelegate: NSObjectProtocol {
     @objc optional func playerReady(player: Player)
+    @objc optional func playerPlaybackError(player: Player, error: NSError?)
     @objc optional func playerPlaybackStateDidChange(player: Player)
     @objc optional func playerBufferingStateDidChange(player: Player)
 
@@ -73,18 +73,19 @@ open class Player: Player.ViewController {
     // MARK: - Type Aliases
 
     #if canImport(AppKit)
-    public typealias ViewController = NSViewController
-    public typealias PlayerView = AVPlayerView
-    public typealias Image = NSImage
-    public typealias Color = NSColor
-    public typealias SnapshotResult = Image?
-    public typealias NibName = NSNib.Name?
+        public typealias ViewController = NSViewController
+        fileprivate typealias PlayerView = AVPlayerView
+        public typealias Image = NSImage
+        public typealias Color = NSColor
+        public typealias SnapshotResult = Image?
+        public typealias NibName = NSNib.Name?
     #else
-    public typealias ViewController = UIViewController
-    public typealias Image = UIImage
-    public typealias Color = UIColor
-    public typealias SnapshotResult = Image
-    public typealias NibName = String?
+        public typealias ViewController = UIViewController
+        fileprivate typealias PlayerView = SuperSecretPlayerView?
+        public typealias Image = UIImage
+        public typealias Color = UIColor
+        public typealias SnapshotResult = Image
+        public typealias NibName = String?
     #endif
 
     // MARK: - Types
@@ -147,6 +148,11 @@ open class Player: Player.ViewController {
 
     // MARK: Configuration
 
+    /// Use the native UI
+    ///
+    /// - Parameter bool: defaults to true
+    open var useNativeUI: Bool = true
+
     /// Local or remote URL for the file asset to be played.
     ///
     /// - Parameter url: URL of the asset.
@@ -196,14 +202,22 @@ open class Player: Player.ViewController {
             #if canImport(AppKit)
                 return FillMode(rawValue: playerView.videoGravity)!
             #else
-                return FillMode(rawValue: playerView.fillMode.rawValue)!
+                if let playerVC = nativePlayerViewController {
+                    return FillMode(rawValue: playerVC.videoGravity)!
+                }
+
+                return FillMode(rawValue: playerView!.fillMode.rawValue)!
             #endif
         }
         set {
             #if canImport(AppKit)
                 playerView.videoGravity = newValue.rawValue
             #else
-                playerView.fillMode = newValue.avLayerVideoGravityValue
+                if let playerVC = nativePlayerViewController {
+                    playerVC.videoGravity = newValue.rawValue
+                } else {
+                    playerView!.fillMode = newValue.avLayerVideoGravityValue
+                }
             #endif
         }
     }
@@ -211,19 +225,31 @@ open class Player: Player.ViewController {
     /// Player view's initial background color.
     open var layerBackgroundColor: Color? {
         get {
+            var color: Color?
             #if canImport(AppKit)
-            let backgroundColor = playerView.layer?.backgroundColor
+                if let backgroundColor = playerView.layer?.backgroundColor {
+                    color = Color(cgColor: cgColor)
+                }
             #else
-            let backgroundColor = playerView.playerLayer.backgroundColor
+                if let nativePlayerViewController = nativePlayerViewController {
+                    color = nativePlayerViewController.view.backgroundColor
+                } else {
+                    color = playerView!.playerBackgroundColor
+                }
             #endif
-            guard let cgColor = backgroundColor else { return nil }
-            return Color(cgColor: cgColor)
+
+            return color
         }
         set {
             #if canImport(AppKit)
-            playerView.layer?.backgroundColor = newValue?.cgColor
+                playerView.layer?.backgroundColor = newValue?.cgColor
             #else
-            playerView.playerLayer.backgroundColor = newValue?.cgColor
+                if let playerVC = nativePlayerViewController {
+                    playerVC.view.backgroundColor = newValue
+                } else {
+                    playerView!.playerBackgroundColor = newValue
+                    // playerView.playerLayer.backgroundColor = newValue?.cgColor
+                }
             #endif
         }
     }
@@ -267,7 +293,7 @@ open class Player: Player.ViewController {
     // MARK: State
 
     /// Whether the player is currently playing.
-    // Returns `true` if the `playbackState` is `.playing`.
+    /// Returns `true` if the `playbackState` is `.playing`.
     open var isPlaying: Bool {
         return playbackState == .playing
     }
@@ -336,13 +362,13 @@ open class Player: Player.ViewController {
     /// The natural dimensions of the media.
     ///
     /// - Note: The `avPlayerItem` must exist and have had its tracks loaded.
+    ///
     open var naturalSize: CGSize? {
         if let playerItem = avPlayerItem,
             let track = playerItem.asset.tracks(withMediaType: .video).first {
             let size = track.naturalSize.applying(track.preferredTransform)
             return CGSize(width: fabs(size.width), height: fabs(size.height))
         }
-
         return nil
     }
 
@@ -350,6 +376,9 @@ open class Player: Player.ViewController {
 
     public var avPlayer: AVPlayer
     public var avPlayerItem: AVPlayerItem?
+    #if canImport(UIKit)
+        public var nativePlayerViewController: AVPlayerViewController?
+    #endif
 
     // MARK: Private Objects
 
@@ -382,7 +411,11 @@ open class Player: Player.ViewController {
 
     public required init?(coder aDecoder: NSCoder) {
         avPlayer = AVPlayer()
-        playerView = PlayerView()
+        #if canImport(AppKit)
+            playerView = PlayerView()
+        #else
+            playerView = SuperSecretPlayerView()
+        #endif
 
         super.init(coder: aDecoder)
 
@@ -391,7 +424,11 @@ open class Player: Player.ViewController {
 
     public override init(nibName nibNameOrNil: NibName, bundle nibBundleOrNil: Bundle?) {
         avPlayer = AVPlayer()
-        playerView = PlayerView()
+        #if canImport(AppKit)
+            playerView = PlayerView()
+        #else
+            playerView = SuperSecretPlayerView()
+        #endif
 
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
 
@@ -420,7 +457,22 @@ open class Player: Player.ViewController {
 
         playbackDelegate = nil
         removePlayerLayerObservers()
-        playerView.player = nil
+
+        #if canImport(AppKit)
+            playerView.player = nil
+        #else
+            if let playerVC = nativePlayerViewController {
+                playerVC.player = nil
+                nativePlayerViewController = nil
+            } else {
+                playerView!.player = nil
+                playerView = nil
+            }
+        #endif
+    }
+
+    override open var shouldAutomaticallyForwardAppearanceMethods: Bool {
+        return false
     }
 
     /// A convenience method for adding a player to the given view controller.
@@ -429,25 +481,53 @@ open class Player: Player.ViewController {
     /// - Parameter viewController: The parent view controller that the player will be added to.
     open func add(to viewController: ViewController) {
         viewController.addChildViewController(self)
-        viewController.view.addSubview(view)
 
         #if canImport(UIKit)
-        didMove(toParentViewController: viewController)
+            didMove(toParentViewController: viewController)
         #endif
+
+        viewController.view.addSubview(view)
     }
 
     // MARK: - View Lifecycle
 
     open override func loadView() {
-        view = playerView
-
-        #if canImport(UIKit)
-            playerView.playerLayer.isHidden = true
+        #if canImport(AppKit)
+            view = playerView
+        #else
+            if useNativeUI {
+                super.loadView()
+            } else {
+                view = playerView
+            }
         #endif
     }
 
     open override func viewDidLoad() {
         super.viewDidLoad()
+
+        #if canImport(UIKit)
+            if useNativeUI {
+                let playerViewController = AVPlayerViewController()
+
+                addChildViewController(playerViewController)
+                playerViewController.didMove(toParentViewController: self)
+
+                playerViewController.view.translatesAutoresizingMaskIntoConstraints = false
+                view.addSubview(playerViewController.view)
+
+                NSLayoutConstraint.activate([
+                    playerViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                    playerViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
+                    playerViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                    playerViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+                    ])
+
+                nativePlayerViewController = playerViewController
+            } else {
+                playerView!.playerIsHidden = false
+            }
+        #endif
 
         if let url = url {
             setup(url: url)
@@ -480,6 +560,18 @@ open class Player: Player.ViewController {
     #endif
 
     // MARK: - Playback Methods
+
+    #if canImport(UIKit)
+        open func playerViewSet(player: AVPlayer) {
+            if let playerVC = nativePlayerViewController {
+                playerVC.player = player
+                playerVC.view.isHidden = false
+            } else {
+                playerView!.player = player
+                playerView!.playerIsHidden = false
+            }
+        }
+    #endif
 
     /// Begins playback of the media from the beginning.
     open func playFromBeginning() {
@@ -578,8 +670,13 @@ open class Player: Player.ViewController {
                 }
             }
         #else
-            UIGraphicsBeginImageContextWithOptions(playerView.frame.size, false, UIScreen.main.scale)
-            playerView.drawHierarchy(in: playerView.bounds, afterScreenUpdates: true)
+            if let playerVC = nativePlayerViewController {
+                UIGraphicsBeginImageContextWithOptions(playerVC.view.frame.size, false, UIScreen.main.scale)
+                playerVC.view.drawHierarchy(in: playerVC.view.bounds, afterScreenUpdates: true)
+            } else {
+                UIGraphicsBeginImageContextWithOptions(playerView!.frame.size, false, UIScreen.main.scale)
+                playerView!.drawHierarchy(in: playerView!.bounds, afterScreenUpdates: true)
+            }
             image = UIGraphicsGetImageFromCurrentImageContext()!
             UIGraphicsEndImageContext()
         #endif
@@ -594,7 +691,7 @@ open class Player: Player.ViewController {
         #if canImport(AppKit)
             return avPlayerLayer
         #else
-            return playerView.playerLayer
+            return playerView!.playerLayer
         #endif
     }
 }
@@ -612,6 +709,7 @@ fileprivate extension Player {
 
         // Reset autoplay flag since a new url is set.
         hasAutoplayActivated = false
+
         if autoplay {
             playbackState = .playing
         } else {
@@ -642,6 +740,7 @@ fileprivate extension Player {
                 var error: NSError?
                 let status = self.avAsset?.statusOfValue(forKey: key, error: &error)
                 if status == .failed {
+                    self.playerDelegate?.playerPlaybackError?(player: self, error: error)
                     self.playbackState = .failed
                     return
                 }
@@ -704,7 +803,8 @@ private extension Player {
 
     // MARK: AVPlayerItem
 
-    @objc func playerItemDidPlayToEndTime(_ aNotification: Notification) {
+    @objc
+    func playerItemDidPlayToEndTime(_ aNotification: Notification) {
         if playbackLoops {
             playbackDelegate?.playerPlaybackWillLoop?(player: self)
             avPlayer.seek(to: kCMTimeZero)
@@ -719,7 +819,8 @@ private extension Player {
         }
     }
 
-    @objc func playerItemFailedToPlayToEndTime(_ aNotification: Notification) {
+    @objc
+    func playerItemFailedToPlayToEndTime(_ aNotification: Notification) {
         playbackState = .failed
     }
 
@@ -745,25 +846,29 @@ private extension Player {
 
     // MARK: Notification Handlers
 
-    @objc func handleApplicationWillResignActive(_ aNotification: Notification) {
+    @objc
+    func handleApplicationWillResignActive(_ aNotification: Notification) {
         if playbackState == .playing && playbackPausesWhenResigningActive {
             pause()
         }
     }
 
-    @objc func handleApplicationDidBecomeActive(_ aNotification: Notification) {
+    @objc
+    func handleApplicationDidBecomeActive(_ aNotification: Notification) {
         if playbackState != .playing && playbackResumesWhenBecameActive {
             play()
         }
     }
 
-    @objc func handleApplicationDidEnterBackground(_ aNotification: Notification) {
+    @objc
+    func handleApplicationDidEnterBackground(_ aNotification: Notification) {
         if playbackState == .playing && playbackPausesWhenBackgrounded {
             pause()
         }
     }
 
-    @objc func handleApplicationWillEnterForeground(_ aNoticiation: Notification) {
+    @objc
+    func handleApplicationWillEnterForeground(_ aNoticiation: Notification) {
         if playbackState != .playing && playbackResumesWhenEnteringForeground {
             play()
         }
@@ -801,8 +906,6 @@ private extension Player {
 
     func addPlayerLayerObservers() {
         #if canImport(AppKit)
-            avPlayer.addObserver(self, forKeyPath: PlayerRateKey, context: &PlayerObserverContext)
-
             // Should work, but doesn't... radar://41298723
 //            playerView.addObserver(self, forKeyPath: #keyPath(AVPlayerView.isReadyForDisplay), context: &PlayerLayerObserverContext)
 
@@ -816,7 +919,11 @@ private extension Player {
                 }
             }
         #else
-            playerView.layer.addObserver(self, forKeyPath: PlayerLayerReadyForDisplayKey, options: [.new, .old], context: &PlayerLayerObserverContext)
+            if let playerVC = nativePlayerViewController {
+                playerVC.addObserver(self, forKeyPath: PlayerLayerReadyForDisplayKey, options: [.new, .old], context: &PlayerLayerObserverContext)
+            } else {
+                playerView!.layer.addObserver(self, forKeyPath: PlayerLayerReadyForDisplayKey, options: [.new, .old], context: &PlayerLayerObserverContext)
+            }
         #endif
     }
 
@@ -824,7 +931,11 @@ private extension Player {
         #if canImport(AppKit)
             avPlayerLayer?.removeObserver(self, forKeyPath: PlayerLayerReadyForDisplayKey, context: &PlayerLayerObserverContext)
         #else
-            playerView.layer.removeObserver(self, forKeyPath: PlayerLayerReadyForDisplayKey, context: &PlayerLayerObserverContext)
+            if let playerVC = nativePlayerViewController {
+                playerVC.view.removeObserver(self, forKeyPath: PlayerLayerReadyForDisplayKey, context: &PlayerLayerObserverContext)
+            } else {
+                playerView!.layer.removeObserver(self, forKeyPath: PlayerLayerReadyForDisplayKey, context: &PlayerLayerObserverContext)
+            }
         #endif
     }
 
@@ -835,14 +946,14 @@ private extension Player {
             guard let strongSelf = self else { return }
             strongSelf.playbackDelegate?.playerCurrentTimeDidChange?(player: strongSelf)
         }
-        avPlayer.addObserver(self, forKeyPath: AssetRateKey, options: [.new, .old], context: &PlayerObserverContext)
+        avPlayer.addObserver(self, forKeyPath: PlayerRateKey, options: [.new, .old], context: &PlayerObserverContext)
     }
 
     func removePlayerObservers() {
         if let observer = timeObserver {
             avPlayer.removeTimeObserver(observer)
         }
-        avPlayer.removeObserver(self, forKeyPath: AssetRateKey, context: &PlayerObserverContext)
+        avPlayer.removeObserver(self, forKeyPath: PlayerRateKey, context: &PlayerObserverContext)
     }
 }
 
@@ -851,10 +962,8 @@ extension Player {
         // AssetRateKey, PlayerObserverContext
         if context == &PlayerItemObserverContext {
             // PlayerItemStatusKey
-
             if keyPath == PlayerItemKeepUpKey {
                 // PlayerItemKeepUpKey
-
                 if let item = avPlayerItem {
                     if item.isPlaybackLikelyToKeepUp {
                         bufferingState = .ready
@@ -873,8 +982,10 @@ extension Player {
                     switch status.intValue as AVPlayerStatus.RawValue {
                         #if canImport(UIKit)
                         case AVPlayerStatus.readyToPlay.rawValue:
-                            playerView.playerLayer.player = avPlayer
-                            playerView.playerLayer.isHidden = false
+                            // TODO
+                            playerViewSet(player: avPlayer)
+//                            playerView.playerLayer.player = avPlayer
+//                            playerView.playerLayer.isHidden = false
                         #endif
                     case AVPlayerStatus.failed.rawValue:
                         playbackState = PlaybackState.failed
@@ -882,10 +993,8 @@ extension Player {
                         break
                     }
                 }
-
             } else if keyPath == PlayerItemEmptyBufferKey {
                 // PlayerItemEmptyBufferKey
-
                 if let item = avPlayerItem {
                     if item.isPlaybackBufferEmpty {
                         bufferingState = .delayed
@@ -896,8 +1005,10 @@ extension Player {
                     switch status.intValue as AVPlayerStatus.RawValue {
                         #if canImport(UIKit)
                         case AVPlayerStatus.readyToPlay.rawValue:
-                            playerView.playerLayer.player = avPlayer
-                            playerView.playerLayer.isHidden = false
+                            // TODO
+                             playerViewSet(player: avPlayer)
+//                            playerView.playerLayer.player = avPlayer
+//                            playerView.playerLayer.isHidden = false
                         #endif
                     case AVPlayerStatus.failed.rawValue:
                         playbackState = PlaybackState.failed
@@ -905,10 +1016,8 @@ extension Player {
                         break
                     }
                 }
-
             } else if keyPath == PlayerItemLoadedTimeRangesKey {
                 // PlayerItemLoadedTimeRangesKey
-
                 if let item = avPlayerItem {
                     bufferingState = .ready
 
@@ -937,12 +1046,12 @@ extension Player {
                     #endif
                 }
             }
-
         } else if context == &PlayerLayerObserverContext {
             #if canImport(AppKit)
                 let isReadyForDisplay = playerView.isReadyForDisplay
             #else
-                let isReadyForDisplay = playerView.playerLayer.isReadyForDisplay
+                let isReadyForDisplay = nativePlayerViewController?.isReadyForDisplay
+                    ?? playerView!.playerLayer.isReadyForDisplay
             #endif
 
             if isReadyForDisplay {
@@ -962,6 +1071,7 @@ extension Player {
             }
         }
     }
+
 }
 
 // MARK: - Dispatch
@@ -979,7 +1089,7 @@ extension Player {
 // MARK: - PlayerView (UIKit)
 
 #if canImport(UIKit)
-    internal class PlayerView: UIView {
+    internal class SuperSecretPlayerView: UIView {
 
         // MARK: - Properties
 
@@ -1009,20 +1119,54 @@ extension Player {
             }
         }
 
+        var playerIsReadyForDisplay: Bool {
+            get {
+                return self.playerLayer.isReadyForDisplay
+            }
+        }
+
+        var playerIsHidden: Bool {
+            get {
+                return self.playerLayer.isHidden
+            }
+            set {
+                self.playerLayer.isHidden = newValue
+            }
+        }
+
+        var playerBackgroundColor: UIColor? {
+            get {
+                if let cgColor = self.playerLayer.backgroundColor {
+                    return UIColor(cgColor: cgColor)
+                }
+                return nil
+            }
+            set {
+                self.playerLayer.backgroundColor = newValue?.cgColor
+            }
+        }
+
+        var playerFillMode: String {
+            get {
+                return self.playerLayer.fillMode
+            }
+            set {
+                self.playerLayer.fillMode = newValue
+            }
+        }
+
         // MARK: - Object Lifecycle
 
         override init(frame: CGRect) {
             super.init(frame: frame)
-
-            playerLayer.backgroundColor = UIColor.black.cgColor
-            playerLayer.videoGravity = .resizeAspect
+            playerBackgroundColor = .black
+            playerFillMode = Player.FillMode.resizeAspectFit.rawValue
         }
 
         required init?(coder aDecoder: NSCoder) {
             super.init(coder: aDecoder)
-
-            playerLayer.backgroundColor = UIColor.black.cgColor
-            playerLayer.videoGravity = .resizeAspect
+            playerBackgroundColor = .black
+            playerFillMode = Player.FillMode.resizeAspectFit.rawValue
         }
 
         deinit {

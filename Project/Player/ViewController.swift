@@ -43,8 +43,6 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        player.add(to: self)
-
         // Optional
         player.playerDelegate = self
         // Optional
@@ -56,6 +54,8 @@ class ViewController: UIViewController {
         player.url = URL(string: uri)
 
         player.playbackLoops = true
+
+        player.add(to: self)
 
         let tapGestureRecognizer = UITapGestureRecognizer(target: self,
                                                           action: #selector(handleTapGestureRecognizer(_:)))
