@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
   s.name = 'Player'
   s.version = '0.9'
   s.license = 'MIT'
-  s.summary = 'video player in Swift, simple way to play and stream media in your iOS/tvOS/macOS app'
+  s.summary = '▶️ A Swift Video Player: A simple way to play and stream media on iOS/tvOS/macOS'
   s.homepage = 'https://github.com/piemonte/player'
   s.social_media_url = 'https://twitter.com/piemonte'
   s.authors = { 'patrick piemonte' => "piemonte@alumni.cmu.edu", 'chris zielinski' => "chrisz@berkeley.edu" }
