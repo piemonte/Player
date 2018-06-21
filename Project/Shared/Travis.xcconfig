@@ -1,0 +1,11 @@
+//
+//  Travis.xcconfig
+//
+//  Created by Chris Zielinski on 6/21/18.
+//
+
+//#include "Release.xcconfig"
+
+CODE_SIGN_STYLE = Manual;
+CODE_SIGN_IDENTITY = ;
+DEVELOPMENT_TEAM = ;

@@ -6,6 +6,7 @@ env:
   - LC_CTYPE=en_US.UTF-8
   - LANG=en_US.UTF-8
   - CONFIG=Release
+  - XCCONFIG=Project/Shared/Travis.xcconfig
 matrix:
   include:
     - env:
@@ -15,12 +16,12 @@ matrix:
         - gem install xcpretty
     - env:
         ACTION=build:xcodebuild:ios
-        SDK=iphoneos11.4
+        SDK=iphonesimulator11.4
       install:
         - gem install xcpretty
     - env:
         ACTION=build:xcodebuild:tvos
-        SDK=appletvos11.4
+        SDK=appletvsimulator11.4
       install:
         - gem install xcpretty
     - env: ACTION=build:carthage:ios

@@ -26,17 +26,17 @@ namespace :build do
 
         desc "Build for macOS"
         task :macos do
-            pretty "xcodebuild -workspace Player.xcworkspace -scheme 'Release - macOS' -configuration $CONFIG -sdk $SDK build analyze"
+            pretty "xcodebuild -workspace Player.xcworkspace -scheme 'Release - macOS' -xcconfig $XCCONFIG -configuration $CONFIG -sdk $SDK build analyze"
         end
 
         desc "Build for iOS "
         task :ios do
-            pretty "xcodebuild -workspace Player.xcworkspace -scheme 'Release - iOS' -configuration $CONFIG -sdk $SDK build analyze"
+            pretty "xcodebuild -workspace Player.xcworkspace -scheme 'Release - iOS' -xcconfig $XCCONFIG -configuration $CONFIG -sdk $SDK build analyze"
         end
 
         desc "Build for tvOS"
         task :tvos do
-            pretty "xcodebuild -workspace Player.xcworkspace -scheme 'Release - tvOS' -configuration $CONFIG -sdk $SDK build analyze"
+            pretty "xcodebuild -workspace Player.xcworkspace -scheme 'Release - tvOS' -xcconfig $XCCONFIG -configuration $CONFIG -sdk $SDK build analyze"
         end
     end
 end
