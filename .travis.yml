@@ -1,12 +1,32 @@
 language: objective-c
-osx_image: xcode9.1
+osx_image: xcode9.4
+xcode_workspace: Player.xcworkspace
 env:
   global:
   - LC_CTYPE=en_US.UTF-8
   - LANG=en_US.UTF-8
-  - IOS_SDK=iphonesimulator11.1
-  - TVOS_SDK=appletvsimulator11.1
-script:
-  - xcodebuild -showsdks
-  - xcodebuild -project Project/Player.xcodeproj -scheme 'Debug - iOS' -sdk $IOS_SDK build analyze
-#  - xcodebuild -project Project/Player.xcodeproj -scheme 'Debug - tvOS' -sdk $TVOS_SDK build analyze
+  - CONFIG=Release
+matrix:
+  include:
+    - env:
+        ACTION=build:xcodebuild:macos
+        SDK=macosx10.13
+      install:
+        - gem install xcpretty
+    - env:
+        ACTION=build:xcodebuild:ios
+        SDK=iphoneos11.4
+      install:
+        - gem install xcpretty
+    - env:
+        ACTION=build:xcodebuild:tvos
+        SDK=appletvos11.4
+      install:
+        - gem install xcpretty
+    - env: ACTION=build:carthage:ios
+    - env: ACTION=build:carthage:macos
+    - env: ACTION=build:carthage:tvos
+    - env: ACTION=build:pod
+    - env: ACTION=swiftlint
+  fast_finish: true
+script: rake "$ACTION"
