@@ -1,0 +1,6 @@
+included:
+  - Sources
+  - Project
+
+excluded:
+  - Carthage
