@@ -228,7 +228,7 @@ open class Player: Player.ViewController {
             var color: Color?
             #if canImport(AppKit)
                 if let backgroundColor = playerView.layer?.backgroundColor {
-                    color = Color(cgColor: cgColor)
+                    color = Color(cgColor: backgroundColor)
                 }
             #else
                 if let nativePlayerViewController = nativePlayerViewController {
@@ -471,10 +471,6 @@ open class Player: Player.ViewController {
         #endif
     }
 
-    override open var shouldAutomaticallyForwardAppearanceMethods: Bool {
-        return false
-    }
-
     /// A convenience method for adding a player to the given view controller.
     /// The player will be added to `viewController`'s `childViewControllers` array and its view hierarchy.
     ///
@@ -562,7 +558,7 @@ open class Player: Player.ViewController {
     // MARK: - Playback Methods
 
     #if canImport(UIKit)
-        open func playerViewSet(player: AVPlayer) {
+        open func PlayerViewSet(player: AVPlayer) {
             if let playerVC = nativePlayerViewController {
                 playerVC.player = player
                 playerVC.view.isHidden = false
@@ -983,7 +979,7 @@ extension Player {
                         #if canImport(UIKit)
                         case AVPlayerStatus.readyToPlay.rawValue:
                             // TODO
-                            playerViewSet(player: avPlayer)
+                            PlayerViewSet(player: avPlayer)
 //                            playerView.playerLayer.player = avPlayer
 //                            playerView.playerLayer.isHidden = false
                         #endif
@@ -1006,7 +1002,7 @@ extension Player {
                         #if canImport(UIKit)
                         case AVPlayerStatus.readyToPlay.rawValue:
                             // TODO
-                             playerViewSet(player: avPlayer)
+                             PlayerViewSet(player: avPlayer)
 //                            playerView.playerLayer.player = avPlayer
 //                            playerView.playerLayer.isHidden = false
                         #endif

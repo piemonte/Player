@@ -14,7 +14,6 @@
 		065A0FA51A25C8E2005BA7BC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065A0FA41A25C8E2005BA7BC /* ViewController.swift */; };
 		065A0FAA1A25C8E2005BA7BC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 065A0FA91A25C8E2005BA7BC /* Assets.xcassets */; };
 		065A0FAD1A25C8E2005BA7BC /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 065A0FAB1A25C8E2005BA7BC /* LaunchScreen.xib */; };
-		06C0905F1E038F250038CA25 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065A0FC51A25C94B005BA7BC /* Player.swift */; };
 		848DE8D920D86AEB000807C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848DE8D820D86AEB000807C4 /* AppDelegate.swift */; };
 		848DE8DB20D86AEF000807C4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 848DE8DA20D86AEF000807C4 /* Assets.xcassets */; };
 		848DE8E520D86C1E000807C4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848DE8E420D86C1E000807C4 /* ViewController.swift */; };
@@ -26,6 +25,7 @@
 		848DE90120D96741000807C4 /* Player.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0638A5311E01BBF8009EE18B /* Player.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		848DE90520D96923000807C4 /* Player.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0638A5311E01BBF8009EE18B /* Player.framework */; };
 		848DE90620D96923000807C4 /* Player.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0638A5311E01BBF8009EE18B /* Player.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8491C2FF20DC1A570057A7C4 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8491C2FE20DC1A570057A7C4 /* Player.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -101,7 +101,6 @@
 		065A0FA41A25C8E2005BA7BC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		065A0FA91A25C8E2005BA7BC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		065A0FAC1A25C8E2005BA7BC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		065A0FC51A25C94B005BA7BC /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Player.swift; path = ../Sources/Player.swift; sourceTree = "<group>"; };
 		848DE8D620D86AEB000807C4 /* Player_macOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Player_macOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		848DE8D820D86AEB000807C4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = ../PlayerMac/AppDelegate.swift; sourceTree = "<group>"; };
 		848DE8DA20D86AEF000807C4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../PlayerMac/Assets.xcassets; sourceTree = "<group>"; };
@@ -114,6 +113,9 @@
 		848DE8EC20D8C7AC000807C4 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		848DE8ED20D8C7AC000807C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		848DE8EE20D8C7AC000807C4 /* Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Base.xcconfig; sourceTree = "<group>"; };
+		8491C2FE20DC1A570057A7C4 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		8491C30020DC21E50057A7C4 /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; name = .travis.yml; path = ../.travis.yml; sourceTree = "<group>"; };
+		8491C30120DC220B0057A7C4 /* Rakefile */ = {isa = PBXFileReference; lastKnownFileType = text; name = Rakefile; path = ../Rakefile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,11 +176,13 @@
 		065A0F941A25C8E2005BA7BC = {
 			isa = PBXGroup;
 			children = (
+				8491C30120DC220B0057A7C4 /* Rakefile */,
+				8491C30020DC21E50057A7C4 /* .travis.yml */,
+				8491C2FD20DC1A570057A7C4 /* Sources */,
 				065A0F9F1A25C8E2005BA7BC /* iOS */,
 				848DE8D720D86AEB000807C4 /* macOS */,
 				04B4E63E1C1E8A7B00E20778 /* tvOS */,
 				848DE8E920D8C7AC000807C4 /* Shared */,
-				065A0FC21A25C917005BA7BC /* Source */,
 				065A0F9E1A25C8E2005BA7BC /* Products */,
 			);
 			sourceTree = "<group>";
@@ -215,14 +219,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		065A0FC21A25C917005BA7BC /* Source */ = {
-			isa = PBXGroup;
-			children = (
-				065A0FC51A25C94B005BA7BC /* Player.swift */,
-			);
-			name = Source;
-			sourceTree = "<group>";
-		};
 		848DE8D720D86AEB000807C4 /* macOS */ = {
 			isa = PBXGroup;
 			children = (
@@ -247,6 +243,15 @@
 				848DE8EE20D8C7AC000807C4 /* Base.xcconfig */,
 			);
 			path = Shared;
+			sourceTree = "<group>";
+		};
+		8491C2FD20DC1A570057A7C4 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				8491C2FE20DC1A570057A7C4 /* Player.swift */,
+			);
+			name = Sources;
+			path = ../Sources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -448,7 +453,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
+			shellScript = "# Change directory (inside 'Player/Project' right now).\ncd ..\n\nif [ \"${CONFIGURATION}\" = \"Debug\" ]; then\n    if which swiftlint >/dev/null; then\n        swiftlint\n    else\n        echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\n    fi\nelse\n    echo \"warning: Skipping SwiftLint (Travis will run it)\"\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -466,7 +471,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				06C0905F1E038F250038CA25 /* Player.swift in Sources */,
+				8491C2FF20DC1A570057A7C4 /* Player.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
