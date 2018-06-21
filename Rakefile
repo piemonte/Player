@@ -1,24 +1,20 @@
 # Based on the Regex Rakefile (https://github.com/sharplet/Regex)
 
 namespace :build do
-  desc "Build and validate the podspec"
-  task :pod do
+    desc "Build and validate the podspec"
+    task :pod do
     sh "pod lib lint *.podspec --no-clean"
-  end
-
-  namespace :carthage do
-    %w[ios macos tvos].each do |platform|
-      desc "Build the Carthage framework on #{platform}"
-      task platform.downcase.to_sym do
-        sh "carthage build --platform #{platform} --no-skip-current"
-      end
     end
-  end
+
+    desc "Build the Carthage frameworks for all platforms"
+    task :carthage do
+      sh "carthage build --no-skip-current"
+    end
 
     namespace :xcodebuild do
-        def pretty(cmd)
+        def pretty(scheme)
             if system("which -s xcpretty")
-                sh("/bin/sh", "-o", "pipefail", "-c", "env NSUnbufferedIO=YES #{cmd}")
+                sh("/bin/sh", "-o", "pipefail", "-c", "env NSUnbufferedIO=YES xcodebuild -workspace Player.xcworkspace -scheme '#{scheme}' -xcconfig $XCCONFIG -configuration $CONFIG -sdk $SDK build analyze | xcpretty")
                 else
                 sh(cmd)
             end
@@ -26,17 +22,17 @@ namespace :build do
 
         desc "Build for macOS"
         task :macos do
-            pretty "xcodebuild -workspace Player.xcworkspace -scheme 'Release - macOS' -xcconfig $XCCONFIG -configuration $CONFIG -sdk $SDK build analyze"
+            pretty "Release - macOS"
         end
 
         desc "Build for iOS "
         task :ios do
-            pretty "xcodebuild -workspace Player.xcworkspace -scheme 'Release - iOS' -xcconfig $XCCONFIG -configuration $CONFIG -sdk $SDK build analyze"
+            pretty "Release - iOS"
         end
 
         desc "Build for tvOS"
         task :tvos do
-            pretty "xcodebuild -workspace Player.xcworkspace -scheme 'Release - tvOS' -xcconfig $XCCONFIG -configuration $CONFIG -sdk $SDK build analyze"
+            pretty "Release - tvOS"
         end
     end
 end

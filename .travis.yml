@@ -24,9 +24,7 @@ matrix:
         SDK=appletvsimulator11.4
       install:
         - gem install xcpretty
-    - env: ACTION=build:carthage:ios
-    - env: ACTION=build:carthage:macos
-    - env: ACTION=build:carthage:tvos
+    - env: ACTION=build:carthage
     - env: ACTION=build:pod
     - env: ACTION=swiftlint
   fast_finish: true
