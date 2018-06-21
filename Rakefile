@@ -7,7 +7,7 @@ namespace :build do
   end
 
   namespace :carthage do
-    %w[ios macos tvos.each do |platform|
+    %w[ios macos tvos].each do |platform|
       desc "Build the Carthage framework on #{platform}"
       task platform.downcase.to_sym do
         sh "carthage build --platform #{platform} --no-skip-current"
