@@ -18,9 +18,6 @@ class TestViewController: NSViewController {
 
 	convenience init() {
 		self.init(nibName: nil, bundle: nil)
-
-        player.avPlayer.allowsExternalPlayback = false
-        (player.view as! AVPlayerView).updatesNowPlayingInfoCenter = false
 	}
 
 	override func loadView() {
@@ -35,9 +32,6 @@ class TestViewController: NSViewController {
 		player.view.frame = view.bounds
 
         player.playbackDelegate = self
-        player.playerDelegate = self
-
-        print(#function)
 	}
 }
 
@@ -53,12 +47,6 @@ extension TestViewController: PlayerPlaybackDelegate {
     }
 }
 
-extension TestViewController: PlayerDelegate {
-    func playerBufferTimeDidChange(bufferTime: Double) {
-        print(bufferTime)
-    }
-}
-
 class MacPlayerTests: XCTestCase {
 
 	var testViewController: TestViewController!
@@ -70,7 +58,6 @@ class MacPlayerTests: XCTestCase {
 		super.setUp()
 		// Put setup code here. This method is called before the invocation of each test method in the class.
 		testViewController = TestViewController()
-        player.controlsStyle = .none
 		NSApp.windows.first!.contentViewController = testViewController
 	}
 
@@ -104,7 +91,7 @@ class MacPlayerTests: XCTestCase {
 
         let result = XCTWaiter.wait(for: [
             expectation(for: NSPredicate(format: "didLoop == true"), evaluatedWith: testViewController, handler: nil)],
-                                    timeout: 10)
+                                    timeout: 12)
 
         XCTAssert(result == .completed, "`playerPlaybackWillLoop(player:)` was not called.")
         XCTAssert(player.currentTime < 0.5, "Player did not loop.")

@@ -32,8 +32,6 @@ class TestViewController: UIViewController {
 extension TestViewController: PlayerPlaybackDelegate {
     func playerPlaybackWillLoop(player: Player) {
         didLoop = true
-
-        print(#function)
     }
 
     func playerCurrentTimeDidChange(player: Player) {
@@ -52,7 +50,6 @@ class iOSPlayerTests: XCTestCase {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
         testViewController = TestViewController()
-        player.usesSystemPlaybackControls = false
         UIApplication.shared.windows.first!.rootViewController = testViewController
     }
 

@@ -500,7 +500,7 @@ open class Player: Player.ViewController {
     ///
     /// - Parameter viewController: The parent view controller that the player will be added to.
     open func add(to viewController: ViewController) {
-		viewController.addChildViewController(self)
+        viewController.addChildViewController(self)
 
         #if canImport(UIKit)
         if usesSystemPlaybackControls {
@@ -528,6 +528,8 @@ open class Player: Player.ViewController {
 
 		didMove(toParentViewController: viewController)
         #endif
+
+        addPlayerLayerObservers()
 
         viewController.view.addSubview(view)
     }
@@ -564,7 +566,6 @@ open class Player: Player.ViewController {
             setupAsset(asset)
         }
 
-        addPlayerLayerObservers()
         addPlayerObservers()
         addApplicationObservers()
     }
@@ -1021,9 +1022,9 @@ private extension Player {
         #else
             if let playerViewController = avPlayerViewController {
                 playerViewController.addObserver(self,
-                                     forKeyPath: PlayerLayerReadyForDisplayKey,
-                                     options: [.new, .old],
-                                     context: &PlayerLayerObserverContext)
+                                                 forKeyPath: PlayerLayerReadyForDisplayKey,
+                                                 options: [.new, .old],
+                                                 context: &PlayerLayerObserverContext)
             } else {
                 playerView!.layer.addObserver(self,
                                                    forKeyPath: PlayerLayerReadyForDisplayKey,
@@ -1034,15 +1035,15 @@ private extension Player {
     }
 
     func removePlayerLayerObservers() {
-        #if canImport(AppKit)
+        #if canImport(AppKit)    
             avPlayerLayer?.removeObserver(self,
                                                forKeyPath: PlayerLayerReadyForDisplayKey,
                                                context: &PlayerLayerObserverContext)
         #else
             if let playerViewController = avPlayerViewController {
-                playerViewController.view.removeObserver(self,
-                                             forKeyPath: PlayerLayerReadyForDisplayKey,
-                                             context: &PlayerLayerObserverContext)
+                playerViewController.removeObserver(self,
+                                                    forKeyPath: PlayerLayerReadyForDisplayKey,
+                                                    context: &PlayerLayerObserverContext)
             } else {
                 playerView!.layer.removeObserver(self,
                                                       forKeyPath: PlayerLayerReadyForDisplayKey,
