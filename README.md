@@ -25,6 +25,7 @@
 - [x] no size restrictions
 - [x] orientation change support
 - [x] simple API
+- [x] AirPlay & PIP support (see [`AVPlayerController`](https://developer.apple.com/documentation/avkit/avplayerviewcontroller) documentation)
 
 ### I'm a ~~Rapper~~ Wrapper
 - uses [`AVPlayerViewController`](https://developer.apple.com/documentation/avkit/avplayerviewcontroller) on iOS/tvOS platforms for system-supplied playback controls (See `usesSystemPlaybackControls`). Otherwise, an [`AVPlayerLayer`](https://developer.apple.com/documentation/avfoundation/avplayerlayer).
@@ -89,12 +90,15 @@ player.fillMode = .resizeAspectFit
 The fill mode can be set to the following values:
 
 `.resizeAspectFit` (default)
+
 ![.resizeAspectFit](https://github.com/chriszielinski/Player/raw/master/readme-assets/aspectFit.png)
 
 `.resizeAspectFill`
+
 ![.resizeAspectFill](https://github.com/chriszielinski/Player/raw/master/readme-assets/aspectFill.png)
 
 `.resizeStretch` (aka please don't. I mean look at that poor thing)
+
 ![.resizeStretch](https://github.com/chriszielinski/Player/raw/master/readme-assets/stretch.png)
 
 Display video playback progress, if desired. Note, all delegate methods are optional.
@@ -133,7 +137,7 @@ player.add(to: self)
 ```
 
 ## macOS
-On the macOS platform, the player can display media controls. 
+On the macOS platform, the player can display media controls as well. 
 
 ```swift
 player.controlsStyle = .floating
@@ -144,12 +148,15 @@ The controls' style can be set to the following:
 `.none`
 
 `.inline` (default)
+
 ![Player](https://github.com/chriszielinski/Player/raw/master/readme-assets/inline.png)
 
 `.minimal`
+
 ![Player](https://github.com/chriszielinski/Player/raw/master/readme-assets/minimal.png)
 
 `.floating`
+
 ![Player](https://github.com/chriszielinski/Player/raw/master/readme-assets/floating.png)
 
 ## Documentation
