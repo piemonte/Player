@@ -34,9 +34,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]? = nil) -> Bool {
+
         window = UIWindow(frame: UIScreen.main.bounds)
         window!.backgroundColor = UIColor.black
-        window!.rootViewController = ViewController()
+
+        if NSClassFromString("XCTest") == nil {
+            window!.rootViewController = ViewController()
+        } else {
+            window!.rootViewController = UIViewController()
+        }
+
         window!.makeKeyAndVisible()
         return true
     }

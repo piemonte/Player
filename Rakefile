@@ -13,11 +13,7 @@ namespace :build do
 
     namespace :xcodebuild do
         def pretty(scheme)
-            if system("which -s xcpretty")
-                sh("/bin/sh", "-o", "pipefail", "-c", "env NSUnbufferedIO=YES xcodebuild -workspace Player.xcworkspace -scheme '#{scheme}' -xcconfig $XCCONFIG -configuration $CONFIG -sdk $SDK build analyze | xcpretty")
-                else
-                sh(cmd)
-            end
+            sh("/bin/sh", "-o", "pipefail", "-c", "env NSUnbufferedIO=YES xcodebuild -workspace Player.xcworkspace -scheme '#{scheme}' -xcconfig $XCCONFIG -configuration $CONFIG -sdk $SDK build analyze | xcpretty")
         end
 
         desc "Build for macOS"
@@ -39,16 +35,17 @@ end
 
 namespace :test do
     def prettyTest(cmd)
-        if system("which -s xcpretty")
-            sh("/bin/sh", "-o", "pipefail", "-c", "env NSUnbufferedIO=YES #{cmd}")
-            else
-            sh(cmd)
-        end
+        sh("/bin/sh", "-o", "pipefail", "-c", "env NSUnbufferedIO=YES xcodebuild build-for-testing test-without-building -workspace Player.xcworkspace -scheme #{cmd} -xcconfig $XCCONFIG -sdk $SDK")
     end
 
     desc "Run tests on macOS"
     task :macos do
-        prettyTest "xcodebuild build-for-testing test-without-building -workspace Player.xcworkspace -scheme 'Debug - macOS' -xcconfig $XCCONFIG -sdk $SDK"
+        prettyTest "'Debug - macOS'"
+    end
+
+    desc "Run tests on iOS"
+    task :ios do
+        prettyTest "'Debug - iOS' -destination 'platform=iOS Simulator,name=iPhone X'"
     end
 end
 

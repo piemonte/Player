@@ -1,6 +1,6 @@
 //
-//  PlayerTests_macOS.swift
-//  PlayerTests_macOS
+//  iOSPlayerTests.swift
+//  iOS  PlayerTests
 //
 //  Created by Chris Zielinski on 6/22/18.
 //  Copyright © 2018 Patrick Piemonte. All rights reserved.
@@ -9,36 +9,24 @@
 import XCTest
 import Player
 import AVKit
-@testable import Player_macOS
+@testable import Player_iOS
 
-class TestViewController: NSViewController {
+class TestViewController: UIViewController {
 
     let player = Player()
     @objc dynamic var didLoop: Bool = false
 
-	convenience init() {
-		self.init(nibName: nil, bundle: nil)
+    convenience init() {
+        self.init(nibName: nil, bundle: nil)
+    }
 
-        player.avPlayer.allowsExternalPlayback = false
-        (player.view as! AVPlayerView).updatesNowPlayingInfoCenter = false
-	}
-
-	override func loadView() {
-		view = NSView()
-		view.autoresizingMask = [.height, .width]
-		view.setFrameSize(NSSize(width: 400 * (16.0 / 9), height: 400))
-	}
-
-	override func viewDidLoad() {
-		player.url = Bundle(for: type(of: self)).url(forResource: "test", withExtension: "mp4")!
-		player.view.autoresizingMask = [.height, .width]
-		player.view.frame = view.bounds
+    override func viewDidLoad() {
+        player.url = Bundle(for: type(of: self)).url(forResource: "test", withExtension: "mp4")!
+        player.view.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        player.view.frame = view.bounds
 
         player.playbackDelegate = self
-        player.playerDelegate = self
-
-        print(#function)
-	}
+    }
 }
 
 extension TestViewController: PlayerPlaybackDelegate {
@@ -53,40 +41,34 @@ extension TestViewController: PlayerPlaybackDelegate {
     }
 }
 
-extension TestViewController: PlayerDelegate {
-    func playerBufferTimeDidChange(bufferTime: Double) {
-        print(bufferTime)
+class iOSPlayerTests: XCTestCase {
+    
+    var testViewController: TestViewController!
+    var player: Player {
+        return testViewController.player
     }
-}
 
-class MacPlayerTests: XCTestCase {
+    override func setUp() {
+        super.setUp()
+        // Put setup code here. This method is called before the invocation of each test method in the class.
+        testViewController = TestViewController()
+        player.usesSystemPlaybackControls = false
+        UIApplication.shared.windows.first!.rootViewController = testViewController
+    }
 
-	var testViewController: TestViewController!
-	var player: Player {
-		return testViewController.player
-	}
-
-	override func setUp() {
-		super.setUp()
-		// Put setup code here. This method is called before the invocation of each test method in the class.
-		testViewController = TestViewController()
-        player.controlsStyle = .none
-		NSApp.windows.first!.contentViewController = testViewController
-	}
-
-	override func tearDown() {
-		// Put teardown code here. This method is called after the invocation of each test method in the class.
-		super.tearDown()
+    override func tearDown() {
+        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        super.tearDown()
         testViewController = nil
-	}
+    }
 
-	func testAutoplayEnabled() {
-		player.autoplay = true
-		player.add(to: testViewController)
+    func testAutoplayEnabled() {
+        player.autoplay = true
+        player.add(to: testViewController)
 
-		expectation(for: NSPredicate(format: "isPlaying == true"), evaluatedWith: player, handler: nil)
-		waitForExpectations(timeout: 5, handler: nil)
-	}
+        expectation(for: NSPredicate(format: "isPlaying == true"), evaluatedWith: player, handler: nil)
+        waitForExpectations(timeout: 5, handler: nil)
+    }
 
     func testAutoplayDisabled() {
         player.autoplay = false
@@ -121,5 +103,5 @@ class MacPlayerTests: XCTestCase {
         XCTAssert(player.currentTime == player.maximumDuration, "Player did not freeze at last frame.")
         XCTAssert(!player.isPlaying, "`isPlaying` is true.")
     }
-
+    
 }
