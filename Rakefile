@@ -35,7 +35,7 @@ end
 
 namespace :test do
     def prettyTest(cmd)
-        sh("/bin/sh", "-o", "pipefail", "-c", "env NSUnbufferedIO=YES xcodebuild build-for-testing test-without-building -workspace Player.xcworkspace -scheme #{cmd} -xcconfig $XCCONFIG -sdk $SDK")
+        sh("/bin/sh", "-o", "pipefail", "-c", "env NSUnbufferedIO=YES xcodebuild build-for-testing test-without-building -workspace Player.xcworkspace -scheme #{cmd} -xcconfig $XCCONFIG -sdk $SDK | xcpretty")
     end
 
     desc "Run tests on macOS"
