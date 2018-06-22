@@ -10,7 +10,7 @@ env:
 matrix:
   include:
     - env:
-        ACTION=build:xcodebuild:macos
+        ACTION=test:macos
         SDK=macosx10.13
       install:
         - gem install xcpretty

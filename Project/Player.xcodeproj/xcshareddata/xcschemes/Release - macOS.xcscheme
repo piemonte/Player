@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "848DE8D520D86AEB000807C4"
-               BuildableName = "Player_macOS.app"
-               BlueprintName = "Player_macOS"
+               BuildableName = "Player macOS.app"
+               BlueprintName = "Player macOS"
                ReferencedContainer = "container:Player.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,13 +28,23 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "14F9E1F220DD5259008D7CB2"
+               BuildableName = "PlayerTests macOS.xctest"
+               BlueprintName = "PlayerTests macOS"
+               ReferencedContainer = "container:Player.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "848DE8D520D86AEB000807C4"
-            BuildableName = "Player_macOS.app"
-            BlueprintName = "Player_macOS"
+            BuildableName = "Player macOS.app"
+            BlueprintName = "Player macOS"
             ReferencedContainer = "container:Player.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -56,8 +66,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "848DE8D520D86AEB000807C4"
-            BuildableName = "Player_macOS.app"
-            BlueprintName = "Player_macOS"
+            BuildableName = "Player macOS.app"
+            BlueprintName = "Player macOS"
             ReferencedContainer = "container:Player.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -75,8 +85,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "848DE8D520D86AEB000807C4"
-            BuildableName = "Player_macOS.app"
-            BlueprintName = "Player_macOS"
+            BuildableName = "Player macOS.app"
+            BlueprintName = "Player macOS"
             ReferencedContainer = "container:Player.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

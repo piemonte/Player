@@ -37,6 +37,21 @@ namespace :build do
     end
 end
 
+namespace :test do
+    def pretty(cmd)
+        if system("which -s xcpretty")
+            sh("/bin/sh", "-o", "pipefail", "-c", "env NSUnbufferedIO=YES #{cmd} | xcpretty")
+            else
+            sh(cmd)
+        end
+    end
+
+    desc "Run tests on macOS"
+    task :macos do
+        pretty "xcodebuild build-for-testing test-without-building -workspace Player.xcworkspace -scheme 'Release - macOS' -xcconfig $XCCONFIG -sdk $SDK"
+    end
+end
+
 desc "Run swiftlint if available"
 task :swiftlint do
   return unless system "which -s swiftlint"

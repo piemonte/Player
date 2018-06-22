@@ -14,6 +14,8 @@
 		065A0FA51A25C8E2005BA7BC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065A0FA41A25C8E2005BA7BC /* ViewController.swift */; };
 		065A0FAA1A25C8E2005BA7BC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 065A0FA91A25C8E2005BA7BC /* Assets.xcassets */; };
 		065A0FAD1A25C8E2005BA7BC /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 065A0FAB1A25C8E2005BA7BC /* LaunchScreen.xib */; };
+		14F9E1F620DD5259008D7CB2 /* MacPlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F9E1F520DD5259008D7CB2 /* MacPlayerTests.swift */; };
+		14F9E20120DD5A3C008D7CB2 /* test.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 14F9E20020DD5A3C008D7CB2 /* test.mp4 */; };
 		848DE8D920D86AEB000807C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848DE8D820D86AEB000807C4 /* AppDelegate.swift */; };
 		848DE8DB20D86AEF000807C4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 848DE8DA20D86AEF000807C4 /* Assets.xcassets */; };
 		848DE8E520D86C1E000807C4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848DE8E420D86C1E000807C4 /* ViewController.swift */; };
@@ -29,6 +31,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		14F9E1F820DD5259008D7CB2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 065A0F951A25C8E2005BA7BC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 848DE8D520D86AEB000807C4;
+			remoteInfo = Player_macOS;
+		};
 		848DE8F320D9550A000807C4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 065A0F951A25C8E2005BA7BC /* Project object */;
@@ -101,7 +110,12 @@
 		065A0FA41A25C8E2005BA7BC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		065A0FA91A25C8E2005BA7BC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		065A0FAC1A25C8E2005BA7BC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		848DE8D620D86AEB000807C4 /* Player_macOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Player_macOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		14F9E1F320DD5259008D7CB2 /* PlayerTests macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "PlayerTests macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		14F9E1F520DD5259008D7CB2 /* MacPlayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacPlayerTests.swift; sourceTree = "<group>"; };
+		14F9E1F720DD5259008D7CB2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		14F9E1FD20DD553B008D7CB2 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; name = .swiftlint.yml; path = ../.swiftlint.yml; sourceTree = "<group>"; };
+		14F9E20020DD5A3C008D7CB2 /* test.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.mp4; sourceTree = "<group>"; };
+		848DE8D620D86AEB000807C4 /* Player macOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Player macOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		848DE8D820D86AEB000807C4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = ../PlayerMac/AppDelegate.swift; sourceTree = "<group>"; };
 		848DE8DA20D86AEF000807C4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../PlayerMac/Assets.xcassets; sourceTree = "<group>"; };
 		848DE8DD20D86AEF000807C4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
@@ -143,6 +157,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		14F9E1F020DD5259008D7CB2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		848DE8D320D86AEB000807C4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -177,6 +198,7 @@
 		065A0F941A25C8E2005BA7BC = {
 			isa = PBXGroup;
 			children = (
+				14F9E1FD20DD553B008D7CB2 /* .swiftlint.yml */,
 				8491C30120DC220B0057A7C4 /* Rakefile */,
 				8491C30020DC21E50057A7C4 /* .travis.yml */,
 				8491C2FD20DC1A570057A7C4 /* Sources */,
@@ -184,6 +206,7 @@
 				848DE8D720D86AEB000807C4 /* macOS */,
 				04B4E63E1C1E8A7B00E20778 /* tvOS */,
 				848DE8E920D8C7AC000807C4 /* Shared */,
+				14F9E1FF20DD574D008D7CB2 /* Tests */,
 				065A0F9E1A25C8E2005BA7BC /* Products */,
 			);
 			sourceTree = "<group>";
@@ -194,7 +217,8 @@
 				065A0F9D1A25C8E2005BA7BC /* Player iOS.app */,
 				04B4E63D1C1E8A7B00E20778 /* Player_tv.app */,
 				0638A5311E01BBF8009EE18B /* Player.framework */,
-				848DE8D620D86AEB000807C4 /* Player_macOS.app */,
+				848DE8D620D86AEB000807C4 /* Player macOS.app */,
+				14F9E1F320DD5259008D7CB2 /* PlayerTests macOS.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -220,6 +244,23 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		14F9E1F420DD5259008D7CB2 /* macOS */ = {
+			isa = PBXGroup;
+			children = (
+				14F9E1F520DD5259008D7CB2 /* MacPlayerTests.swift */,
+				14F9E1F720DD5259008D7CB2 /* Info.plist */,
+			);
+			path = macOS;
+			sourceTree = "<group>";
+		};
+		14F9E1FF20DD574D008D7CB2 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				14F9E1F420DD5259008D7CB2 /* macOS */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
 		848DE8D720D86AEB000807C4 /* macOS */ = {
 			isa = PBXGroup;
 			children = (
@@ -237,6 +278,7 @@
 		848DE8E920D8C7AC000807C4 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				14F9E20020DD5A3C008D7CB2 /* test.mp4 */,
 				8491C31120DC486C0057A7C4 /* Travis.xcconfig */,
 				848DE8EA20D8C7AC000807C4 /* Debug.xcconfig */,
 				848DE8EB20D8C7AC000807C4 /* Player.h */,
@@ -270,9 +312,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		04B4E63C1C1E8A7B00E20778 /* Player_tv */ = {
+		04B4E63C1C1E8A7B00E20778 /* Player tvOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 04B4E64B1C1E8A7C00E20778 /* Build configuration list for PBXNativeTarget "Player_tv" */;
+			buildConfigurationList = 04B4E64B1C1E8A7C00E20778 /* Build configuration list for PBXNativeTarget "Player tvOS" */;
 			buildPhases = (
 				04B4E6391C1E8A7B00E20778 /* Sources */,
 				04B4E63A1C1E8A7B00E20778 /* Frameworks */,
@@ -284,7 +326,7 @@
 			dependencies = (
 				848DE90320D96741000807C4 /* PBXTargetDependency */,
 			);
-			name = Player_tv;
+			name = "Player tvOS";
 			productName = PlayerTV;
 			productReference = 04B4E63D1C1E8A7B00E20778 /* Player_tv.app */;
 			productType = "com.apple.product-type.application";
@@ -308,9 +350,9 @@
 			productReference = 0638A5311E01BBF8009EE18B /* Player.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		065A0F9C1A25C8E2005BA7BC /* Player_iOS */ = {
+		065A0F9C1A25C8E2005BA7BC /* Player iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 065A0FBC1A25C8E2005BA7BC /* Build configuration list for PBXNativeTarget "Player_iOS" */;
+			buildConfigurationList = 065A0FBC1A25C8E2005BA7BC /* Build configuration list for PBXNativeTarget "Player iOS" */;
 			buildPhases = (
 				065A0F991A25C8E2005BA7BC /* Sources */,
 				065A0F9A1A25C8E2005BA7BC /* Frameworks */,
@@ -322,14 +364,32 @@
 			dependencies = (
 				848DE90820D96923000807C4 /* PBXTargetDependency */,
 			);
-			name = Player_iOS;
+			name = "Player iOS";
 			productName = Player;
 			productReference = 065A0F9D1A25C8E2005BA7BC /* Player iOS.app */;
 			productType = "com.apple.product-type.application";
 		};
-		848DE8D520D86AEB000807C4 /* Player_macOS */ = {
+		14F9E1F220DD5259008D7CB2 /* PlayerTests macOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 848DE8E120D86AEF000807C4 /* Build configuration list for PBXNativeTarget "Player_macOS" */;
+			buildConfigurationList = 14F9E1FC20DD5259008D7CB2 /* Build configuration list for PBXNativeTarget "PlayerTests macOS" */;
+			buildPhases = (
+				14F9E1EF20DD5259008D7CB2 /* Sources */,
+				14F9E1F020DD5259008D7CB2 /* Frameworks */,
+				14F9E1F120DD5259008D7CB2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				14F9E1F920DD5259008D7CB2 /* PBXTargetDependency */,
+			);
+			name = "PlayerTests macOS";
+			productName = PlayerTests_macOS;
+			productReference = 14F9E1F320DD5259008D7CB2 /* PlayerTests macOS.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		848DE8D520D86AEB000807C4 /* Player macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 848DE8E120D86AEF000807C4 /* Build configuration list for PBXNativeTarget "Player macOS" */;
 			buildPhases = (
 				848DE8D220D86AEB000807C4 /* Sources */,
 				848DE8D320D86AEB000807C4 /* Frameworks */,
@@ -341,9 +401,9 @@
 			dependencies = (
 				848DE8F420D9550A000807C4 /* PBXTargetDependency */,
 			);
-			name = Player_macOS;
+			name = "Player macOS";
 			productName = Player_macOS;
-			productReference = 848DE8D620D86AEB000807C4 /* Player_macOS.app */;
+			productReference = 848DE8D620D86AEB000807C4 /* Player macOS.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -373,6 +433,11 @@
 						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
+					14F9E1F220DD5259008D7CB2 = {
+						CreatedOnToolsVersion = 9.4.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 848DE8D520D86AEB000807C4;
+					};
 					848DE8D520D86AEB000807C4 = {
 						CreatedOnToolsVersion = 9.4.1;
 						DevelopmentTeam = 9V456WSURS;
@@ -398,10 +463,11 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				065A0F9C1A25C8E2005BA7BC /* Player_iOS */,
-				04B4E63C1C1E8A7B00E20778 /* Player_tv */,
-				848DE8D520D86AEB000807C4 /* Player_macOS */,
+				065A0F9C1A25C8E2005BA7BC /* Player iOS */,
+				04B4E63C1C1E8A7B00E20778 /* Player tvOS */,
+				848DE8D520D86AEB000807C4 /* Player macOS */,
 				0638A5301E01BBF8009EE18B /* Player */,
+				14F9E1F220DD5259008D7CB2 /* PlayerTests macOS */,
 			);
 		};
 /* End PBXProject section */
@@ -428,6 +494,14 @@
 			files = (
 				065A0FAD1A25C8E2005BA7BC /* LaunchScreen.xib in Resources */,
 				065A0FAA1A25C8E2005BA7BC /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		14F9E1F120DD5259008D7CB2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				14F9E20120DD5A3C008D7CB2 /* test.mp4 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -487,6 +561,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		14F9E1EF20DD5259008D7CB2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				14F9E1F620DD5259008D7CB2 /* MacPlayerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		848DE8D220D86AEB000807C4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -499,6 +581,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		14F9E1F920DD5259008D7CB2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 848DE8D520D86AEB000807C4 /* Player macOS */;
+			targetProxy = 14F9E1F820DD5259008D7CB2 /* PBXContainerItemProxy */;
+		};
 		848DE8F420D9550A000807C4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 0638A5301E01BBF8009EE18B /* Player */;
@@ -770,6 +857,70 @@
 			};
 			name = Release;
 		};
+		14F9E1FA20DD5259008D7CB2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				INFOPLIST_FILE = Tests/macOS/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.bigzlabs.PlayerTests-macOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 4.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Player macOS.app/Contents/MacOS/Player macOS";
+			};
+			name = Debug;
+		};
+		14F9E1FB20DD5259008D7CB2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = Tests/macOS/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.bigzlabs.PlayerTests-macOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 4.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Player macOS.app/Contents/MacOS/Player macOS";
+			};
+			name = Release;
+		};
 		848DE8E220D86AEF000807C4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -843,7 +994,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		04B4E64B1C1E8A7C00E20778 /* Build configuration list for PBXNativeTarget "Player_tv" */ = {
+		04B4E64B1C1E8A7C00E20778 /* Build configuration list for PBXNativeTarget "Player tvOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				04B4E6491C1E8A7C00E20778 /* Debug */,
@@ -870,7 +1021,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		065A0FBC1A25C8E2005BA7BC /* Build configuration list for PBXNativeTarget "Player_iOS" */ = {
+		065A0FBC1A25C8E2005BA7BC /* Build configuration list for PBXNativeTarget "Player iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				065A0FBD1A25C8E2005BA7BC /* Debug */,
@@ -879,7 +1030,16 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		848DE8E120D86AEF000807C4 /* Build configuration list for PBXNativeTarget "Player_macOS" */ = {
+		14F9E1FC20DD5259008D7CB2 /* Build configuration list for PBXNativeTarget "PlayerTests macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				14F9E1FA20DD5259008D7CB2 /* Debug */,
+				14F9E1FB20DD5259008D7CB2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		848DE8E120D86AEF000807C4 /* Build configuration list for PBXNativeTarget "Player macOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				848DE8E220D86AEF000807C4 /* Debug */,

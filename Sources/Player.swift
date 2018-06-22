@@ -304,8 +304,14 @@ open class Player: Player.ViewController {
 
     /// Whether the player is currently playing.
     /// Returns `true` if the `playbackState` is `.playing`.
-    open var isPlaying: Bool {
+    /// This property is key-value observable.
+    @objc
+    open dynamic var isPlaying: Bool {
         return playbackState == .playing
+    }
+
+    class func keyPathsForValuesAffectingIsPlaying() -> Set<String> {
+        return ["playbackState"]
     }
 
     /// Playback automatically loops continuously when true.
@@ -325,7 +331,13 @@ open class Player: Player.ViewController {
     /// Playback freezes on last frame frame at end when true.
     ///
     /// The default value of this property is `false`.
-    open var playbackFreezesAtEnd: Bool = false
+    open var playbackFreezesAtEnd: Bool = false {
+        didSet {
+            if playbackFreezesAtEnd {
+                avPlayer.actionAtItemEnd = .pause
+            }
+        }
+    }
 
     /// Current playback state of the Player.
     open var playbackState: PlaybackState = .stopped {
@@ -454,6 +466,8 @@ open class Player: Player.ViewController {
             playerView.player = avPlayer
             playerView.controlsStyle = .default
         #endif
+
+		addPlayerObservers()
     }
 
     deinit {
@@ -553,7 +567,6 @@ open class Player: Player.ViewController {
         }
 
         addPlayerLayerObservers()
-        addPlayerObservers()
         addApplicationObservers()
     }
 
@@ -1065,10 +1078,10 @@ extension Player {
     private func observeStatus(change: [NSKeyValueChangeKey: Any]?) {
         if let status = change?[NSKeyValueChangeKey.newKey] as? NSNumber {
             switch status.intValue as AVPlayerStatus.RawValue {
-                #if canImport(UIKit)
+			#if canImport(UIKit)
             case AVPlayerStatus.readyToPlay.rawValue:
                 playerViewSet(player: avPlayer)
-                #endif
+			#endif
             case AVPlayerStatus.failed.rawValue:
                 playbackState = PlaybackState.failed
             default:
@@ -1146,6 +1159,10 @@ extension Player {
             #endif
 
             if isReadyForDisplay {
+                if autoplay {
+                    play()
+                }
+
                 executeClosureOnMainQueueIfNecessary {
                     self.playerDelegate?.playerReady?(player: self)
                 }

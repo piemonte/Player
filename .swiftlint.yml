@@ -4,6 +4,7 @@ included:
 
 excluded:
   - Carthage
+  - Project/Tests
 
 disabled_rules:
   - file_length

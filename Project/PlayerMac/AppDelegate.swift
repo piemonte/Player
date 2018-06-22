@@ -33,8 +33,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
 
-        window.contentViewController = ViewController()
-        window!.makeMain()
+        if NSClassFromString("XCTest") == nil {
+            window.contentViewController = ViewController()
+            window.makeMain()
+        } else {
+            // Using our own view controller for testing.
+            window.makeMain()
+        }
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
