@@ -8,7 +8,6 @@
 
 import XCTest
 import Player
-import AVKit
 @testable import Player_iOS
 
 class TestViewController: UIViewController {
@@ -32,10 +31,6 @@ class TestViewController: UIViewController {
 extension TestViewController: PlayerPlaybackDelegate {
     func playerPlaybackWillLoop(player: Player) {
         didLoop = true
-    }
-
-    func playerCurrentTimeDidChange(player: Player) {
-        print(player.currentTime)
     }
 }
 

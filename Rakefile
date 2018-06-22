@@ -47,6 +47,11 @@ namespace :test do
     task :ios do
         prettyTest "'Debug - iOS' -destination 'platform=iOS Simulator,name=iPhone X'"
     end
+
+    desc "Run tests on tvOS"
+    task :tvos do
+        prettyTest "'Debug - tvOS' -destination 'platform=tvOS Simulator,name=Apple TV'"
+    end
 end
 
 desc "Run swiftlint if available"

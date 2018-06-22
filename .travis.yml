@@ -20,7 +20,7 @@ matrix:
       install:
         - gem install xcpretty
     - env:
-        ACTION=build:xcodebuild:tvos
+        ACTION=test:tvos
         SDK=appletvsimulator11.4
       install:
         - gem install xcpretty
