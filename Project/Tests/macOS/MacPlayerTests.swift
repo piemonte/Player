@@ -42,7 +42,6 @@ extension TestViewController: PlayerPlaybackDelegate {
 
 class MacPlayerTests: XCTestCase {
 
-	var viewController: ViewController!
 	var testViewController: TestViewController!
 	var player: Player {
 		return testViewController.player
@@ -58,6 +57,7 @@ class MacPlayerTests: XCTestCase {
 	override func tearDown() {
 		// Put teardown code here. This method is called after the invocation of each test method in the class.
 		super.tearDown()
+        testViewController = nil
 	}
 
 	func testAutoplayEnabled() {
@@ -65,7 +65,7 @@ class MacPlayerTests: XCTestCase {
 		player.add(to: testViewController)
 
 		expectation(for: NSPredicate(format: "isPlaying == true"), evaluatedWith: player, handler: nil)
-		waitForExpectations(timeout: 3, handler: nil)
+		waitForExpectations(timeout: 5, handler: nil)
 	}
 
     func testAutoplayDisabled() {
@@ -84,7 +84,7 @@ class MacPlayerTests: XCTestCase {
 
         let result = XCTWaiter.wait(for: [
             expectation(for: NSPredicate(format: "didLoop == true"), evaluatedWith: testViewController, handler: nil)],
-                                    timeout: 5)
+                                    timeout: 10)
 
         XCTAssert(result == .completed, "`playerPlaybackWillLoop(player:)` was not called.")
         XCTAssert(player.currentTime < 0.5, "Player did not loop.")
