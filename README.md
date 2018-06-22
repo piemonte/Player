@@ -27,8 +27,8 @@
 - [x] simple API
 
 ### I'm a ~~Rapper~~ Wrapper
-- uses [`AVPlayerViewController`](https://developer.apple.com/documentation/avkit/avplayerviewcontroller) for iOS/tvOS platforms for system-supplied playback controls (See `usesSystemPlaybackControls`). Otherwise, an [`AVPlayerLayer`](https://developer.apple.com/documentation/avfoundation/avplayerlayer).
-- uses [`AVPlayerView`](https://developer.apple.com/documentation/avkit/avplayerview) for the macOS platform.
+- uses [`AVPlayerViewController`](https://developer.apple.com/documentation/avkit/avplayerviewcontroller) on iOS/tvOS platforms for system-supplied playback controls (See `usesSystemPlaybackControls`). Otherwise, an [`AVPlayerLayer`](https://developer.apple.com/documentation/avfoundation/avplayerlayer).
+- uses [`AVPlayerView`](https://developer.apple.com/documentation/avkit/avplayerview) on the macOS platform.
 
 ## Installation
 `Player` is available for installation using CocoaPods or Carthage.  Alternatively, you can simply copy the `Player.swift` file into your Xcode project.
