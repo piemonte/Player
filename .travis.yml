@@ -27,5 +27,5 @@ matrix:
     - env: ACTION=build:carthage
     - env: ACTION=build:pod
     - env: ACTION=swiftlint
-  fast_finish: true
+#fast_finish: true
 script: rake "$ACTION"

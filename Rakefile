@@ -38,7 +38,7 @@ namespace :build do
 end
 
 namespace :test do
-    def pretty(cmd)
+    def prettyTest(cmd)
         if system("which -s xcpretty")
             sh("/bin/sh", "-o", "pipefail", "-c", "env NSUnbufferedIO=YES #{cmd}")
             else
@@ -48,7 +48,7 @@ namespace :test do
 
     desc "Run tests on macOS"
     task :macos do
-        pretty "xcodebuild build-for-testing test-without-building -workspace Player.xcworkspace -scheme 'Release - macOS' -xcconfig $XCCONFIG -sdk $SDK"
+        prettyTest "xcodebuild build-for-testing test-without-building -workspace Player.xcworkspace -scheme 'Debug - macOS' -xcconfig $XCCONFIG -sdk $SDK"
     end
 end
 
