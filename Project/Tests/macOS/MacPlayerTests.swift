@@ -31,6 +31,7 @@ class TestViewController: NSViewController {
 		player.view.frame = view.bounds
 
         player.playbackDelegate = self
+        player.playerDelegate = self
 
         print(#function)
 	}
@@ -41,6 +42,16 @@ extension TestViewController: PlayerPlaybackDelegate {
         didLoop = true
 
         print(#function)
+    }
+
+    func playerCurrentTimeDidChange(player: Player) {
+        print(player.currentTime)
+    }
+}
+
+extension TestViewController: PlayerDelegate {
+    func playerBufferTimeDidChange(bufferTime: Double) {
+        print(bufferTime)
     }
 }
 
