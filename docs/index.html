@@ -91,12 +91,13 @@
 <li>[x] no size restrictions</li>
 <li>[x] orientation change support</li>
 <li>[x] simple API</li>
+<li>[x] AirPlay &amp; PIP support (see <a href="https://developer.apple.com/documentation/avkit/avplayerviewcontroller"><code>AVPlayerController</code></a> documentation)</li>
 </ul>
 <h3 id='i-39-m-a-del-rapper-del-wrapper' class='heading'>I&rsquo;m a <del>Rapper</del> Wrapper</h3>
 
 <ul>
-<li>uses <a href="https://developer.apple.com/documentation/avkit/avplayerviewcontroller"><code>AVPlayerViewController</code></a> for iOS/tvOS platforms for system-supplied playback controls (See <code>usesSystemPlaybackControls</code>). Otherwise, an <a href="https://developer.apple.com/documentation/avfoundation/avplayerlayer"><code>AVPlayerLayer</code></a>.</li>
-<li>uses <a href="https://developer.apple.com/documentation/avkit/avplayerview"><code>AVPlayerView</code></a> for the macOS platform.</li>
+<li>uses <a href="https://developer.apple.com/documentation/avkit/avplayerviewcontroller"><code>AVPlayerViewController</code></a> on iOS/tvOS platforms for system-supplied playback controls (See <code>usesSystemPlaybackControls</code>). Otherwise, an <a href="https://developer.apple.com/documentation/avfoundation/avplayerlayer"><code>AVPlayerLayer</code></a>.</li>
+<li>uses <a href="https://developer.apple.com/documentation/avkit/avplayerview"><code>AVPlayerView</code></a> on the macOS platform.</li>
 </ul>
 <h2 id='installation' class='heading'>Installation</h2>
 
@@ -140,14 +141,17 @@
 
 <p>The fill mode can be set to the following values:</p>
 
-<p><code>.resizeAspectFit</code> (default)
-<img src="https://github.com/chriszielinski/Player/raw/master/readme-assets/aspectFit.png" alt=".resizeAspectFit"></p>
+<p><code>.resizeAspectFit</code> (default)</p>
 
-<p><code>.resizeAspectFill</code>
-<img src="https://github.com/chriszielinski/Player/raw/master/readme-assets/aspectFill.png" alt=".resizeAspectFill"></p>
+<p><img src="https://github.com/chriszielinski/Player/raw/master/readme-assets/aspectFit.png" alt=".resizeAspectFit"></p>
 
-<p><code>.resizeStretch</code> (aka please don&rsquo;t. I mean look at that poor thing)
-<img src="https://github.com/chriszielinski/Player/raw/master/readme-assets/stretch.png" alt=".resizeStretch"></p>
+<p><code>.resizeAspectFill</code></p>
+
+<p><img src="https://github.com/chriszielinski/Player/raw/master/readme-assets/aspectFill.png" alt=".resizeAspectFill"></p>
+
+<p><code>.resizeStretch</code> (aka please don&rsquo;t. I mean look at that poor thing)</p>
+
+<p><img src="https://github.com/chriszielinski/Player/raw/master/readme-assets/stretch.png" alt=".resizeStretch"></p>
 
 <p>Display video playback progress, if desired. Note, all delegate methods are optional.</p>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ViewController</span><span class="p">:</span> <span class="kt">PlayerPlaybackDelegate</span> <span class="p">{</span>
@@ -181,7 +185,7 @@
 </code></pre>
 <h2 id='macos' class='heading'>macOS</h2>
 
-<p>On the macOS platform, the player can display media controls. </p>
+<p>On the macOS platform, the player can display media controls as well. </p>
 <pre class="highlight swift"><code><span class="n">player</span><span class="o">.</span><span class="n">controlsStyle</span> <span class="o">=</span> <span class="o">.</span><span class="n">floating</span>
 </code></pre>
 
@@ -189,14 +193,17 @@
 
 <p><code>.none</code></p>
 
-<p><code>.inline</code> (default)
-<img src="https://github.com/chriszielinski/Player/raw/master/readme-assets/inline.png" alt="Player"></p>
+<p><code>.inline</code> (default)</p>
 
-<p><code>.minimal</code>
-<img src="https://github.com/chriszielinski/Player/raw/master/readme-assets/minimal.png" alt="Player"></p>
+<p><img src="https://github.com/chriszielinski/Player/raw/master/readme-assets/inline.png" alt="Player"></p>
 
-<p><code>.floating</code>
-<img src="https://github.com/chriszielinski/Player/raw/master/readme-assets/floating.png" alt="Player"></p>
+<p><code>.minimal</code></p>
+
+<p><img src="https://github.com/chriszielinski/Player/raw/master/readme-assets/minimal.png" alt="Player"></p>
+
+<p><code>.floating</code></p>
+
+<p><img src="https://github.com/chriszielinski/Player/raw/master/readme-assets/floating.png" alt="Player"></p>
 <h2 id='documentation' class='heading'>Documentation</h2>
 
 <p>You can find <a href="http://piemonte.github.io/Player/">the docs here</a>. Documentation is generated with <a href="https://github.com/realm/jazzy">jazzy</a> and hosted on <a href="https://pages.github.com">GitHub-Pages</a>.</p>
@@ -227,6 +234,7 @@
 
 <ul>
 <li><a href="https://github.com/piemonte">Patrick Piemonte</a> — Original author, iOS/tvOS platforms.</li>
+<li><a href="https://github.com/addbrick">Addison Brickey</a> — <code>AVPlayerController</code> for iOS/tvOS platforms.</li>
 <li><a href="https://github.com/chriszielinski">Chris Zielinski</a> — macOS platform.</li>
 </ul>
 <h2 id='license' class='heading'>License</h2>

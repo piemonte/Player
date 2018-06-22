@@ -161,7 +161,7 @@ open class Player: Player.ViewController {
     /// Determines if the video should autoplay when a url is set
     ///
     /// - Parameter bool: defaults to true
-    open var autoplay: Bool = true
+	open var autoplay: Bool = true
 
     /// For setting up with AVAsset instead of URL
     ///
@@ -247,7 +247,6 @@ open class Player: Player.ViewController {
                     playerViewController.view.backgroundColor = newValue
                 } else {
                     playerView!.playerBackgroundColor = newValue
-                    // playerView.playerLayer.backgroundColor = newValue?.cgColor
                 }
             #endif
         }
@@ -601,7 +600,7 @@ open class Player: Player.ViewController {
     /// Begins playback of the media from the current time.
     open func playFromCurrentTime() {
         if !autoplay {
-            // external call to this method with auto play off.  activate it before calling play
+            // External call to this method with auto play off. Activate it before calling play
             hasAutoplayActivated = true
         }
         play()
