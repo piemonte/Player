@@ -40,7 +40,7 @@ end
 namespace :test do
     def pretty(cmd)
         if system("which -s xcpretty")
-            sh("/bin/sh", "-o", "pipefail", "-c", "env NSUnbufferedIO=YES #{cmd} | xcpretty")
+            sh("/bin/sh", "-o", "pipefail", "-c", "env NSUnbufferedIO=YES #{cmd}")
             else
             sh(cmd)
         end
