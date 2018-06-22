@@ -24,8 +24,9 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-import UIKit
+import AVKit
 import Player
+import UIKit
 
 class ViewController: UIViewController {
     fileprivate var player = Player()
@@ -33,9 +34,7 @@ class ViewController: UIViewController {
     // MARK: Object lifecycle
 
     deinit {
-        player.willMove(toParentViewController: self)
-        player.view.removeFromSuperview()
-        player.removeFromParentViewController()
+        player.remove(from: self)
     }
 
     // MARK: View lifecycle
@@ -43,45 +42,39 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Optional
-        player.playerDelegate = self
-        // Optional
-        player.playbackDelegate = self
-        player.view.translatesAutoresizingMaskIntoConstraints = false
-
         let uri = "https://www.apple.com/105/media/us/iphone-x/2017/01df5b43-28e4-4848-bf20-490c34a926a7"
             + "/films/meet-iphone-x/iphone-x-meet-iphone-tpl-cc-us-20171129_1280x720h.mp4"
         player.url = URL(string: uri)
-
         player.playbackLoops = true
+        // Need to set before calling `add(to:)`
+        // Note: defaults to `true`, so the following line is redundant (and unnecessary).
+        player.usesSystemPlaybackControls = true
+
+		// Optional
+		player.playerDelegate = self
+		// Optional
+		player.playbackDelegate = self
 
         player.add(to: self)
 
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self,
-                                                          action: #selector(handleTapGestureRecognizer(_:)))
-        tapGestureRecognizer.numberOfTapsRequired = 1
-        player.view.addGestureRecognizer(tapGestureRecognizer)
+        // Play audio even when the Silent switch is engaged.
+        try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+        try? AVAudioSession.sharedInstance().setActive(true)
 
-        NSLayoutConstraint.activate([
-            player.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            player.view.topAnchor.constraint(equalTo: view.topAnchor),
-            player.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            player.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-            ])
-    }
+        // Uncomment for simple play/pause functionality if not using system-supplied playback controls.
+//        let tapGestureRecognizer = UITapGestureRecognizer(target: self,
+//                                                          action: #selector(handleTapGestureRecognizer(_:)))
+//        tapGestureRecognizer.numberOfTapsRequired = 1
+//        player.view.addGestureRecognizer(tapGestureRecognizer)
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        NotificationCenter.default.addObserver(self, selector: #selector(orientationWillChange),
-                                               name: .UIDeviceOrientationDidChange, object: nil)
-
-    }
-
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-
-        NotificationCenter.default.removeObserver(self, name: .UIDeviceOrientationDidChange, object: nil)
+        // Uncomment to support orientation rotations if not using system-supplied playback controls.
+//        player.view.translatesAutoresizingMaskIntoConstraints = false
+//        NSLayoutConstraint.activate([
+//            player.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+//            player.view.topAnchor.constraint(equalTo: view.topAnchor),
+//            player.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+//            player.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+//            ])
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -89,16 +82,6 @@ class ViewController: UIViewController {
 
         player.playFromBeginning()
     }
-
-    @objc private func orientationWillChange() {
-        let currentOrientation = UIDevice.current.orientation
-        if UIDeviceOrientationIsLandscape(currentOrientation) {
-            player.fillMode = .resizeAspectFill
-        } else if UIDeviceOrientationIsPortrait(currentOrientation) {
-            player.fillMode = .resizeAspectFit
-        }
-    }
-
 }
 
 // MARK: - UIGestureRecognizer

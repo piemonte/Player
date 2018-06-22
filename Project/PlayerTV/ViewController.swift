@@ -28,14 +28,13 @@ import UIKit
 import Player
 
 class ViewController: UIViewController {
-    internal var player = Player()
+
+    var player = Player()
 
     // MARK: Object lifecycle
 
     deinit {
-        player.willMove(toParentViewController: self)
-        player.view.removeFromSuperview()
-        player.removeFromParentViewController()
+		player.remove(from: self)
     }
 
     // MARK: View lifecycle
@@ -43,26 +42,28 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.autoresizingMask = ([.flexibleWidth, .flexibleHeight])
-        player.view.frame = view.bounds
-
-        player.add(to: self)
-
-        // Optional
-        player.playerDelegate = self
-        // Optional
-        player.playbackDelegate = self
-
         let uri = "https://www.apple.com/105/media/us/iphone-x/2017/01df5b43-28e4-4848-bf20-490c34a926a7"
             + "/films/meet-iphone-x/iphone-x-meet-iphone-tpl-cc-us-20171129_1280x720h.mp4"
         player.url = URL(string: uri)
+		player.playbackLoops = true
+		// Need to set before calling `add(to:)`
+		// Note: Defaults to `true`, so the following line is redundant (and unnecessary).
+		player.usesSystemPlaybackControls = true
 
-        player.playbackLoops = true
+		player.view.frame = view.bounds
 
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self,
-                                                          action: #selector(handleTapGestureRecognizer(_:)))
-        tapGestureRecognizer.allowedPressTypes = [NSNumber(value: UIPressType.playPause.rawValue)]
-        view.addGestureRecognizer(tapGestureRecognizer)
+		// Optional
+		player.playerDelegate = self
+		// Optional
+		player.playbackDelegate = self
+
+        player.add(to: self)
+
+        // Uncomment for simple play/pause functionality if not using system-supplied playback controls.
+//        let tapGestureRecognizer = UITapGestureRecognizer(target: self,
+//                                                          action: #selector(handleTapGestureRecognizer(_:)))
+//        tapGestureRecognizer.allowedPressTypes = [NSNumber(value: UIPressType.playPause.rawValue)]
+//        view.addGestureRecognizer(tapGestureRecognizer)
     }
 
     override func viewDidAppear(_ animated: Bool) {

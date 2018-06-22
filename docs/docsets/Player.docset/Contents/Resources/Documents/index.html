@@ -13,7 +13,7 @@
     <a title="Player  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">Player Docs</a> (59% documented)</p>
+        <p><a href="index.html">Player Docs</a> (61% documented)</p>
         <p class="header-right"><a href="https://github.com/piemonte/Player"><img src="img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -87,14 +87,16 @@
 <ul>
 <li>[x] plays local media or streams remote media over HTTP</li>
 <li>[x] customizable UI and user interaction</li>
+<li>[x] optional system-supplied playback controls</li>
 <li>[x] no size restrictions</li>
 <li>[x] orientation change support</li>
 <li>[x] simple API</li>
 </ul>
-<h3 id='future-features' class='heading'>Future Features</h3>
+<h3 id='i-39-m-a-del-rapper-del-wrapper' class='heading'>I&rsquo;m a <del>Rapper</del> Wrapper</h3>
 
 <ul>
-<li>[ ] use <code>AVPlayerViewController</code> for iOS/tvOS platforms</li>
+<li>uses <a href="https://developer.apple.com/documentation/avkit/avplayerviewcontroller"><code>AVPlayerViewController</code></a> for iOS/tvOS platforms for system-supplied playback controls (See <code>usesSystemPlaybackControls</code>). Otherwise, an <a href="https://developer.apple.com/documentation/avfoundation/avplayerlayer"><code>AVPlayerLayer</code></a>.</li>
+<li>uses <a href="https://developer.apple.com/documentation/avkit/avplayerview"><code>AVPlayerView</code></a> for the macOS platform.</li>
 </ul>
 <h2 id='installation' class='heading'>Installation</h2>
 
@@ -103,7 +105,7 @@
 <pre class="highlight ruby"><code><span class="n">pod</span> <span class="s2">"Player"</span>
 </code></pre>
 
-<p>Need Swift 3? Use release <code>0.7.0</code></p>
+<p>Need Swift 3? Use release <code>0.7.0</code>. <strong>Note</strong>: macOS and system-supplied playback controls not supported.</p>
 <pre class="highlight ruby"><code><span class="n">pod</span> <span class="s2">"Player"</span><span class="p">,</span> <span class="s2">"~&gt; 0.7.0"</span>
 </code></pre>
 <h3 id='using-a-href-https-github-com-carthage-carthage-carthage-a' class='heading'>Using <a href="https://github.com/Carthage/Carthage">Carthage</a></h3>
@@ -132,24 +134,23 @@
 <span class="n">player</span><span class="o">.</span><span class="nf">pause</span><span class="p">()</span>
 </code></pre>
 
-<p>Adjust the fill mode for the video, if needed.</p>
+<p>Adjust the fill mode for the video, if needed. Note: On iOS, this property is ignored if using system-supplied playback controls.</p>
 <pre class="highlight swift"><code><span class="n">player</span><span class="o">.</span><span class="n">fillMode</span> <span class="o">=</span> <span class="o">.</span><span class="n">resizeAspectFit</span>
 </code></pre>
 
 <p>The fill mode can be set to the following values:</p>
 
 <p><code>.resizeAspectFit</code> (default)
-<img src="https://github.com/chriszielinski/Player/raw/master/readme-assets/aspectFit.png" alt="Player"></p>
+<img src="https://github.com/chriszielinski/Player/raw/master/readme-assets/aspectFit.png" alt=".resizeAspectFit"></p>
 
 <p><code>.resizeAspectFill</code>
-<img src="https://github.com/chriszielinski/Player/raw/master/readme-assets/aspectFill.png" alt="Player"></p>
+<img src="https://github.com/chriszielinski/Player/raw/master/readme-assets/aspectFill.png" alt=".resizeAspectFill"></p>
 
-<p><code>.resizeStretch</code> (aka please don&rsquo;t. I mean look at the poor thing)
-<img src="https://github.com/chriszielinski/Player/raw/master/readme-assets/stretch.png" alt="Player"></p>
+<p><code>.resizeStretch</code> (aka please don&rsquo;t. I mean look at that poor thing)
+<img src="https://github.com/chriszielinski/Player/raw/master/readme-assets/stretch.png" alt=".resizeStretch"></p>
 
 <p>Display video playback progress, if desired. Note, all delegate methods are optional.</p>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ViewController</span><span class="p">:</span> <span class="kt">PlayerPlaybackDelegate</span> <span class="p">{</span>
-
     <span class="kd">public</span> <span class="kd">func</span> <span class="nf">playerPlaybackWillStartFromBeginning</span><span class="p">(</span><span class="nv">player</span><span class="p">:</span> <span class="kt">Player</span><span class="p">)</span> <span class="p">{}</span>
 
     <span class="kd">public</span> <span class="kd">func</span> <span class="nf">playerPlaybackDidEnd</span><span class="p">(</span><span class="nv">player</span><span class="p">:</span> <span class="kt">Player</span><span class="p">)</span> <span class="p">{}</span>
@@ -162,10 +163,23 @@
     <span class="kd">public</span> <span class="kd">func</span> <span class="nf">playerPlaybackWillLoop</span><span class="p">(</span><span class="nv">player</span><span class="p">:</span> <span class="kt">Player</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">progressView</span><span class="o">.</span><span class="nf">setProgress</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="kc">false</span><span class="p">)</span>
     <span class="p">}</span>
-
 <span class="p">}</span>
 </code></pre>
-<h3 id='macos' class='heading'>macOS</h3>
+<h2 id='ios-amp-tvos' class='heading'>iOS &amp; tvOS</h2>
+
+<p>On iOS/tvOS platforms, the player displays system-supplied playback controls by default. </p>
+
+<p><img src="https://github.com/chriszielinski/Player/raw/master/readme-assets/ios-controls.png" alt="iOS system-supplied controls"></p>
+
+<p><img src="https://github.com/chriszielinski/Player/raw/master/readme-assets/tvos-controls.png" alt="tvOS system-supplied controls"></p>
+
+<p>These are optional and can be disabled as follows:</p>
+<pre class="highlight swift"><code><span class="o">...</span>
+<span class="c1">// Need to set before calling `add(to:)`</span>
+<span class="n">player</span><span class="o">.</span><span class="n">usesSystemPlaybackControls</span> <span class="o">=</span> <span class="kc">false</span>
+<span class="n">player</span><span class="o">.</span><span class="nf">add</span><span class="p">(</span><span class="nv">to</span><span class="p">:</span> <span class="k">self</span><span class="p">)</span>
+</code></pre>
+<h2 id='macos' class='heading'>macOS</h2>
 
 <p>On the macOS platform, the player can display media controls. </p>
 <pre class="highlight swift"><code><span class="n">player</span><span class="o">.</span><span class="n">controlsStyle</span> <span class="o">=</span> <span class="o">.</span><span class="n">floating</span>
@@ -192,7 +206,7 @@
 <li>Need help? Use <a href="http://stackoverflow.com/questions/tagged/player-swift">Stack Overflow</a> with the tag &lsquo;player-swift&rsquo;.</li>
 <li>Questions? Use <a href="http://stackoverflow.com/questions/tagged/player-swift">Stack Overflow</a> with the tag &lsquo;player-swift&rsquo;.</li>
 <li>Found a bug? Open an <a href="https://github.com/piemonte/player/issues">issue</a>.</li>
-<li>Feature idea? <del>Open an <a href="https://github.com/piemonte/player/issues">issue</a>.</del> Do it yourself &amp; PR when done 😅.</li>
+<li>Feature idea? <del>Open an <a href="https://github.com/piemonte/player/issues">issue</a>.</del> Do it yourself &amp; PR when done 😅 (or you can open an issue).</li>
 <li>Want to contribute? Submit a <a href="https://github.com/piemonte/player/pulls">pull request</a>.</li>
 </ul>
 <h2 id='used-in' class='heading'>Used In</h2>
@@ -209,6 +223,12 @@
 <li><a href="https://github.com/piemonte/PBJVision">PBJVision</a>, iOS camera engine, features touch-to-record video, slow motion video, and photo capture</li>
 <li><a href="https://github.com/piemonte/PBJVideoPlayer">PBJVideoPlayer</a>, a simple iOS video player library, written in obj-c</li>
 </ul>
+<h2 id='contributors' class='heading'>Contributors</h2>
+
+<ul>
+<li><a href="https://github.com/piemonte">Patrick Piemonte</a> — Original author, iOS/tvOS platforms.</li>
+<li><a href="https://github.com/chriszielinski">Chris Zielinski</a> — macOS platform.</li>
+</ul>
 <h2 id='license' class='heading'>License</h2>
 
 <p>Player is available under the MIT license, see the <a href="https://github.com/piemonte/player/blob/master/LICENSE">LICENSE</a> file for more information.</p>
@@ -216,8 +236,8 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2018 <a class="link" href="https://patrickpiemonte.com" target="_blank" rel="external">Patrick Piemonte</a>. All rights reserved. (Last updated: 2018-06-20)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2018 <a class="link" href="https://patrickpiemonte.com" target="_blank" rel="external">Patrick Piemonte</a>. All rights reserved. (Last updated: 2018-06-22)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

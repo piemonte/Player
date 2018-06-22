@@ -28,13 +28,13 @@ import AppKit
 import Player
 
 class ViewController: NSViewController {
-    internal var player = Player()
+
+	var player = Player()
 
     // MARK: Object lifecycle
 
     deinit {
-        player.view.removeFromSuperview()
-        player.removeFromParentViewController()
+        player.remove(from: self)
     }
 
     override func loadView() {
@@ -48,23 +48,22 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        player.view.autoresizingMask = [.height, .width]
-        player.view.frame = view.bounds
-
-        player.add(to: self)
-
-        // Optional
-        player.playerDelegate = self
-        // Optional
-        player.playbackDelegate = self
-
         let uri = "https://www.apple.com/105/media/us/iphone-x/2017/01df5b43-28e4-4848-bf20-490c34a926a7"
             + "/films/meet-iphone-x/iphone-x-meet-iphone-tpl-cc-us-20171129_1280x720h.mp4"
         player.url = URL(string: uri)
         player.playbackLoops = true
         player.fillMode = .resizeAspectFill
         player.controlsStyle = .floating
-        player.playbackPausesWhenResigningActive = false
+
+        player.view.autoresizingMask = [.height, .width]
+        player.view.frame = view.bounds
+
+        // Optional
+        player.playerDelegate = self
+        // Optional
+        player.playbackDelegate = self
+
+        player.add(to: self)
     }
 
     override func viewDidAppear() {

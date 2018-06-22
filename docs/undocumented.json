@@ -1,229 +1,222 @@
 {
   "warnings": [
     {
-      "file": "/Users/admin/Dropbox/Apps & Stuff/Player/Sources/Player.swift",
-      "line": 42,
+      "file": "/Users/chriszielinski/Dropbox/Apps & Stuff/Player/Sources/Player.swift",
+      "line": 41,
       "symbol": "PlayerDelegate.playerReady(player:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Dropbox/Apps & Stuff/Player/Sources/Player.swift",
+      "file": "/Users/chriszielinski/Dropbox/Apps & Stuff/Player/Sources/Player.swift",
+      "line": 42,
+      "symbol": "PlayerDelegate.playerPlaybackError(player:error:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chriszielinski/Dropbox/Apps & Stuff/Player/Sources/Player.swift",
       "line": 43,
       "symbol": "PlayerDelegate.playerPlaybackStateDidChange(player:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Dropbox/Apps & Stuff/Player/Sources/Player.swift",
+      "file": "/Users/chriszielinski/Dropbox/Apps & Stuff/Player/Sources/Player.swift",
       "line": 44,
       "symbol": "PlayerDelegate.playerBufferingStateDidChange(player:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Dropbox/Apps & Stuff/Player/Sources/Player.swift",
+      "file": "/Users/chriszielinski/Dropbox/Apps & Stuff/Player/Sources/Player.swift",
       "line": 48,
       "symbol": "PlayerDelegate.playerBufferTimeDidChange(bufferTime:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Dropbox/Apps & Stuff/Player/Sources/Player.swift",
+      "file": "/Users/chriszielinski/Dropbox/Apps & Stuff/Player/Sources/Player.swift",
       "line": 56,
       "symbol": "PlayerPlaybackDelegate.playerCurrentTimeDidChange(player:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Dropbox/Apps & Stuff/Player/Sources/Player.swift",
+      "file": "/Users/chriszielinski/Dropbox/Apps & Stuff/Player/Sources/Player.swift",
       "line": 57,
       "symbol": "PlayerPlaybackDelegate.playerPlaybackWillStartFromBeginning(player:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Dropbox/Apps & Stuff/Player/Sources/Player.swift",
+      "file": "/Users/chriszielinski/Dropbox/Apps & Stuff/Player/Sources/Player.swift",
       "line": 58,
       "symbol": "PlayerPlaybackDelegate.playerPlaybackDidEnd(player:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Dropbox/Apps & Stuff/Player/Sources/Player.swift",
+      "file": "/Users/chriszielinski/Dropbox/Apps & Stuff/Player/Sources/Player.swift",
       "line": 59,
       "symbol": "PlayerPlaybackDelegate.playerPlaybackWillLoop(player:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Dropbox/Apps & Stuff/Player/Sources/Player.swift",
+      "file": "/Users/chriszielinski/Dropbox/Apps & Stuff/Player/Sources/Player.swift",
       "line": 76,
       "symbol": "Player.ViewController",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Dropbox/Apps & Stuff/Player/Sources/Player.swift",
-      "line": 77,
-      "symbol": "Player.PlayerView",
-      "symbol_kind": "source.lang.swift.decl.typealias",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/admin/Dropbox/Apps & Stuff/Player/Sources/Player.swift",
+      "file": "/Users/chriszielinski/Dropbox/Apps & Stuff/Player/Sources/Player.swift",
       "line": 78,
       "symbol": "Player.Image",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Dropbox/Apps & Stuff/Player/Sources/Player.swift",
+      "file": "/Users/chriszielinski/Dropbox/Apps & Stuff/Player/Sources/Player.swift",
       "line": 79,
       "symbol": "Player.Color",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Dropbox/Apps & Stuff/Player/Sources/Player.swift",
+      "file": "/Users/chriszielinski/Dropbox/Apps & Stuff/Player/Sources/Player.swift",
       "line": 80,
       "symbol": "Player.SnapshotResult",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Dropbox/Apps & Stuff/Player/Sources/Player.swift",
+      "file": "/Users/chriszielinski/Dropbox/Apps & Stuff/Player/Sources/Player.swift",
       "line": 81,
       "symbol": "Player.NibName",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Dropbox/Apps & Stuff/Player/Sources/Player.swift",
-      "line": 94,
+      "file": "/Users/chriszielinski/Dropbox/Apps & Stuff/Player/Sources/Player.swift",
+      "line": 95,
       "symbol": "Player.PlaybackState.stopped",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Dropbox/Apps & Stuff/Player/Sources/Player.swift",
-      "line": 95,
+      "file": "/Users/chriszielinski/Dropbox/Apps & Stuff/Player/Sources/Player.swift",
+      "line": 96,
       "symbol": "Player.PlaybackState.playing",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Dropbox/Apps & Stuff/Player/Sources/Player.swift",
-      "line": 96,
+      "file": "/Users/chriszielinski/Dropbox/Apps & Stuff/Player/Sources/Player.swift",
+      "line": 97,
       "symbol": "Player.PlaybackState.paused",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Dropbox/Apps & Stuff/Player/Sources/Player.swift",
-      "line": 97,
+      "file": "/Users/chriszielinski/Dropbox/Apps & Stuff/Player/Sources/Player.swift",
+      "line": 98,
       "symbol": "Player.PlaybackState.failed",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Dropbox/Apps & Stuff/Player/Sources/Player.swift",
-      "line": 106,
+      "file": "/Users/chriszielinski/Dropbox/Apps & Stuff/Player/Sources/Player.swift",
+      "line": 107,
       "symbol": "Player.BufferingState.unknown",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Dropbox/Apps & Stuff/Player/Sources/Player.swift",
-      "line": 107,
+      "file": "/Users/chriszielinski/Dropbox/Apps & Stuff/Player/Sources/Player.swift",
+      "line": 108,
       "symbol": "Player.BufferingState.ready",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Dropbox/Apps & Stuff/Player/Sources/Player.swift",
-      "line": 108,
+      "file": "/Users/chriszielinski/Dropbox/Apps & Stuff/Player/Sources/Player.swift",
+      "line": 109,
       "symbol": "Player.BufferingState.delayed",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Dropbox/Apps & Stuff/Player/Sources/Player.swift",
-      "line": 271,
-      "symbol": "Player.isPlaying",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/admin/Dropbox/Apps & Stuff/Player/Sources/Player.swift",
-      "line": 351,
+      "file": "/Users/chriszielinski/Dropbox/Apps & Stuff/Player/Sources/Player.swift",
+      "line": 388,
       "symbol": "Player.avPlayer",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Dropbox/Apps & Stuff/Player/Sources/Player.swift",
-      "line": 352,
+      "file": "/Users/chriszielinski/Dropbox/Apps & Stuff/Player/Sources/Player.swift",
+      "line": 389,
       "symbol": "Player.avPlayerItem",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Dropbox/Apps & Stuff/Player/Sources/Player.swift",
-      "line": 379,
+      "file": "/Users/chriszielinski/Dropbox/Apps & Stuff/Player/Sources/Player.swift",
+      "line": 419,
       "symbol": "Player.init()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Dropbox/Apps & Stuff/Player/Sources/Player.swift",
-      "line": 383,
+      "file": "/Users/chriszielinski/Dropbox/Apps & Stuff/Player/Sources/Player.swift",
+      "line": 423,
       "symbol": "Player.init(coder:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Dropbox/Apps & Stuff/Player/Sources/Player.swift",
-      "line": 392,
+      "file": "/Users/chriszielinski/Dropbox/Apps & Stuff/Player/Sources/Player.swift",
+      "line": 436,
       "symbol": "Player.init(nibName:bundle:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Dropbox/Apps & Stuff/Player/Sources/Player.swift",
-      "line": 441,
+      "file": "/Users/chriszielinski/Dropbox/Apps & Stuff/Player/Sources/Player.swift",
+      "line": 539,
       "symbol": "Player.loadView()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Dropbox/Apps & Stuff/Player/Sources/Player.swift",
-      "line": 449,
+      "file": "/Users/chriszielinski/Dropbox/Apps & Stuff/Player/Sources/Player.swift",
+      "line": 547,
       "symbol": "Player.viewDidLoad()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Dropbox/Apps & Stuff/Player/Sources/Player.swift",
-      "line": 464,
+      "file": "/Users/chriszielinski/Dropbox/Apps & Stuff/Player/Sources/Player.swift",
+      "line": 562,
       "symbol": "Player.viewDidDisappear()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Dropbox/Apps & Stuff/Player/Sources/Player.swift",
-      "line": 850,
+      "file": "/Users/chriszielinski/Dropbox/Apps & Stuff/Player/Sources/Player.swift",
+      "line": 1083,
       "symbol": "Player.observeValue(forKeyPath:of:change:context:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Dropbox/Apps & Stuff/Player/Sources/Player.swift",
-      "line": 970,
+      "file": "/Users/chriszielinski/Dropbox/Apps & Stuff/Player/Sources/Player.swift",
+      "line": 1171,
       "symbol": "Player.executeClosureOnMainQueueIfNecessary(withClosure:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     }
   ],
-  "source_directory": "/Users/admin/Dropbox/Apps & Stuff/Player"
+  "source_directory": "/Users/chriszielinski/Dropbox/Apps & Stuff/Player"
 }

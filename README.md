@@ -21,12 +21,14 @@
 ### Features
 - [x] plays local media or streams remote media over HTTP
 - [x] customizable UI and user interaction
+- [x] optional system-supplied playback controls
 - [x] no size restrictions
 - [x] orientation change support
 - [x] simple API
 
-### Future Features
-- [ ] use `AVPlayerViewController` for iOS/tvOS platforms
+### I'm a ~~Rapper~~ Wrapper
+- uses [`AVPlayerViewController`](https://developer.apple.com/documentation/avkit/avplayerviewcontroller) for iOS/tvOS platforms for system-supplied playback controls (See `usesSystemPlaybackControls`). Otherwise, an [`AVPlayerLayer`](https://developer.apple.com/documentation/avfoundation/avplayerlayer).
+- uses [`AVPlayerView`](https://developer.apple.com/documentation/avkit/avplayerview) for the macOS platform.
 
 ## Installation
 `Player` is available for installation using CocoaPods or Carthage.  Alternatively, you can simply copy the `Player.swift` file into your Xcode project.
@@ -37,7 +39,7 @@
 pod "Player"
 ```
 
-Need Swift 3? Use release `0.7.0`
+Need Swift 3? Use release `0.7.0`. **Note**: macOS and system-supplied playback controls not supported.
 
 ```ruby
 pod "Player", "~> 0.7.0"
@@ -78,7 +80,7 @@ player.playFromBeginning()
 player.pause()
 ```
 
-Adjust the fill mode for the video, if needed.
+Adjust the fill mode for the video, if needed. Note: On iOS, this property is ignored if using system-supplied playback controls.
 
 ```swift
 player.fillMode = .resizeAspectFit
@@ -87,19 +89,18 @@ player.fillMode = .resizeAspectFit
 The fill mode can be set to the following values:
 
 `.resizeAspectFit` (default)
-![Player](https://github.com/chriszielinski/Player/raw/master/readme-assets/aspectFit.png)
+![.resizeAspectFit](https://github.com/chriszielinski/Player/raw/master/readme-assets/aspectFit.png)
 
 `.resizeAspectFill`
-![Player](https://github.com/chriszielinski/Player/raw/master/readme-assets/aspectFill.png)
+![.resizeAspectFill](https://github.com/chriszielinski/Player/raw/master/readme-assets/aspectFill.png)
 
-`.resizeStretch` (aka please don't. I mean look at the poor thing)
-![Player](https://github.com/chriszielinski/Player/raw/master/readme-assets/stretch.png)
+`.resizeStretch` (aka please don't. I mean look at that poor thing)
+![.resizeStretch](https://github.com/chriszielinski/Player/raw/master/readme-assets/stretch.png)
 
 Display video playback progress, if desired. Note, all delegate methods are optional.
 
 ```swift
 extension ViewController: PlayerPlaybackDelegate {
-
     public func playerPlaybackWillStartFromBeginning(player: Player) {}
     
     public func playerPlaybackDidEnd(player: Player) {}
@@ -112,11 +113,26 @@ extension ViewController: PlayerPlaybackDelegate {
     public func playerPlaybackWillLoop(player: Player) {
         progressView.setProgress(0.0, animated: false)
     }
-    
 }
 ```
 
-### macOS
+## iOS & tvOS
+On iOS/tvOS platforms, the player displays system-supplied playback controls by default. 
+
+![iOS system-supplied controls](https://github.com/chriszielinski/Player/raw/master/readme-assets/ios-controls.png)
+
+![tvOS system-supplied controls](https://github.com/chriszielinski/Player/raw/master/readme-assets/tvos-controls.png)
+
+These are optional and can be disabled as follows:
+
+```swift
+...
+// Need to set before calling `add(to:)`
+player.usesSystemPlaybackControls = false
+player.add(to: self)
+```
+
+## macOS
 On the macOS platform, the player can display media controls. 
 
 ```swift

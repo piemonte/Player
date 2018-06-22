@@ -149,11 +149,6 @@ open class Player: Player.ViewController {
 
     // MARK: Configuration
 
-    /// Use the native UI
-    ///
-    /// - Parameter bool: defaults to true
-    open var useNativeUI: Bool = true
-
     /// Local or remote URL for the file asset to be played.
     ///
     /// - Parameter url: URL of the asset.
@@ -198,13 +193,16 @@ open class Player: Player.ViewController {
 
     /// Specifies how the video is displayed within a player layer’s bounds.
     /// The default value is `.resizeAspectFit`. See the `FillMode` enum.
+	///
+	/// Note: On iOS, this property is ignored if using system-supplied playback controls.
+	///
     open var fillMode: FillMode {
         get {
             #if canImport(AppKit)
                 return FillMode(rawValue: playerView.videoGravity)!
             #else
-                if let playerVC = nativePlayerViewController {
-                    return FillMode(rawValue: playerVC.videoGravity)!
+                if let playerViewController = avPlayerViewController {
+                    return FillMode(rawValue: playerViewController.videoGravity)!
                 }
 
                 return FillMode(rawValue: playerView!.fillMode.rawValue)!
@@ -214,8 +212,8 @@ open class Player: Player.ViewController {
             #if canImport(AppKit)
                 playerView.videoGravity = newValue.rawValue
             #else
-                if let playerVC = nativePlayerViewController {
-                    playerVC.videoGravity = newValue.rawValue
+                if let playerViewController = avPlayerViewController {
+                    playerViewController.videoGravity = newValue.rawValue
                 } else {
                     playerView!.fillMode = newValue.avLayerVideoGravityValue
                 }
@@ -232,8 +230,8 @@ open class Player: Player.ViewController {
                     color = Color(cgColor: backgroundColor)
                 }
             #else
-                if let nativePlayerViewController = nativePlayerViewController {
-                    color = nativePlayerViewController.view.backgroundColor
+                if let avPlayerViewController = avPlayerViewController {
+                    color = avPlayerViewController.view.backgroundColor
                 } else {
                     color = playerView!.playerBackgroundColor
                 }
@@ -245,8 +243,8 @@ open class Player: Player.ViewController {
             #if canImport(AppKit)
                 playerView.layer?.backgroundColor = newValue?.cgColor
             #else
-                if let playerVC = nativePlayerViewController {
-                    playerVC.view.backgroundColor = newValue
+                if let playerViewController = avPlayerViewController {
+                    playerViewController.view.backgroundColor = newValue
                 } else {
                     playerView!.playerBackgroundColor = newValue
                     // playerView.playerLayer.backgroundColor = newValue?.cgColor
@@ -272,6 +270,15 @@ open class Player: Player.ViewController {
                 playerView.controlsStyle = newValue
             }
         }
+    #else
+        /// A Boolean value that indicates whether the player shows playback controls.
+        /// This property has a default value of `true`.
+        ///
+        /// - Note: Only available on iOS/tvOS platforms. For macOS, see `controlsStyle`.
+        ///
+        /// - Important: Set this property **before** calling `add(to:)`. Setting it after will have no effect.
+        ///
+        open var usesSystemPlaybackControls: Bool = true
     #endif
 
     /// Pauses playback automatically when resigning active.
@@ -381,7 +388,7 @@ open class Player: Player.ViewController {
     public var avPlayer: AVPlayer
     public var avPlayerItem: AVPlayerItem?
     #if canImport(UIKit)
-        public var nativePlayerViewController: AVPlayerViewController?
+        public var avPlayerViewController: AVPlayerViewController?
     #endif
 
     // MARK: Private Objects
@@ -465,9 +472,9 @@ open class Player: Player.ViewController {
         #if canImport(AppKit)
             playerView.player = nil
         #else
-            if let playerVC = nativePlayerViewController {
-                playerVC.player = nil
-                nativePlayerViewController = nil
+            if let playerViewController = avPlayerViewController {
+                playerViewController.player = nil
+                avPlayerViewController = nil
             } else {
                 playerView!.player = nil
                 playerView = nil
@@ -475,19 +482,57 @@ open class Player: Player.ViewController {
         #endif
     }
 
-    /// A convenience method for adding a player to the given view controller.
+    /// Adds a player to the given view controller.
     /// The player will be added to `viewController`'s `childViewControllers` array and its view hierarchy.
+    ///
+    /// - Important: On iOS/tvOS platforms, `usesSystemPlaybackControls` must be set prior to calling this method.
     ///
     /// - Parameter viewController: The parent view controller that the player will be added to.
     open func add(to viewController: ViewController) {
-        viewController.addChildViewController(self)
+		viewController.addChildViewController(self)
 
         #if canImport(UIKit)
-            didMove(toParentViewController: viewController)
+        if usesSystemPlaybackControls {
+            let playerViewController = AVPlayerViewController()
+
+            addChildViewController(playerViewController)
+            playerViewController.didMove(toParentViewController: self)
+
+            playerViewController.view.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(playerViewController.view)
+
+            NSLayoutConstraint.activate([
+                playerViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                playerViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
+                playerViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                playerViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+                ])
+
+            avPlayerViewController = playerViewController
+        } else {
+            playerView!.playerIsHidden = false
+            playerView!.frame = view.frame
+            view = playerView
+        }
+
+		didMove(toParentViewController: viewController)
         #endif
 
         viewController.view.addSubview(view)
     }
+
+	/// Removes the player from the given view controller.
+	/// The player will be removed from `viewController`'s `childViewControllers` array and its view hierarchy.
+	///
+	/// - Parameter viewController: The parent view controller that the player will be removed from.
+	open func remove(from viewController: ViewController) {
+		#if canImport(UIKit)
+		willMove(toParentViewController: self)
+		#endif
+
+		view.removeFromSuperview()
+		removeFromParentViewController()
+	}
 
     // MARK: - View Lifecycle
 
@@ -495,39 +540,12 @@ open class Player: Player.ViewController {
         #if canImport(AppKit)
             view = playerView
         #else
-            if useNativeUI {
-                super.loadView()
-            } else {
-                view = playerView
-            }
+            super.loadView()
         #endif
     }
 
     open override func viewDidLoad() {
         super.viewDidLoad()
-
-        #if canImport(UIKit)
-            if useNativeUI {
-                let playerViewController = AVPlayerViewController()
-
-                addChildViewController(playerViewController)
-                playerViewController.didMove(toParentViewController: self)
-
-                playerViewController.view.translatesAutoresizingMaskIntoConstraints = false
-                view.addSubview(playerViewController.view)
-
-                NSLayoutConstraint.activate([
-                    playerViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                    playerViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
-                    playerViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-                    playerViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-                ])
-
-                nativePlayerViewController = playerViewController
-            } else {
-                playerView!.playerIsHidden = false
-            }
-        #endif
 
         if let url = url {
             setup(url: url)
@@ -563,9 +581,9 @@ open class Player: Player.ViewController {
 
     #if canImport(UIKit)
         open func playerViewSet(player: AVPlayer) {
-            if let playerVC = nativePlayerViewController {
-                playerVC.player = player
-                playerVC.view.isHidden = false
+            if let playerViewController = avPlayerViewController {
+                playerViewController.player = player
+                playerViewController.view.isHidden = false
             } else {
                 playerView!.player = player
                 playerView!.playerIsHidden = false
@@ -677,9 +695,9 @@ open class Player: Player.ViewController {
                 }
             }
         #else
-            if let playerVC = nativePlayerViewController {
-                UIGraphicsBeginImageContextWithOptions(playerVC.view.frame.size, false, UIScreen.main.scale)
-                playerVC.view.drawHierarchy(in: playerVC.view.bounds, afterScreenUpdates: true)
+            if let playerViewController = avPlayerViewController {
+                UIGraphicsBeginImageContextWithOptions(playerViewController.view.frame.size, false, UIScreen.main.scale)
+                playerViewController.view.drawHierarchy(in: playerViewController.view.bounds, afterScreenUpdates: true)
             } else {
                 UIGraphicsBeginImageContextWithOptions(playerView!.frame.size, false, UIScreen.main.scale)
                 playerView!.drawHierarchy(in: playerView!.bounds, afterScreenUpdates: true)
@@ -990,8 +1008,8 @@ private extension Player {
                 }
             }
         #else
-            if let playerVC = nativePlayerViewController {
-                playerVC.addObserver(self,
+            if let playerViewController = avPlayerViewController {
+                playerViewController.addObserver(self,
                                      forKeyPath: PlayerLayerReadyForDisplayKey,
                                      options: [.new, .old],
                                      context: &PlayerLayerObserverContext)
@@ -1010,8 +1028,8 @@ private extension Player {
                                                forKeyPath: PlayerLayerReadyForDisplayKey,
                                                context: &PlayerLayerObserverContext)
         #else
-            if let playerVC = nativePlayerViewController {
-                playerVC.view.removeObserver(self,
+            if let playerViewController = avPlayerViewController {
+                playerViewController.view.removeObserver(self,
                                              forKeyPath: PlayerLayerReadyForDisplayKey,
                                              context: &PlayerLayerObserverContext)
             } else {
@@ -1124,7 +1142,7 @@ extension Player {
             #if canImport(AppKit)
                 let isReadyForDisplay = playerView.isReadyForDisplay
             #else
-                let isReadyForDisplay = nativePlayerViewController?.isReadyForDisplay
+                let isReadyForDisplay = avPlayerViewController?.isReadyForDisplay
                     ?? playerView!.playerLayer.isReadyForDisplay
             #endif
 
