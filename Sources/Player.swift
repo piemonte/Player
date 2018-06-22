@@ -1035,7 +1035,7 @@ private extension Player {
     }
 
     func removePlayerLayerObservers() {
-        #if canImport(AppKit)    
+        #if canImport(AppKit)
             avPlayerLayer?.removeObserver(self,
                                                forKeyPath: PlayerLayerReadyForDisplayKey,
                                                context: &PlayerLayerObserverContext)
