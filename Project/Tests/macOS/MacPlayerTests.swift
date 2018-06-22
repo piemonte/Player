@@ -31,12 +31,16 @@ class TestViewController: NSViewController {
 		player.view.frame = view.bounds
 
         player.playbackDelegate = self
+
+        print(#function)
 	}
 }
 
 extension TestViewController: PlayerPlaybackDelegate {
     func playerPlaybackWillLoop(player: Player) {
         didLoop = true
+
+        print(#function)
     }
 }
 
@@ -52,6 +56,8 @@ class MacPlayerTests: XCTestCase {
 		// Put setup code here. This method is called before the invocation of each test method in the class.
 		testViewController = TestViewController()
 		NSApp.windows.first!.contentViewController = testViewController
+
+        continueAfterFailure = true
 	}
 
 	override func tearDown() {
@@ -61,6 +67,8 @@ class MacPlayerTests: XCTestCase {
 	}
 
 	func testAutoplayEnabled() {
+        print(continueAfterFailure)
+
 		player.autoplay = true
 		player.add(to: testViewController)
 
