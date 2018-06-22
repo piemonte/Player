@@ -8,6 +8,7 @@
 
 import XCTest
 import Player
+import AVKit
 @testable import Player_macOS
 
 class TestViewController: NSViewController {
@@ -17,6 +18,9 @@ class TestViewController: NSViewController {
 
 	convenience init() {
 		self.init(nibName: nil, bundle: nil)
+
+        player.avPlayer.allowsExternalPlayback = false
+        (player.view as! AVPlayerView).updatesNowPlayingInfoCenter = false
 	}
 
 	override func loadView() {

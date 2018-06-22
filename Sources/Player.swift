@@ -466,8 +466,6 @@ open class Player: Player.ViewController {
             playerView.player = avPlayer
             playerView.controlsStyle = .default
         #endif
-
-		addPlayerObservers()
     }
 
     deinit {
@@ -567,6 +565,7 @@ open class Player: Player.ViewController {
         }
 
         addPlayerLayerObservers()
+        addPlayerObservers()
         addApplicationObservers()
     }
 
