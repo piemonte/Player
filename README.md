@@ -186,6 +186,7 @@ You can find [the docs here](http://piemonte.github.io/Player/). Documentation i
 ## Contributors
 
 - [Patrick Piemonte](https://github.com/piemonte) — Original author, iOS/tvOS platforms.
+- [Addison Brickey](https://github.com/addbrick) — `AVPlayerController` for iOS/tvOS platforms.
 - [Chris Zielinski](https://github.com/chriszielinski) — macOS platform.
 
 ## License
