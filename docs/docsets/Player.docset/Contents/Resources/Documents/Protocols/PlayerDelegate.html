@@ -14,7 +14,7 @@
     <a title="PlayerDelegate Protocol Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">Player Docs</a> (60% documented)</p>
+        <p><a href="../index.html">Player Docs</a> (61% documented)</p>
         <p class="header-right"><a href="https://github.com/piemonte/Player"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -34,19 +34,14 @@
               <li class="nav-group-task">
                 <a href="../Classes/Player.html">Player</a>
               </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
-            <a href="../Enums.html">Enumerations</a>
-            <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Enums/BufferingState.html">BufferingState</a>
+                <a href="../Classes/Player/PlaybackState.html">– PlaybackState</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Enums/PlaybackState.html">PlaybackState</a>
+                <a href="../Classes/Player/BufferingState.html">– BufferingState</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Enums/PlayerFillMode.html">PlayerFillMode</a>
+                <a href="../Classes/Player/FillMode.html">– FillMode</a>
               </li>
             </ul>
           </li>
@@ -69,7 +64,7 @@
             <h1>PlayerDelegate</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">PlayerDelegate</span><span class="p">:</span> <span class="kt">NSObjectProtocol</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">PlayerDelegate</span><span class="p">:</span> <span class="kt">NSObjectProtocol</span></code></pre>
 
                 </div>
               </div>
@@ -82,9 +77,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6Player0A8DelegateP11playerReadyyA2ACF"></a>
-                    <a name="//apple_ref/swift/Method/playerReady(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6Player0A8DelegateP11playerReadyyA2ACF">playerReady(_:)</a>
+                    <a name="/c:@M@Player@objc(pl)PlayerDelegate(im)playerReadyWithPlayer:"></a>
+                    <a name="//apple_ref/swift/Method/playerReady(player:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@Player@objc(pl)PlayerDelegate(im)playerReadyWithPlayer:">playerReady(player:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -99,7 +94,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">PlayerDelegate</span><span class="p">:</span> <span class="kt">NSObjectProtocol</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span> <span class="kd">optional</span> <span class="kd">func</span> <span class="nf">playerReady</span><span class="p">(</span><span class="nv">player</span><span class="p">:</span> <span class="kt"><a href="../Classes/Player.html">Player</a></span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -109,9 +104,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6Player0A8DelegateP28playerPlaybackStateDidChangeyA2ACF"></a>
-                    <a name="//apple_ref/swift/Method/playerPlaybackStateDidChange(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6Player0A8DelegateP28playerPlaybackStateDidChangeyA2ACF">playerPlaybackStateDidChange(_:)</a>
+                    <a name="/c:@M@Player@objc(pl)PlayerDelegate(im)playerPlaybackErrorWithPlayer:error:"></a>
+                    <a name="//apple_ref/swift/Method/playerPlaybackError(player:error:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@Player@objc(pl)PlayerDelegate(im)playerPlaybackErrorWithPlayer:error:">playerPlaybackError(player:error:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -126,7 +121,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">PlayerDelegate</span><span class="p">:</span> <span class="kt">NSObjectProtocol</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span> <span class="kd">optional</span> <span class="kd">func</span> <span class="nf">playerPlaybackError</span><span class="p">(</span><span class="nv">player</span><span class="p">:</span> <span class="kt"><a href="../Classes/Player.html">Player</a></span><span class="p">,</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">NSError</span><span class="p">?)</span></code></pre>
 
                         </div>
                       </div>
@@ -136,9 +131,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6Player0A8DelegateP29playerBufferingStateDidChangeyA2ACF"></a>
-                    <a name="//apple_ref/swift/Method/playerBufferingStateDidChange(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6Player0A8DelegateP29playerBufferingStateDidChangeyA2ACF">playerBufferingStateDidChange(_:)</a>
+                    <a name="/c:@M@Player@objc(pl)PlayerDelegate(im)playerPlaybackStateDidChangeWithPlayer:"></a>
+                    <a name="//apple_ref/swift/Method/playerPlaybackStateDidChange(player:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@Player@objc(pl)PlayerDelegate(im)playerPlaybackStateDidChangeWithPlayer:">playerPlaybackStateDidChange(player:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -153,7 +148,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">PlayerDelegate</span><span class="p">:</span> <span class="kt">NSObjectProtocol</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span> <span class="kd">optional</span> <span class="kd">func</span> <span class="nf">playerPlaybackStateDidChange</span><span class="p">(</span><span class="nv">player</span><span class="p">:</span> <span class="kt"><a href="../Classes/Player.html">Player</a></span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -163,9 +158,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6Player0A8DelegateP25playerBufferTimeDidChangeySdF"></a>
-                    <a name="//apple_ref/swift/Method/playerBufferTimeDidChange(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6Player0A8DelegateP25playerBufferTimeDidChangeySdF">playerBufferTimeDidChange(_:)</a>
+                    <a name="/c:@M@Player@objc(pl)PlayerDelegate(im)playerBufferingStateDidChangeWithPlayer:"></a>
+                    <a name="//apple_ref/swift/Method/playerBufferingStateDidChange(player:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@Player@objc(pl)PlayerDelegate(im)playerBufferingStateDidChangeWithPlayer:">playerBufferingStateDidChange(player:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -180,7 +175,34 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">PlayerDelegate</span><span class="p">:</span> <span class="kt">NSObjectProtocol</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span> <span class="kd">optional</span> <span class="kd">func</span> <span class="nf">playerBufferingStateDidChange</span><span class="p">(</span><span class="nv">player</span><span class="p">:</span> <span class="kt"><a href="../Classes/Player.html">Player</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@Player@objc(pl)PlayerDelegate(im)playerBufferTimeDidChangeWithBufferTime:"></a>
+                    <a name="//apple_ref/swift/Method/playerBufferTimeDidChange(bufferTime:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@Player@objc(pl)PlayerDelegate(im)playerBufferTimeDidChangeWithBufferTime:">playerBufferTimeDidChange(bufferTime:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span> <span class="kd">optional</span> <span class="kd">func</span> <span class="nf">playerBufferTimeDidChange</span><span class="p">(</span><span class="nv">bufferTime</span><span class="p">:</span> <span class="kt">Double</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -192,8 +214,8 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2017 <a class="link" href="https://patrickpiemonte.com" target="_blank" rel="external">Patrick Piemonte</a>. All rights reserved. (Last updated: 2017-10-08)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.4</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2018 <a class="link" href="https://patrickpiemonte.com" target="_blank" rel="external">Patrick Piemonte</a>. All rights reserved. (Last updated: 2018-06-22)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

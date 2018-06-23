@@ -25,105 +25,91 @@
 //  SOFTWARE.
 
 import UIKit
-
-let videoUrl = URL(string: "https://v.cdn.vine.co/r/videos/AA3C120C521177175800441692160_38f2cbd1ffb.1.5.13763579289575020226.mp4")!
+import Player
 
 class ViewController: UIViewController {
-    
-    internal var player = Player()
-	
-	// MARK: object lifecycle
+
+    var player = Player()
+
+    // MARK: Object lifecycle
+
     deinit {
-        self.player.willMove(toParentViewController: self)
-        self.player.view.removeFromSuperview()
-        self.player.removeFromParentViewController()
+		player.remove(from: self)
     }
-	
-    // MARK: view lifecycle
-	
+
+    // MARK: View lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.view.autoresizingMask = ([.flexibleWidth, .flexibleHeight])
-        
-        self.player.playerDelegate = self
-        self.player.playbackDelegate = self
-        self.player.view.frame = self.view.bounds
-        
-        self.addChildViewController(self.player)
-        self.view.addSubview(self.player.view)
-        self.player.didMove(toParentViewController: self)
-        
-        self.player.url = videoUrl
-        
-        self.player.playbackLoops = true
-		
-		let tapGestureRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTapGestureRecognizer(_:)))
-        tapGestureRecognizer.allowedPressTypes = [NSNumber(value: UIPressType.playPause.rawValue)];
-        self.view.addGestureRecognizer(tapGestureRecognizer)
+
+        let uri = "https://www.apple.com/105/media/us/iphone-x/2017/01df5b43-28e4-4848-bf20-490c34a926a7"
+            + "/films/meet-iphone-x/iphone-x-meet-iphone-tpl-cc-us-20171129_1280x720h.mp4"
+        player.url = URL(string: uri)
+		player.playbackLoops = true
+		// Need to set before calling `add(to:)`
+		// Note: Defaults to `true`, so the following line is redundant (and unnecessary).
+		player.usesSystemPlaybackControls = true
+
+		player.view.frame = view.bounds
+
+		// Optional
+		player.playerDelegate = self
+		// Optional
+		player.playbackDelegate = self
+
+        player.add(to: self)
+
+        // Uncomment for simple play/pause functionality if not using system-supplied playback controls.
+//        let tapGestureRecognizer = UITapGestureRecognizer(target: self,
+//                                                          action: #selector(handleTapGestureRecognizer(_:)))
+//        tapGestureRecognizer.allowedPressTypes = [NSNumber(value: UIPressType.playPause.rawValue)]
+//        view.addGestureRecognizer(tapGestureRecognizer)
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        self.player.playFromBeginning()
+
+        player.playFromBeginning()
     }
 }
 
 // MARK: - UIGestureRecognizer
 
 extension ViewController {
-    
     @objc func handleTapGestureRecognizer(_ gestureRecognizer: UITapGestureRecognizer) {
-        switch (self.player.playbackState.rawValue) {
-        case PlaybackState.stopped.rawValue:
-            self.player.playFromBeginning()
-        case PlaybackState.paused.rawValue:
-            self.player.playFromCurrentTime()
-        case PlaybackState.playing.rawValue:
-            self.player.pause()
-        case PlaybackState.failed.rawValue:
-            self.player.pause()
-        default:
-            self.player.pause()
+        switch player.playbackState {
+        case .stopped:
+            player.playFromBeginning()
+        case .paused:
+            player.playFromCurrentTime()
+        case .playing:
+            player.pause()
+        case .failed:
+            player.pause()
         }
     }
-    
 }
 
-// MARK: - PlayerDelegate
-    
+// MARK: - PlayerDelegate (optional)
+
 extension ViewController: PlayerDelegate {
-    
-    func playerReady(_ player: Player) {
-    }
-    
-    func playerPlaybackStateDidChange(_ player: Player) {
-    }
-    
-    func playerBufferingStateDidChange(_ player: Player) {
-    }
-    
-    func playerBufferTimeDidChange(_ bufferTime: Double) {
-        
-    }
+    func playerReady(player: Player) {}
+
+    func playerPlaybackStateDidChange(player: Player) {}
+
+    func playerBufferingStateDidChange(player: Player) {}
+
+    func playerBufferTimeDidChange(bufferTime: Double) {}
 }
 
-// MARK: - PlayerPlaybackDelegate
+// MARK: - PlayerPlaybackDelegate (optional)
 
 extension ViewController: PlayerPlaybackDelegate {
-    
-    func playerCurrentTimeDidChange(_ player: Player) {
-    }
-    
-    func playerPlaybackWillStartFromBeginning(_ player: Player) {
-    }
-    
-    func playerPlaybackDidEnd(_ player: Player) {
-    }
-    
-    func playerPlaybackWillLoop(_ player: Player) {
-    }
-    
-}
+    func playerCurrentTimeDidChange(player: Player) {}
 
+    func playerPlaybackWillStartFromBeginning(player: Player) {}
+
+    func playerPlaybackDidEnd(player: Player) {}
+
+    func playerPlaybackWillLoop(player: Player) {}
+}
