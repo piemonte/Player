@@ -74,6 +74,7 @@ open class Player: Player.ViewController {
 
     #if canImport(AppKit)
         public typealias ViewController = NSViewController
+        public typealias View = NSView
         fileprivate typealias PlayerView = AVPlayerView
         public typealias Image = NSImage
         public typealias Color = NSColor
@@ -81,6 +82,7 @@ open class Player: Player.ViewController {
         public typealias NibName = NSNib.Name?
     #else
         public typealias ViewController = UIViewController
+        public typealias View = UIView
         fileprivate typealias PlayerView = SuperSecretPlayerView?
         public typealias Image = UIImage
         public typealias Color = UIColor
@@ -509,8 +511,10 @@ open class Player: Player.ViewController {
     ///
     /// - Important: On iOS/tvOS platforms, `usesSystemPlaybackControls` must be set prior to calling this method.
     ///
-    /// - Parameter viewController: The parent view controller that the player will be added to.
-    open func add(to viewController: ViewController) {
+    /// - Parameters:
+    ///   - viewController: The parent view controller that the player will be added to.
+    ///   - view: The view that the player will be added to. If `nil`, adds the player to `viewController`'s view.
+    open func add(to viewController: ViewController, view: View? = nil) {
         viewController.addChildViewController(self)
 
         #if canImport(UIKit)
@@ -521,20 +525,20 @@ open class Player: Player.ViewController {
             playerViewController.didMove(toParentViewController: self)
 
             playerViewController.view.translatesAutoresizingMaskIntoConstraints = false
-            view.addSubview(playerViewController.view)
+            self.view.addSubview(playerViewController.view)
 
             NSLayoutConstraint.activate([
-                playerViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                playerViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
-                playerViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-                playerViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+                playerViewController.view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+                playerViewController.view.topAnchor.constraint(equalTo: self.view.topAnchor),
+                playerViewController.view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+                playerViewController.view.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
                 ])
 
             avPlayerViewController = playerViewController
         } else {
             playerView!.playerIsHidden = false
-            playerView!.frame = view.frame
-            view = playerView
+            playerView!.frame = self.view.frame
+            self.view = playerView
         }
 
 		didMove(toParentViewController: viewController)
@@ -542,7 +546,8 @@ open class Player: Player.ViewController {
 
         addPlayerLayerObservers()
 
-        viewController.view.addSubview(view)
+        let parentView: View = view ?? viewController.view
+        parentView.addSubview(self.view)
     }
 
 	/// Removes the player from the given view controller.
