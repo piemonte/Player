@@ -513,7 +513,20 @@ open class Player: Player.ViewController {
     ///
     /// - Parameters:
     ///   - viewController: The parent view controller that the player will be added to.
-    ///   - view: The view that the player will be added to. If `nil`, adds the player to `viewController`'s view.
+    open func add(to viewController: ViewController) {
+        add(to: viewController, view: viewController.view)
+    }
+
+    /// Adds a player to the given view controller.
+    /// The player will be added to `viewController`'s `childViewControllers` array.
+    /// If `view` is provided, the player will be added to it as a subview.
+    ///
+    /// - Important: On iOS/tvOS platforms, `usesSystemPlaybackControls` must be set prior to calling this method.
+    ///
+    /// - Parameters:
+    ///   - viewController: The parent view controller that the player will be added to.
+    ///   - view: The view that the player will be added to. If `nil`, you are
+    /// responsible for adding it to the view hierarchy yourself.
     open func add(to viewController: ViewController, view: View? = nil) {
         viewController.addChildViewController(self)
 
@@ -546,8 +559,9 @@ open class Player: Player.ViewController {
 
         addPlayerLayerObservers()
 
-        let parentView: View = view ?? viewController.view
-        parentView.addSubview(self.view)
+        if let parentView = view {
+            parentView.addSubview(self.view)
+        }
     }
 
 	/// Removes the player from the given view controller.
