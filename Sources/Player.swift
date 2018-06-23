@@ -398,6 +398,17 @@ open class Player: Player.ViewController {
 
     public var avPlayer: AVPlayer
     public var avPlayerItem: AVPlayerItem?
+    public var avPlayerLayer: AVPlayerLayer? {
+        #if canImport(AppKit)
+        return macPlayerLayer
+        #else
+        if let playerViewController = avPlayerViewController {
+            return playerViewController.view.layer.sublayers?.first(where: { $0 is AVPlayerLayer }) as? AVPlayerLayer
+        } else {
+            return playerView!.playerLayer
+        }
+        #endif
+    }
     #if canImport(UIKit)
         public var avPlayerViewController: AVPlayerViewController?
     #endif
@@ -421,7 +432,7 @@ open class Player: Player.ViewController {
     fileprivate var hasAutoplayActivated: Bool = true
 
     #if canImport(AppKit)
-        fileprivate weak var avPlayerLayer: AVPlayerLayer?
+        fileprivate weak var macPlayerLayer: AVPlayerLayer?
         fileprivate var playerViewObservation: NSKeyValueObservation!
     #endif
 
@@ -720,17 +731,6 @@ open class Player: Player.ViewController {
 
         return image
     }
-
-    /// Return the `AVPlayerLayer` for consumption by things such as Picture in Picture.
-    ///
-    /// - Note: Player must be loaded.
-    open func playerLayer() -> AVPlayerLayer? {
-        #if canImport(AppKit)
-            return avPlayerLayer
-        #else
-            return playerView!.playerLayer
-        #endif
-    }
 }
 
 // MARK: - Setup Methods
@@ -1008,15 +1008,15 @@ private extension Player {
 
             // Current workaround.
             playerViewObservation = playerView.observe(\.layer) { [weak self] playerView, _ in
-                if let avPlayerLayer = playerView.layer?.sublayers?
+                if let macPlayerLayer = playerView.layer?.sublayers?
                     .first(where: { $0 is AVPlayerLayer }) as? AVPlayerLayer,
                     let strongSelf = self {
 
                     strongSelf.playerViewObservation.invalidate()
-                    avPlayerLayer.addObserver(strongSelf,
+                    macPlayerLayer.addObserver(strongSelf,
                                               forKeyPath: PlayerLayerReadyForDisplayKey,
                                               context: &PlayerLayerObserverContext)
-                    strongSelf.avPlayerLayer = avPlayerLayer
+                    strongSelf.macPlayerLayer = macPlayerLayer
                 }
             }
         #else
@@ -1036,7 +1036,7 @@ private extension Player {
 
     func removePlayerLayerObservers() {
         #if canImport(AppKit)
-            avPlayerLayer?.removeObserver(self,
+            macPlayerLayer?.removeObserver(self,
                                                forKeyPath: PlayerLayerReadyForDisplayKey,
                                                context: &PlayerLayerObserverContext)
         #else
