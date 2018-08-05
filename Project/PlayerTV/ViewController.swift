@@ -105,8 +105,11 @@ extension ViewController: PlayerDelegate {
     }
     
     func playerBufferTimeDidChange(_ bufferTime: Double) {
-        
     }
+    
+    func player(_ player: Player, didFailWithError error: Error?) {
+    }
+
 }
 
 // MARK: - PlayerPlaybackDelegate

@@ -98,7 +98,7 @@ extension ViewController {
 
 // MARK: - PlayerDelegate
 
-extension ViewController:PlayerDelegate {
+extension ViewController: PlayerDelegate {
     
     func playerReady(_ player: Player) {
     }
@@ -108,15 +108,18 @@ extension ViewController:PlayerDelegate {
     
     func playerBufferingStateDidChange(_ player: Player) {
     }
+    
     func playerBufferTimeDidChange(_ bufferTime: Double) {
-        
+    }
+    
+    func player(_ player: Player, didFailWithError error: Error?) {
     }
     
 }
 
 // MARK: - PlayerPlaybackDelegate
 
-extension ViewController:PlayerPlaybackDelegate {
+extension ViewController: PlayerPlaybackDelegate {
     
     func playerCurrentTimeDidChange(_ player: Player) {
     }
