@@ -36,24 +36,7 @@ import CoreGraphics
 /// - resize: Stretch to fill.
 /// - resizeAspectFill: Preserve aspect ratio, filling bounds.
 /// - resizeAspectFit: Preserve aspect ratio, fill within bounds.
-public enum PlayerFillMode {
-    case resize
-    case resizeAspectFill
-    case resizeAspectFit // default
-    
-    public var avFoundationType: String {
-        get {
-            switch self {
-            case .resize:
-                return AVLayerVideoGravity.resize.rawValue
-            case .resizeAspectFill:
-                return AVLayerVideoGravity.resizeAspectFill.rawValue
-            case .resizeAspectFit:
-                return AVLayerVideoGravity.resizeAspect.rawValue
-            }
-        }
-    }
-}
+public typealias PlayerFillMode = AVLayerVideoGravity
 
 /// Asset playback states.
 public enum PlaybackState: Int, CustomStringConvertible {
@@ -177,8 +160,8 @@ open class Player: UIViewController {
     }
 
     /// Specifies how the video is displayed within a player layer’s bounds.
-    /// The default value is `AVLayerVideoGravityResizeAspect`. See `FillMode` enum.
-    open var fillMode: String {
+    /// The default value is `AVLayerVideoGravityResizeAspect`. See `PlayerFillMode`.
+    open var fillMode: PlayerFillMode {
         get {
             return self._playerView.fillMode
         }
@@ -511,7 +494,7 @@ extension Player {
         self._asset?.loadValuesAsynchronously(forKeys: keys, completionHandler: { () -> Void in
             for key in keys {
                 var error: NSError? = nil
-                let status = self._asset?.statusOfValue(forKey: key, error:&error)
+                let status = self._asset?.statusOfValue(forKey: key, error: &error)
                 if status == .failed {
                     self.playerDelegate?.player(self, didFailWithError: error)
                     self.playbackState = .failed
@@ -836,12 +819,12 @@ internal class PlayerView: UIView {
         }
     }
 
-    var fillMode: String {
+    var fillMode: PlayerFillMode {
         get {
-            return self.playerLayer.videoGravity.rawValue
+            return self.playerLayer.videoGravity
         }
         set {
-            self.playerLayer.videoGravity = AVLayerVideoGravity(rawValue: newValue)
+            self.playerLayer.videoGravity = newValue
         }
     }
     
@@ -850,13 +833,13 @@ internal class PlayerView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.playerLayer.backgroundColor = UIColor.black.cgColor
-        self.playerLayer.fillMode = PlayerFillMode.resizeAspectFit.avFoundationType
+        self.playerLayer.videoGravity = PlayerFillMode.resizeAspect
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.playerLayer.backgroundColor = UIColor.black.cgColor
-        self.playerLayer.fillMode = PlayerFillMode.resizeAspectFit.avFoundationType
+        self.playerLayer.videoGravity = PlayerFillMode.resizeAspect
     }
 
     deinit {
