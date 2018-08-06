@@ -27,7 +27,6 @@
 import UIKit
 import Foundation
 import AVFoundation
-import AVKit
 import CoreGraphics
 
 // MARK: - types
@@ -137,11 +136,6 @@ open class Player: UIViewController {
 
     // configuration
 
-    /// Use the native UI
-    ///
-    /// - Parameter bool: defaults to true
-    open var useNativeUI: Bool = true
-
     /// Local or remote URL for the file asset to be played.
     ///
     /// - Parameter url: URL of the asset.
@@ -187,17 +181,10 @@ open class Player: UIViewController {
     /// The default value is `AVLayerVideoGravityResizeAspect`. See `PlayerFillMode`.
     open var fillMode: PlayerFillMode {
         get {
-            if let playerVC = self._nativePlayerViewController {
-                return PlayerFillMode(rawValue: playerVC.videoGravity)
-            }
             return self._playerView.playerFillMode
         }
         set {
-            if let playerVC = self._nativePlayerViewController {
-                playerVC.videoGravity = newValue.rawValue
-            } else {
-                self._playerView.playerFillMode = newValue
-            }
+            self._playerView.playerFillMode = newValue
         }
     }
 
@@ -293,19 +280,12 @@ open class Player: UIViewController {
     }
 
     /// Player view's initial background color.
-    open var layerBackgroundColor: UIColor? {
+    open var playerBackgroundColor: UIColor? {
         get {
-            if let playerVC = self._nativePlayerViewController {
-                return playerVC.view.backgroundColor
-            }
             return self._playerView.playerBackgroundColor
         }
         set {
-            if let playerVC = self._nativePlayerViewController {
-                playerVC.view.backgroundColor = newValue
-            } else {
-                self._playerView.playerBackgroundColor = newValue
-            }
+            self._playerView.playerBackgroundColor = newValue
         }
     }
 
@@ -323,7 +303,6 @@ open class Player: UIViewController {
     internal var _timeObserver: Any?
 
     internal var _playerView: PlayerView = PlayerView(frame: .zero)
-    internal var _nativePlayerViewController: AVPlayerViewController?
     internal var _seekTimeRequested: CMTime?
 
     internal var _lastBufferTime: Double = 0
@@ -359,32 +338,18 @@ open class Player: UIViewController {
         self.playbackDelegate = nil
         self.removePlayerLayerObservers()
         
-        if let playerVC = self._nativePlayerViewController {
-            playerVC.player = nil
-        } else {
-            self._playerView.player = nil
-        }
+        self._playerView.player = nil
     }
 
     // MARK: - view lifecycle
 
+    open override func loadView() {
+        self._playerView.playerLayer.isHidden = true
+        self.view = self._playerView
+    }
+    
     open override func viewDidLoad() {
         super.viewDidLoad()
-
-        if useNativeUI {
-            self._nativePlayerViewController = AVPlayerViewController()
-        }
-
-        if let playerVC = self._nativePlayerViewController {
-            self.view.addSubview(playerVC.view)
-            playerVC.view.translatesAutoresizingMaskIntoConstraints = false
-            self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-\(0)-[subview]-\(0)-|", options: [], metrics: nil, views: ["subview": playerVC.view]))
-            self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-\(0)-[subview]-\(0)-|", options: [], metrics: nil, views: ["subview": playerVC.view]))
-            self.addChildViewController(playerVC)
-        } else {
-            self._playerView.isHidden = false
-            self.view = self._playerView
-        }
 
         if let url = url {
             setup(url: url)
@@ -397,17 +362,14 @@ open class Player: UIViewController {
         self.addApplicationObservers()
     }
 
-    // MARK: - Playback funcs
-
-    open func playerViewSet(player: AVPlayer) {
-        if let playerVC = self._nativePlayerViewController {
-            playerVC.player = player
-            playerVC.view.isHidden = false
-        } else {
-            self._playerView.player = player
-            self._playerView.isHidden = false
+    open override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        if self.playbackState == .playing {
+            self.pause()
         }
     }
+    
+    // MARK: - Playback funcs
 
     /// Begins playback of the media from the beginning.
     open func playFromBeginning() {
@@ -460,10 +422,7 @@ open class Player: UIViewController {
     ///   - completionHandler: Call block handler after seeking/
     open func seek(to time: CMTime, completionHandler: ((Bool) -> Swift.Void)? = nil) {
         if let playerItem = self._playerItem {
-            return playerItem.seek(to: time) {
-                didSeek in
-                completionHandler?(didSeek)
-            }
+            return playerItem.seek(to: time, completionHandler: completionHandler)
         } else {
             _seekTimeRequested = time
         }
@@ -478,10 +437,7 @@ open class Player: UIViewController {
     ///   - completionHandler: call block handler after seeking
     open func seekToTime(to time: CMTime, toleranceBefore: CMTime, toleranceAfter: CMTime, completionHandler: ((Bool) -> Swift.Void)? = nil) {
         if let playerItem = self._playerItem {
-            return playerItem.seek(to: time, toleranceBefore: toleranceBefore, toleranceAfter: toleranceAfter) {
-                didSeek in
-                completionHandler?(didSeek)
-            }
+            return playerItem.seek(to: time, toleranceBefore: toleranceBefore, toleranceAfter: toleranceAfter, completionHandler: completionHandler)
         }
     }
 
@@ -489,13 +445,8 @@ open class Player: UIViewController {
     ///
     /// - Returns: A UIImage of the player view.
     open func takeSnapshot() -> UIImage {
-        if let playerVC = self._nativePlayerViewController {
-            UIGraphicsBeginImageContextWithOptions(playerVC.view.frame.size, false, UIScreen.main.scale)
-            playerVC.view.drawHierarchy(in: playerVC.view.bounds, afterScreenUpdates: true)
-        } else {
-            UIGraphicsBeginImageContextWithOptions(self._playerView.frame.size, false, UIScreen.main.scale)
-            self._playerView.drawHierarchy(in: self._playerView.bounds, afterScreenUpdates: true)
-        }
+        UIGraphicsBeginImageContextWithOptions(self._playerView.frame.size, false, UIScreen.main.scale)
+        self._playerView.drawHierarchy(in: self._playerView.bounds, afterScreenUpdates: true)
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return image!
@@ -708,19 +659,11 @@ extension Player {
     // MARK: - AVPlayerLayerObservers
 
     internal func addPlayerLayerObservers() {
-        if let playerVC = self._nativePlayerViewController {
-            playerVC.view.addObserver(self, forKeyPath: PlayerReadyForDisplayKey, options: [.new, .old], context: &PlayerLayerObserverContext)
-        } else {
-            self._playerView.layer.addObserver(self, forKeyPath: PlayerReadyForDisplayKey, options: [.new, .old], context: &PlayerLayerObserverContext)
-        }
+        self._playerView.layer.addObserver(self, forKeyPath: PlayerReadyForDisplayKey, options: [.new, .old], context: &PlayerLayerObserverContext)
     }
 
     internal func removePlayerLayerObservers() {
-        if let playerVC = self._nativePlayerViewController {
-            playerVC.view.removeObserver(self, forKeyPath: PlayerReadyForDisplayKey, context: &PlayerLayerObserverContext)
-        } else {
-            self._playerView.layer.removeObserver(self, forKeyPath: PlayerReadyForDisplayKey, context: &PlayerLayerObserverContext)
-        }
+        self._playerView.layer.removeObserver(self, forKeyPath: PlayerReadyForDisplayKey, context: &PlayerLayerObserverContext)
     }
 
     // MARK: - AVPlayerObservers
@@ -771,11 +714,13 @@ extension Player {
                     }
                 }
 
-                if let status = change?[NSKeyValueChangeKey.newKey] as? NSNumber {
-                    switch status.intValue as AVPlayerStatus.RawValue {
-                    case AVPlayerStatus.readyToPlay.rawValue:
-                        self.playerViewSet(player: self._avplayer)
-                    case AVPlayerStatus.failed.rawValue:
+                if let status = change?[NSKeyValueChangeKey.newKey] as? NSNumber,
+                    let playerStatus: AVPlayerStatus = AVPlayerStatus(rawValue: status.intValue) {
+                    switch playerStatus {
+                    case .readyToPlay:
+                        self._playerView.playerLayer.player = self._avplayer
+                        self._playerView.playerLayer.isHidden = false
+                    case .failed:
                         self.playbackState = PlaybackState.failed
                     default:
                         break
@@ -791,11 +736,13 @@ extension Player {
                     self.bufferingState = .delayed
                 }
 
-                if let status = change?[NSKeyValueChangeKey.newKey] as? NSNumber {
-                    switch status.intValue as AVPlayerStatus.RawValue {
-                    case AVPlayerStatus.readyToPlay.rawValue:
-                        self.playerViewSet(player: self._avplayer)
-                    case AVPlayerStatus.failed.rawValue:
+                if let status = change?[NSKeyValueChangeKey.newKey] as? NSNumber,
+                    let playerStatus: AVPlayerStatus = AVPlayerStatus(rawValue: status.intValue) {
+                    switch playerStatus {
+                    case .readyToPlay:
+                        self._playerView.playerLayer.player = self._avplayer
+                        self._playerView.playerLayer.isHidden = false
+                    case .failed:
                         self.playbackState = PlaybackState.failed
                     default:
                         break
@@ -837,16 +784,8 @@ extension Player {
 
         } else if context == &PlayerLayerObserverContext {
             
-            if let playerVC = self._nativePlayerViewController {
-                if playerVC.isReadyForDisplay {
-                    self.executeClosureOnMainQueueIfNecessary {
-                        self.playerDelegate?.playerReady(self)
-                    }
-                }
-            } else if self._playerView.isReadyForDisplay {
-                self.executeClosureOnMainQueueIfNecessary {
-                    self.playerDelegate?.playerReady(self)
-                }
+            self.executeClosureOnMainQueueIfNecessary {
+                self.playerDelegate?.playerReady(self)
             }
 
         } else if context == &PlayerObserverContext {
@@ -857,7 +796,8 @@ extension Player {
             
             if #available(iOS 10.0, *) {
                 if keyPath == PlayerTimeControlStatusKey {
-                    if let rawNewValue = change?[.newKey] as? Int, let newStatus = AVPlayerTimeControlStatus(rawValue: rawNewValue) {
+                    if let rawNewValue = change?[.newKey] as? Int,
+                        let newStatus = AVPlayerTimeControlStatus(rawValue: rawNewValue) {
                         if newStatus == .paused {
                             self.playbackState = .paused
                         } else if newStatus == .playing {
