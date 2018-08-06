@@ -80,6 +80,24 @@ public enum BufferingState: Int, CustomStringConvertible {
         }
     }
 }
+// MARK: - error types
+
+/// Error domain for all Player errors.
+public let PlayerErrorDomain = "PlayerErrorDomain"
+
+/// Error types.
+public enum PlayerError: Error, CustomStringConvertible {
+    case failed
+    
+    public var description: String {
+        get {
+            switch self {
+            case .failed:
+                return "failed"
+            }
+        }
+    }
+}
 
 // MARK: - PlayerDelegate
 
@@ -496,7 +514,7 @@ extension Player {
                 var error: NSError? = nil
                 let status = self._asset?.statusOfValue(forKey: key, error: &error)
                 if status == .failed {
-                    self.playerDelegate?.player(self, didFailWithError: error)
+                    self.playerDelegate?.player(self, didFailWithError: PlayerError.failed)
                     self.playbackState = .failed
                     return
                 }
