@@ -32,6 +32,7 @@ class ViewController: UIViewController {
 
     fileprivate var player = Player()
     
+    
     // MARK: object lifecycle
     deinit {
         self.player.willMove(toParentViewController: self)
@@ -61,12 +62,23 @@ class ViewController: UIViewController {
         let tapGestureRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTapGestureRecognizer(_:)))
         tapGestureRecognizer.numberOfTapsRequired = 1
         self.player.view.addGestureRecognizer(tapGestureRecognizer)
+        
+        
+        let fullscreenButton = UIButton(frame: CGRect(x: 0, y: view.frame.height - 50, width: view.frame.width, height: 50))
+        fullscreenButton.setTitle("Fullscreen", for: .normal)
+        fullscreenButton.setTitleColor(UIColor.white, for: .normal)
+        fullscreenButton.addTarget(self, action: #selector(tapOnFullscreen), for: .touchUpInside)
+        self.view.addSubview(fullscreenButton)
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         self.player.playFromBeginning()
+    }
+    
+    func tapOnFullscreen(){
+        player.enterFullScreen()
     }
 }
 
@@ -104,6 +116,7 @@ extension ViewController: PlayerDelegate {
     }
     
     func playerPlaybackStateDidChange(_ player: Player) {
+        print(player.playbackState)
     }
     
     func playerBufferingStateDidChange(_ player: Player) {
@@ -133,5 +146,10 @@ extension ViewController: PlayerPlaybackDelegate {
     func playerPlaybackWillLoop(_ player: Player) {
     }
     
+    func playerEnterFullScreen() {
+    }
+    
+    func playerExitFullScreen() {
+    }
 }
 

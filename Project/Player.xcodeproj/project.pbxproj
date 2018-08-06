@@ -18,6 +18,7 @@
 		065A0FAD1A25C8E2005BA7BC /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 065A0FAB1A25C8E2005BA7BC /* LaunchScreen.xib */; };
 		065A0FC61A25C94B005BA7BC /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065A0FC51A25C94B005BA7BC /* Player.swift */; };
 		06C0905F1E038F250038CA25 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065A0FC51A25C94B005BA7BC /* Player.swift */; };
+		F87326A51EF057C7008D2915 /* FullScreenPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87326A41EF057C7008D2915 /* FullScreenPlayer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,7 @@
 		065A0FC51A25C94B005BA7BC /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Player.swift; path = ../Sources/Player.swift; sourceTree = "<group>"; };
 		06C6A5891A89E952009DC6EA /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = SOURCE_ROOT; };
 		06DE65951E182C5A00C064DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = Framework/Info.plist; sourceTree = SOURCE_ROOT; };
+		F87326A41EF057C7008D2915 /* FullScreenPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullScreenPlayer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,6 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				065A0FC51A25C94B005BA7BC /* Player.swift */,
+				F87326A41EF057C7008D2915 /* FullScreenPlayer.swift */,
 			);
 			name = Player;
 			sourceTree = "<group>";
@@ -319,6 +322,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				065A0FA51A25C8E2005BA7BC /* ViewController.swift in Sources */,
+				F87326A51EF057C7008D2915 /* FullScreenPlayer.swift in Sources */,
 				065A0FC61A25C94B005BA7BC /* Player.swift in Sources */,
 				065A0FA31A25C8E2005BA7BC /* AppDelegate.swift in Sources */,
 			);
