@@ -48,8 +48,9 @@ class ViewController: UIViewController {
         
         self.player.playerDelegate = self
         self.player.playbackDelegate = self
-        self.player.view.frame = self.view.bounds
-        
+
+        self.player.playerView.playerBackgroundColor = .black
+
         self.addChildViewController(self.player)
         self.view.addSubview(self.player.view)
         self.player.didMove(toParentViewController: self)

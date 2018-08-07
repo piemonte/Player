@@ -279,13 +279,10 @@ open class Player: UIViewController {
         }
     }
 
-    /// Player view's initial background color.
-    open var playerBackgroundColor: UIColor? {
+    /// self.view as PlayerView type
+    public var playerView: PlayerView {
         get {
-            return self._playerView.playerBackgroundColor
-        }
-        set {
-            self._playerView.playerBackgroundColor = newValue
+            return self._playerView
         }
     }
 
@@ -294,6 +291,9 @@ open class Player: UIViewController {
     open func playerLayer() -> AVPlayerLayer? {
         return self._playerView.playerLayer
     }
+    
+    @available(*, deprecated, message: "Use playerView.playerBackgroundColor instead.")
+    open var playerBackgroundColor: UIColor?
     
     // MARK: - private instance vars
 
@@ -834,9 +834,11 @@ extension Player {
 
 // MARK: - PlayerView
 
-internal class PlayerView: UIView {
+public class PlayerView: UIView {
     
-    override class var layerClass: AnyClass {
+    // MARK: - overrides
+    
+    public override class var layerClass: AnyClass {
         get {
             return AVPlayerLayer.self
         }
