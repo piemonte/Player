@@ -14,7 +14,7 @@
     <a title="Player Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">Player Docs</a> (60% documented)</p>
+        <p><a href="../index.html">Player Docs</a> (58% documented)</p>
         <p class="header-right"><a href="https://github.com/piemonte/Player"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -34,6 +34,17 @@
               <li class="nav-group-task">
                 <a href="../Classes/Player.html">Player</a>
               </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PlayerView.html">PlayerView</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Global Variables.html">Global Variables</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:6Player0A11ErrorDomainSSvp">PlayerErrorDomain</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
@@ -46,7 +57,7 @@
                 <a href="../Enums/PlaybackState.html">PlaybackState</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Enums/PlayerFillMode.html">PlayerFillMode</a>
+                <a href="../Enums/PlayerError.html">PlayerError</a>
               </li>
             </ul>
           </li>
@@ -58,6 +69,14 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/PlayerPlaybackDelegate.html">PlayerPlaybackDelegate</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:6Player0A8FillModea">PlayerFillMode</a>
               </li>
             </ul>
           </li>
@@ -82,9 +101,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6PlayerAAC14playerDelegateAA0aC0_pSgXwv"></a>
+                    <a name="/s:6PlayerAAC14playerDelegateAA0aC0_pSgXwvp"></a>
                     <a name="//apple_ref/swift/Property/playerDelegate" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6PlayerAAC14playerDelegateAA0aC0_pSgXwv">playerDelegate</a>
+                    <a class="token" href="#/s:6PlayerAAC14playerDelegateAA0aC0_pSgXwvp">playerDelegate</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -109,9 +128,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6PlayerAAC16playbackDelegateAA0a8PlaybackC0_pSgXwv"></a>
+                    <a name="/s:6PlayerAAC16playbackDelegateAA0a8PlaybackC0_pSgXwvp"></a>
                     <a name="//apple_ref/swift/Property/playbackDelegate" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6PlayerAAC16playbackDelegateAA0a8PlaybackC0_pSgXwv">playbackDelegate</a>
+                    <a class="token" href="#/s:6PlayerAAC16playbackDelegateAA0a8PlaybackC0_pSgXwvp">playbackDelegate</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -136,9 +155,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6PlayerAAC3url10Foundation3URLVSgv"></a>
+                    <a name="/s:6PlayerAAC3url10Foundation3URLVSgvp"></a>
                     <a name="//apple_ref/swift/Property/url" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6PlayerAAC3url10Foundation3URLVSgv">url</a>
+                    <a class="token" href="#/s:6PlayerAAC3url10Foundation3URLVSgvp">url</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -182,9 +201,65 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6PlayerAAC8autoplaySbv"></a>
+                    <a name="/s:6PlayerAAC5assetSo7AVAssetCSgvp"></a>
+                    <a name="//apple_ref/swift/Property/asset" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PlayerAAC5assetSo7AVAssetCSgvp">asset</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>For setting up with AVAsset instead of URL
+Note: Resets URL (cannot set both)</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="k">var</span> <span class="nv">asset</span><span class="p">:</span> <span class="kt">AVAsset</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PlayerAAC8fillModeSC19AVLayerVideoGravityVvp"></a>
+                    <a name="//apple_ref/swift/Property/fillMode" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PlayerAAC8fillModeSC19AVLayerVideoGravityVvp">fillMode</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Specifies how the video is displayed within a player layer’s bounds.
+The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code><a href="../Typealiases.html#/s:6Player0A8FillModea">PlayerFillMode</a></code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="k">var</span> <span class="nv">fillMode</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:6Player0A8FillModea">PlayerFillMode</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PlayerAAC8autoplaySbvp"></a>
                     <a name="//apple_ref/swift/Property/autoplay" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6PlayerAAC8autoplaySbv">autoplay</a>
+                    <a class="token" href="#/s:6PlayerAAC8autoplaySbvp">autoplay</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -228,37 +303,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6PlayerAAC5assetSo7AVAssetCSgv"></a>
-                    <a name="//apple_ref/swift/Property/asset" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6PlayerAAC5assetSo7AVAssetCSgv">asset</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>For setting up with AVAsset instead of URL
-Note: Resets URL (cannot set both)</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="n">open</span> <span class="k">var</span> <span class="nv">asset</span><span class="p">:</span> <span class="kt">AVAsset</span><span class="p">?</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:6PlayerAAC5mutedSbv"></a>
+                    <a name="/s:6PlayerAAC5mutedSbvp"></a>
                     <a name="//apple_ref/swift/Property/muted" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6PlayerAAC5mutedSbv">muted</a>
+                    <a class="token" href="#/s:6PlayerAAC5mutedSbvp">muted</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -283,9 +330,9 @@ Note: Resets URL (cannot set both)</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6PlayerAAC6volumeSfv"></a>
+                    <a name="/s:6PlayerAAC6volumeSfvp"></a>
                     <a name="//apple_ref/swift/Property/volume" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6PlayerAAC6volumeSfv">volume</a>
+                    <a class="token" href="#/s:6PlayerAAC6volumeSfvp">volume</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -310,37 +357,9 @@ Note: Resets URL (cannot set both)</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6PlayerAAC8fillModeSSv"></a>
-                    <a name="//apple_ref/swift/Property/fillMode" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6PlayerAAC8fillModeSSv">fillMode</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Specifies how the video is displayed within a player layer’s bounds.
-The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code>FillMode</code> enum.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="n">open</span> <span class="k">var</span> <span class="nv">fillMode</span><span class="p">:</span> <span class="kt">String</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:6PlayerAAC33playbackPausesWhenResigningActiveSbv"></a>
+                    <a name="/s:6PlayerAAC33playbackPausesWhenResigningActiveSbvp"></a>
                     <a name="//apple_ref/swift/Property/playbackPausesWhenResigningActive" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6PlayerAAC33playbackPausesWhenResigningActiveSbv">playbackPausesWhenResigningActive</a>
+                    <a class="token" href="#/s:6PlayerAAC33playbackPausesWhenResigningActiveSbvp">playbackPausesWhenResigningActive</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -365,9 +384,9 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code>Fil
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6PlayerAAC30playbackPausesWhenBackgroundedSbv"></a>
+                    <a name="/s:6PlayerAAC30playbackPausesWhenBackgroundedSbvp"></a>
                     <a name="//apple_ref/swift/Property/playbackPausesWhenBackgrounded" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6PlayerAAC30playbackPausesWhenBackgroundedSbv">playbackPausesWhenBackgrounded</a>
+                    <a class="token" href="#/s:6PlayerAAC30playbackPausesWhenBackgroundedSbvp">playbackPausesWhenBackgrounded</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -392,9 +411,9 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code>Fil
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6PlayerAAC31playbackResumesWhenBecameActiveSbv"></a>
+                    <a name="/s:6PlayerAAC31playbackResumesWhenBecameActiveSbvp"></a>
                     <a name="//apple_ref/swift/Property/playbackResumesWhenBecameActive" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6PlayerAAC31playbackResumesWhenBecameActiveSbv">playbackResumesWhenBecameActive</a>
+                    <a class="token" href="#/s:6PlayerAAC31playbackResumesWhenBecameActiveSbvp">playbackResumesWhenBecameActive</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -419,9 +438,9 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code>Fil
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6PlayerAAC37playbackResumesWhenEnteringForegroundSbv"></a>
+                    <a name="/s:6PlayerAAC37playbackResumesWhenEnteringForegroundSbvp"></a>
                     <a name="//apple_ref/swift/Property/playbackResumesWhenEnteringForeground" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6PlayerAAC37playbackResumesWhenEnteringForegroundSbv">playbackResumesWhenEnteringForeground</a>
+                    <a class="token" href="#/s:6PlayerAAC37playbackResumesWhenEnteringForegroundSbvp">playbackResumesWhenEnteringForeground</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -446,9 +465,9 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code>Fil
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6PlayerAAC13playbackLoopsSbv"></a>
+                    <a name="/s:6PlayerAAC13playbackLoopsSbvp"></a>
                     <a name="//apple_ref/swift/Property/playbackLoops" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6PlayerAAC13playbackLoopsSbv">playbackLoops</a>
+                    <a class="token" href="#/s:6PlayerAAC13playbackLoopsSbvp">playbackLoops</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -473,9 +492,9 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code>Fil
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6PlayerAAC20playbackFreezesAtEndSbv"></a>
+                    <a name="/s:6PlayerAAC20playbackFreezesAtEndSbvp"></a>
                     <a name="//apple_ref/swift/Property/playbackFreezesAtEnd" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6PlayerAAC20playbackFreezesAtEndSbv">playbackFreezesAtEnd</a>
+                    <a class="token" href="#/s:6PlayerAAC20playbackFreezesAtEndSbvp">playbackFreezesAtEnd</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -500,9 +519,9 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code>Fil
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6PlayerAAC13playbackStateAA08PlaybackC0Ov"></a>
+                    <a name="/s:6PlayerAAC13playbackStateAA08PlaybackC0Ovp"></a>
                     <a name="//apple_ref/swift/Property/playbackState" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6PlayerAAC13playbackStateAA08PlaybackC0Ov">playbackState</a>
+                    <a class="token" href="#/s:6PlayerAAC13playbackStateAA08PlaybackC0Ovp">playbackState</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -527,9 +546,9 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code>Fil
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6PlayerAAC14bufferingStateAA09BufferingC0Ov"></a>
+                    <a name="/s:6PlayerAAC14bufferingStateAA09BufferingC0Ovp"></a>
                     <a name="//apple_ref/swift/Property/bufferingState" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6PlayerAAC14bufferingStateAA09BufferingC0Ov">bufferingState</a>
+                    <a class="token" href="#/s:6PlayerAAC14bufferingStateAA09BufferingC0Ovp">bufferingState</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -554,9 +573,9 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code>Fil
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6PlayerAAC10bufferSizeSdv"></a>
+                    <a name="/s:6PlayerAAC10bufferSizeSdvp"></a>
                     <a name="//apple_ref/swift/Property/bufferSize" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6PlayerAAC10bufferSizeSdv">bufferSize</a>
+                    <a class="token" href="#/s:6PlayerAAC10bufferSizeSdvp">bufferSize</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -581,9 +600,9 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code>Fil
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6PlayerAAC21playbackEdgeTriggeredSbv"></a>
+                    <a name="/s:6PlayerAAC21playbackEdgeTriggeredSbvp"></a>
                     <a name="//apple_ref/swift/Property/playbackEdgeTriggered" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6PlayerAAC21playbackEdgeTriggeredSbv">playbackEdgeTriggered</a>
+                    <a class="token" href="#/s:6PlayerAAC21playbackEdgeTriggeredSbvp">playbackEdgeTriggered</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -608,9 +627,9 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code>Fil
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6PlayerAAC15maximumDurationSdv"></a>
+                    <a name="/s:6PlayerAAC15maximumDurationSdvp"></a>
                     <a name="//apple_ref/swift/Property/maximumDuration" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6PlayerAAC15maximumDurationSdv">maximumDuration</a>
+                    <a class="token" href="#/s:6PlayerAAC15maximumDurationSdvp">maximumDuration</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -635,9 +654,9 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code>Fil
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6PlayerAAC11currentTimeSdv"></a>
+                    <a name="/s:6PlayerAAC11currentTimeSdvp"></a>
                     <a name="//apple_ref/swift/Property/currentTime" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6PlayerAAC11currentTimeSdv">currentTime</a>
+                    <a class="token" href="#/s:6PlayerAAC11currentTimeSdvp">currentTime</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -662,9 +681,9 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code>Fil
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6PlayerAAC11naturalSizeSC6CGSizeVv"></a>
+                    <a name="/s:6PlayerAAC11naturalSizeSC6CGSizeVvp"></a>
                     <a name="//apple_ref/swift/Property/naturalSize" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6PlayerAAC11naturalSizeSC6CGSizeVv">naturalSize</a>
+                    <a class="token" href="#/s:6PlayerAAC11naturalSizeSC6CGSizeVvp">naturalSize</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -689,9 +708,9 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code>Fil
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6PlayerAAC20layerBackgroundColorSo7UIColorCSgv"></a>
-                    <a name="//apple_ref/swift/Property/layerBackgroundColor" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6PlayerAAC20layerBackgroundColorSo7UIColorCSgv">layerBackgroundColor</a>
+                    <a name="/s:6PlayerAAC10playerViewAA0aC0Cvp"></a>
+                    <a name="//apple_ref/swift/Property/playerView" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PlayerAAC10playerViewAA0aC0Cvp">playerView</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -699,14 +718,69 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code>Fil
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Player view&rsquo;s initial background color.</p>
+                        <p>self.view as PlayerView type</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="n">open</span> <span class="k">var</span> <span class="nv">layerBackgroundColor</span><span class="p">:</span> <span class="kt">UIColor</span><span class="p">?</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">playerView</span><span class="p">:</span> <span class="kt"><a href="../Classes/PlayerView.html">PlayerView</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PlayerAAC11playerLayerSo08AVPlayerC0CSgyF"></a>
+                    <a name="//apple_ref/swift/Method/playerLayer()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PlayerAAC11playerLayerSo08AVPlayerC0CSgyF">playerLayer()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Return the av player layer for consumption by
+things such as Picture in Picture</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">func</span> <span class="nf">playerLayer</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">AVPlayerLayer</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PlayerAAC21playerBackgroundColorSo7UIColorCSgvp"></a>
+                    <a name="//apple_ref/swift/Property/playerBackgroundColor" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PlayerAAC21playerBackgroundColorSo7UIColorCSgvp">playerBackgroundColor</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">class</span> <span class="kt">Player</span><span class="p">:</span> <span class="kt">UIViewController</span></code></pre>
 
                         </div>
                       </div>
@@ -900,13 +974,6 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code>Fil
               </ul>
             </div>
             <div class="task-group">
-              <div class="task-name-container">
-                <a name="/Playback%20funcs"></a>
-                <a name="//apple_ref/swift/Section/Playback funcs" class="dashAnchor"></a>
-                <a href="#/Playback%20funcs">
-                  <h3 class="section-name">Playback funcs</h3>
-                </a>
-              </div>
               <ul>
                 <li class="item">
                   <div>
@@ -1187,34 +1254,6 @@ The default value is <code>AVLayerVideoGravityResizeAspect</code>. See <code>Fil
                     </section>
                   </div>
                 </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:6PlayerAAC11playerLayerSo08AVPlayerC0CSgyF"></a>
-                    <a name="//apple_ref/swift/Method/playerLayer()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6PlayerAAC11playerLayerSo08AVPlayerC0CSgyF">playerLayer()</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Return the av player layer for consumption by
-things such as Picture in Picture</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">func</span> <span class="nf">playerLayer</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">AVPlayerLayer</span><span class="p">?</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
               </ul>
             </div>
             <div class="task-group">
@@ -1251,7 +1290,7 @@ things such as Picture in Picture</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2017 <a class="link" href="https://patrickpiemonte.com" target="_blank" rel="external">Patrick Piemonte</a>. All rights reserved. (Last updated: 2017-10-08)</p>
+          <p>&copy; 2018 <a class="link" href="https://patrickpiemonte.com" target="_blank" rel="external">Patrick Piemonte</a>. All rights reserved. (Last updated: 2018-08-06)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.4</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
