@@ -723,8 +723,7 @@ extension Player {
                     let playerStatus: AVPlayerStatus = AVPlayerStatus(rawValue: status.intValue) {
                     switch playerStatus {
                     case .readyToPlay:
-                        self._playerView.playerLayer.player = self._avplayer
-                        self._playerView.playerLayer.isHidden = false
+                        self._playerView.player = self._avplayer
                     case .failed:
                         self.playbackState = PlaybackState.failed
                     default:
@@ -745,8 +744,7 @@ extension Player {
                     let playerStatus: AVPlayerStatus = AVPlayerStatus(rawValue: status.intValue) {
                     switch playerStatus {
                     case .readyToPlay:
-                        self._playerView.playerLayer.player = self._avplayer
-                        self._playerView.playerLayer.isHidden = false
+                        self._playerView.player = self._avplayer
                     case .failed:
                         self.playbackState = PlaybackState.failed
                     default:
@@ -858,6 +856,11 @@ public class PlayerView: UIView {
         }
         set {
             self.playerLayer.player = newValue
+            if let _ = self.playerLayer.player {
+                self.playerLayer.isHidden = false
+            } else {
+                self.playerLayer.isHidden = true
+            }
         }
     }
     
@@ -892,13 +895,13 @@ public class PlayerView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.playerBackgroundColor = .black
+        self.playerLayer.isHidden = true
         self.playerFillMode = .resizeAspect
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.playerBackgroundColor = .black
+        self.playerLayer.isHidden = true
         self.playerFillMode = .resizeAspect
     }
 
