@@ -23,10 +23,10 @@
 ```ruby
 # CocoaPods
 swift_version = "4.0"
-pod "Player", "~> 0.8.0"
+pod "Player", "~> 0.9.0"
 
 # Carthage
-github "piemonte/Player" ~> 0.8.0
+github "piemonte/Player" ~> 0.9.0
 ```
 
 Need Swift 3? Use release `0.7.0`
