@@ -145,17 +145,28 @@ open class Player: UIViewController {
         }
     }
 
-    /// Determines if the video should autoplay when a url is set
-    ///
-    /// - Parameter bool: defaults to true
-    open var autoplay: Bool = true
-
     /// For setting up with AVAsset instead of URL
     /// Note: Resets URL (cannot set both)
     open var asset: AVAsset? {
         get { return _asset }
         set { _ = newValue.map { setupAsset($0) } }
     }
+    
+    /// Specifies how the video is displayed within a player layer’s bounds.
+    /// The default value is `AVLayerVideoGravityResizeAspect`. See `PlayerFillMode`.
+    open var fillMode: PlayerFillMode {
+        get {
+            return self._playerView.playerFillMode
+        }
+        set {
+            self._playerView.playerFillMode = newValue
+        }
+    }
+
+    /// Determines if the video should autoplay when a url is set
+    ///
+    /// - Parameter bool: defaults to true
+    open var autoplay: Bool = true
 
     /// Mutes audio playback when true.
     open var muted: Bool {
@@ -174,17 +185,6 @@ open class Player: UIViewController {
         }
         set {
             self._avplayer.volume = newValue
-        }
-    }
-
-    /// Specifies how the video is displayed within a player layer’s bounds.
-    /// The default value is `AVLayerVideoGravityResizeAspect`. See `PlayerFillMode`.
-    open var fillMode: PlayerFillMode {
-        get {
-            return self._playerView.playerFillMode
-        }
-        set {
-            self._playerView.playerFillMode = newValue
         }
     }
 
@@ -289,6 +289,12 @@ open class Player: UIViewController {
         }
     }
 
+    /// Return the av player layer for consumption by
+    /// things such as Picture in Picture
+    open func playerLayer() -> AVPlayerLayer? {
+        return self._playerView.playerLayer
+    }
+    
     // MARK: - private instance vars
 
     internal var _asset: AVAsset? {
@@ -369,7 +375,11 @@ open class Player: UIViewController {
         }
     }
     
-    // MARK: - Playback funcs
+}
+
+// MARK: - action funcs
+
+extension Player {
 
     /// Begins playback of the media from the beginning.
     open func playFromBeginning() {
@@ -451,12 +461,7 @@ open class Player: UIViewController {
         UIGraphicsEndImageContext()
         return image!
     }
-
-    /// Return the av player layer for consumption by
-    /// things such as Picture in Picture
-    open func playerLayer() -> AVPlayerLayer? {
-        return self._playerView.playerLayer
-    }
+    
 }
 
 // MARK: - loading funcs
