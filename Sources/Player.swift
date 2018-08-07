@@ -683,7 +683,7 @@ extension Player {
             strongSelf.playbackDelegate?.playerCurrentTimeDidChange(strongSelf)
         })
         self._avplayer.addObserver(self, forKeyPath: PlayerRateKey, options: [.new, .old], context: &PlayerObserverContext)
-        if #available(iOS 10.0, *) {
+        if #available(iOS 10.0, tvOS 10.0, *) {
             self._avplayer.addObserver(self, forKeyPath: PlayerTimeControlStatusKey, options: [.new, .old], context: &PlayerObserverContext)
         }
     }
@@ -693,7 +693,7 @@ extension Player {
             self._avplayer.removeTimeObserver(observer)
         }
         self._avplayer.removeObserver(self, forKeyPath: PlayerRateKey, context: &PlayerObserverContext)
-        if #available(iOS 10.0, *) {
+        if #available(iOS 10.0, tvOS 10.0, *) {
             self._avplayer.removeObserver(self, forKeyPath: PlayerTimeControlStatusKey, context: &PlayerObserverContext)
         }
     }
@@ -798,7 +798,7 @@ extension Player {
             
             // PlayerTimeControlStatusKey
             
-            if #available(iOS 10.0, *) {
+            if #available(iOS 10.0, tvOS 10.0, *) {
                 if keyPath == PlayerTimeControlStatusKey {
                     if let rawNewValue = change?[.newKey] as? Int,
                         let newStatus = AVPlayerTimeControlStatus(rawValue: rawNewValue) {
