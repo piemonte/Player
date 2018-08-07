@@ -350,7 +350,8 @@ open class Player: UIViewController {
     // MARK: - view lifecycle
 
     open override func loadView() {
-        self._playerView.playerLayer.isHidden = true
+        super.loadView()
+        self._playerView.frame = self.view.bounds
         self.view = self._playerView
     }
     
@@ -844,13 +845,13 @@ public class PlayerView: UIView {
 
     // MARK: - properties
 
-    var playerLayer: AVPlayerLayer {
+    internal var playerLayer: AVPlayerLayer {
         get {
             return self.layer as! AVPlayerLayer
         }
     }
 
-    var player: AVPlayer? {
+    internal var player: AVPlayer? {
         get {
             return self.playerLayer.player
         }
@@ -885,7 +886,7 @@ public class PlayerView: UIView {
         }
     }
 
-    var isReadyForDisplay: Bool {
+    public var isReadyForDisplay: Bool {
         get {
             return self.playerLayer.isReadyForDisplay
         }
@@ -893,13 +894,13 @@ public class PlayerView: UIView {
 
     // MARK: - object lifecycle
 
-    override init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
         self.playerLayer.isHidden = true
         self.playerFillMode = .resizeAspect
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.playerLayer.isHidden = true
         self.playerFillMode = .resizeAspect
