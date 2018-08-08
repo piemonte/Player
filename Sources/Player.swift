@@ -307,6 +307,7 @@ open class Player: UIViewController {
     internal var _avplayer: AVPlayer = AVPlayer()
     internal var _playerItem: AVPlayerItem?
     
+    internal var _playerObservers = [NSKeyValueObservation]()
     internal var _playerItemObservers = [NSKeyValueObservation]()
     internal var _playerLayerObserver: NSKeyValueObservation?
     internal var _playerTimeObserver: Any?
@@ -636,14 +637,6 @@ extension Player {
 
 // MARK: - KVO
 
-// KVO contexts
-
-private var PlayerObserverContext = 0
-
-// KVO player keys
-
-private let PlayerTimeControlStatusKey = "timeControlStatus"
-
 extension Player {
 
     // MARK: - AVPlayerItemObservers
@@ -749,42 +742,28 @@ extension Player {
         })
         
         if #available(iOS 10.0, tvOS 10.0, *) {
-            self._avplayer.addObserver(self, forKeyPath: PlayerTimeControlStatusKey, options: [.new, .old], context: &PlayerObserverContext)
+            self._playerObservers.append(self._avplayer.observe(\.timeControlStatus, options: [.new, .old]) { (object, change) in
+                switch object.timeControlStatus {
+                case .paused:
+                    self.playbackState = .paused
+                case .playing:
+                    self.playbackState = .playing
+                default:
+                    break
+                }
+            })
         }
+        
     }
 
     internal func removePlayerObservers() {
         if let observer = self._playerTimeObserver {
             self._avplayer.removeTimeObserver(observer)
         }
-        if #available(iOS 10.0, tvOS 10.0, *) {
-            self._avplayer.removeObserver(self, forKeyPath: PlayerTimeControlStatusKey, context: &PlayerObserverContext)
+        for observer in self._playerObservers {
+            observer.invalidate()
         }
-    }
-
-    // MARK: -
-
-    override open func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
-
-        if context == &PlayerObserverContext {
-            
-            // PlayerTimeControlStatusKey
-            
-            if #available(iOS 10.0, tvOS 10.0, *) {
-                if keyPath == PlayerTimeControlStatusKey {
-                    if let rawNewValue = change?[.newKey] as? Int,
-                        let newStatus = AVPlayerTimeControlStatus(rawValue: rawNewValue) {
-                        if newStatus == .paused {
-                            self.playbackState = .paused
-                        } else if newStatus == .playing {
-                            self.playbackState = .playing
-                        }
-                    }
-                }
-            }
-            
-        }
-
+        self._playerObservers.removeAll()
     }
 
 }
