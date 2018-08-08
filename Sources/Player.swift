@@ -306,6 +306,8 @@ open class Player: UIViewController {
     }
     internal var _avplayer: AVPlayer = AVPlayer()
     internal var _playerItem: AVPlayerItem?
+    
+    internal var _playerLayerObserver: NSKeyValueObservation?
     internal var _playerTimeObserver: Any?
 
     internal var _playerView: PlayerView = PlayerView(frame: .zero)
@@ -637,7 +639,6 @@ extension Player {
 
 private var PlayerObserverContext = 0
 private var PlayerItemObserverContext = 0
-private var PlayerLayerObserverContext = 0
 
 // KVO player keys
 
@@ -675,11 +676,16 @@ extension Player {
     // MARK: - AVPlayerLayerObservers
 
     internal func addPlayerLayerObservers() {
-        self._playerView.layer.addObserver(self, forKeyPath: PlayerReadyForDisplayKey, options: [.new, .old], context: &PlayerLayerObserverContext)
+        self._playerLayerObserver = self._playerView.playerLayer.observe(\.readyForDisplay, options: [.new, .old]) { (object, change) in
+            self.executeClosureOnMainQueueIfNecessary {
+                self.playerDelegate?.playerReady(self)
+            }
+        }
     }
-
+    
     internal func removePlayerLayerObservers() {
-        self._playerView.layer.removeObserver(self, forKeyPath: PlayerReadyForDisplayKey, context: &PlayerLayerObserverContext)
+        self._playerLayerObserver?.invalidate()
+        self._playerLayerObserver = nil
     }
 
     // MARK: - AVPlayerObservers
@@ -791,12 +797,6 @@ extension Player {
 
                 }
 
-            }
-
-        } else if context == &PlayerLayerObserverContext {
-            
-            self.executeClosureOnMainQueueIfNecessary {
-                self.playerDelegate?.playerReady(self)
             }
 
         } else if context == &PlayerObserverContext {
