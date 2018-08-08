@@ -306,7 +306,7 @@ open class Player: UIViewController {
     }
     internal var _avplayer: AVPlayer = AVPlayer()
     internal var _playerItem: AVPlayerItem?
-    internal var _timeObserver: Any?
+    internal var _playerTimeObserver: Any?
 
     internal var _playerView: PlayerView = PlayerView(frame: .zero)
     internal var _seekTimeRequested: CMTime?
@@ -571,8 +571,21 @@ extension Player {
 
 extension Player {
 
-    // MARK: - AVPlayerItem
+    // MARK: - UIApplication
 
+    internal func addApplicationObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleApplicationWillResignActive(_:)), name: .UIApplicationWillResignActive, object: UIApplication.shared)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleApplicationDidBecomeActive(_:)), name: .UIApplicationDidBecomeActive, object: UIApplication.shared)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleApplicationDidEnterBackground(_:)), name: .UIApplicationDidEnterBackground, object: UIApplication.shared)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleApplicationWillEnterForeground(_:)), name: .UIApplicationWillEnterForeground, object: UIApplication.shared)
+    }
+
+    internal func removeApplicationObservers() {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    // MARK: - AVPlayerItem handlers
+    
     @objc internal func playerItemDidPlayToEndTime(_ aNotification: Notification) {
         if self.playbackLoops {
             self.playbackDelegate?.playerPlaybackWillLoop(self)
@@ -592,20 +605,7 @@ extension Player {
         self.playbackState = .failed
     }
 
-    // MARK: - UIApplication
-
-    internal func addApplicationObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(handleApplicationWillResignActive(_:)), name: .UIApplicationWillResignActive, object: UIApplication.shared)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleApplicationDidBecomeActive(_:)), name: .UIApplicationDidBecomeActive, object: UIApplication.shared)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleApplicationDidEnterBackground(_:)), name: .UIApplicationDidEnterBackground, object: UIApplication.shared)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleApplicationWillEnterForeground(_:)), name: .UIApplicationWillEnterForeground, object: UIApplication.shared)
-    }
-
-    internal func removeApplicationObservers() {
-        NotificationCenter.default.removeObserver(self)
-    }
-
-    // MARK: - handlers
+    // MARK: - UIApplication handlers
 
     @objc internal func handleApplicationWillResignActive(_ aNotification: Notification) {
         if self.playbackState == .playing && self.playbackPausesWhenResigningActive {
@@ -675,13 +675,14 @@ extension Player {
     // MARK: - AVPlayerObservers
 
     internal func addPlayerObservers() {
-        self._timeObserver = self._avplayer.addPeriodicTimeObserver(forInterval: CMTimeMake(1, 100), queue: DispatchQueue.main, using: { [weak self] timeInterval in
+        self._playerTimeObserver = self._avplayer.addPeriodicTimeObserver(forInterval: CMTimeMake(1, 100), queue: DispatchQueue.main, using: { [weak self] timeInterval in
             guard let strongSelf = self
                 else {
                     return
             }
             strongSelf.playbackDelegate?.playerCurrentTimeDidChange(strongSelf)
         })
+        
         self._avplayer.addObserver(self, forKeyPath: PlayerRateKey, options: [.new, .old], context: &PlayerObserverContext)
         if #available(iOS 10.0, tvOS 10.0, *) {
             self._avplayer.addObserver(self, forKeyPath: PlayerTimeControlStatusKey, options: [.new, .old], context: &PlayerObserverContext)
@@ -689,7 +690,7 @@ extension Player {
     }
 
     internal func removePlayerObservers() {
-        if let observer = self._timeObserver {
+        if let observer = self._playerTimeObserver {
             self._avplayer.removeTimeObserver(observer)
         }
         self._avplayer.removeObserver(self, forKeyPath: PlayerRateKey, context: &PlayerObserverContext)
