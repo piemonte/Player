@@ -493,7 +493,7 @@ extension Player {
         }
     }
 
-    fileprivate func setupAsset(_ asset: AVAsset) {
+    fileprivate func setupAsset(_ asset: AVAsset, loadableKeys: [String] = ["tracks", "playable", "duration"]) {
         guard isViewLoaded else { return }
 
         if self.playbackState == .playing {
@@ -504,20 +504,25 @@ extension Player {
 
         self._asset = asset
 
-        let keys = [PlayerTracksKey, PlayerPlayableKey, PlayerDurationKey]
-        self._asset?.loadValuesAsynchronously(forKeys: keys, completionHandler: { () -> Void in
-            for key in keys {
-                var error: NSError? = nil
-                let status = self._asset?.statusOfValue(forKey: key, error: &error)
-                if status == .failed {
-                    self.playerDelegate?.player(self, didFailWithError: PlayerError.failed)
-                    self.playbackState = .failed
-                    return
-                }
-            }
+        self._asset?.loadValuesAsynchronously(forKeys: loadableKeys, completionHandler: { () -> Void in
             if let asset = self._asset {
+                for key in loadableKeys {
+                    var error: NSError? = nil
+                    let status = asset.statusOfValue(forKey: key, error: &error)
+                    if status == .failed {
+                        self.playbackState = .failed
+                        self.executeClosureOnMainQueueIfNecessary {
+                            self.playerDelegate?.player(self, didFailWithError: PlayerError.failed)
+                        }
+                        return
+                    }
+                }
+                
                 if !asset.isPlayable {
                     self.playbackState = .failed
+                    self.executeClosureOnMainQueueIfNecessary {
+                        self.playerDelegate?.player(self, didFailWithError: PlayerError.failed)
+                    }
                     return
                 }
 
@@ -636,9 +641,6 @@ private var PlayerLayerObserverContext = 0
 
 // KVO player keys
 
-private let PlayerTracksKey = "tracks"
-private let PlayerPlayableKey = "playable"
-private let PlayerDurationKey = "duration"
 private let PlayerTimeControlStatusKey = "timeControlStatus"
 
 // KVO player item keys
