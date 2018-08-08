@@ -639,7 +639,6 @@ private var PlayerLayerObserverContext = 0
 private let PlayerTracksKey = "tracks"
 private let PlayerPlayableKey = "playable"
 private let PlayerDurationKey = "duration"
-private let PlayerRateKey = "rate"
 private let PlayerTimeControlStatusKey = "timeControlStatus"
 
 // KVO player item keys
@@ -692,7 +691,6 @@ extension Player {
             strongSelf.playbackDelegate?.playerCurrentTimeDidChange(strongSelf)
         })
         
-        self._avplayer.addObserver(self, forKeyPath: PlayerRateKey, options: [.new, .old], context: &PlayerObserverContext)
         if #available(iOS 10.0, tvOS 10.0, *) {
             self._avplayer.addObserver(self, forKeyPath: PlayerTimeControlStatusKey, options: [.new, .old], context: &PlayerObserverContext)
         }
@@ -702,7 +700,6 @@ extension Player {
         if let observer = self._playerTimeObserver {
             self._avplayer.removeTimeObserver(observer)
         }
-        self._avplayer.removeObserver(self, forKeyPath: PlayerRateKey, context: &PlayerObserverContext)
         if #available(iOS 10.0, tvOS 10.0, *) {
             self._avplayer.removeObserver(self, forKeyPath: PlayerTimeControlStatusKey, context: &PlayerObserverContext)
         }
@@ -711,8 +708,6 @@ extension Player {
     // MARK: -
 
     override open func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
-
-        // PlayerRateKey, PlayerObserverContext
 
         if context == &PlayerItemObserverContext {
 
@@ -803,8 +798,6 @@ extension Player {
             }
 
         } else if context == &PlayerObserverContext {
-
-            // PlayerRateKey
             
             // PlayerTimeControlStatusKey
             
