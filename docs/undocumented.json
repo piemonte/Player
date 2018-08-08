@@ -1,215 +1,208 @@
 {
   "warnings": [
     {
-      "file": "/Users/piemonte/Desktop/Player/Sources/Player.swift",
+      "file": "/Users/piemonte/Source/Player/Sources/Player.swift",
       "line": 43,
       "symbol": "PlaybackState.stopped",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/piemonte/Desktop/Player/Sources/Player.swift",
+      "file": "/Users/piemonte/Source/Player/Sources/Player.swift",
       "line": 44,
       "symbol": "PlaybackState.playing",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/piemonte/Desktop/Player/Sources/Player.swift",
+      "file": "/Users/piemonte/Source/Player/Sources/Player.swift",
       "line": 45,
       "symbol": "PlaybackState.paused",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/piemonte/Desktop/Player/Sources/Player.swift",
+      "file": "/Users/piemonte/Source/Player/Sources/Player.swift",
       "line": 46,
       "symbol": "PlaybackState.failed",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/piemonte/Desktop/Player/Sources/Player.swift",
+      "file": "/Users/piemonte/Source/Player/Sources/Player.swift",
       "line": 66,
       "symbol": "BufferingState.unknown",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/piemonte/Desktop/Player/Sources/Player.swift",
+      "file": "/Users/piemonte/Source/Player/Sources/Player.swift",
       "line": 67,
       "symbol": "BufferingState.ready",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/piemonte/Desktop/Player/Sources/Player.swift",
+      "file": "/Users/piemonte/Source/Player/Sources/Player.swift",
       "line": 68,
       "symbol": "BufferingState.delayed",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/piemonte/Desktop/Player/Sources/Player.swift",
+      "file": "/Users/piemonte/Source/Player/Sources/Player.swift",
       "line": 90,
       "symbol": "PlayerError.failed",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/piemonte/Desktop/Player/Sources/Player.swift",
+      "file": "/Users/piemonte/Source/Player/Sources/Player.swift",
       "line": 106,
       "symbol": "PlayerDelegate.playerReady(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/piemonte/Desktop/Player/Sources/Player.swift",
+      "file": "/Users/piemonte/Source/Player/Sources/Player.swift",
       "line": 107,
       "symbol": "PlayerDelegate.playerPlaybackStateDidChange(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/piemonte/Desktop/Player/Sources/Player.swift",
+      "file": "/Users/piemonte/Source/Player/Sources/Player.swift",
       "line": 108,
       "symbol": "PlayerDelegate.playerBufferingStateDidChange(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/piemonte/Desktop/Player/Sources/Player.swift",
+      "file": "/Users/piemonte/Source/Player/Sources/Player.swift",
       "line": 112,
       "symbol": "PlayerDelegate.playerBufferTimeDidChange(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/piemonte/Desktop/Player/Sources/Player.swift",
+      "file": "/Users/piemonte/Source/Player/Sources/Player.swift",
       "line": 114,
       "symbol": "PlayerDelegate.player(_:didFailWithError:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/piemonte/Desktop/Player/Sources/Player.swift",
+      "file": "/Users/piemonte/Source/Player/Sources/Player.swift",
       "line": 120,
       "symbol": "PlayerPlaybackDelegate.playerCurrentTimeDidChange(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/piemonte/Desktop/Player/Sources/Player.swift",
+      "file": "/Users/piemonte/Source/Player/Sources/Player.swift",
       "line": 121,
       "symbol": "PlayerPlaybackDelegate.playerPlaybackWillStartFromBeginning(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/piemonte/Desktop/Player/Sources/Player.swift",
+      "file": "/Users/piemonte/Source/Player/Sources/Player.swift",
       "line": 122,
       "symbol": "PlayerPlaybackDelegate.playerPlaybackDidEnd(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/piemonte/Desktop/Player/Sources/Player.swift",
+      "file": "/Users/piemonte/Source/Player/Sources/Player.swift",
       "line": 123,
       "symbol": "PlayerPlaybackDelegate.playerPlaybackWillLoop(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/piemonte/Desktop/Player/Sources/Player.swift",
+      "file": "/Users/piemonte/Source/Player/Sources/Player.swift",
       "line": 296,
       "symbol": "Player.playerBackgroundColor",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/piemonte/Desktop/Player/Sources/Player.swift",
-      "line": 321,
+      "file": "/Users/piemonte/Source/Player/Sources/Player.swift",
+      "line": 324,
       "symbol": "Player.init()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/piemonte/Desktop/Player/Sources/Player.swift",
-      "line": 325,
+      "file": "/Users/piemonte/Source/Player/Sources/Player.swift",
+      "line": 328,
       "symbol": "Player.init(coder:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/piemonte/Desktop/Player/Sources/Player.swift",
-      "line": 330,
+      "file": "/Users/piemonte/Source/Player/Sources/Player.swift",
+      "line": 333,
       "symbol": "Player.init(nibName:bundle:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/piemonte/Desktop/Player/Sources/Player.swift",
-      "line": 352,
+      "file": "/Users/piemonte/Source/Player/Sources/Player.swift",
+      "line": 355,
       "symbol": "Player.loadView()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/piemonte/Desktop/Player/Sources/Player.swift",
-      "line": 358,
+      "file": "/Users/piemonte/Source/Player/Sources/Player.swift",
+      "line": 361,
       "symbol": "Player.viewDidLoad()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/piemonte/Desktop/Player/Sources/Player.swift",
-      "line": 372,
+      "file": "/Users/piemonte/Source/Player/Sources/Player.swift",
+      "line": 375,
       "symbol": "Player.viewDidDisappear(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/piemonte/Desktop/Player/Sources/Player.swift",
-      "line": 703,
-      "symbol": "Player.observeValue(forKeyPath:of:change:context:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/piemonte/Desktop/Player/Sources/Player.swift",
-      "line": 836,
+      "file": "/Users/piemonte/Source/Player/Sources/Player.swift",
+      "line": 787,
       "symbol": "PlayerView",
       "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/piemonte/Desktop/Player/Sources/Player.swift",
-      "line": 840,
+      "file": "/Users/piemonte/Source/Player/Sources/Player.swift",
+      "line": 791,
       "symbol": "PlayerView.layerClass",
       "symbol_kind": "source.lang.swift.decl.var.class",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/piemonte/Desktop/Player/Sources/Player.swift",
-      "line": 889,
+      "file": "/Users/piemonte/Source/Player/Sources/Player.swift",
+      "line": 840,
       "symbol": "PlayerView.isReadyForDisplay",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/piemonte/Desktop/Player/Sources/Player.swift",
-      "line": 897,
+      "file": "/Users/piemonte/Source/Player/Sources/Player.swift",
+      "line": 848,
       "symbol": "PlayerView.init(frame:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/piemonte/Desktop/Player/Sources/Player.swift",
-      "line": 903,
+      "file": "/Users/piemonte/Source/Player/Sources/Player.swift",
+      "line": 854,
       "symbol": "PlayerView.init(coder:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     }
   ],
-  "source_directory": "/Users/piemonte/Desktop/Player"
+  "source_directory": "/Users/piemonte/Source/Player"
 }
