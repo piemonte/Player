@@ -307,12 +307,12 @@ open class Player: UIViewController {
     internal var _avplayer: AVPlayer = AVPlayer()
     internal var _playerItem: AVPlayerItem?
     
+    internal var _playerItemObservers = [NSKeyValueObservation]()
     internal var _playerLayerObserver: NSKeyValueObservation?
     internal var _playerTimeObserver: Any?
 
     internal var _playerView: PlayerView = PlayerView(frame: .zero)
     internal var _seekTimeRequested: CMTime?
-
     internal var _lastBufferTime: Double = 0
 
     // Boolean that determines if the user or calling coded has trigged autoplay manually.
@@ -536,8 +536,9 @@ extension Player {
 
     fileprivate func setupPlayerItem(_ playerItem: AVPlayerItem?) {
 
+        self.removePlayerItemObservers()
+        
         if let currentPlayerItem = self._playerItem {
-            self.removePlayerItemObservers(currentPlayerItem)
             NotificationCenter.default.removeObserver(self, name: .AVPlayerItemDidPlayToEndTime, object: currentPlayerItem)
             NotificationCenter.default.removeObserver(self, name: .AVPlayerItemFailedToPlayToEndTime, object: currentPlayerItem)
         }
@@ -550,7 +551,7 @@ extension Player {
         }
 
         if let updatedPlayerItem = self._playerItem {
-            self.addPlayerItemObservers(updatedPlayerItem)
+            self.addPlayerItemObservers()
             NotificationCenter.default.addObserver(self, selector: #selector(playerItemDidPlayToEndTime(_:)), name: .AVPlayerItemDidPlayToEndTime, object: updatedPlayerItem)
             NotificationCenter.default.addObserver(self, selector: #selector(playerItemFailedToPlayToEndTime(_:)), name: .AVPlayerItemFailedToPlayToEndTime, object: updatedPlayerItem)
         }
@@ -638,39 +639,87 @@ extension Player {
 // KVO contexts
 
 private var PlayerObserverContext = 0
-private var PlayerItemObserverContext = 0
 
 // KVO player keys
 
 private let PlayerTimeControlStatusKey = "timeControlStatus"
 
-// KVO player item keys
-
-private let PlayerStatusKey = "status"
-private let PlayerEmptyBufferKey = "playbackBufferEmpty"
-private let PlayerKeepUpKey = "playbackLikelyToKeepUp"
-private let PlayerLoadedTimeRangesKey = "loadedTimeRanges"
-
-// KVO player layer keys
-
-private let PlayerReadyForDisplayKey = "readyForDisplay"
-
 extension Player {
 
     // MARK: - AVPlayerItemObservers
     
-    internal func addPlayerItemObservers(_ playerItem: AVPlayerItem) {
-        playerItem.addObserver(self, forKeyPath: PlayerEmptyBufferKey, options: [.new, .old], context: &PlayerItemObserverContext)
-        playerItem.addObserver(self, forKeyPath: PlayerKeepUpKey, options: [.new, .old], context: &PlayerItemObserverContext)
-        playerItem.addObserver(self, forKeyPath: PlayerStatusKey, options: [.new, .old], context: &PlayerItemObserverContext)
-        playerItem.addObserver(self, forKeyPath: PlayerLoadedTimeRangesKey, options: [.new, .old], context: &PlayerItemObserverContext)
+    internal func addPlayerItemObservers() {
+        guard let playerItem = self._playerItem else {
+            return
+        }
+        
+        self._playerItemObservers.append(playerItem.observe(\.playbackBufferEmpty, options: [.new, .old]) { (object, change) in
+            if object.isPlaybackBufferEmpty {
+                self.bufferingState = .delayed
+            }
+            
+            switch object.status {
+            case .readyToPlay:
+                self._playerView.player = self._avplayer
+            case .failed:
+                self.playbackState = PlaybackState.failed
+            default:
+                break
+            }
+        })
+
+        self._playerItemObservers.append(playerItem.observe(\.playbackLikelyToKeepUp, options: [.new, .old]) { (object, change) in
+            if object.isPlaybackLikelyToKeepUp {
+                self.bufferingState = .ready
+                if self.playbackState == .playing {
+                    self.playFromCurrentTime()
+                }
+            }
+            
+            switch object.status {
+            case .readyToPlay:
+                self._playerView.player = self._avplayer
+            case .failed:
+                self.playbackState = PlaybackState.failed
+            default:
+                break
+            }
+        })
+        
+//        self._playerItemObservers.append(playerItem.observe(\.status, options: [.new, .old]) { (object, change) in
+//        })
+        
+        self._playerItemObservers.append(playerItem.observe(\.loadedTimeRanges, options: [.new, .old]) { (object, change) in
+            self.bufferingState = .ready
+            
+            let timeRanges = object.loadedTimeRanges
+            if let timeRange = timeRanges.first?.timeRangeValue {
+                let bufferedTime = CMTimeGetSeconds(CMTimeAdd(timeRange.start, timeRange.duration))
+                if self._lastBufferTime != bufferedTime {
+                    self.executeClosureOnMainQueueIfNecessary {
+                        self.playerDelegate?.playerBufferTimeDidChange(bufferedTime)
+                    }
+                    self._lastBufferTime = bufferedTime
+                }
+            }
+            
+            let currentTime = CMTimeGetSeconds(object.currentTime())
+            let passedTime = self._lastBufferTime - currentTime
+            
+            if (passedTime >= self.bufferSize ||
+                self._lastBufferTime == self.maximumDuration ||
+                timeRanges.first == nil) &&
+                self.playbackState == .playing {
+                self.play()
+            }
+        })
     }
     
-    internal func removePlayerItemObservers(_ playerItem: AVPlayerItem) {
-        playerItem.removeObserver(self, forKeyPath: PlayerEmptyBufferKey, context: &PlayerItemObserverContext)
-        playerItem.removeObserver(self, forKeyPath: PlayerKeepUpKey, context: &PlayerItemObserverContext)
-        playerItem.removeObserver(self, forKeyPath: PlayerStatusKey, context: &PlayerItemObserverContext)
-        playerItem.removeObserver(self, forKeyPath: PlayerLoadedTimeRangesKey, context: &PlayerItemObserverContext)
+    internal func removePlayerItemObservers() {
+        for observer in self._playerItemObservers {
+            observer.invalidate()
+        }
+        self._playerItemObservers.removeAll()
     }
     
     // MARK: - AVPlayerLayerObservers
@@ -717,89 +766,7 @@ extension Player {
 
     override open func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
 
-        if context == &PlayerItemObserverContext {
-
-            // PlayerStatusKey
-
-            if keyPath == PlayerKeepUpKey {
-
-                // PlayerKeepUpKey
-
-                if let item = self._playerItem,
-                    item.isPlaybackLikelyToKeepUp {
-                    self.bufferingState = .ready
-                    if self.playbackState == .playing {
-                        self.playFromCurrentTime()
-                    }
-                }
-
-                if let status = change?[NSKeyValueChangeKey.newKey] as? NSNumber,
-                    let playerStatus: AVPlayerStatus = AVPlayerStatus(rawValue: status.intValue) {
-                    switch playerStatus {
-                    case .readyToPlay:
-                        self._playerView.player = self._avplayer
-                    case .failed:
-                        self.playbackState = PlaybackState.failed
-                    default:
-                        break
-                    }
-                }
-
-            } else if keyPath == PlayerEmptyBufferKey {
-
-                // PlayerEmptyBufferKey
-
-                if let item = self._playerItem,
-                    item.isPlaybackBufferEmpty {
-                    self.bufferingState = .delayed
-                }
-
-                if let status = change?[NSKeyValueChangeKey.newKey] as? NSNumber,
-                    let playerStatus: AVPlayerStatus = AVPlayerStatus(rawValue: status.intValue) {
-                    switch playerStatus {
-                    case .readyToPlay:
-                        self._playerView.player = self._avplayer
-                    case .failed:
-                        self.playbackState = PlaybackState.failed
-                    default:
-                        break
-                    }
-                }
-
-            } else if keyPath == PlayerLoadedTimeRangesKey {
-
-                // PlayerLoadedTimeRangesKey
-
-                if let item = self._playerItem {
-                    self.bufferingState = .ready
-
-                    let timeRanges = item.loadedTimeRanges
-                    if let timeRange = timeRanges.first?.timeRangeValue {
-                        let bufferedTime = CMTimeGetSeconds(CMTimeAdd(timeRange.start, timeRange.duration))
-                        if _lastBufferTime != bufferedTime {
-                            self.executeClosureOnMainQueueIfNecessary {
-                                self.playerDelegate?.playerBufferTimeDidChange(bufferedTime)
-                            }
-                            _lastBufferTime = bufferedTime
-                        }
-                    }
-
-                    let currentTime = CMTimeGetSeconds(item.currentTime())
-                    let passedTime = _lastBufferTime - currentTime
-                    
-                    if (passedTime >= self.bufferSize ||
-                        _lastBufferTime == maximumDuration ||
-                        timeRanges.first == nil)
-                        && self.playbackState == .playing
-                    {
-                        self.play()
-                    }
-
-                }
-
-            }
-
-        } else if context == &PlayerObserverContext {
+        if context == &PlayerObserverContext {
             
             // PlayerTimeControlStatusKey
             
