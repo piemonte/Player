@@ -540,8 +540,8 @@ extension Player {
 
         self._playerItem = playerItem
 
-        if let seek = _seekTimeRequested, self._playerItem != nil {
-            _seekTimeRequested = nil
+        if let seek = self._seekTimeRequested, self._playerItem != nil {
+            self._seekTimeRequested = nil
             self.seek(to: seek)
         }
 
