@@ -794,7 +794,7 @@ public class PlayerView: UIView {
         }
     }
 
-    // MARK: - properties
+    // MARK: - internal properties
 
     internal var playerLayer: AVPlayerLayer {
         get {
@@ -816,7 +816,9 @@ public class PlayerView: UIView {
         }
     }
     
-    var playerBackgroundColor: UIColor? {
+    // MARK: - public properties
+    
+    public var playerBackgroundColor: UIColor? {
         get {
             if let cgColor = self.playerLayer.backgroundColor {
                 return UIColor(cgColor: cgColor)
@@ -828,7 +830,7 @@ public class PlayerView: UIView {
         }
     }
 
-    var playerFillMode: PlayerFillMode {
+    public var playerFillMode: PlayerFillMode {
         get {
             return self.playerLayer.videoGravity
         }
