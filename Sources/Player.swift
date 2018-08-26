@@ -102,7 +102,7 @@ public enum PlayerError: Error, CustomStringConvertible {
 // MARK: - PlayerDelegate
 
 /// Player delegate protocol
-public protocol PlayerDelegate: NSObjectProtocol {
+public protocol PlayerDelegate: AnyObject {
     func playerReady(_ player: Player)
     func playerPlaybackStateDidChange(_ player: Player)
     func playerBufferingStateDidChange(_ player: Player)
@@ -116,7 +116,7 @@ public protocol PlayerDelegate: NSObjectProtocol {
 
 
 /// Player playback protocol
-public protocol PlayerPlaybackDelegate: NSObjectProtocol {
+public protocol PlayerPlaybackDelegate: AnyObject {
     func playerCurrentTimeDidChange(_ player: Player)
     func playerPlaybackWillStartFromBeginning(_ player: Player)
     func playerPlaybackDidEnd(_ player: Player)
