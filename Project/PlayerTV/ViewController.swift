@@ -34,7 +34,7 @@ class ViewController: UIViewController {
 	
 	// MARK: object lifecycle
     deinit {
-        self.player.willMove(toParentViewController: self)
+        self.player.willMove(toParentViewController: nil)
         self.player.view.removeFromSuperview()
         self.player.removeFromParentViewController()
     }
