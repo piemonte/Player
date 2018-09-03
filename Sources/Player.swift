@@ -455,15 +455,45 @@ extension Player {
         }
     }
 
-    /// Captures a snapshot of the current Player view.
+    /// Captures a snapshot of the current Player asset.
     ///
-    /// - Returns: A UIImage of the player view.
-    open func takeSnapshot() -> UIImage {
-        UIGraphicsBeginImageContextWithOptions(self._playerView.frame.size, false, UIScreen.main.scale)
-        self._playerView.drawHierarchy(in: self._playerView.bounds, afterScreenUpdates: true)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return image!
+    /// - Parameter completionHandler: Returns a UIImage of the requested video frame. (Great for thumbnails!)
+    open func takeSnapshot(completionHandler: ((_ image: UIImage?, _ error: Error?) -> Void)? ) {
+        guard let asset = self._playerItem?.asset else {
+            DispatchQueue.main.async {
+                completionHandler?(nil, nil)
+            }
+            return
+        }
+        
+        let imageGenerator = AVAssetImageGenerator(asset: asset)
+        imageGenerator.appliesPreferredTrackTransform = true
+        
+        let currentTime = self._playerItem?.currentTime() ?? kCMTimeZero
+        
+        imageGenerator.generateCGImagesAsynchronously(forTimes: [NSValue(time: currentTime)]) { (requestedTime, image, actualTime, result, error) in
+            if let image = image {
+                switch result {
+                case .succeeded:
+                    let uiimage = UIImage(cgImage: image)
+                    DispatchQueue.main.async {
+                        completionHandler?(uiimage, nil)
+                    }
+                    break
+                case .failed:
+                    fallthrough
+                case .cancelled:
+                    DispatchQueue.main.async {
+                        completionHandler?(nil, nil)
+                    }
+                    break
+                }
+            } else {
+                DispatchQueue.main.async {
+                    completionHandler?(nil, error)
+                }
+            }
+        }
     }
     
 }
