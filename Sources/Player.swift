@@ -646,7 +646,7 @@ extension Player {
     }
 
     @objc internal func handleApplicationDidBecomeActive(_ aNotification: Notification) {
-        if self.playbackState != .playing && self.playbackResumesWhenBecameActive {
+        if self.playbackState == .paused && self.playbackResumesWhenBecameActive {
             self.play()
         }
     }
