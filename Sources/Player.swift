@@ -646,34 +646,34 @@ extension Player {
             return
         }
         
-        self._playerItemObservers.append(playerItem.observe(\.playbackBufferEmpty, options: [.new, .old]) { (object, change) in
+        self._playerItemObservers.append(playerItem.observe(\.playbackBufferEmpty, options: [.new, .old]) { [weak self] (object, change) in
             if object.isPlaybackBufferEmpty {
-                self.bufferingState = .delayed
+                self?.bufferingState = .delayed
             }
             
             switch object.status {
             case .readyToPlay:
-                self._playerView.player = self._avplayer
+                self?._playerView.player = self?._avplayer
             case .failed:
-                self.playbackState = PlaybackState.failed
+                self?.playbackState = PlaybackState.failed
             default:
                 break
             }
         })
 
-        self._playerItemObservers.append(playerItem.observe(\.playbackLikelyToKeepUp, options: [.new, .old]) { (object, change) in
+        self._playerItemObservers.append(playerItem.observe(\.playbackLikelyToKeepUp, options: [.new, .old]) { [weak self] (object, change) in
             if object.isPlaybackLikelyToKeepUp {
-                self.bufferingState = .ready
-                if self.playbackState == .playing {
-                    self.playFromCurrentTime()
+                self?.bufferingState = .ready
+                if self?.playbackState == .playing {
+                    self?.playFromCurrentTime()
                 }
             }
             
             switch object.status {
             case .readyToPlay:
-                self._playerView.player = self._avplayer
+                self?._playerView.player = self?._avplayer
             case .failed:
-                self.playbackState = PlaybackState.failed
+                self?.playbackState = PlaybackState.failed
             default:
                 break
             }
@@ -682,28 +682,32 @@ extension Player {
 //        self._playerItemObservers.append(playerItem.observe(\.status, options: [.new, .old]) { (object, change) in
 //        })
         
-        self._playerItemObservers.append(playerItem.observe(\.loadedTimeRanges, options: [.new, .old]) { (object, change) in
-            self.bufferingState = .ready
+        self._playerItemObservers.append(playerItem.observe(\.loadedTimeRanges, options: [.new, .old]) { [weak self] (object, change) in
+            guard let strongSelf = self else {
+                return
+            }
+            
+            strongSelf.bufferingState = .ready
             
             let timeRanges = object.loadedTimeRanges
             if let timeRange = timeRanges.first?.timeRangeValue {
                 let bufferedTime = CMTimeGetSeconds(CMTimeAdd(timeRange.start, timeRange.duration))
-                if self._lastBufferTime != bufferedTime {
-                    self.executeClosureOnMainQueueIfNecessary {
-                        self.playerDelegate?.playerBufferTimeDidChange(bufferedTime)
+                if strongSelf._lastBufferTime != bufferedTime {
+                    strongSelf._lastBufferTime = bufferedTime
+                    strongSelf.executeClosureOnMainQueueIfNecessary {
+                        strongSelf.playerDelegate?.playerBufferTimeDidChange(bufferedTime)
                     }
-                    self._lastBufferTime = bufferedTime
                 }
             }
             
             let currentTime = CMTimeGetSeconds(object.currentTime())
-            let passedTime = self._lastBufferTime - currentTime
+            let passedTime = strongSelf._lastBufferTime <= 0 ? currentTime : (strongSelf._lastBufferTime - currentTime)
             
-            if (passedTime >= self.bufferSize ||
-                self._lastBufferTime == self.maximumDuration ||
+            if (passedTime >= strongSelf.bufferSize ||
+                strongSelf._lastBufferTime == strongSelf.maximumDuration ||
                 timeRanges.first == nil) &&
-                self.playbackState == .playing {
-                self.play()
+                strongSelf.playbackState == .playing {
+                strongSelf.play()
             }
         })
     }
@@ -718,9 +722,11 @@ extension Player {
     // MARK: - AVPlayerLayerObservers
 
     internal func addPlayerLayerObservers() {
-        self._playerLayerObserver = self._playerView.playerLayer.observe(\.readyForDisplay, options: [.new, .old]) { (object, change) in
-            self.executeClosureOnMainQueueIfNecessary {
-                self.playerDelegate?.playerReady(self)
+        self._playerLayerObserver = self._playerView.playerLayer.observe(\.readyForDisplay, options: [.new, .old]) { [weak self] (object, change) in
+            self?.executeClosureOnMainQueueIfNecessary {
+                if let strongSelf = self {
+                    strongSelf.playerDelegate?.playerReady(strongSelf)
+                }
             }
         }
     }
@@ -734,20 +740,19 @@ extension Player {
 
     internal func addPlayerObservers() {
         self._playerTimeObserver = self._avplayer.addPeriodicTimeObserver(forInterval: CMTimeMake(1, 100), queue: DispatchQueue.main, using: { [weak self] timeInterval in
-            guard let strongSelf = self
-                else {
-                    return
+            guard let strongSelf = self else {
+                return
             }
             strongSelf.playbackDelegate?.playerCurrentTimeDidChange(strongSelf)
         })
         
         if #available(iOS 10.0, tvOS 10.0, *) {
-            self._playerObservers.append(self._avplayer.observe(\.timeControlStatus, options: [.new, .old]) { (object, change) in
+            self._playerObservers.append(self._avplayer.observe(\.timeControlStatus, options: [.new, .old]) { [weak self] (object, change) in
                 switch object.timeControlStatus {
                 case .paused:
-                    self.playbackState = .paused
+                    self?.playbackState = .paused
                 case .playing:
-                    self.playbackState = .playing
+                    self?.playbackState = .playing
                 default:
                     break
                 }
