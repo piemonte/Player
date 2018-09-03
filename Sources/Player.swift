@@ -398,7 +398,7 @@ extension Player {
             //external call to this method with auto play off.  activate it before calling play
             self._hasAutoplayActivated = true
         }
-        play()
+        self.play()
     }
 
     fileprivate func play() {
