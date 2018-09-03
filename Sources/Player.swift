@@ -238,7 +238,7 @@ open class Player: UIViewController {
     }
 
     /// Playback buffering size in seconds.
-    open var bufferSize: Double = 10
+    open var bufferSizeInSeconds: Double = 10
 
     /// Playback is not automatically triggered from state changes when true.
     open var playbackEdgeTriggered: Bool = true
@@ -703,7 +703,7 @@ extension Player {
             let currentTime = CMTimeGetSeconds(object.currentTime())
             let passedTime = strongSelf._lastBufferTime <= 0 ? currentTime : (strongSelf._lastBufferTime - currentTime)
             
-            if (passedTime >= strongSelf.bufferSize ||
+            if (passedTime >= strongSelf.bufferSizeInSeconds ||
                 strongSelf._lastBufferTime == strongSelf.maximumDuration ||
                 timeRanges.first == nil) &&
                 strongSelf.playbackState == .playing {
