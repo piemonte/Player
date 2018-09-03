@@ -10,11 +10,13 @@
 - Looking for a Swift camera library? Check out [Next Level](https://github.com/NextLevel/NextLevel).
 
 ### Features
+
 - [x] plays local media or streams remote media over HTTP
 - [x] customizable UI and user interaction
 - [x] no size restrictions
 - [x] orientation change support
 - [x] simple API
+- [x] video frame snapshot support
 
 # Quick Start
 
@@ -42,7 +44,7 @@ Allocate and add the `Player` controller to your view hierarchy.
  self.player.playerDelegate = self
  self.player.playbackDelegate = self
  self.player.view.frame = self.view.bounds
-    
+
  self.addChildViewController(self.player)
  self.view.addSubview(self.player.view)
  self.player.didMove(toParentViewController: self)
@@ -74,19 +76,19 @@ extension ViewController: PlayerPlaybackDelegate {
 
     public func playerPlaybackWillStartFromBeginning(_ player: Player) {
     }
-    
+
     public func playerPlaybackDidEnd(_ player: Player) {
     }
-    
+
     public func playerCurrentTimeDidChange(_ player: Player) {
         let fraction = Double(player.currentTime) / Double(player.maximumDuration)
         self._playbackViewController?.setProgress(progress: CGFloat(fraction), animated: true)
     }
-    
+
     public func playerPlaybackWillLoop(_ player: Player) {
         self. _playbackViewController?.reset()
     }
-    
+
 }
 ```
 
@@ -113,4 +115,3 @@ You can find [the docs here](http://piemonte.github.io/Player/). Documentation i
 ## License
 
 Player is available under the MIT license, see the [LICENSE](https://github.com/piemonte/player/blob/master/LICENSE) file for more information.
-
