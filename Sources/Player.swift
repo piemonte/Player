@@ -302,7 +302,7 @@ open class Player: UIViewController {
     }
 
     /// Indicates a preferred upper limit on the resolution of the video to be downloaded.
-    @available(iOS 11.0, tvOS 10.0, *)
+    @available(iOS 11.0, tvOS 11.0, *)
     open var preferredMaximumResolution: CGSize {
         get {
             return self._playerItem?.preferredMaximumResolution ?? CGSize.zero
