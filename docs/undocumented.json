@@ -121,98 +121,98 @@
     },
     {
       "file": "/Users/piemonte/Source/Player/Sources/Player.swift",
-      "line": 296,
+      "line": 295,
       "symbol": "Player.playerBackgroundColor",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/piemonte/Source/Player/Sources/Player.swift",
-      "line": 324,
+      "line": 343,
       "symbol": "Player.init()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/piemonte/Source/Player/Sources/Player.swift",
-      "line": 328,
+      "line": 347,
       "symbol": "Player.init(coder:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/piemonte/Source/Player/Sources/Player.swift",
-      "line": 333,
+      "line": 352,
       "symbol": "Player.init(nibName:bundle:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/piemonte/Source/Player/Sources/Player.swift",
-      "line": 355,
+      "line": 374,
       "symbol": "Player.loadView()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/piemonte/Source/Player/Sources/Player.swift",
-      "line": 361,
+      "line": 380,
       "symbol": "Player.viewDidLoad()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/piemonte/Source/Player/Sources/Player.swift",
-      "line": 375,
+      "line": 394,
       "symbol": "Player.viewDidDisappear(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/piemonte/Source/Player/Sources/Player.swift",
-      "line": 822,
+      "line": 846,
       "symbol": "PlayerView",
       "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
       "file": "/Users/piemonte/Source/Player/Sources/Player.swift",
-      "line": 826,
+      "line": 850,
       "symbol": "PlayerView.layerClass",
       "symbol_kind": "source.lang.swift.decl.var.class",
       "warning": "undocumented"
     },
     {
       "file": "/Users/piemonte/Source/Player/Sources/Player.swift",
-      "line": 856,
+      "line": 880,
       "symbol": "PlayerView.playerBackgroundColor",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/piemonte/Source/Player/Sources/Player.swift",
-      "line": 868,
+      "line": 892,
       "symbol": "PlayerView.playerFillMode",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/piemonte/Source/Player/Sources/Player.swift",
-      "line": 877,
+      "line": 901,
       "symbol": "PlayerView.isReadyForDisplay",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/piemonte/Source/Player/Sources/Player.swift",
-      "line": 885,
+      "line": 909,
       "symbol": "PlayerView.init(frame:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/piemonte/Source/Player/Sources/Player.swift",
-      "line": 891,
+      "line": 915,
       "symbol": "PlayerView.init(coder:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
