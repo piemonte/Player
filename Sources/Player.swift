@@ -291,9 +291,6 @@ open class Player: UIViewController {
         return self._playerView.playerLayer
     }
 
-    @available(*, deprecated, message: "Use playerView.playerBackgroundColor instead.")
-    open var playerBackgroundColor: UIColor?
-
     /// Indicates the desired limit of network bandwidth consumption for this item.
     open var preferredPeakBitRate: Double = 0 {
         didSet {
