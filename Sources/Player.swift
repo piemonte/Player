@@ -295,6 +295,23 @@ open class Player: UIViewController {
     @available(*, deprecated, message: "Use playerView.playerBackgroundColor instead.")
     open var playerBackgroundColor: UIColor?
     
+    open var preferredPeakBitRate: Double = 0 {
+        didSet {
+            self._playerItem?.preferredPeakBitRate = self.preferredPeakBitRate
+        }
+    }
+    
+    @available(iOS 11.0, *)
+    open var preferredMaximumResolution: CGSize {
+        get {
+            return self._playerItem?.preferredMaximumResolution ?? CGSize.zero
+        }
+        set {
+            self._playerItem?.preferredMaximumResolution = newValue
+            self._preferredMaximumResolution = newValue
+        }
+    }
+    
     // MARK: - private instance vars
 
     internal var _asset: AVAsset? {
@@ -315,6 +332,7 @@ open class Player: UIViewController {
     internal var _playerView: PlayerView = PlayerView(frame: .zero)
     internal var _seekTimeRequested: CMTime?
     internal var _lastBufferTime: Double = 0
+    internal var _preferredMaximumResolution: CGSize = .zero
 
     // Boolean that determines if the user or calling coded has trigged autoplay manually.
     internal var _hasAutoplayActivated: Bool = true
@@ -576,6 +594,11 @@ extension Player {
 
         self._playerItem = playerItem
 
+        self._playerItem?.preferredPeakBitRate = self.preferredPeakBitRate
+        if #available(iOS 11.0, *) {
+            self._playerItem?.preferredMaximumResolution = self._preferredMaximumResolution
+        }
+        
         if let seek = self._seekTimeRequested, self._playerItem != nil {
             self._seekTimeRequested = nil
             self.seek(to: seek)
