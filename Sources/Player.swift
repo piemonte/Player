@@ -640,11 +640,13 @@ extension Player {
     // MARK: - AVPlayerItem handlers
 
     @objc internal func playerItemDidPlayToEndTime(_ aNotification: Notification) {
-        if self.playbackLoops {
-            self.playbackDelegate?.playerPlaybackWillLoop(self)
-            self._avplayer.seek(to: kCMTimeZero)
-        } else {
-            if self.playbackFreezesAtEnd {
+        self.executeClosureOnMainQueueIfNecessary {
+            if self.playbackLoops {
+                self.playbackDelegate?.playerPlaybackWillLoop(self)
+                self._avplayer.pause()
+                self._avplayer.seek(to: kCMTimeZero)
+                self._avplayer.play()
+            } else if self.playbackFreezesAtEnd {
                 self.stop()
             } else {
                 self._avplayer.seek(to: kCMTimeZero, completionHandler: { _ in
