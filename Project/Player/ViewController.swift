@@ -34,9 +34,9 @@ class ViewController: UIViewController {
     
     // MARK: object lifecycle
     deinit {
-        self.player.willMove(toParentViewController: nil)
+        self.player.willMove(toParent: nil)
         self.player.view.removeFromSuperview()
-        self.player.removeFromParentViewController()
+        self.player.removeFromParent()
     }
 
     // MARK: view lifecycle
@@ -51,9 +51,9 @@ class ViewController: UIViewController {
         
         self.player.playerView.playerBackgroundColor = .black
         
-        self.addChildViewController(self.player)
+        self.addChild(self.player)
         self.view.addSubview(self.player.view)
-        self.player.didMove(toParentViewController: self)
+        self.player.didMove(toParent: self)
         
         self.player.url = videoUrl
         

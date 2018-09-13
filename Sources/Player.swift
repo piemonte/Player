@@ -249,7 +249,7 @@ open class Player: UIViewController {
             if let playerItem = self._playerItem {
                 return CMTimeGetSeconds(playerItem.duration)
             } else {
-                return CMTimeGetSeconds(kCMTimeIndefinite)
+                return CMTimeGetSeconds(CMTime.indefinite)
             }
         }
     }
@@ -260,7 +260,7 @@ open class Player: UIViewController {
             if let playerItem = self._playerItem {
                 return CMTimeGetSeconds(playerItem.currentTime())
             } else {
-                return CMTimeGetSeconds(kCMTimeIndefinite)
+                return CMTimeGetSeconds(CMTime.indefinite)
             }
         }
     }
@@ -272,7 +272,7 @@ open class Player: UIViewController {
                 let track = playerItem.asset.tracks(withMediaType: .video).first {
 
                 let size = track.naturalSize.applying(track.preferredTransform)
-                return CGSize(width: fabs(size.width), height: fabs(size.height))
+                return CGSize(width: abs(size.width), height: abs(size.height))
             } else {
                 return CGSize.zero
             }
@@ -404,7 +404,7 @@ extension Player {
     /// Begins playback of the media from the beginning.
     open func playFromBeginning() {
         self.playbackDelegate?.playerPlaybackWillStartFromBeginning(self)
-        self._avplayer.seek(to: kCMTimeZero)
+        self._avplayer.seek(to: CMTime.zero)
         self.playFromCurrentTime()
     }
 
@@ -485,7 +485,7 @@ extension Player {
         let imageGenerator = AVAssetImageGenerator(asset: asset)
         imageGenerator.appliesPreferredTrackTransform = true
 
-        let currentTime = self._playerItem?.currentTime() ?? kCMTimeZero
+        let currentTime = self._playerItem?.currentTime() ?? CMTime.zero
 
         imageGenerator.generateCGImagesAsynchronously(forTimes: [NSValue(time: currentTime)]) { (requestedTime, image, actualTime, result, error) in
             if let image = image {
@@ -627,10 +627,10 @@ extension Player {
     // MARK: - UIApplication
 
     internal func addApplicationObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(handleApplicationWillResignActive(_:)), name: .UIApplicationWillResignActive, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleApplicationDidBecomeActive(_:)), name: .UIApplicationDidBecomeActive, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleApplicationDidEnterBackground(_:)), name: .UIApplicationDidEnterBackground, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleApplicationWillEnterForeground(_:)), name: .UIApplicationWillEnterForeground, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleApplicationWillResignActive(_:)), name: UIApplication.willResignActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleApplicationDidBecomeActive(_:)), name: UIApplication.didBecomeActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleApplicationDidEnterBackground(_:)), name: UIApplication.didEnterBackgroundNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleApplicationWillEnterForeground(_:)), name: UIApplication.willEnterForegroundNotification, object: nil)
     }
 
     internal func removeApplicationObservers() {
@@ -644,12 +644,12 @@ extension Player {
             if self.playbackLoops {
                 self.playbackDelegate?.playerPlaybackWillLoop(self)
                 self._avplayer.pause()
-                self._avplayer.seek(to: kCMTimeZero)
+                self._avplayer.seek(to: CMTime.zero)
                 self._avplayer.play()
             } else if self.playbackFreezesAtEnd {
                 self.stop()
             } else {
-                self._avplayer.seek(to: kCMTimeZero, completionHandler: { _ in
+                self._avplayer.seek(to: CMTime.zero, completionHandler: { _ in
                     self.stop()
                 })
             }
@@ -699,7 +699,7 @@ extension Player {
             return
         }
 
-        self._playerItemObservers.append(playerItem.observe(\.playbackBufferEmpty, options: [.new, .old]) { [weak self] (object, change) in
+        self._playerItemObservers.append(playerItem.observe(\.isPlaybackBufferEmpty, options: [.new, .old]) { [weak self] (object, change) in
             if object.isPlaybackBufferEmpty {
                 self?.bufferingState = .delayed
             }
@@ -714,7 +714,7 @@ extension Player {
             }
         })
 
-        self._playerItemObservers.append(playerItem.observe(\.playbackLikelyToKeepUp, options: [.new, .old]) { [weak self] (object, change) in
+        self._playerItemObservers.append(playerItem.observe(\.isPlaybackLikelyToKeepUp, options: [.new, .old]) { [weak self] (object, change) in
             if object.isPlaybackLikelyToKeepUp {
                 self?.bufferingState = .ready
                 if self?.playbackState == .playing {
@@ -775,7 +775,7 @@ extension Player {
     // MARK: - AVPlayerLayerObservers
 
     internal func addPlayerLayerObservers() {
-        self._playerLayerObserver = self._playerView.playerLayer.observe(\.readyForDisplay, options: [.new, .old]) { [weak self] (object, change) in
+        self._playerLayerObserver = self._playerView.playerLayer.observe(\.isReadyForDisplay, options: [.new, .old]) { [weak self] (object, change) in
             self?.executeClosureOnMainQueueIfNecessary {
                 if let strongSelf = self {
                     strongSelf.playerDelegate?.playerReady(strongSelf)
@@ -792,7 +792,7 @@ extension Player {
     // MARK: - AVPlayerObservers
 
     internal func addPlayerObservers() {
-        self._playerTimeObserver = self._avplayer.addPeriodicTimeObserver(forInterval: CMTimeMake(1, 100), queue: DispatchQueue.main, using: { [weak self] timeInterval in
+        self._playerTimeObserver = self._avplayer.addPeriodicTimeObserver(forInterval: CMTimeMake(value: 1, timescale: 100), queue: DispatchQueue.main, using: { [weak self] timeInterval in
             guard let strongSelf = self else {
                 return
             }
