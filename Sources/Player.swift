@@ -223,7 +223,9 @@ open class Player: UIViewController {
     open var playbackState: PlaybackState = .stopped {
         didSet {
             if playbackState != oldValue || !playbackEdgeTriggered {
-                self.playerDelegate?.playerPlaybackStateDidChange(self)
+                self.executeClosureOnMainQueueIfNecessary {
+                    self.playerDelegate?.playerPlaybackStateDidChange(self)
+                }
             }
         }
     }
@@ -232,7 +234,9 @@ open class Player: UIViewController {
     open var bufferingState: BufferingState = .unknown {
         didSet {
             if bufferingState != oldValue || !playbackEdgeTriggered {
-                self.playerDelegate?.playerBufferingStateDidChange(self)
+                self.executeClosureOnMainQueueIfNecessary {
+                    self.playerDelegate?.playerBufferingStateDidChange(self)
+                }
             }
         }
     }
