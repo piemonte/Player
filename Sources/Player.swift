@@ -810,7 +810,7 @@ extension Player {
                     self?.playbackState = .paused
                 case .playing:
                     self?.playbackState = .playing
-                default:
+                case .waitingToPlayAtSpecifiedRate:
                     break
                 }
             })
@@ -870,11 +870,7 @@ public class PlayerView: UIView {
         }
         set {
             self.playerLayer.player = newValue
-            if let _ = self.playerLayer.player {
-                self.playerLayer.isHidden = false
-            } else {
-                self.playerLayer.isHidden = true
-            }
+            self.playerLayer.isHidden = (self.playerLayer.player == nil)
         }
     }
 
