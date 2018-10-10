@@ -55,6 +55,8 @@ class ViewController: UIViewController {
         self.view.addSubview(self.player.view)
         self.player.didMove(toParent: self)
         
+//        let localUrl = Bundle.main.url(forResource: "IMG_3267", withExtension: "MOV")
+//        self.player.url = localUrl
         self.player.url = videoUrl
         
         self.player.playbackLoops = true
@@ -102,9 +104,11 @@ extension ViewController {
 extension ViewController: PlayerDelegate {
     
     func playerReady(_ player: Player) {
+        print("\(#function) ready")
     }
     
     func playerPlaybackStateDidChange(_ player: Player) {
+        print("\(#function) \(player.playbackState.description)")
     }
     
     func playerBufferingStateDidChange(_ player: Player) {
@@ -114,6 +118,7 @@ extension ViewController: PlayerDelegate {
     }
     
     func player(_ player: Player, didFailWithError error: Error?) {
+        print("\(#function) error.description")
     }
     
 }
