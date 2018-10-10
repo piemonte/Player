@@ -141,7 +141,9 @@ open class Player: UIViewController {
     /// - Parameter url: URL of the asset.
     open var url: URL? {
         didSet {
-            setup(url: url)
+            if let url = self.url {
+                setup(url: url)
+            }
         }
     }
 
@@ -381,9 +383,9 @@ open class Player: UIViewController {
     open override func viewDidLoad() {
         super.viewDidLoad()
 
-        if let url = url {
+        if let url = self.url {
             setup(url: url)
-        } else if let asset = asset {
+        } else if let asset = self.asset {
             setupAsset(asset)
         }
 
@@ -522,7 +524,7 @@ extension Player {
 
 extension Player {
 
-    fileprivate func setup(url: URL?) {
+    fileprivate func setup(url: URL) {
         guard isViewLoaded else { return }
 
         // ensure everything is reset beforehand
@@ -540,10 +542,8 @@ extension Player {
 
         self.setupPlayerItem(nil)
 
-        if let url = url {
-            let asset = AVURLAsset(url: url, options: .none)
-            self.setupAsset(asset)
-        }
+        let asset = AVURLAsset(url: url, options: .none)
+        self.setupAsset(asset)
     }
 
     fileprivate func setupAsset(_ asset: AVAsset, loadableKeys: [String] = ["tracks", "playable", "duration"]) {
