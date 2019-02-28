@@ -48,9 +48,9 @@ Allocate and add the `Player` controller to your view hierarchy.
  self.player.playbackDelegate = self
  self.player.view.frame = self.view.bounds
 
- self.addChildViewController(self.player)
+ self.addChild(self.player)
  self.view.addSubview(self.player.view)
- self.player.didMove(toParentViewController: self)
+ self.player.didMove(toParent: self)
 ```
 
 Provide the file path to the resource you would like to play locally or stream. Ensure you're including the file extension.
