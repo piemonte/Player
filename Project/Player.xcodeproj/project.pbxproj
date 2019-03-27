@@ -230,7 +230,7 @@
 			attributes = {
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0720;
-				LastUpgradeCheck = 1000;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = "Patrick Piemonte";
 				TargetAttributes = {
 					04B4E63C1C1E8A7B00E20778 = {
@@ -250,7 +250,7 @@
 			};
 			buildConfigurationList = 065A0F981A25C8E2005BA7BC /* Build configuration list for PBXProject "Player" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
