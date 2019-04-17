@@ -721,23 +721,27 @@ extension Player {
         })
 
         self._playerItemObservers.append(playerItem.observe(\.isPlaybackLikelyToKeepUp, options: [.new, .old]) { [weak self] (object, change) in
+            guard let strongSelf = self else {
+                return
+            }
+            
             if object.isPlaybackLikelyToKeepUp {
-                self?.bufferingState = .ready
-                if self?.playbackState == .playing {
-                    self?.playFromCurrentTime()
+                strongSelf.bufferingState = .ready
+                if strongSelf.playbackState == .playing {
+                    strongSelf.playFromCurrentTime()
                 }
             }
 
             switch object.status {
             case .failed:
-                self?.playbackState = PlaybackState.failed
+                strongSelf.playbackState = PlaybackState.failed
                 break
             case .unknown:
                 fallthrough
             case .readyToPlay:
                 fallthrough
             @unknown default:
-                self?._playerView.player = self?._avplayer
+                strongSelf._playerView.player = self?._avplayer
                 break
             }
         })
