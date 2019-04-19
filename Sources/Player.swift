@@ -754,8 +754,6 @@ extension Player {
                 return
             }
 
-            strongSelf.bufferingState = .ready
-
             let timeRanges = object.loadedTimeRanges
             if let timeRange = timeRanges.first?.timeRangeValue {
                 let bufferedTime = CMTimeGetSeconds(CMTimeAdd(timeRange.start, timeRange.duration))
