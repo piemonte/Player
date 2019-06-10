@@ -746,9 +746,6 @@ extension Player {
             }
         })
 
-//        self._playerItemObservers.append(playerItem.observe(\.status, options: [.new, .old]) { (object, change) in
-//        })
-
         self._playerItemObservers.append(playerItem.observe(\.loadedTimeRanges, options: [.new, .old]) { [weak self] (object, change) in
             guard let strongSelf = self else {
                 return
