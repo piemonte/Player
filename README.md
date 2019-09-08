@@ -69,7 +69,7 @@ play/pause/chill
 Adjust the fill mode for the video, if needed.
 
 ``` Swift
- self.player.fillMode = PlayerFillMode.resizeAspectFit.avFoundationType
+ self.player.fillMode = .resizeAspectFit
 ```
 
 Display video playback progress, if needed.
