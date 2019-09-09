@@ -13,7 +13,6 @@ Need a different version of Swift?
 * `5.0` - Target your Podfile to the latest release or master
 * `4.2` - Target your Podfile to the `swift4.2` branch
 * `4.0` - Target your Podfile to the `swift4.0` branch
-* `3.0` – Target your Podfile to release `0.7.0`
 
 ### Features
 
@@ -60,7 +59,7 @@ let videoUrl: URL = // file or http url
 self.player.url = videoUrl
 ```
 
-play/pause/chill
+play/pause
 
 ``` Swift
  self.player.playFromBeginning()
