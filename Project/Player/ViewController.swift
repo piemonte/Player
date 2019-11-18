@@ -138,6 +138,8 @@ extension ViewController: PlayerPlaybackDelegate {
     
     func playerPlaybackWillLoop(_ player: Player) {
     }
-    
+
+    func playerPlaybackDidLoop(_ player: Player) {
+    }
 }
 
