@@ -121,6 +121,7 @@ public protocol PlayerPlaybackDelegate: AnyObject {
     func playerPlaybackWillStartFromBeginning(_ player: Player)
     func playerPlaybackDidEnd(_ player: Player)
     func playerPlaybackWillLoop(_ player: Player)
+    func playerPlaybackDidLoop(_ player: Player)
 }
 
 // MARK: - Player
@@ -652,6 +653,7 @@ extension Player {
                 self._avplayer.pause()
                 self._avplayer.seek(to: CMTime.zero)
                 self._avplayer.play()
+                self.playbackDelegate?.playerPlaybackDidLoop(self)
             } else if self.playbackFreezesAtEnd {
                 self.stop()
             } else {
