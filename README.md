@@ -29,10 +29,10 @@ Need a different version of Swift?
 
 ```ruby
 # CocoaPods
-pod "Player", "~> 0.13.0"
+pod "Player", "~> 0.13.2"
 
 # Carthage
-github "piemonte/Player" ~> 0.13.0
+github "piemonte/Player" ~> 0.13.2
 ```
 
 ## Usage
