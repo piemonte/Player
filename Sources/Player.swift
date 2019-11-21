@@ -349,12 +349,10 @@ open class Player: UIViewController {
     }
 
     public required init?(coder aDecoder: NSCoder) {
-        self._avplayer.actionAtItemEnd = .pause
         super.init(coder: aDecoder)
     }
 
     public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        self._avplayer.actionAtItemEnd = .pause
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
 
@@ -384,6 +382,8 @@ open class Player: UIViewController {
     open override func viewDidLoad() {
         super.viewDidLoad()
 
+        self._avplayer.actionAtItemEnd = .pause
+
         if let url = self.url {
             setup(url: url)
         } else if let asset = self.asset {
@@ -404,7 +404,55 @@ open class Player: UIViewController {
 
 }
 
-// MARK: - action funcs
+// MARK: - performance
+
+extension Player {
+
+    /// Total time spent playing.
+    public var totalDurationWatched: TimeInterval {
+        get {
+            var totalDurationWatched = 0.0
+            if let accessLog = self._playerItem?.accessLog(), accessLog.events.isEmpty == false {
+                for event in accessLog.events where event.durationWatched > 0 {
+                    totalDurationWatched += event.durationWatched
+                }
+            }
+            return totalDurationWatched
+        }
+    }
+
+    /// Time weighted value of the variant indicated bitrate. Measure of overall stream quality.
+    var timeWeightedIBR: Double {
+        var timeWeightedIBR = 0.0
+        let totalDurationWatched = self.totalDurationWatched
+           
+        if let accessLog = self._playerItem?.accessLog(), totalDurationWatched > 0 {
+            for event in accessLog.events {
+                if event.durationWatched > 0 && event.indicatedBitrate > 0 {
+                    let eventTimeWeight = event.durationWatched / totalDurationWatched
+                    timeWeightedIBR += event.indicatedBitrate * eventTimeWeight
+                }
+            }
+        }
+        return timeWeightedIBR
+    }
+
+    /// Stall rate measured in stalls per hour. Normalized measure of stream interruptions caused by stream buffer depleation.
+    var stallRate: Double {
+        var totalNumberOfStalls = 0
+        let totalHoursWatched = self.totalDurationWatched / 3600
+        
+        if let accessLog = self._playerItem?.accessLog(), totalDurationWatched > 0 {
+            for event in accessLog.events {
+                totalNumberOfStalls += event.numberOfStalls
+            }
+        }
+        return Double(totalNumberOfStalls) / totalHoursWatched
+    }
+
+}
+
+// MARK: - actions
 
 extension Player {
 
@@ -461,7 +509,7 @@ extension Player {
         if let playerItem = self._playerItem {
             return playerItem.seek(to: time, completionHandler: completionHandler)
         } else {
-            _seekTimeRequested = time
+            self._seekTimeRequested = time
         }
     }
 
@@ -725,7 +773,7 @@ extension Player {
             guard let strongSelf = self else {
                 return
             }
-            
+
             if object.isPlaybackLikelyToKeepUp {
                 strongSelf.bufferingState = .ready
                 if strongSelf.playbackState == .playing {
