@@ -698,7 +698,6 @@ extension Player {
         self.executeClosureOnMainQueueIfNecessary {
             if self.playbackLoops {
                 self.playbackDelegate?.playerPlaybackWillLoop(self)
-                self._avplayer.pause()
                 self._avplayer.seek(to: CMTime.zero)
                 self._avplayer.play()
                 self.playbackDelegate?.playerPlaybackDidLoop(self)
