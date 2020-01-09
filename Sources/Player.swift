@@ -326,7 +326,11 @@ open class Player: UIViewController {
             }
         }
     }
-    internal var _avplayer: AVPlayer = AVPlayer()
+    internal lazy var _avplayer: AVPlayer = {
+        let avplayer = AVPlayer()
+        avplayer.actionAtItemEnd = .pause
+        return avplayer
+    }()
     internal var _playerItem: AVPlayerItem?
 
     internal var _playerObservers = [NSKeyValueObservation]()
