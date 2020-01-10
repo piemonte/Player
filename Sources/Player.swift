@@ -149,7 +149,7 @@ open class Player: UIViewController {
     }
 
     /// For setting up with AVAsset instead of URL
-    /// Note: Resets URL (cannot set both)
+    /// Note: This will reset the `url` property. (cannot set both)
     open var asset: AVAsset? {
         get { return _asset }
         set { _ = newValue.map { setupAsset($0) } }
@@ -166,9 +166,7 @@ open class Player: UIViewController {
         }
     }
 
-    /// Determines if the video should autoplay when a url is set
-    ///
-    /// - Parameter bool: defaults to true
+    /// Determines if the video should autoplay when streaming a URL.
     open var autoplay: Bool = true
 
     /// Mutes audio playback when true.
@@ -219,7 +217,7 @@ open class Player: UIViewController {
         }
     }
 
-    /// Playback freezes on last frame frame at end when true.
+    /// Playback freezes on last frame frame when true and does not reset seek position timestamp..
     open var playbackFreezesAtEnd: Bool = false
 
     /// Current playback state of the Player.
@@ -385,9 +383,6 @@ open class Player: UIViewController {
 
     open override func viewDidLoad() {
         super.viewDidLoad()
-
-        self._avplayer.actionAtItemEnd = .pause
-
         if let url = self.url {
             setup(url: url)
         } else if let asset = self.asset {
@@ -470,7 +465,7 @@ extension Player {
     /// Begins playback of the media from the current time.
     open func playFromCurrentTime() {
         if !self.autoplay {
-            //external call to this method with auto play off.  activate it before calling play
+            // External call to this method with autoplay disabled. Re-activate it before calling play.
             self._hasAutoplayActivated = true
         }
         self.play()
@@ -547,28 +542,27 @@ extension Player {
         let currentTime = self._playerItem?.currentTime() ?? CMTime.zero
 
         imageGenerator.generateCGImagesAsynchronously(forTimes: [NSValue(time: currentTime)]) { (requestedTime, image, actualTime, result, error) in
-            if let image = image {
-                switch result {
-                case .succeeded:
-                    let uiimage = UIImage(cgImage: image)
-                    DispatchQueue.main.async {
-                        completionHandler?(uiimage, nil)
-                    }
-                    break
-                case .failed:
-                    fallthrough
-                case .cancelled:
-                    fallthrough
-                @unknown default:
-                    DispatchQueue.main.async {
-                        completionHandler?(nil, nil)
-                    }
-                    break
-                }
-            } else {
+            guard let image = image else {
                 DispatchQueue.main.async {
                     completionHandler?(nil, error)
                 }
+                return
+            }
+            
+            switch result {
+            case .succeeded:
+                let uiimage = UIImage(cgImage: image)
+                DispatchQueue.main.async {
+                    completionHandler?(uiimage, nil)
+                }
+                break
+            case .failed, .cancelled:
+                fallthrough
+            @unknown default:
+                DispatchQueue.main.async {
+                    completionHandler?(nil, nil)
+                }
+                break
             }
         }
     }
@@ -587,7 +581,7 @@ extension Player {
             self.pause()
         }
 
-        //Reset autoplay flag since a new url is set.
+        // Reset autoplay flag since a new url is set.
         self._hasAutoplayActivated = false
         if self.autoplay {
             self.playbackState = .playing
