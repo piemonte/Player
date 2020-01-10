@@ -202,6 +202,15 @@ open class Player: UIViewController {
     open var playbackResumesWhenEnteringForeground: Bool = true
 
     // state
+    
+    open var isCurrentPlaybackVideo: Bool {
+        get {
+            guard let asset = self._asset else {
+                return false
+            }
+            return asset.tracks(withMediaType: .video).count != 0
+        }
+    }
 
     /// Playback automatically loops continuously when true.
     open var playbackLoops: Bool {
