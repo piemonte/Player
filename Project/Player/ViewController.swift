@@ -78,22 +78,19 @@ class ViewController: UIViewController {
 extension ViewController {
     
     @objc func handleTapGestureRecognizer(_ gestureRecognizer: UITapGestureRecognizer) {
-        switch (self.player.playbackState.rawValue) {
-            case PlaybackState.stopped.rawValue:
-                self.player.playFromBeginning()
-                break
-            case PlaybackState.paused.rawValue:
-                self.player.playFromCurrentTime()
-                break
-            case PlaybackState.playing.rawValue:
-                self.player.pause()
-                break
-            case PlaybackState.failed.rawValue:
-                self.player.pause()
-                break
-            default:
-                self.player.pause()
-                break
+        switch self.player.playbackState {
+        case .stopped:
+            self.player.playFromBeginning()
+            break
+        case .paused:
+            self.player.playFromCurrentTime()
+            break
+        case .playing:
+            self.player.pause()
+            break
+        case .failed:
+            self.player.pause()
+            break
         }
     }
     

@@ -29,57 +29,6 @@ import Foundation
 import AVFoundation
 import CoreGraphics
 
-// MARK: - types
-
-/// Video fill mode options for `Player.fillMode`.
-///
-/// - resize: Stretch to fill.
-/// - resizeAspectFill: Preserve aspect ratio, filling bounds.
-/// - resizeAspectFit: Preserve aspect ratio, fill within bounds.
-public typealias PlayerFillMode = AVLayerVideoGravity
-
-/// Asset playback states.
-public enum PlaybackState: Int, CustomStringConvertible {
-    case stopped = 0
-    case playing
-    case paused
-    case failed
-
-    public var description: String {
-        get {
-            switch self {
-            case .stopped:
-                return "Stopped"
-            case .playing:
-                return "Playing"
-            case .failed:
-                return "Failed"
-            case .paused:
-                return "Paused"
-            }
-        }
-    }
-}
-
-/// Asset buffering states.
-public enum BufferingState: Int, CustomStringConvertible {
-    case unknown = 0
-    case ready
-    case delayed
-
-    public var description: String {
-        get {
-            switch self {
-            case .unknown:
-                return "Unknown"
-            case .ready:
-                return "Ready"
-            case .delayed:
-                return "Delayed"
-            }
-        }
-    }
-}
 // MARK: - error types
 
 /// Error domain for all Player errors.
@@ -129,6 +78,60 @@ public protocol PlayerPlaybackDelegate: AnyObject {
 /// ▶️ Player, simple way to play and stream media
 open class Player: UIViewController {
 
+    // types
+    
+    /// Video fill mode options for `Player.fillMode`.
+    ///
+    /// - resize: Stretch to fill.
+    /// - resizeAspectFill: Preserve aspect ratio, filling bounds.
+    /// - resizeAspectFit: Preserve aspect ratio, fill within bounds.
+    public typealias FillMode = AVLayerVideoGravity
+
+    /// Asset playback states.
+    public enum PlaybackState: Int, CustomStringConvertible {
+        case stopped = 0
+        case playing
+        case paused
+        case failed
+
+        public var description: String {
+            get {
+                switch self {
+                case .stopped:
+                    return "Stopped"
+                case .playing:
+                    return "Playing"
+                case .failed:
+                    return "Failed"
+                case .paused:
+                    return "Paused"
+                }
+            }
+        }
+    }
+
+    /// Asset buffering states.
+    public enum BufferingState: Int, CustomStringConvertible {
+        case unknown = 0
+        case ready
+        case delayed
+
+        public var description: String {
+            get {
+                switch self {
+                case .unknown:
+                    return "Unknown"
+                case .ready:
+                    return "Ready"
+                case .delayed:
+                    return "Delayed"
+                }
+            }
+        }
+    }
+    
+    // properties
+    
     /// Player delegate.
     open weak var playerDelegate: PlayerDelegate?
 
@@ -157,7 +160,7 @@ open class Player: UIViewController {
 
     /// Specifies how the video is displayed within a player layer’s bounds.
     /// The default value is `AVLayerVideoGravityResizeAspect`. See `PlayerFillMode`.
-    open var fillMode: PlayerFillMode {
+    open var fillMode: Player.FillMode {
         get {
             return self._playerView.playerFillMode
         }
@@ -951,7 +954,7 @@ public class PlayerView: UIView {
         }
     }
 
-    public var playerFillMode: PlayerFillMode {
+    public var playerFillMode: Player.FillMode {
         get {
             return self.playerLayer.videoGravity
         }
