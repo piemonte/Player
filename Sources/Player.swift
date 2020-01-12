@@ -206,7 +206,7 @@ open class Player: UIViewController {
 
     // state
     
-    open var isCurrentPlaybackVideo: Bool {
+    open var isPlayingVideo: Bool {
         get {
             guard let asset = self._asset else {
                 return false
