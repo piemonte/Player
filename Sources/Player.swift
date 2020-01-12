@@ -271,13 +271,24 @@ open class Player: UIViewController {
         }
     }
 
-    /// Media playback's current time.
-    open var currentTime: TimeInterval {
+    /// Media playback's current time interval in seconds.
+    open var currentTimeInterval: TimeInterval {
         get {
             if let playerItem = self._playerItem {
                 return CMTimeGetSeconds(playerItem.currentTime())
             } else {
                 return CMTimeGetSeconds(CMTime.indefinite)
+            }
+        }
+    }
+    
+    /// Media playback's current time.
+    open var currentTime: CMTime {
+        get {
+            if let playerItem = self._playerItem {
+                return playerItem.currentTime()
+            } else {
+                return CMTime.indefinite
             }
         }
     }
