@@ -619,30 +619,32 @@ extension Player {
         self._asset = asset
 
         self._asset?.loadValuesAsynchronously(forKeys: loadableKeys, completionHandler: { () -> Void in
-            if let asset = self._asset {
-                for key in loadableKeys {
-                    var error: NSError? = nil
-                    let status = asset.statusOfValue(forKey: key, error: &error)
-                    if status == .failed {
-                        self.playbackState = .failed
-                        self.executeClosureOnMainQueueIfNecessary {
-                            self.playerDelegate?.player(self, didFailWithError: PlayerError.failed)
-                        }
-                        return
-                    }
-                }
-
-                if !asset.isPlayable {
+            guard let asset = self._asset else {
+                return
+            }
+            
+            for key in loadableKeys {
+                var error: NSError? = nil
+                let status = asset.statusOfValue(forKey: key, error: &error)
+                if status == .failed {
                     self.playbackState = .failed
                     self.executeClosureOnMainQueueIfNecessary {
                         self.playerDelegate?.player(self, didFailWithError: PlayerError.failed)
                     }
                     return
                 }
-
-                let playerItem = AVPlayerItem(asset:asset)
-                self.setupPlayerItem(playerItem)
             }
+
+            if !asset.isPlayable {
+                self.playbackState = .failed
+                self.executeClosureOnMainQueueIfNecessary {
+                    self.playerDelegate?.player(self, didFailWithError: PlayerError.failed)
+                }
+                return
+            }
+
+            let playerItem = AVPlayerItem(asset:asset)
+            self.setupPlayerItem(playerItem)
         })
     }
 
