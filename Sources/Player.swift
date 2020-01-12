@@ -629,7 +629,7 @@ extension Player {
                 if status == .failed {
                     self.playbackState = .failed
                     self.executeClosureOnMainQueueIfNecessary {
-                        self.playerDelegate?.player(self, didFailWithError: PlayerError.failed)
+                        self.playerDelegate?.player(self, didFailWithError: error)
                     }
                     return
                 }
