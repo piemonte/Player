@@ -621,6 +621,8 @@ extension Player {
     fileprivate func setupAsset(_ asset: AVAsset, loadableKeys: [String] = ["tracks", "playable", "duration"]) {
         guard isViewLoaded else { return }
 
+        self._playerView.player = self._avplayer
+
         if self.playbackState == .playing {
             self.pause()
         }
@@ -783,8 +785,6 @@ extension Player {
             }
 
             switch object.status {
-            case .readyToPlay:
-                self?._playerView.player = self?._avplayer
             case .failed:
                 self?.playbackState = PlaybackState.failed
             default:
@@ -808,12 +808,7 @@ extension Player {
             case .failed:
                 strongSelf.playbackState = PlaybackState.failed
                 break
-            case .unknown:
-                fallthrough
-            case .readyToPlay:
-                fallthrough
-            @unknown default:
-                strongSelf._playerView.player = self?._avplayer
+            default:
                 break
             }
         })
