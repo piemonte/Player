@@ -406,6 +406,8 @@ open class Player: UIViewController {
 
     open override func viewDidLoad() {
         super.viewDidLoad()
+        self._playerView.player = self._avplayer
+
         if let url = self.url {
             setup(url: url)
         } else if let asset = self.asset {
@@ -620,8 +622,6 @@ extension Player {
 
     fileprivate func setupAsset(_ asset: AVAsset, loadableKeys: [String] = ["tracks", "playable", "duration"]) {
         guard isViewLoaded else { return }
-
-        self._playerView.player = self._avplayer
 
         if self.playbackState == .playing {
             self.pause()
