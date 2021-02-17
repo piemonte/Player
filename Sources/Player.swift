@@ -192,7 +192,7 @@ open class Player: UIViewController {
         }
     }
     
-    open var volume: Float {
+    open var rate: Float {
         get {
             return self._avplayer.rate
         }
