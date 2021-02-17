@@ -191,6 +191,15 @@ open class Player: UIViewController {
             self._avplayer.volume = newValue
         }
     }
+    
+    open var volume: Float {
+        get {
+            return self._avplayer.rate
+        }
+        set {
+            self._avplayer.rate = newValue
+        }
+    }
 
     /// Pauses playback automatically when resigning active.
     open var playbackPausesWhenResigningActive: Bool = true
