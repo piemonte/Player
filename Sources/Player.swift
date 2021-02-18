@@ -192,12 +192,10 @@ open class Player: UIViewController {
         }
     }
     
-    open var rate: Float {
-        get {
-            return self._avplayer.rate
-        }
-        set {
-            self._avplayer.rate = newValue
+    /// Rate at which the video should play once it loads
+    open var rate: Float = 1 {
+        didSet {
+            self._avplayer.rate = rate
         }
     }
 
@@ -510,6 +508,7 @@ extension Player {
             self.playbackState = .playing
             self._avplayer.play()
         }
+        self._avplayer.rate = rate
     }
 
     /// Pauses playback of the media.
@@ -680,7 +679,8 @@ extension Player {
         }
 
         self._playerItem = playerItem
-
+        
+        self._playerItem?.audioTimePitchAlgorithm = .timeDomain
         self._playerItem?.preferredPeakBitRate = self.preferredPeakBitRate
         if #available(iOS 11.0, tvOS 11.0, *) {
             self._playerItem?.preferredMaximumResolution = self._preferredMaximumResolution
@@ -734,6 +734,7 @@ extension Player {
                 self.playbackDelegate?.playerPlaybackWillLoop(self)
                 self._avplayer.seek(to: CMTime.zero)
                 self._avplayer.play()
+                self._avplayer.rate = self.rate
                 self.playbackDelegate?.playerPlaybackDidLoop(self)
             } else if self.playbackFreezesAtEnd {
                 self.stop()
