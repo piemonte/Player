@@ -680,7 +680,7 @@ extension Player {
 
         self._playerItem = playerItem
         
-        self._playerItem?.audioTimePitchAlgorithm = .timeDomain
+        self._playerItem?.audioTimePitchAlgorithm = .spectral
         self._playerItem?.preferredPeakBitRate = self.preferredPeakBitRate
         if #available(iOS 11.0, tvOS 11.0, *) {
             self._playerItem?.preferredMaximumResolution = self._preferredMaximumResolution
