@@ -506,9 +506,8 @@ extension Player {
     fileprivate func play() {
         if self.autoplay || self._hasAutoplayActivated {
             self.playbackState = .playing
-            self._avplayer.play()
+            self._avplayer.playImmediately(atRate: rate)
         }
-        self._avplayer.rate = rate
     }
 
     /// Pauses playback of the media.
