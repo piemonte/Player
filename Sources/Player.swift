@@ -191,6 +191,13 @@ open class Player: UIViewController {
             self._avplayer.volume = newValue
         }
     }
+    
+    /// Rate at which the video should play once it loads
+    open var rate: Float = 1 {
+        didSet {
+            self._avplayer.rate = rate
+        }
+    }
 
     /// Pauses playback automatically when resigning active.
     open var playbackPausesWhenResigningActive: Bool = true
@@ -499,7 +506,7 @@ extension Player {
     fileprivate func play() {
         if self.autoplay || self._hasAutoplayActivated {
             self.playbackState = .playing
-            self._avplayer.play()
+            self._avplayer.playImmediately(atRate: rate)
         }
     }
 
@@ -671,7 +678,8 @@ extension Player {
         }
 
         self._playerItem = playerItem
-
+        
+        self._playerItem?.audioTimePitchAlgorithm = .spectral
         self._playerItem?.preferredPeakBitRate = self.preferredPeakBitRate
         if #available(iOS 11.0, tvOS 11.0, *) {
             self._playerItem?.preferredMaximumResolution = self._preferredMaximumResolution
@@ -689,6 +697,7 @@ extension Player {
         }
 
         self._avplayer.replaceCurrentItem(with: self._playerItem)
+        self._avplayer.rate = rate
 
         // update new playerItem settings
         if self.playbackLoops {
@@ -725,6 +734,7 @@ extension Player {
                 self.playbackDelegate?.playerPlaybackWillLoop(self)
                 self._avplayer.seek(to: CMTime.zero)
                 self._avplayer.play()
+                self._avplayer.rate = self.rate
                 self.playbackDelegate?.playerPlaybackDidLoop(self)
             } else if self.playbackFreezesAtEnd {
                 self.stop()
