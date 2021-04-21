@@ -65,30 +65,30 @@ extension String {
     }
 }
 
+// MARK: - Type Aliases
+
+#if canImport(AppKit)
+public typealias ViewController = NSViewController
+public typealias View = NSView
+private typealias PlayerView = AVPlayerView
+public typealias Image = NSImage
+public typealias Color = NSColor
+public typealias SnapshotResult = Image?
+public typealias NibName = NSNib.Name?
+#else
+public typealias ViewController = UIViewController
+public typealias View = UIView
+private typealias PlayerView = SuperSecretPlayerView?
+public typealias Image = UIImage
+public typealias Color = UIColor
+public typealias SnapshotResult = Image
+public typealias NibName = String?
+#endif
+
 // MARK: - Player
 
 /// ▶️ Player, simple way to play and stream media
-open class Player: Player.ViewController {
-
-    // MARK: - Type Aliases
-
-    #if canImport(AppKit)
-        public typealias ViewController = NSViewController
-        public typealias View = NSView
-        fileprivate typealias PlayerView = AVPlayerView
-        public typealias Image = NSImage
-        public typealias Color = NSColor
-        public typealias SnapshotResult = Image?
-        public typealias NibName = NSNib.Name?
-    #else
-        public typealias ViewController = UIViewController
-        public typealias View = UIView
-        fileprivate typealias PlayerView = SuperSecretPlayerView?
-        public typealias Image = UIImage
-        public typealias Color = UIColor
-        public typealias SnapshotResult = Image
-        public typealias NibName = String?
-    #endif
+open class Player: ViewController {
 
     // MARK: - Types
 
@@ -125,7 +125,7 @@ open class Player: Player.ViewController {
         /// the layer’s bounds.
         case resizeAspectFit = "AVLayerVideoGravityResizeAspect"
 
-        fileprivate var avLayerVideoGravityValue: AVLayerVideoGravity {
+        private var avLayerVideoGravityValue: AVLayerVideoGravity {
             return AVLayerVideoGravity(rawValue: rawValue)
         }
 
@@ -201,10 +201,10 @@ open class Player: Player.ViewController {
     open var fillMode: FillMode {
         get {
             #if canImport(AppKit)
-                return FillMode(rawValue: playerView.videoGravity)!
+                return FillMode(rawValue: playerView.videoGravity.rawValue)!
             #else
                 if let playerViewController = avPlayerViewController {
-                    return FillMode(rawValue: playerViewController.videoGravity)!
+                    return FillMode(rawValue: convertFromAVLayerVideoGravity(playerViewController.videoGravity))!
                 }
 
                 return FillMode(rawValue: playerView!.fillMode.rawValue)!
@@ -212,10 +212,10 @@ open class Player: Player.ViewController {
         }
         set {
             #if canImport(AppKit)
-                playerView.videoGravity = newValue.rawValue
+                playerView.videoGravity = AVLayerVideoGravity(rawValue: newValue.rawValue)
             #else
                 if let playerViewController = avPlayerViewController {
-                    playerViewController.videoGravity = newValue.rawValue
+                    playerViewController.videoGravity = convertToAVLayerVideoGravity(newValue.rawValue)
                 } else {
                     playerView!.fillMode = newValue.avLayerVideoGravityValue
                 }
@@ -370,7 +370,7 @@ open class Player: Player.ViewController {
         if let playerItem = avPlayerItem {
             return CMTimeGetSeconds(playerItem.duration)
         } else {
-            return CMTimeGetSeconds(kCMTimeIndefinite)
+            return CMTimeGetSeconds(CMTime.indefinite)
         }
     }
 
@@ -379,7 +379,7 @@ open class Player: Player.ViewController {
         if let playerItem = avPlayerItem {
             return CMTimeGetSeconds(playerItem.currentTime())
         } else {
-            return CMTimeGetSeconds(kCMTimeIndefinite)
+            return CMTimeGetSeconds(CMTime.indefinite)
         }
     }
 
@@ -391,7 +391,7 @@ open class Player: Player.ViewController {
         if let playerItem = avPlayerItem,
             let track = playerItem.asset.tracks(withMediaType: .video).first {
             let size = track.naturalSize.applying(track.preferredTransform)
-            return CGSize(width: fabs(size.width), height: fabs(size.height))
+            return CGSize(width: abs(size.width), height: abs(size.height))
         }
         return nil
     }
@@ -417,7 +417,7 @@ open class Player: Player.ViewController {
 
     // MARK: Private Objects
 
-    fileprivate var avAsset: AVAsset? {
+    private var avAsset: AVAsset? {
         didSet {
             if avAsset != nil {
                 setupPlayerItem(nil)
@@ -425,17 +425,17 @@ open class Player: Player.ViewController {
         }
     }
 
-    fileprivate var timeObserver: Any?
-    fileprivate var playerView: PlayerView
-    fileprivate var seekTimeRequested: CMTime?
-    fileprivate var lastBufferTime: Double = 0
+    private var timeObserver: Any?
+    private var playerView: PlayerView
+    private var seekTimeRequested: CMTime?
+    private var lastBufferTime: Double = 0
 
     // Boolean that determines if the user or calling coded has trigged autoplay manually.
-    fileprivate var hasAutoplayActivated: Bool = true
+    private var hasAutoplayActivated: Bool = true
 
     #if canImport(AppKit)
-        fileprivate weak var macPlayerLayer: AVPlayerLayer?
-        fileprivate var playerViewObservation: NSKeyValueObservation!
+        private weak var macPlayerLayer: AVPlayerLayer?
+        private var playerViewObservation: NSKeyValueObservation!
     #endif
 
     // MARK: - Object Lifecycle
@@ -528,14 +528,14 @@ open class Player: Player.ViewController {
     ///   - view: The view that the player will be added to. If `nil`, you are
     /// responsible for adding it to the view hierarchy yourself.
     open func add(to viewController: ViewController, view: View? = nil) {
-        viewController.addChildViewController(self)
+        viewController.addChild(self)
 
         #if canImport(UIKit)
         if usesSystemPlaybackControls {
             let playerViewController = AVPlayerViewController()
 
-            addChildViewController(playerViewController)
-            playerViewController.didMove(toParentViewController: self)
+            addChild(playerViewController)
+            playerViewController.didMove(toParent: self)
 
             playerViewController.view.translatesAutoresizingMaskIntoConstraints = false
             self.view.addSubview(playerViewController.view)
@@ -554,7 +554,7 @@ open class Player: Player.ViewController {
             self.view = playerView
         }
 
-		didMove(toParentViewController: viewController)
+		didMove(toParent: viewController)
         #endif
 
         addPlayerLayerObservers()
@@ -570,11 +570,11 @@ open class Player: Player.ViewController {
 	/// - Parameter viewController: The parent view controller that the player will be removed from.
 	open func remove(from viewController: ViewController) {
 		#if canImport(UIKit)
-		willMove(toParentViewController: self)
+		willMove(toParent: self)
 		#endif
 
 		view.removeFromSuperview()
-		removeFromParentViewController()
+		removeFromParent()
 	}
 
     // MARK: - View Lifecycle
@@ -636,7 +636,7 @@ open class Player: Player.ViewController {
     /// Begins playback of the media from the beginning.
     open func playFromBeginning() {
         playbackDelegate?.playerPlaybackWillStartFromBeginning?(player: self)
-        avPlayer.seek(to: kCMTimeZero)
+        avPlayer.seek(to: CMTime.zero)
         playFromCurrentTime()
     }
 
@@ -649,7 +649,7 @@ open class Player: Player.ViewController {
         play()
     }
 
-    fileprivate func play() {
+    private func play() {
         if autoplay || hasAutoplayActivated {
             playbackState = .playing
             avPlayer.play()
@@ -697,7 +697,7 @@ open class Player: Player.ViewController {
     ///   - time: The time (in seconds) to seek to.
     ///   - completionHandler: Call block handler after seeking.
     open func seek(toSecond second: Int, completionHandler: ((Bool) -> Swift.Void)? = nil) {
-        let cmTime = CMTimeMake(Int64(second), 1)
+        let cmTime = CMTimeMake(value: Int64(second), timescale: 1)
         if let completionHandler = completionHandler {
             avPlayer.seek(to: cmTime, completionHandler: completionHandler)
         } else {
@@ -730,6 +730,8 @@ open class Player: Player.ViewController {
     open func takeSnapshot() -> SnapshotResult {
         var image: SnapshotResult
         #if canImport(AppKit)
+            image = nil
+
             if let playerItem = avPlayerItem {
                 let imageGenerator = AVAssetImageGenerator(asset: playerItem.asset)
                 if let cgImage = try? imageGenerator.copyCGImage(at: playerItem.currentTime(), actualTime: nil) {
@@ -754,7 +756,7 @@ open class Player: Player.ViewController {
 
 // MARK: - Setup Methods
 
-fileprivate extension Player {
+private extension Player {
     func setup(url: URL?) {
         guard isViewLoaded else { return }
 
@@ -893,12 +895,12 @@ private extension Player {
     func playerItemDidPlayToEndTime(_ aNotification: Notification) {
         if playbackLoops {
             playbackDelegate?.playerPlaybackWillLoop?(player: self)
-            avPlayer.seek(to: kCMTimeZero)
+            avPlayer.seek(to: CMTime.zero)
         } else {
             if playbackFreezesAtEnd {
                 stop()
             } else {
-                avPlayer.seek(to: kCMTimeZero) { _ in
+                avPlayer.seek(to: CMTime.zero) { _ in
                     self.stop()
                 }
             }
@@ -933,19 +935,19 @@ private extension Player {
         #else
             NotificationCenter.default.addObserver(self,
                                                    selector: #selector(handleApplicationWillResignActive(_:)),
-                                                   name: .UIApplicationWillResignActive,
+                                                   name: UIApplication.willResignActiveNotification,
                                                    object: UIApplication.shared)
             NotificationCenter.default.addObserver(self,
                                                    selector: #selector(handleApplicationDidBecomeActive(_:)),
-                                                   name: .UIApplicationDidBecomeActive,
+                                                   name: UIApplication.didBecomeActiveNotification,
                                                    object: UIApplication.shared)
             NotificationCenter.default.addObserver(self,
                                                    selector: #selector(handleApplicationDidEnterBackground(_:)),
-                                                   name: .UIApplicationDidEnterBackground,
+                                                   name: UIApplication.didEnterBackgroundNotification,
                                                    object: UIApplication.shared)
             NotificationCenter.default.addObserver(self,
                                                    selector: #selector(handleApplicationWillEnterForeground(_:)),
-                                                   name: .UIApplicationWillEnterForeground,
+                                                   name: UIApplication.willEnterForegroundNotification,
                                                    object: UIApplication.shared)
         #endif
     }
@@ -1074,7 +1076,7 @@ private extension Player {
     // MARK: AVPlayerObservers
 
     func addPlayerObservers() {
-        timeObserver = avPlayer.addPeriodicTimeObserver(forInterval: CMTimeMake(1, 100),
+        timeObserver = avPlayer.addPeriodicTimeObserver(forInterval: CMTimeMake(value: 1, timescale: 100),
                                                         queue: DispatchQueue.main) { [weak self] _ in
             guard let strongSelf = self else { return }
             strongSelf.playbackDelegate?.playerCurrentTimeDidChange?(player: strongSelf)
@@ -1096,12 +1098,12 @@ private extension Player {
 extension Player {
     private func observeStatus(change: [NSKeyValueChangeKey: Any]?) {
         if let status = change?[NSKeyValueChangeKey.newKey] as? NSNumber {
-            switch status.intValue as AVPlayerStatus.RawValue {
+            switch status.intValue as AVPlayer.Status.RawValue {
 			#if canImport(UIKit)
-            case AVPlayerStatus.readyToPlay.rawValue:
+            case AVPlayer.Status.readyToPlay.rawValue:
                 playerViewSet(player: avPlayer)
 			#endif
-            case AVPlayerStatus.failed.rawValue:
+            case AVPlayer.Status.failed.rawValue:
                 playbackState = PlaybackState.failed
             default:
                 break
@@ -1224,7 +1226,7 @@ extension Player {
         }
 
         var playerLayer: AVPlayerLayer {
-            // swiftlint:disable next force_cast
+            // swiftlint:disable:next force_cast
             return layer as! AVPlayerLayer
         }
 
@@ -1273,10 +1275,10 @@ extension Player {
 
         var playerFillMode: String {
             get {
-                return playerLayer.fillMode
+                return convertFromCAMediaTimingFillMode(playerLayer.fillMode)
             }
             set {
-                playerLayer.fillMode = newValue
+                playerLayer.fillMode = convertToCAMediaTimingFillMode(newValue)
             }
         }
 
@@ -1300,3 +1302,23 @@ extension Player {
         }
     }
 #endif
+
+// Helper function inserted by Swift 4.2 migrator.
+private func convertFromAVLayerVideoGravity(_ input: AVLayerVideoGravity) -> String {
+	return input.rawValue
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+private func convertToAVLayerVideoGravity(_ input: String) -> AVLayerVideoGravity {
+	return AVLayerVideoGravity(rawValue: input)
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+private func convertFromCAMediaTimingFillMode(_ input: CAMediaTimingFillMode) -> String {
+	return input.rawValue
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+private func convertToCAMediaTimingFillMode(_ input: String) -> CAMediaTimingFillMode {
+	return CAMediaTimingFillMode(rawValue: input)
+}
