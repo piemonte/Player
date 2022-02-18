@@ -948,7 +948,9 @@ public class PlayerView: UIView {
         }
     }
 
-    internal var player: AVPlayer? {
+    // MARK: - public properties
+
+    public var player: AVPlayer? {
         get {
             return self.playerLayer.player
         }
@@ -957,8 +959,6 @@ public class PlayerView: UIView {
             self.playerLayer.isHidden = (self.playerLayer.player == nil)
         }
     }
-
-    // MARK: - public properties
 
     public var playerBackgroundColor: UIColor? {
         get {
