@@ -73,6 +73,24 @@ public protocol PlayerPlaybackDelegate: AnyObject {
     func playerPlaybackDidLoop(_ player: Player)
 }
 
+// Provide default implementations for all delegate methods so that they are all optional
+// See https://stackoverflow.com/questions/24032754/how-to-define-optional-methods-in-swift-protocol
+extension PlayerDelegate {
+    func playerReady(_ player: Player) {}
+    func playerPlaybackStateDidChange(_ player: Player) {}
+    func playerBufferingStateDidChange(_ player: Player) {}
+    func playerBufferTimeDidChange(_ bufferTime: Double) {}
+    func player(_ player: Player, didFailWithError error: Error?) {}
+}
+
+extension PlayerPlaybackDelegate {
+    func playerCurrentTimeDidChange(_ player: Player) {}
+    func playerPlaybackWillStartFromBeginning(_ player: Player) {}
+    func playerPlaybackDidEnd(_ player: Player) {}
+    func playerPlaybackWillLoop(_ player: Player) {}
+    func playerPlaybackDidLoop(_ player: Player) {}
+}
+
 // MARK: - Player
 
 /// ▶️ Player, simple way to play and stream media
